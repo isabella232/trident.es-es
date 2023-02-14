@@ -1,0 +1,71 @@
+---
+sidebar: sidebar 
+permalink: trident-concepts/intro.html 
+keywords: product overview, astra trident, fsx, element, astra, google cloud, cvs 
+summary: 'Astra Trident es un proyecto de código abierto con soporte completo que mantiene NetApp como parte de la familia de productos Astra. Se ha diseñado para ayudarle a satisfacer las demandas de persistencia de sus aplicaciones contenerizadas mediante interfaces estándar del sector, como Container Storage Interface (CSI).' 
+---
+= Obtenga más información sobre Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Astra Trident es un proyecto de código abierto con soporte completo que mantiene NetApp como parte de link:https://docs.netapp.com/us-en/astra-family/intro-family.html["Familia de productos Astra"^]. Se ha diseñado para ayudarle a satisfacer las demandas de persistencia de sus aplicaciones contenerizadas mediante interfaces estándar del sector, como Container Storage Interface (CSI).
+
+
+
+== Descripción general
+
+Astra Trident se pone en marcha en clústeres de Kubernetes como pods y proporciona servicios de orquestación de almacenamiento dinámico para sus cargas de trabajo de Kubernetes. Permite que sus aplicaciones en contenedores consuman de forma rápida y sencilla el almacenamiento persistente de la amplia cartera de NetApp que incluye ONTAP (AFF/FAS/Select/Cloud/Amazon FSX para ONTAP de NetApp), el software Element (HCI/SolidFire de NetApp) y el servicio Azure NetApp Files y Cloud Volumes Service en Google Cloud.
+
+Astra Trident también es una tecnología fundamental de la plataforma Astra de NetApp, que aborda casos de uso en materia de protección de datos, recuperación ante desastres, portabilidad y migración para cargas de trabajo de Kubernetes con la mejor tecnología de gestión de datos del sector de NetApp para copias Snapshot, backup, replicación y clonado.
+
+
+
+== Arquitecturas de clúster de Kubernetes compatibles
+
+Astra Trident es compatible con las siguientes arquitecturas de Kubernetes:
+
+[cols="3*"]
+|===
+| Arquitecturas de clústeres de Kubernetes | Compatible | Instalación predeterminada 
+
+
+| Un único maestro, informática | Sí  a| 
+Sí
+
+
+
+| Varios maestros, informáticos | Sí  a| 
+Sí
+
+
+
+| Maestro, `etcd`, cálculo | Sí  a| 
+Sí
+
+
+
+| Maestro, infraestructura y computación | Sí  a| 
+Sí
+
+|===
+
+
+== ¿Qué es Astra?
+
+Astra facilita a las empresas la gestión, la protección y el movimiento de sus cargas de trabajo en contenedores con una gran cantidad de datos que se ejecutan en Kubernetes en los clouds públicos y en las instalaciones. Astra aprovisiona y proporciona almacenamiento de contenedores persistente mediante Astra Trident de la cartera de almacenamiento probada y amplia de NetApp en el cloud público y en las instalaciones. También ofrece un conjunto amplio de funcionalidades avanzadas de gestión de datos para aplicaciones, como snapshots, backups y restauración, registros de actividades y clonado activo para la protección de datos, recuperación ante desastres/datos, auditoría de datos y casos de uso de migración para cargas de trabajo de Kubernetes.
+
+Puedes inscribirte para una prueba gratuita en la página de Astra.
+
+
+
+== Si quiere más información
+
+* https://docs.netapp.com/us-en/astra-family/intro-family.html["Familia de productos Astra de NetApp"]
+* https://docs.netapp.com/us-en/astra/get-started/intro.html["Documentación de Astra Control Service"^]
+* https://docs.netapp.com/us-en/astra-control-center/index.html["Documentación de Astra Control Center"^]
+* https://docs.netapp.com/us-en/astra-automation/get-started/before_get_started.html["Documentación de API de Astra"^]
+

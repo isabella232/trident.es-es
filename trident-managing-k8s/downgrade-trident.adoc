@@ -1,0 +1,173 @@
+---
+sidebar: sidebar 
+permalink: trident-managing-k8s/downgrade-trident.html 
+keywords: downgrade, astra trident, methods, operator, tridentctl, helm 
+summary: Conozca los pasos que se deben seguir para cambiar a una versión anterior de Astra Trident. 
+---
+= Degradar Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Conozca los pasos que se deben seguir para cambiar a una versión anterior de Astra Trident.
+
+
+
+== Cuándo degradar
+
+Es posible que tenga en cuenta la degradación por varios motivos, como los siguientes:
+
+* Planificación de contingencia
+* Solución inmediata de errores observados como resultado de una actualización
+* Problemas de dependencia, actualizaciones incorrectas e incompletas
+
+
+Debe considerar una degradación al cambiar a una versión de Astra Trident que utiliza CRD. Como Astra Trident utiliza CRD para el mantenimiento del estado, todas las entidades de almacenamiento creadas (back-ends, clases de almacenamiento, VP y snapshots de volúmenes) tienen objetos CRD asociados en lugar de los datos escritos en la `trident` PV (utilizado por la versión anterior de Astra Trident). Las clases de almacenamiento, los back-ends y los VP recién creados se mantienen como objetos CRD.
+
+Solo intente realizar una degradación a una versión de Astra Trident que se ejecute con CRD (19.07 y posterior). Esto garantiza que las operaciones realizadas en la versión actual de Astra Trident sean visibles una vez que se produce la degradación.
+
+
+
+== Cuando no se debe degradar
+
+No debe degradar a una versión de Trident que utilice `etcd` mantener el estado (19.04 y anteriores). Todas las operaciones realizadas con la versión actual de Astra Trident no se reflejan después de la degradación. Los VP recién creados no se pueden utilizar al volver a una versión anterior. Los cambios que se realizan en objetos como los back-ends, VP, las clases de almacenamiento y las snapshots de volúmenes (creadas, actualizadas o eliminadas) no son visibles para Astra Trident al volver a una versión anterior. Volver a una versión anterior no interrumpe el acceso a los VP que ya se habían creado con la versión anterior, a menos que se hayan actualizado.
+
+
+
+== Proceso de degradación cuando se instala Astra Trident mediante el operador
+
+En el caso de las instalaciones realizadas mediante el operador Trident, el proceso de degradación es diferente y no requiere el uso de `tridentctl`.
+
+En el caso de las instalaciones realizadas mediante el operador Trident, es posible reclasificar Astra Trident a uno de los siguientes:
+
+* Versión que se instala mediante el operador namespace-scoped (20.07 - 20.10).
+* Versión que se instala mediante el operador de ámbito del clúster (21.01 y posteriores).
+
+
+
+
+=== Degradar al operador de ámbito del clúster
+
+Para degradar Astra Trident a una versión que utilice el operador de ámbito del clúster, siga los pasos que se mencionan a continuación.
+
+.Pasos
+. link:uninstall-trident.html["Desinstale Astra Trident"^]. **No elimine los CRD a menos que desee eliminar completamente una instalación existente.**
+. El operador de Trident puede eliminarse mediante el manifiesto de operador asociado con su versión de Trident. Por ejemplo: `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_bundle.yaml_` donde `_vXX.XX_` es el número de versión (por ejemplo `v22.10`) y. `_bundle.yaml_` Es el nombre del archivo YAML del grupo.
+. Continúe con la degradación instalando la versión deseada de Astra Trident. Siga la documentación para la versión deseada.
+
+
+
+
+=== Degradar al operador de ámbito de espacio de nombres
+
+En esta sección se resumen los pasos necesarios para la degradación a una versión de Astra Trident que está dentro del intervalo comprendido entre el 20.07 y el 20.10, que se instalará utilizando el operador de ámbito del espacio de nombres.
+
+.Pasos
+. link:uninstall-trident.html["Desinstale Astra Trident"^]. **No extraiga los CRD a menos que desee eliminar completamente una instalación existente.** Asegúrese de que la `tridentorchestrator` se ha eliminado.
++
+[listing]
+----
+#Check to see if there are any tridentorchestrators present
+kubectl get torc
+NAME        AGE
+trident     20h
+
+#Looks like there is a tridentorchestrator that needs deleting
+kubectl delete torc trident
+tridentorchestrator.trident.netapp.io "trident" deleted
+----
+. El operador de Trident puede eliminarse mediante el manifiesto de operador asociado con su versión de Trident. Por ejemplo: `\https://github.com/NetApp/trident/tree/stable/_vXX.XX_/deploy/_bundle.yaml_` donde `_vXX.XX_` es el número de versión (por ejemplo `v22.10`) y. `_bundle.yaml_` Es el nombre del archivo YAML del grupo.
+. Elimine el `tridentorchestrator` CRD.
++
+[listing]
+----
+#Check to see if ``tridentorchestrators.trident.netapp.io`` CRD is present and delete it.
+
+kubectl get crd tridentorchestrators.trident.netapp.io
+
+NAME                                     CREATED AT
+tridentorchestrators.trident.netapp.io   2021-01-21T21:11:37Z
+
+kubectl delete crd tridentorchestrators.trident.netapp.io
+
+customresourcedefinition.apiextensions.k8s.io "tridentorchestrators.trident.netapp.io" deleted
+----
++
+Astra Trident se ha desinstalado.
+
+. Continúe con la degradación instalando la versión deseada. Siga la documentación para la versión deseada.
+
+
+
+
+=== Bajar utilizando Helm
+
+Para degradar, utilice `helm rollback` comando. Consulte el siguiente ejemplo:
+
+[listing]
+----
+helm rollback trident [revision #]
+----
+
+
+== Proceso de degradación cuando Astra Trident se instala mediante `tridentctl`
+
+Si instaló Astra Trident mediante `tridentctl`, el proceso de degradación implica los siguientes pasos. Esta secuencia le guiará por el proceso de degradación para pasar de Astra Trident 21.07 a 20.07.
+
+
+NOTE: Antes de iniciar la degradación, debe tomar una instantánea del clúster de Kubernetes `etcd`. Esto le permite realizar una copia de seguridad del estado actual de los CRD de Astra Trident.
+
+.Pasos
+. Compruebe que Trident se instala mediante `tridentctl`. Si no está seguro de cómo está instalado Astra Trident, ejecute esta sencilla prueba:
++
+.. Enumere los pods presentes en el espacio de nombres de Trident.
+.. Identifique la versión de Astra Trident que se ejecuta en su clúster. Puede utilizar cualquiera de estos dos usos `tridentctl` También puede ver la imagen utilizada en los pods de Trident.
+.. Si *no ve* a `tridentOrchestrator`, (o) un `tridentprovisioner`, (o) un pod llamado `trident-operator-xxxxxxxxxx-xxxxx`, Astra Trident *está instalado* con `tridentctl`.
+
+
+. Desinstale Astra Trident con el existente `tridentctl` binario. En este caso, se desinstalará con el binario 21.07.
++
+[listing]
+----
+tridentctl version -n trident
++----------------+----------------+
+| SERVER VERSION | CLIENT VERSION |
++----------------+----------------+
+| 21.07.0        | 21.07.0        |
++----------------+----------------+
+
+tridentctl uninstall -n trident
+INFO Deleted Trident deployment.
+INFO Deleted Trident daemonset.
+INFO Deleted Trident service.
+INFO Deleted Trident secret.
+INFO Deleted cluster role binding.
+INFO Deleted cluster role.
+INFO Deleted service account.
+INFO Deleted pod security policy.                  podSecurityPolicy=tridentpods
+INFO The uninstaller did not delete Trident's namespace in case it is going to be reused.
+INFO Trident uninstallation succeeded.
+----
+. Una vez finalizado este proceso, obtenga el binario de Trident correspondiente a la versión deseada (en este ejemplo, 20.07) y utilícelo para instalar Astra Trident. Puede generar YAML personalizados para un link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["instalación personalizada"^] si es necesario.
++
+[listing]
+----
+cd 20.07/trident-installer/
+./tridentctl install -n trident-ns
+INFO Created installer service account.            serviceaccount=trident-installer
+INFO Created installer cluster role.               clusterrole=trident-installer
+INFO Created installer cluster role binding.       clusterrolebinding=trident-installer
+INFO Created installer configmap.                  configmap=trident-installer
+...
+...
+INFO Deleted installer cluster role binding.
+INFO Deleted installer cluster role.
+INFO Deleted installer service account.
+----
++
+Se completó el proceso de degradación.
+
+

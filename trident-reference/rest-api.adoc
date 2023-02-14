@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/rest-api.html 
+keywords: rest api, get, post, json, object, backends 
+summary: Puede utilizar el extremo DE REST directamente si prefiere interactuar con la API DE REST de Astra Trident. 
+---
+= API DE REST de Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Aunque link:tridentctl.html["comandos y opciones de trimentctl"] Son la forma más sencilla de interactuar con la API REST de Astra Trident, puede utilizar el extremo REST directamente si lo prefiere.
+
+
+
+== Cuándo utilizar la API DE REST
+
+La API REST es útil en las instalaciones avanzadas que usan Astra Trident como binario independiente en las puestas en marcha sin Kubernetes.
+
+Para una mayor seguridad, la Astra Trident `REST API` se restringe a localhost de forma predeterminada cuando se ejecuta dentro de un pod. Para cambiar este comportamiento, debe configurar Astra Trident's. `-address` en su configuración del pod.
+
+
+
+== Uso de la API DE REST
+
+La API funciona de la siguiente manera:
+
+
+
+=== `GET`
+
+* `GET <trident-address>/trident/v1/<object-type>`: Enumera todos los objetos de ese tipo.
+* `GET <trident-address>/trident/v1/<object-type>/<object-name>`: Obtiene los detalles del objeto con nombre.
+
+
+
+
+=== `POST`
+
+`POST <trident-address>/trident/v1/<object-type>`: Crea un objeto del tipo especificado.
+
+* Requiere la configuración de JSON para el objeto que se cree. Para obtener información sobre la especificación de cada tipo de objeto, consulte LINK:tridentctl.html[`tridentctl` comandos y opciones].
+* Si el objeto ya existe, el comportamiento varía: Los back-ends actualizan el objeto existente, mientras que todos los demás tipos de objeto fallarán la operación.
+
+
+
+
+=== `DELETE`
+
+`DELETE <trident-address>/trident/v1/<object-type>/<object-name>`: Elimina el recurso con nombre.
+
+
+NOTE: Seguirán existiendo volúmenes asociados con back-ends o clases de almacenamiento, que deben eliminarse por separado. Para obtener más información, consulte el enlace:tridentctl.html[`tridentctl` comandos y opciones].
+
+Para obtener ejemplos de cómo se llama a estas API, pase la depuración (`-d`) bandera. Para obtener más información, consulte el enlace:tridentctl.html[`tridentctl` comandos y opciones].

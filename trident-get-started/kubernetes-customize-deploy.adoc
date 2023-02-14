@@ -1,0 +1,164 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-customize-deploy.html 
+keywords: deploy, trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, smb, windows 
+summary: 'El operador Trident le permite personalizar la manera en que se instala Astra Trident mediante los atributos del `TridentOrchestrator` espec.' 
+---
+= Personalice la instalación del operador de Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El operador Trident le permite personalizar la instalación de Astra Trident con los atributos del `TridentOrchestrator` espec.
+
+Si desea personalizar la instalación más allá de qué `TridentOrchestrator` los argumentos permiten, debe considerar utilizar `tridentctl` Para generar manifiestos YAML personalizados que puede modificar según sea necesario.
+
+
+WARNING: `spec.namespace` se especifica en `TridentOrchestrator` Para indicar qué espacio de nombres está instalado Astra Trident. Este parámetro *no se puede actualizar después de instalar Astra Trident*. Al intentar hacerlo, se genera el `TridentOrchestrator` estado a cambiar a. `Failed`. Astra Trident no está pensado para la migración entre espacios de nombres.
+
+
+
+== Opciones de configuración
+
+Esta tabla detalla `TridentOrchestrator` atributos:
+
+[cols="3"]
+|===
+| Parámetro | Descripción | Predeterminado 
+
+
+| `namespace` | Espacio de nombres para instalar Astra Trident en | "predeterminado" 
+
+
+| `debug` | Habilite la depuración para Astra Trident | falso 
+
+
+| `windows` | Ajuste a. `true` Permite la instalación en nodos de trabajo de Windows. | falso 
+
+
+| `IPv6` | Instale Astra Trident sobre IPv6 | falso 
+
+
+| `k8sTimeout` | Tiempo de espera para las operaciones de Kubernetes | 30 seg 
+
+
+| `silenceAutosupport` | No envíe paquetes AutoSupport a NetApp automáticamente | falso 
+
+
+| `enableNodePrep` | Administrar automáticamente las dependencias del nodo de trabajo (*BETA*) | falso 
+
+
+| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | "netapp/trident-autosupport:23.01.0" 
+
+
+| `autosupportProxy` | La dirección/puerto de un proxy para enviar telemetría AutoSupport | "http://proxy.example.com:8888"[] 
+
+
+| `uninstall` | Una Marca utilizada para desinstalar Astra Trident | falso 
+
+
+| `logFormat` | Formato de registro de Astra Trident para utilizar [text,json] | "texto" 
+
+
+| `tridentImage` | Imagen de Astra Trident para instalar | "netapp/trident:21.04" 
+
+
+| `imageRegistry` | Ruta de acceso al registro interno, del formato
+`<registry FQDN>[:port][/subpath]` | "k8s.gcr.io/sig-storage (k8s 1.19+) o quay.io/k8scsi" 
+
+
+| `kubeletDir` | Ruta al directorio kubelet del host | “/var/lib/kubelet” 
+
+
+| `wipeout` | Una lista de recursos para eliminar y realizar una eliminación completa de Astra Trident |  
+
+
+| `imagePullSecrets` | Secretos para extraer imágenes de un registro interno |  
+
+
+| `imagePullPolicy` | Establece la política de extracción de imágenes para el operador Trident. Valores válidos:
+`Always` para tirar siempre de la imagen.
+`IfNotPresent` para extraer la imagen solo si aún no existe en el nodo.
+`Never` para no tirar nunca de la imagen. | `IfNotPresent` 
+
+
+| `controllerPluginNodeSelector` | Selectores de nodos adicionales para POD que ejecutan el complemento Trident Controller CSI. Sigue el mismo formato que pod.spec.nodeSelector. | Sin valores predeterminados; opcional 
+
+
+| `controllerPluginTolerations` | Anula la tolerancia de los pods que ejecutan el complemento CSI del controlador Trident. Sigue el mismo formato que el de pod.spec.tolerancias. | Sin valores predeterminados; opcional 
+
+
+| `nodePluginNodeSelector` | Selectores de nodos adicionales para POD que ejecutan el complemento Trident Node CSI. Sigue el mismo formato que pod.spec.nodeSelector. | Sin valores predeterminados; opcional 
+
+
+| `nodePluginTolerations` | Anula las toleraciones para los pods que ejecutan el complemento CSI de nodos Trident. Sigue el mismo formato que el de pod.spec.tolerancias. | Sin valores predeterminados; opcional 
+|===
+
+NOTE: Para obtener más información sobre el formato de los parámetros del POD, consulte link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Asignación de pods a nodos"^].
+
+
+
+== Configuraciones de ejemplo
+
+Puede utilizar los atributos mencionados anteriormente al definir `TridentOrchestrator` para personalizar la instalación.
+
+.Ejemplo 1: Configuración personalizada básica
+[%collapsible%open]
+====
+Este es un ejemplo de una configuración personalizada básica.
+
+[listing]
+----
+cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullSecrets:
+  - thisisasecret
+----
+====
+.Ejemplo 2: Implementar con selectores de nodos
+[%collapsible%open]
+====
+Este ejemplo ilustra cómo se puede implementar Trident con los selectores de nodos:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  controllerPluginNodeSelector:
+    nodetype: master
+  nodePluginNodeSelector:
+    storage: netapp
+----
+====
+.Ejemplo 3: Implementar en nodos de trabajo de Windows
+[%collapsible%open]
+====
+Este ejemplo ilustra la implementación en un nodo de trabajo de Windows.
+
+[listing]
+----
+cat deploy/crds/tridentorchestrator_cr.yaml
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  windows: true
+----
+====

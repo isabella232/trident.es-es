@@ -1,0 +1,88 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx.html 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
+summary: 'Al utilizar Astra Trident con Amazon FSX para ONTAP de NetApp, puede garantizar que sus clústeres de Kubernetes que se ejecutan en Amazon Elastic Kubernetes Service (EKS) pueden aprovisionar volúmenes persistentes de bloques y archivos respaldados por ONTAP.' 
+---
+= Utilice Astra Trident con Amazon FSX para ONTAP de NetApp
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX para ONTAP de NetApp"^] Es un servicio AWS totalmente gestionado que permite a los clientes iniciar y ejecutar sistemas de archivos con tecnología del sistema operativo de almacenamiento ONTAP de NetApp. FSX para ONTAP le permite aprovechar las funciones, el rendimiento y las funcionalidades administrativas de NetApp con las que ya está familiarizado, a la vez que aprovecha la simplicidad, la agilidad, la seguridad y la escalabilidad de almacenar datos en AWS. FSX para ONTAP es compatible con las funciones del sistema de archivos ONTAP y las API de administración.
+
+Un sistema de archivos es el recurso principal de Amazon FSX, similar a un clúster de ONTAP en las instalaciones. En cada SVM, se pueden crear uno o varios volúmenes, que son contenedores de datos que almacenan los archivos y las carpetas en el sistema de archivos. Con Amazon FSX para ONTAP de NetApp, Data ONTAP se proporcionará como un sistema de archivos gestionado en el cloud. El nuevo tipo de sistema de archivos se llama *ONTAP* de NetApp.
+
+Al utilizar Astra Trident con Amazon FSX para ONTAP de NetApp, puede garantizar que los clústeres de Kubernetes que se ejecutan en Amazon Elastic Kubernetes Service (EKS) pueden aprovisionar volúmenes persistentes de bloques y archivos respaldados por ONTAP.
+
+Usos de Amazon FSX para ONTAP de NetApp https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mgng-stor-tier-fp/GUID-5A78F93F-7539-4840-AB0B-4A6E3252CF84.html["FabricPool"^] para gestionar los niveles de almacenamiento. Le permite almacenar datos en un nivel, según la frecuencia de acceso a estos.
+
+
+
+== Consideraciones
+
+* Volúmenes SMB:
++
+** Se admiten los volúmenes de SMB mediante el `ontap-nas` sólo conductor.
+** Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
+** Astra Trident no es compatible con la arquitectura DE Windows ARM.
+
+
+* Trident no puede eliminar los volúmenes creados en sistemas de archivos Amazon FSX con backups automáticos habilitados. Para eliminar las RVP, es necesario eliminar manualmente el VP y el FSX para el volumen ONTAP. Para evitar este problema:
++
+** No utilice **creación rápida** para crear el sistema de archivos FSX para ONTAP. El flujo de trabajo de creación rápida permite realizar backups automáticos y no ofrece la opción de anulación de suscripción.
+** Cuando utilice **Standard create**, desactive la copia de seguridad automática. Al deshabilitar los backups automáticos, Trident puede eliminar correctamente un volumen sin intervención manual adicional.
++
+image:screenshot-fsx-backup-disable.png["Captura de pantalla de la consola de AWS desactivando el backup automático."]
+
+
+
+
+
+
+
+== De Windows
+
+Puede integrar Astra Trident con Amazon FSX para ONTAP de NetApp mediante los siguientes controladores:
+
+* `ontap-san`: Cada VP aprovisionado es una LUN dentro de su propio Amazon FSX para el volumen ONTAP de NetApp.
+* `ontap-san-economy`: Cada VP aprovisionado es un LUN con un número configurable de LUN por Amazon FSX para el volumen ONTAP de NetApp.
+* `ontap-nas`: Cada VP aprovisionado es un Amazon FSX completo para el volumen ONTAP de NetApp.
+* `ontap-nas-economy`: Cada VP aprovisionado es un qtree, con un número configurable de qtrees por Amazon FSX para el volumen ONTAP de NetApp.
+* `ontap-nas-flexgroup`: Cada VP aprovisionado es un Amazon FSX completo para el volumen ONTAP FlexGroup de NetApp.
+
+
+Para obtener más información sobre el controlador, consulte link:../trident-concepts/ontap-drivers.html["Controladores ONTAP"].
+
+
+
+== Autenticación
+
+Astra Trident ofrece dos modos de autenticación.
+
+* Basado en certificados: Astra Trident se comunicará con la SVM en su sistema de archivos FSX mediante un certificado instalado en la SVM.
+* Basado en credenciales: Puede utilizar el `fsxadmin` usuario del sistema de archivos o del `vsadmin` Usuario configurado para la SVM.
++
+
+WARNING: Astra Trident espera que se ejecute como un `vsadmin` Usuario de SVM o como usuario con un nombre diferente que tenga el mismo rol. Amazon FSX para NetApp ONTAP cuenta con una `fsxadmin` Usuario que es una sustitución limitada de ONTAP `admin` usuario de clúster. Le recomendamos encarecidamente que utilice `vsadmin` Con Astra Trident.
+
+
+
+Puede actualizar los back-ends para moverse entre los métodos basados en credenciales y los basados en certificados. Sin embargo, si intenta proporcionar *credenciales y certificados*, la creación de backend fallará. Para cambiar a un método de autenticación diferente, debe eliminar el método existente de la configuración del back-end.
+
+Para obtener más información sobre cómo habilitar la autenticación, consulte la autenticación del tipo de controlador:
+
+* link:ontap-nas-prep.html["Autenticación NAS de ONTAP"]
+* link:ontap-san-prep.html["Autenticación SAN ONTAP"]
+
+
+
+
+== Obtenga más información
+
+* https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Documentación de Amazon FSX para ONTAP de NetApp"^]
+* https://www.netapp.com/blog/amazon-fsx-for-netapp-ontap/["Publicación del blog en Amazon FSX para ONTAP de NetApp"^]
+

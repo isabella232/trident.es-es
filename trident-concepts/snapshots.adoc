@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: trident-concepts/snapshots.html 
+keywords: provisioning, astra trident 
+summary: Más información sobre cómo Astra Trident gestiona la creación de snapshots de volumen para sus controladores. 
+---
+= Copias de Snapshot de volumen
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Más información sobre cómo Astra Trident gestiona la creación de snapshots de volumen para sus controladores.
+
+
+
+== Obtenga información acerca de la creación de snapshots de volúmenes
+
+* Para la `ontap-nas`, `ontap-san`, `gcp-cvs`, y. `azure-netapp-files` Controladores, cada volumen persistente (PV) se asigna a una FlexVol. Como resultado, las copias de Snapshot de volumen se crean como copias de Snapshot de NetApp. La tecnología Snapshot de NetApp ofrece una mayor estabilidad, escalabilidad, capacidad de recuperación y rendimiento que las tecnologías snapshot de la competencia. Estas copias Snapshot son extremadamente eficientes, tanto en el tiempo necesario para crearlas como en el espacio de almacenamiento.
+* Para la `ontap-nas-flexgroup` Cada controlador, cada volumen persistente (PV) se asigna a una FlexGroup. Como resultado, las copias de Snapshot de volumen se crean como copias de Snapshot de FlexGroup de NetApp. La tecnología Snapshot de NetApp ofrece una mayor estabilidad, escalabilidad, capacidad de recuperación y rendimiento que las tecnologías snapshot de la competencia. Estas copias Snapshot son extremadamente eficientes, tanto en el tiempo necesario para crearlas como en el espacio de almacenamiento.
+* Para la `ontap-san-economy` Controlador, VP se asigna a las LUN creadas en los FlexVols compartidos. Las copias Snapshot Volumede VP realizan FlexClones del LUN asociado. La tecnología FlexClone de ONTAP posibilita la creación de copias incluso de los conjuntos de datos más grandes de forma casi instantánea. Las copias comparten bloques de datos con sus padres, sin consumir almacenamiento, excepto lo que se necesita para los metadatos.
+* Para la `solidfire-san` Cada controlador, cada VP asigna una LUN creada en el software NetApp Element/clúster HCI de NetApp. Las copias Snapshot de volumen están representadas por copias Snapshot de Element de la LUN subyacente. Estas copias Snapshot son copias puntuales y solo ocupan una pequeña cantidad de recursos y espacio del sistema.
+* Al trabajar con `ontap-nas` y.. `ontap-san` Controladores, las copias snapshot ONTAP son copias puntuales del FlexVol y consumen espacio en la propia FlexVol. Esto puede dar como resultado la cantidad de espacio editable en el volumen para reducirlo con el tiempo a medida que se crean y se programan las copias Snapshot. Una forma sencilla de abordar esto es aumentar el volumen mediante el cambio de tamaño a través de Kubernetes. Otra opción es eliminar las snapshots que ya no son necesarias. Cuando se elimina una copia Snapshot de volumen creada mediante Kubernetes, Astra Trident elimina la copia Snapshot de ONTAP asociada. También se pueden eliminar las copias de Snapshot de ONTAP que no se crearon con Kubernetes.
+
+
+Con Astra Trident, puede usar VolumeSnapshots para crear nuevos VP a partir de ellos. La creación de VP a partir de estas snapshots se realiza usando la tecnología FlexClone para los back-ends de ONTAP y CVS compatibles. Al crear un VP a partir de una instantánea, el volumen de respaldo es un FlexClone del volumen principal de la instantánea. La `solidfire-san` La unidad utiliza clones de volúmenes del software Element para crear VP a partir de copias de Snapshot. Aquí se crea un clon a partir de la copia de Snapshot de Element.

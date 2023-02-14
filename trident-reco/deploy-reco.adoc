@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/deploy-reco.html 
+keywords: deployment, deploy, trident, namespace 
+summary: Utilice las recomendaciones que se enumeran aquí cuando ponga en marcha Astra Trident. 
+---
+= Puesta en marcha
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice las recomendaciones que se enumeran aquí cuando ponga en marcha Astra Trident.
+
+
+
+== Póngalo en marcha a un espacio de nombres dedicado
+
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["Espacios de nombres"^] proporcione separación administrativa entre distintas aplicaciones y una barrera para el uso compartido de recursos. Por ejemplo, una RVP de un espacio de nombres no se puede consumir de otro. Astra Trident proporciona recursos PV a todos los espacios de nombres en el clúster de Kubernetes y, por lo tanto, aprovecha una cuenta de servicio con privilegios elevados.
+
+Además, el acceso al pod de Trident puede permitir a un usuario acceder a las credenciales del sistema de almacenamiento y a otra información confidencial. Es importante asegurarse de que los usuarios de aplicaciones y aplicaciones de gestión no tengan la capacidad de acceder a las definiciones de objetos de Trident o a los pods mismos.
+
+
+
+== Utilice cuotas y límites de rango para controlar el consumo de almacenamiento
+
+Kubernetes cuenta con dos funciones que, al combinarse, ofrecen un potente mecanismo que limita el consumo de recursos que consumen las aplicaciones. La https://kubernetes.io/docs/concepts/policy/resource-quotas/#storage-resource-quota["mecanismo de cuotas de almacenamiento"^] permite al administrador implementar límites de consumo globales, específicos para las clases de almacenamiento, de capacidad y de recuento de objetos en función del espacio de nombres. Además, utilizando un https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage["límite de rango"^] Garantiza que las solicitudes de PVC se encuentren dentro de un valor mínimo y máximo antes de reenviar la solicitud al aprovisionador.
+
+Estos valores se definen por espacio de nombres, lo que significa que cada espacio de nombres debe tener valores definidos que se ajustan a los requisitos de sus recursos. Consulte aquí para obtener más información acerca de https://netapp.io/2017/06/09/self-provisioning-storage-kubernetes-without-worry["cómo aprovechar las cuotas"^].

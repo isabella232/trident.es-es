@@ -1,0 +1,68 @@
+---
+section: trident-use
+title: Utilice Astra Trident
+entries:
+- title: Prepare el nodo de trabajo
+  url: "/trident-use/worker-node-prep.html"
+- title: Configurar los back-ends
+  url: "/trident-use/backends.html"
+  entries:
+  - title: Azure NetApp Files
+    entries:
+    - title: Descripción general
+      url: "/trident-use/anf.html"
+    - title: Prepárese para la configuración
+      url: "/trident-use/anf-prep.html"
+    - title: Opciones de configuración y ejemplos
+      url: "/trident-use/anf-examples.html"
+  - title: Cloud Volumes Service para Google Cloud
+    url: "/trident-use/gcp.html"
+  - title: NetApp HCI o SolidFire
+    url: "/trident-use/element.html"
+  - title: Unidades SAN de ONTAP
+    url: "/trident-use/ontap-san.html"
+    entries:
+    - title: Prepárese para la configuración
+      url: "/trident-use/ontap-san-prep.html"
+    - title: Opciones de configuración y ejemplos
+      url: "/trident-use/ontap-san-examples.html"
+  - title: Unidades NAS de ONTAP
+    url: "/trident-use/ontap-nas.html"
+    entries:
+    - title: Prepárese para la configuración
+      url: "/trident-use/ontap-nas-prep.html"
+    - title: Opciones de configuración y ejemplos
+      url: "/trident-use/ontap-nas-examples.html"
+  - title: Amazon FSX para ONTAP de NetApp
+    entries:
+    - title: Descripción general
+      url: "/trident-use/trident-fsx.html"
+    - title: Integre Amazon FSX para ONTAP
+      url: "/trident-use/trident-fsx-prep.html"
+    - title: Opciones de configuración y ejemplos
+      url: "/trident-use/trident-fsx-examples.html"
+- title: Cree back-ends con kubectl
+  url: "/trident-use/backend-kubectl.html"
+- title: Realice la gestión del entorno de administración con kubectl
+  url: "/trident-use/backend_ops_kubectl.html"
+- title: Realizar la administración de back-end con trimentctl
+  url: "/trident-use/backend_ops_tridentctl.html"
+- title: Pasar entre las opciones de administración del back-end
+  url: "/trident-use/backend_options.html"
+- title: Gestione las clases de almacenamiento
+  url: "/trident-use/manage-stor-class.html"
+- title: Realizar operaciones de volumen
+  url: "/trident-use/vol-operations.html"
+  entries:
+  - title: Utilice Topología CSI
+    url: "/trident-use/csi-topology.html"
+  - title: Trabajar con instantáneas
+    url: "/trident-use/vol-snapshots.html"
+  - title: Expanda los volúmenes
+    url: "/trident-use/vol-expansion.html"
+  - title: Importar volúmenes
+    url: "/trident-use/vol-import.html"
+- title: Comparta volúmenes NFS en espacios de nombres
+  url: "/trident-use/volume-share.html"
+- title: Supervisión de Astra Trident
+  url: "/trident-use/monitor-trident.html"

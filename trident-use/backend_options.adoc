@@ -1,0 +1,269 @@
+---
+sidebar: sidebar 
+permalink: trident-use/backend_options.html 
+keywords: backends, storage system, anf, cvs for aws, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, kubectl, tridentctl, backend management options 
+summary: Conozca las distintas formas de gestionar los back-ends en Astra Trident. 
+---
+= Pasar entre las opciones de administración del back-end
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Conozca las distintas formas de gestionar los back-ends en Astra Trident. Con la introducción de `TridentBackendConfig`, los administradores ahora tienen dos formas únicas de administrar los back-ends. Esto plantea las siguientes preguntas:
+
+* Pueden crearse back-ends con `tridentctl` administrarse con `TridentBackendConfig`?
+* Pueden crearse back-ends con `TridentBackendConfig` se gestionan mediante `tridentctl`?
+
+
+
+
+== Gestione `tridentctl` con los back-ends `TridentBackendConfig`
+
+En esta sección se describen los pasos necesarios para gestionar los back-ends creados con `tridentctl` Directamente mediante la interfaz de Kubernetes creando `TridentBackendConfig` objetos.
+
+Esto se aplica a las siguientes situaciones:
+
+* Los back-ends preexistentes, que no tienen `TridentBackendConfig` porque fueron creados con `tridentctl`.
+* Nuevos back-ends que se crearon con `tridentctl`, mientras que otros `TridentBackendConfig` existen objetos.
+
+
+En ambos escenarios, continuarán presentes los back-ends, con los volúmenes de programación de Astra Trident y el funcionamiento de ellos. A continuación, los administradores tienen una de estas dos opciones:
+
+* Siga utilizando `tridentctl` para gestionar los back-ends que se crearon con él.
+* Enlazar los back-ends creados con `tridentctl` a un nuevo `TridentBackendConfig` objeto. Hacerlo significaría que se gestionarán los back-ends `kubectl` y no `tridentctl`.
+
+
+Para administrar un back-end preexistente mediante `kubectl`, tendrá que crear un `TridentBackendConfig` que enlaza con el backend existente. A continuación se ofrece una descripción general de cómo funciona:
+
+. Cree un secreto de Kubernetes. El secreto contiene las credenciales que Astra Trident necesita para comunicarse con el clúster/servicio de almacenamiento.
+. Cree un `TridentBackendConfig` objeto. Este contiene detalles sobre el servicio/clúster de almacenamiento y hace referencia al secreto creado en el paso anterior. Se debe tener cuidado para especificar parámetros de configuración idénticos (como `spec.backendName`, `spec.storagePrefix`, `spec.storageDriverName`, y así sucesivamente). `spec.backendName` se debe establecer el nombre del backend existente.
+
+
+
+
+=== Paso 0: Identificar el back-end
+
+Para crear un `TridentBackendConfig` que se enlaza a un back-end existente, necesitará obtener la configuración del back-end. En este ejemplo, supongamos que se ha creado un back-end mediante la siguiente definición JSON:
+
+[listing]
+----
+tridentctl get backend ontap-nas-backend -n trident
++---------------------+----------------+--------------------------------------+--------+---------+
+|          NAME       | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++---------------------+----------------+--------------------------------------+--------+---------+
+| ontap-nas-backend   | ontap-nas      | 52f2eb10-e4c6-4160-99fc-96b3be5ab5d7 | online |      25 |
++---------------------+----------------+--------------------------------------+--------+---------+
+
+cat ontap-nas-backend.json
+
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "10.10.10.1",
+    "dataLIF": "10.10.10.2",
+    "backendName": "ontap-nas-backend",
+    "svm": "trident_svm",
+    "username": "cluster-admin",
+    "password": "admin-password",
+
+    "defaults": {
+        "spaceReserve": "none",
+        "encryption": "false"
+    },
+    "labels":{"store":"nas_store"},
+    "region": "us_east_1",
+    "storage": [
+        {
+            "labels":{"app":"msoffice", "cost":"100"},
+            "zone":"us_east_1a",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"app":"mysqldb", "cost":"25"},
+            "zone":"us_east_1d",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "false",
+                "unixPermissions": "0775"
+            }
+        }
+    ]
+}
+----
+
+
+=== Paso 1: Cree un secreto de Kubernetes
+
+Cree un secreto que contenga las credenciales del back-end, como se muestra en este ejemplo:
+
+[listing]
+----
+cat tbc-ontap-nas-backend-secret.yaml
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ontap-nas-backend-secret
+type: Opaque
+stringData:
+  username: cluster-admin
+  passWord: admin-password
+
+kubectl create -f tbc-ontap-nas-backend-secret.yaml -n trident
+secret/backend-tbc-ontap-san-secret created
+----
+
+
+=== Paso 2: Cree un `TridentBackendConfig` CR
+
+El paso siguiente es crear un `TridentBackendConfig` CR que se enlazará automáticamente a la preexistente `ontap-nas-backend` (como en este ejemplo). Asegurarse de que se cumplen los siguientes requisitos:
+
+* El mismo nombre de fondo se define en `spec.backendName`.
+* Los parámetros de configuración son idénticos al backend original.
+* Los pools virtuales (si están presentes) deben conservar el mismo orden que en el back-end original.
+* Las credenciales se proporcionan a través de un secreto de Kubernetes, pero no en texto sin formato.
+
+
+En este caso, el `TridentBackendConfig` tendrá este aspecto:
+
+[listing]
+----
+cat backend-tbc-ontap-nas.yaml
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: tbc-ontap-nas-backend
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: 10.10.10.1
+  dataLIF: 10.10.10.2
+  backendName: ontap-nas-backend
+  svm: trident_svm
+  credentials:
+    name: mysecret
+  defaults:
+    spaceReserve: none
+    encryption: 'false'
+  labels:
+    store: nas_store
+  region: us_east_1
+  storage:
+  - labels:
+      app: msoffice
+      cost: '100'
+    zone: us_east_1a
+    defaults:
+      spaceReserve: volume
+      encryption: 'true'
+      unixPermissions: '0755'
+  - labels:
+      app: mysqldb
+      cost: '25'
+    zone: us_east_1d
+    defaults:
+      spaceReserve: volume
+      encryption: 'false'
+      unixPermissions: '0775'
+
+kubectl create -f backend-tbc-ontap-nas.yaml -n trident
+tridentbackendconfig.trident.netapp.io/tbc-ontap-nas-backend created
+----
+
+
+=== Paso 3: Compruebe el estado del `TridentBackendConfig` CR
+
+Después del `TridentBackendConfig` se ha creado, su fase debe ser `Bound`. También debería reflejar el mismo nombre de fondo y UUID que el del back-end existente.
+
+[listing]
+----
+kubectl -n trident get tbc tbc-ontap-nas-backend -n trident
+NAME                   BACKEND NAME          BACKEND UUID                           PHASE   STATUS
+tbc-ontap-nas-backend  ontap-nas-backend     52f2eb10-e4c6-4160-99fc-96b3be5ab5d7   Bound   Success
+
+#confirm that no new backends were created (i.e., TridentBackendConfig did not end up creating a new backend)
+tridentctl get backend -n trident
++---------------------+----------------+--------------------------------------+--------+---------+
+|          NAME       | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++---------------------+----------------+--------------------------------------+--------+---------+
+| ontap-nas-backend   | ontap-nas      | 52f2eb10-e4c6-4160-99fc-96b3be5ab5d7 | online |      25 |
++---------------------+----------------+--------------------------------------+--------+---------+
+----
+El back-end se gestionará completamente mediante el `tbc-ontap-nas-backend` `TridentBackendConfig` objeto.
+
+
+
+== Gestione `TridentBackendConfig` con los back-ends `tridentctl`
+
+ `tridentctl` se puede utilizar para enumerar los back-ends que se crearon con `TridentBackendConfig`. Además, los administradores también pueden optar por gestionar completamente estos back-ends `tridentctl` eliminando `TridentBackendConfig` y eso seguro `spec.deletionPolicy` se establece en `retain`.
+
+
+
+=== Paso 0: Identificar el back-end
+
+Por ejemplo, supongamos que se ha creado el siguiente back-end mediante `TridentBackendConfig`:
+
+[listing]
+----
+kubectl get tbc backend-tbc-ontap-san -n trident -o wide
+NAME                    BACKEND NAME        BACKEND UUID                           PHASE   STATUS    STORAGE DRIVER   DELETION POLICY
+backend-tbc-ontap-san   ontap-san-backend   81abcb27-ea63-49bb-b606-0a5315ac5f82   Bound   Success   ontap-san        delete
+
+tridentctl get backend ontap-san-backend -n trident
++-------------------+----------------+--------------------------------------+--------+---------+
+|       NAME        | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------------+----------------+--------------------------------------+--------+---------+
+| ontap-san-backend | ontap-san      | 81abcb27-ea63-49bb-b606-0a5315ac5f82 | online |      33 |
++-------------------+----------------+--------------------------------------+--------+---------+
+----
+Desde la salida, se ve eso `TridentBackendConfig` Se creó correctamente y está enlazado a un backend [observe el UUID del backend].
+
+
+
+=== Paso 1: Confirmar `deletionPolicy` se establece en `retain`
+
+Echemos un vistazo al valor de `deletionPolicy`. Esto debe definirse como `retain`. Esto asegurará que cuando un `TridentBackendConfig` Se elimina la CR, la definición de backend seguirá estando presente y se puede gestionar con `tridentctl`.
+
+[listing]
+----
+kubectl get tbc backend-tbc-ontap-san -n trident -o wide
+NAME                    BACKEND NAME        BACKEND UUID                           PHASE   STATUS    STORAGE DRIVER   DELETION POLICY
+backend-tbc-ontap-san   ontap-san-backend   81abcb27-ea63-49bb-b606-0a5315ac5f82   Bound   Success   ontap-san        delete
+
+# Patch value of deletionPolicy to retain
+kubectl patch tbc backend-tbc-ontap-san --type=merge -p '{"spec":{"deletionPolicy":"retain"}}' -n trident
+tridentbackendconfig.trident.netapp.io/backend-tbc-ontap-san patched
+
+#Confirm the value of deletionPolicy
+kubectl get tbc backend-tbc-ontap-san -n trident -o wide
+NAME                    BACKEND NAME        BACKEND UUID                           PHASE   STATUS    STORAGE DRIVER   DELETION POLICY
+backend-tbc-ontap-san   ontap-san-backend   81abcb27-ea63-49bb-b606-0a5315ac5f82   Bound   Success   ontap-san        retain
+----
+
+NOTE: No continúe con el siguiente paso a menos que `deletionPolicy` se establece en `retain`.
+
+
+
+=== Paso 2: Elimine la `TridentBackendConfig` CR
+
+El paso final es eliminar la `TridentBackendConfig` CR. Tras confirmar la `deletionPolicy` se establece en `retain`, puede utilizar Adelante con la eliminación:
+
+[listing]
+----
+kubectl delete tbc backend-tbc-ontap-san -n trident
+tridentbackendconfig.trident.netapp.io "backend-tbc-ontap-san" deleted
+
+tridentctl get backend ontap-san-backend -n trident
++-------------------+----------------+--------------------------------------+--------+---------+
+|       NAME        | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------------+----------------+--------------------------------------+--------+---------+
+| ontap-san-backend | ontap-san      | 81abcb27-ea63-49bb-b606-0a5315ac5f82 | online |      33 |
++-------------------+----------------+--------------------------------------+--------+---------+
+----
+Tras la eliminación del `TridentBackendConfig` Astra Trident simplemente la elimina sin eliminar realmente el back-end.

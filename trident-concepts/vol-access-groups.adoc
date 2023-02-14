@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: trident-concepts/vol-access-groups.html 
+keywords: volume access groups, element, solidfire, chap, astra trident, hci, netapp hci, storage system, access volumes, 
+summary: Más información sobre cómo utiliza Astra Trident los grupos de acceso de volúmenes. 
+---
+= Los grupos de acceso de volúmenes
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Obtenga más información sobre el uso de Astra Trident https://docs.netapp.com/us-en/element-software/concepts/concept_solidfire_concepts_volume_access_groups.html["los grupos de acceso de volúmenes"^].
+
+
+NOTE: Ignore esta sección si está utilizando CHAP, que se recomienda para simplificar la gestión y evitar el límite de escalado descrito a continuación. Además, si está utilizando Astra Trident en el modo CSI, puede ignorar esta sección. Astra Trident utiliza CHAP cuando se instala como un aprovisionador CSI mejorado.
+
+
+
+== Obtenga información acerca de los grupos de acceso de volúmenes
+
+Astra Trident puede usar grupos de acceso de volúmenes para controlar el acceso a los volúmenes que aprovisiona. Si CHAP está deshabilitado, se espera encontrar un grupo de acceso llamado `trident` A menos que se especifiquen uno o varios ID del grupo de acceso en la configuración.
+
+Aunque Astra Trident asocia nuevos volúmenes con los grupos de acceso configurados, no crea ni gestiona los propios grupos de acceso. Los grupos de acceso deben existir antes de que el back-end de almacenamiento se añada a Astra Trident y deben contener los IQN de iSCSI desde cada nodo del clúster de Kubernetes que podría montar potencialmente los volúmenes aprovisionados mediante ese back-end. En la mayoría de las instalaciones, esto incluye todos los nodos de trabajo del clúster.
+
+Para los clústeres de Kubernetes con más de 64 nodos, se deben usar varios grupos de acceso. Cada grupo de acceso puede contener hasta 64 IQN, y cada volumen puede pertenecer a cuatro grupos de acceso. Con un máximo de cuatro grupos de acceso configurados, cualquier nodo de un clúster con un tamaño de hasta 256 nodos podrá acceder a cualquier volumen. Para obtener los límites más recientes de los grupos de acceso de volúmenes, consulte https://docs.netapp.com/us-en/element-software/concepts/concept_solidfire_concepts_volume_access_groups.html["aquí"^].
+
+Si va a modificar la configuración a partir de una que está utilizando la configuración predeterminada `trident` Incluya el ID de para uno que utilice también otros `trident` grupo de acceso de la lista.

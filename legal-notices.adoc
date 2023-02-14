@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: legal-notices.html 
+keywords:  
+summary:  
+---
+= Avisos legales
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los avisos legales proporcionan acceso a las declaraciones de copyright, marcas comerciales, patentes y mucho más.
+
+
+
+== Derechos de autor
+
+http://www.netapp.com/us/legal/copyright.aspx[]
+
+
+
+== Marcas comerciales
+
+NETAPP, el logotipo de NETAPP y las marcas enumeradas en la página de marcas comerciales de NetApp son marcas comerciales de NetApp, Inc. Los demás nombres de empresas y productos son marcas comerciales de sus respectivos propietarios.
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]
+
+
+
+== Estadounidenses
+
+Puede encontrar una lista actual de las patentes propiedad de NetApp en:
+
+https://www.netapp.com/us/media/patents-page.pdf[]
+
+
+
+== Política de privacidad
+
+https://www.netapp.com/us/legal/privacypolicy/index.aspx[]
+
+
+
+== Código abierto
+
+Puede revisar las licencias y los derechos de autor de terceros que se utilizan en el software de NetApp para Astra Trident en el archivo de avisos de cada versión en https://github.com/NetApp/trident/[].

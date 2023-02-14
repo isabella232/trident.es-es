@@ -1,0 +1,123 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/prereqs-docker.html 
+keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config 
+summary: Debe instalar y configurar los requisitos previos del protocolo necesarios en su host antes de poder poner en marcha Astra Trident. 
+---
+= Requisitos previos para la implementación
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe instalar y configurar los requisitos previos del protocolo necesarios en su host antes de poder poner en marcha Astra Trident.
+
+
+
+== Compruebe los requisitos
+
+* Compruebe que la implementación se adapte a todas las link:../trident-get-started/requirements.html["requisitos"].
+* Compruebe que tiene instalada una versión compatible de Docker. Si la versión de Docker no está actualizada, https://docs.docker.com/engine/install/["instálelo o actualícelo"^].
++
+[listing]
+----
+docker --version
+----
+* Compruebe que los requisitos previos de protocolo estén instalados y configurados en el host:
+
+
+[cols="3*"]
+|===
+| Protocolo | De NetApp | Comandos 
+
+
+| NFS  a| 
+RHEL 8 O POSTERIOR
+ a| 
+`sudo yum install -y nfs-utils`
+
+
+
+| NFS  a| 
+Ubuntu
+ a| 
+`sudo apt-get install -y nfs-common`
+
+
+
+| ISCSI  a| 
+RHEL 8 O POSTERIOR
+ a| 
+. Instale los siguientes paquetes del sistema:
++
+`sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath`
+
+. Compruebe que la versión de iscsi-initiator-utils sea 6.2.0.874-2.el7 o posterior:
++
+`rpm -q iscsi-initiator-utils`
+
+. Configure el escaneo en manual:
++
+`sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf`
+
+. Activar accesos múltiples:
++
+`sudo mpathconf --enable --with_multipathd y --find_multipaths n`
+
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que así sea `iscsid` y.. `multipathd` están en ejecución:
++
+`sudo systemctl enable --now iscsid multipathd`
+
+. Activar e iniciar `iscsi`:
++
+`sudo systemctl enable --now iscsi`
+
+
+
+
+
+| ISCSI  a| 
+Ubuntu
+ a| 
+. Instale los siguientes paquetes del sistema:
++
+`sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools`
+
+. Compruebe que la versión Open-iscsi sea 2.0.874-5ubuntu2.10 o posterior (para bionic) o 2.0.874-7.1ubuntu6.1 o posterior (para focal):
++
+`dpkg -l open-iscsi`
+
+. Configure el escaneo en manual:
++
+`sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf`
+
+. Activar accesos múltiples:
++
+`sudo tee /etc/multipath.conf <<-'EOF'
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart`
+
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que así sea `open-iscsi` y.. `multipath-tools` están habilitadas y en ejecución:
++
+`sudo systemctl status multipath-tools`
+`sudo systemctl enable --now open-iscsi.service`
+`sudo systemctl status open-iscsi`
+
+
+
+|===

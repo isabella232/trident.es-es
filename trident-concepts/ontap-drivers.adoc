@@ -1,0 +1,118 @@
+---
+sidebar: sidebar 
+permalink: trident-concepts/ontap-drivers.html 
+keywords: trident backend, AFF, FAS, ONTAP Select, Cloud, Amazon FSx for NetApp ONTAP, drivers, ONTAP drivers 
+summary: Descubra cómo crear y usar un back-end de Element con la instalación de Trident. 
+---
+= Controladores ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Astra Trident proporciona cinco controladores de almacenamiento exclusivos de ONTAP para comunicarse con clústeres de ONTAP. Obtenga más información sobre cómo se ocupa cada controlador de la creación de volúmenes y el control de acceso y sus capacidades.
+
+
+
+== Obtenga información sobre los controladores de almacenamiento de ONTAP
+
+[WARNING]
+====
+Astra Control proporciona una protección fluida, recuperación ante desastres y movilidad (mover volúmenes entre clústeres de Kubernetes) para los volúmenes creados con el `ontap-nas`, `ontap-nas-flexgroup`, y. `ontap-san` de windows Consulte link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Requisitos previos de replicación de Astra Control"^] para obtener más detalles.
+
+* Debe usar `ontap-nas` para cargas de trabajo de producción que requieren protección de datos, recuperación ante desastres y movilidad.
+* Uso `ontap-san-economy` Cuando se espera que el uso previsto de volumen sea mucho superior al soporte de ONTAP.
+* Uso `ontap-nas-economy` Únicamente en los casos en los que se espera que el uso previsto del volumen sea mucho superior al soporte de ONTAP y la `ontap-san-economy` no se puede utilizar el conductor.
+* No utilizar `ontap-nas-economy` si prevé la necesidad de protección de datos, recuperación ante desastres o movilidad.
+
+
+====
+[cols="5"]
+|===
+| Controlador | Protocolo | VolumeMode | Modos de acceso compatibles | Sistemas de archivos compatibles 
+
+
+| `ontap-nas`  a| 
+NFS
+ a| 
+Sistema de archivos
+ a| 
+RWO, ROX, RWX
+ a| 
+"", nfs
+
+
+
+| `ontap-nas-economy`  a| 
+NFS
+ a| 
+Sistema de archivos
+ a| 
+RWO, ROX, RWX
+ a| 
+"", nfs
+
+
+
+| `ontap-nas-flexgroup`  a| 
+NFS
+ a| 
+Sistema de archivos
+ a| 
+RWO, ROX, RWX
+ a| 
+"", nfs
+
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Bloque
+ a| 
+RWO, ROX, RWX
+ a| 
+Sin sistema de archivos; dispositivo de bloque sin procesar
+
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Sistema de archivos
+ a| 
+RWO, ROX
+
+RWX no está disponible en el modo de volumen del sistema de archivos.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Bloque
+ a| 
+RWO, ROX, RWX
+ a| 
+Sin sistema de archivos; dispositivo de bloque sin procesar
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Sistema de archivos
+ a| 
+RWO, ROX
+
+RWX no está disponible en el modo de volumen del sistema de archivos.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+|===
+
+NOTE: Los back-ends de ONTAP se pueden autenticar con credenciales de inicio de sesión para un rol de seguridad (nombre de usuario/contraseña) o con la clave privada, y el certificado instalado en el clúster de ONTAP. Es posible actualizar los back-ends existentes para pasar de un modo de autenticación a otro con `tridentctl update backend`.

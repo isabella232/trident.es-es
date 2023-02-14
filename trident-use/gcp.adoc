@@ -1,0 +1,443 @@
+---
+sidebar: sidebar 
+permalink: trident-use/gcp.html 
+keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
+summary: Descubra cómo configurar Cloud Volumes Service para Google Cloud como back-end para su instalación de Astra Trident con las configuraciones de ejemplo proporcionadas. 
+---
+= Configure un back-end de Cloud Volumes Service para Google Cloud
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Descubra cómo configurar Cloud Volumes Service de NetApp para Google Cloud como back-end para su instalación de Astra Trident con las configuraciones de ejemplo proporcionadas.
+
+
+
+== Obtenga más información sobre la compatibilidad de Astra Trident con Cloud Volumes Service para Google Cloud
+
+Astra Trident puede crear volúmenes de Cloud Volumes Service en uno de dos link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["tipos de servicio"^]:
+
+* *CVS-Performance*: El tipo de servicio predeterminado Astra Trident. Este tipo de servicio optimizado para el rendimiento es más adecuado para cargas de trabajo de producción que valoran el rendimiento. El tipo de servicio CVS-Performance es una opción de hardware que admite volúmenes con un tamaño mínimo de 100 GIB. Puede elegir uno de link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["tres niveles de servicio"^]:
++
+** `standard`
+** `premium`
+** `extreme`
+
+
+* *CVS*: El tipo de servicio CVS proporciona una alta disponibilidad zonal con niveles de rendimiento limitados a moderados. El tipo de servicio CVS es una opción de software que usa pools de almacenamiento para admitir volúmenes de solo 1 GIB. El pool de almacenamiento puede contener hasta 50 volúmenes en los que todos los volúmenes comparten la capacidad y el rendimiento del pool. Puede elegir uno de link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs_service_type["dos niveles de servicio"^]:
++
+** `standardsw`
+** `zoneredundantstandardsw`
+
+
+
+
+.Lo que necesitará
+Para configurar y usar el https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=NetAppTrident_ReadTheDocs&utm_campaign=Trident["Cloud Volumes Service para Google Cloud"^] back-end, necesita lo siguiente:
+
+* Una cuenta de Google Cloud configurada con Cloud Volumes Service de NetApp
+* Número de proyecto de su cuenta de Google Cloud
+* Cuenta de servicio de Google Cloud con el `netappcloudvolumes.admin` función
+* Archivo de claves API para la cuenta de Cloud Volumes Service
+
+
+
+
+== Opciones de configuración del back-end
+
+Cada back-end aprovisiona volúmenes en una única región de Google Cloud. Para crear volúmenes en otras regiones, se pueden definir back-ends adicionales.
+
+[cols="3"]
+|===
+| Parámetro | Descripción | Predeterminado 
+
+
+| `version` |  | Siempre 1 
+
+
+| `storageDriverName` | Nombre del controlador de almacenamiento | "gcp-cvs" 
+
+
+| `backendName` | Nombre personalizado o el back-end de almacenamiento | Nombre de controlador + "_" + parte de la clave de API 
+
+
+| `storageClass` | Parámetro opcional utilizado para especificar el tipo de servicio CVS. Uso `software` Para seleccionar el tipo de servicio CVS. De lo contrario, Astra Trident asume el tipo de servicio CVS-Performance (`hardware`). |  
+
+
+| `storagePools` | Solo tipo de servicio CVS. Parámetro opcional que se utiliza para especificar pools de almacenamiento para la creación del volumen. |  
+
+
+| `projectNumber` | Número de proyecto de cuenta de Google Cloud. El valor está disponible en la página de inicio del portal de Google Cloud. |  
+
+
+| `hostProjectNumber` | Se requiere si se utiliza una red VPC compartida. En este escenario, `projectNumber` es el proyecto de servicio, y. `hostProjectNumber` es el proyecto anfitrión. |  
+
+
+| `apiRegion` | Región de Google Cloud en la que Astra Trident crea volúmenes de Cloud Volumes Service. Cuando se crean clústeres de Kubernetes de diversas regiones, se crean volúmenes en un `apiRegion` Se puede utilizar en cargas de trabajo programadas en nodos en varias regiones de Google Cloud. El tráfico entre regiones conlleva un coste adicional. |  
+
+
+| `apiKey` | Clave de API para la cuenta de servicio de Google Cloud con el `netappcloudvolumes.admin` función. Incluye el contenido en formato JSON del archivo de clave privada de una cuenta de servicio de Google Cloud (copiado literal en el archivo de configuración de back-end). |  
+
+
+| `proxyURL` | URL de proxy si se requiere servidor proxy para conectarse a la cuenta CVS. El servidor proxy puede ser un proxy HTTP o HTTPS. En el caso de un proxy HTTPS, se omite la validación de certificados para permitir el uso de certificados autofirmados en el servidor proxy. No se admiten los servidores proxy con autenticación habilitada. |  
+
+
+| `nfsMountOptions` | Control preciso de las opciones de montaje NFS. | "nfsvers=3" 
+
+
+| `limitVolumeSize` | No se puede aprovisionar si el tamaño del volumen solicitado es superior a este valor. | "" (no se aplica de forma predeterminada) 
+
+
+| `serviceLevel` | El nivel de servicio CVS-Performance o CVS para nuevos volúmenes. Los valores de CVS-Performance son `standard`, `premium`, o. `extreme`. Los valores CVS son `standardsw` o. `zoneredundantstandardsw`. | El valor predeterminado de CVS-Performance es "estándar". El valor predeterminado de CVS es "standardsw". 
+
+
+| `network` | Se utiliza la red de Google Cloud para Cloud Volumes Service Volumes. | “predeterminado” 
+
+
+| `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Ejemplo: `\{"api":false, "method":true}`. No lo utilice a menos que esté solucionando problemas y necesite un volcado de registro detallado. | nulo 
+
+
+| `allowedTopologies` | Para habilitar el acceso a varias regiones, se debe definir StorageClass para `allowedTopologies` debe incluir todas las regiones. Por ejemplo:
+`- key: topology.kubernetes.io/region
+  values:
+  - us-east1
+  - europe-west1` |  
+|===
+
+
+== Opciones de aprovisionamiento de volúmenes
+
+Es posible controlar el aprovisionamiento de volúmenes predeterminado en la `defaults` sección del archivo de configuración.
+
+[cols=",,"]
+|===
+| Parámetro | Descripción | Predeterminado 
+
+
+| `exportRule` | Las reglas de exportación de nuevos volúmenes. Debe ser una lista separada por comas con cualquier combinación de direcciones IPv4 o subredes IPv4 en notación CIDR. | "0.0.0.0/0" 
+
+
+| `snapshotDir` | Acceso a la `.snapshot` directorio | "falso" 
+
+
+| `snapshotReserve` | Porcentaje de volumen reservado para las Snapshot | "" (Aceptar CVS por defecto de 0) 
+
+
+| `size` | El tamaño de los volúmenes nuevos. CVS-Performance mínimo es 100 GIB. El mínimo de CVS es 1 GIB. | El tipo de servicio CVS-Performance se establece de manera predeterminada en "100GIB". El tipo de servicio CVS no establece un valor predeterminado, pero requiere un mínimo de 1 GIB. 
+|===
+
+
+== Ejemplos de tipo de servicio CVS-Performance
+
+Los siguientes ejemplos proporcionan ejemplos de configuraciones para el tipo de servicio CVS-Performance.
+
+.Ejemplo 1: Configuración mínima
+[%collapsible]
+====
+Esta es la configuración de back-end mínima usando el tipo de servicio CVS-Performance predeterminado con el nivel de servicio "estándar" predeterminado.
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "gcp-cvs",
+    "projectNumber": "012345678901",
+    "apiRegion": "us-west2",
+    "apiKey": {
+        "type": "service_account",
+        "project_id": "my-gcp-project",
+        "private_key_id": "1234567890123456789012345678901234567890",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nXsYg6gyxy4zq7OlwWgLwGa==\n-----END PRIVATE KEY-----\n",
+        "client_email": "cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com",
+        "client_id": "123456789012345678901",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com"
+    }
+}
+----
+====
+.Ejemplo 2: Configuración de nivel de servicio
+[%collapsible]
+====
+Este ejemplo muestra las opciones de configuración del back-end, incluidos el nivel de servicio y los valores predeterminados de volumen.
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "gcp-cvs",
+    "projectNumber": "012345678901",
+    "apiRegion": "us-west2",
+    "apiKey": {
+        "type": "service_account",
+        "project_id": "my-gcp-project",
+        "private_key_id": "1234567890123456789012345678901234567890",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nXsYg6gyxy4zq7OlwWgLwGa==\n-----END PRIVATE KEY-----\n",
+        "client_email": "cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com",
+        "client_id": "123456789012345678901",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com"
+    },
+    "proxyURL": "http://proxy-server-hostname/",
+    "nfsMountOptions": "vers=3,proto=tcp,timeo=600",
+    "limitVolumeSize": "10Ti",
+    "serviceLevel": "premium",
+    "defaults": {
+        "snapshotDir": "true",
+        "snapshotReserve": "5",
+        "exportRule": "10.0.0.0/24,10.0.1.0/24,10.0.2.100",
+        "size": "5Ti"
+    }
+}
+----
+====
+.Ejemplo 3: Configuración de pool virtual
+[%collapsible]
+====
+Este ejemplo utiliza `storage` para configurar los pools virtuales y el `StorageClasses` eso se refiere a ellos. Consulte <<Definiciones de clases de almacenamiento>> para ver cómo se definieron las clases de almacenamiento.
+
+Aquí, se establecen valores predeterminados específicos para todos los pools virtuales, con los que se establece el `snapshotReserve` con el 5% y la `exportRule` a 0.0.0.0/0. Los pools virtuales se definen en la `storage` sección. Cada pool virtual individual define el suyo propio `serviceLevel`, y algunos pools sobrescriben los valores predeterminados. Se utilizaron etiquetas de pools virtuales para diferenciar los pools según `performance` y.. `protection`.
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "gcp-cvs",
+    "projectNumber": "012345678901",
+    "apiRegion": "us-west2",
+    "apiKey": {
+        "type": "service_account",
+        "project_id": "my-gcp-project",
+        "private_key_id": "1234567890123456789012345678901234567890",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nXsYg6gyxy4zq7OlwWgLwGa==\n-----END PRIVATE KEY-----\n",
+        "client_email": "cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com",
+        "client_id": "123456789012345678901",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com"
+    },
+    "nfsMountOptions": "vers=3,proto=tcp,timeo=600",
+
+    "defaults": {
+        "snapshotReserve": "5",
+        "exportRule": "0.0.0.0/0"
+    },
+
+    "labels": {
+        "cloud": "gcp"
+    },
+    "region": "us-west2",
+
+    "storage": [
+        {
+            "labels": {
+                "performance": "extreme",
+                "protection": "extra"
+            },
+            "serviceLevel": "extreme",
+            "defaults": {
+                "snapshotDir": "true",
+                "snapshotReserve": "10",
+                "exportRule": "10.0.0.0/24"
+            }
+        },
+        {
+            "labels": {
+                "performance": "extreme",
+                "protection": "standard"
+            },
+            "serviceLevel": "extreme"
+        },
+        {
+            "labels": {
+                "performance": "premium",
+                "protection": "extra"
+            },
+            "serviceLevel": "premium",
+            "defaults": {
+                "snapshotDir": "true",
+                "snapshotReserve": "10"
+            }
+        },
+
+        {
+            "labels": {
+                "performance": "premium",
+                "protection": "standard"
+            },
+            "serviceLevel": "premium"
+        },
+
+        {
+            "labels": {
+                "performance": "standard"
+            },
+            "serviceLevel": "standard"
+        }
+    ]
+}
+----
+====
+
+
+=== Definiciones de clases de almacenamiento
+
+Las siguientes definiciones de StorageClass se aplican al ejemplo de configuración de pool virtual. Uso `parameters.selector`, Puede especificar para cada clase de almacenamiento el pool virtual utilizado para alojar un volumen. Los aspectos definidos en el pool elegido serán el volumen.
+
+.Ejemplo de clase de almacenamiento
+[%collapsible]
+====
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvs-extreme-extra-protection
+provisioner: netapp.io/trident
+parameters:
+  selector: "performance=extreme; protection=extra"
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvs-extreme-standard-protection
+provisioner: netapp.io/trident
+parameters:
+  selector: "performance=premium; protection=standard"
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvs-premium-extra-protection
+provisioner: netapp.io/trident
+parameters:
+  selector: "performance=premium; protection=extra"
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvs-premium
+provisioner: netapp.io/trident
+parameters:
+  selector: "performance=premium; protection=standard"
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvs-standard
+provisioner: netapp.io/trident
+parameters:
+  selector: "performance=standard"
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cvs-extra-protection
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection=extra"
+allowVolumeExpansion: true
+----
+====
+* El primer tipo de almacenamiento (`cvs-extreme-extra-protection`) se asigna al primer grupo virtual. Se trata del único pool que ofrece un rendimiento extremo con una reserva Snapshot del 10%.
+* El último tipo de almacenamiento (`cvs-extra-protection`) llama a cualquier agrupación de almacenamiento que ofrezca una reserva de instantáneas del 10%. Astra Trident decide qué pool virtual se selecciona y garantiza que se cumpla el requisito de reserva de Snapshot.
+
+
+
+
+== Ejemplos de tipo de servicio CVS
+
+Los siguientes ejemplos proporcionan configuraciones de ejemplo para el tipo de servicio CVS.
+
+.Ejemplo 1: Configuración mínima
+[%collapsible]
+====
+Esta es la configuración mínima del back-end mediante `storageClass` Para especificar el tipo de servicio CVS y el valor predeterminado `standardsw` nivel de servicio.
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "gcp-cvs",
+    "projectNumber": "012345678901",
+    "storageClass": "software",
+    "apiRegion": "us-east4",
+    "apiKey": {
+        "type": "service_account",
+        "project_id": "my-gcp-project",
+        "private_key_id": "1234567890123456789012345678901234567890",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nXsYg6gyxy4zq7OlwWgLwGa==\n-----END PRIVATE KEY-----\n",
+        "client_email": "cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com",
+        "client_id": "123456789012345678901",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com"
+    }
+“serviceLevel”: “standardsw”
+}
+----
+====
+.Ejemplo 2: Configuración del pool de almacenamiento
+[%collapsible]
+====
+Esta configuración de entorno de administración de ejemplo utiliza `storagePools` para configurar un pool de almacenamiento.
+
+[listing]
+----
+{
+  "version": 1,
+  "storageDriverName": "gcp-cvs",
+  "backendName": "gcp-std-so-with-pool",
+  "projectNumber": "531265380079",
+  "apiRegion": "europe-west1",
+  "apiKey": {
+    "type": "service_account",
+    "project_id": "cloud-native-data",
+    "private_key_id": "1234567890123456789012345678901234567890",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDaT+Oui9FBAw19\nL1AGEkrYU5xd9K5NlO5jMkIFND5wCD+Nv+jd1GvtFRLaLK5RvXyF5wzvztmODNS+\nqtScpQ+5cFpQkuGtv9U9+N6qtuVYYO3b504Kp5CtqVPJCgMJaK2j8pZTIqUiMum/\n5/Y9oTbZrjAHSMgJm2nHzFq2X0rqVMaHghI6ATm4DOuWx8XGWKTGIPlc0qPqJlqS\nLLaWOH4VIZQZCAyW5IUp9CAmwqHgdG0uhFNfCgMmED6PBUvVLsLvcq86X+QSWR9k\nETqElj/sGCenPF7ti1DhGBFafd9hPnxg9PZY29ArEZwY9G/ZjZQX7WPgs0VvxiNR\nDxZRC3GXAgMBAAECggEACn5c59bG/qnVEVI1CwMAalM5M2z09JFhlLlljKwntNPj\nVilw2eTW2+UE7HbJru/S7KQgA5Dnn9kvCraEahPRuddUMrD0vG4kTl/IODV6uFuk\nY0sZfbqd4jMUQ21smvGsqFzwloYWS5qzO1W83ivXH/HW/iqkmY2eW+EPRS/hwSSu\nSscR+SojI7PB0BWSJhlV4yqYf3vcD/D95el2CVHfRCkL85DKumeZ+yHEnpiXGZAE\nt8xSs4a5OOPm6NHhevCw2a/UQ95/foXNUR450HtbjieJo5o+FF6EYZQGfU2ZHZO8\n37FBKuaJkdGW5xqaI9TL7aqkGkFMF4F2qvOZM+vy8QKBgQD4oVuOkJDlhkTHP86W\nesFlw1kpWyJR9ZA7LI0g/rVpslnX+XdDq0WQf4umdLNau5hYEH9LU6ZSGs1Xk3/B\nNHwR6OXFuqEKNiu83d0zSlHhTy7PZpOZdj5a/vVvQfPDMz7OvsqLRd7YCAbdzuQ0\n+Ahq0Ztwvg0HQ64hdW0ukpYRRwKBgQDgyHj98oqswoYuIa+pP1yS0pPwLmjwKyNm\n/HayzCp+Qjiyy7Tzg8AUqlH1Ou83XbV428jvg7kDhO7PCCKFq+mMmfqHmTpb0Maq\nKpKnZg4ipsqP1yHNNEoRmcailXbwIhCLewMqMrggUiLOmCw4PscL5nK+4GKu2XE1\njLqjWAZFMQKBgFHkQ9XXRAJ1kR3XpGHoGN890pZOkCVSrqju6aUef/5KYlFCt8ew\nF/+aIxM2iQSvmWQYOvVCnhuY/F2GFaQ7d0om3decuwI0CX/xy7PjHMkLXa2uaZs4\nWR17sLduj62RqXRLX0c0QkwBiNFyHbRcpdkZJQujbYMhBa+7j7SxT4BtAoGAWMWT\nUucocRXZm/pdvz9wteNH3YDWnJLMxm1KC06qMXbBoYrliY4sm3ywJWMC+iCd/H8A\nGecxd/xVu5mA2L2N3KMq18Zhz8Th0G5DwKyDRJgOQ0Q46yuNXOoYEjlo4Wjyk8Me\n+tlQ8iK98E0UmZnhTgfSpSNElbz2AqnzQ3MN9uECgYAqdvdVPnKGfvdtZ2DjyMoJ\nE89UIC41WjjJGmHsd8W65+3X0RwMzKMT6aZc5tK9J5dHvmWIETnbM+lTImdBBFga\nNWOC6f3r2xbGXHhaWSl+nobpTuvlo56ZRJVvVk7lFMsiddzMuHH8pxfgNJemwA4P\nThDHCejv035NNV6KyoO0tA==\n-----END PRIVATE KEY-----",
+    "client_email": "cloudvolumes-admin-sa@cloud-native-data.iam.gserviceaccount.com",
+    "client_id": "107071413297115343396",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40cloud-native-data.iam.gserviceaccount.com"
+  },
+  "storageClass": "software",
+  "zone": "europe-west1-b",
+  "network": "default",
+  "storagePools": ["1bc7f380-3314-6005-45e9-c7dc8c2d7509"],
+  "serviceLevel": "Standardsw"
+}
+----
+====
+
+
+== El futuro
+
+Después de crear el archivo de configuración del back-end, ejecute el siguiente comando:
+
+[listing]
+----
+tridentctl create backend -f <backend-file>
+----
+Si la creación del back-end falla, algo está mal con la configuración del back-end. Puede ver los registros para determinar la causa ejecutando el siguiente comando:
+
+[listing]
+----
+tridentctl logs
+----
+Después de identificar y corregir el problema con el archivo de configuración, puede ejecutar de nuevo el comando create.

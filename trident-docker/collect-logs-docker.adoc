@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/collect-logs-docker.html 
+keywords: deploy, astra trident, trident for docker, docker, logs, binary, managed plugin 
+summary: Puede recopilar registros para obtener ayuda con la solución de problemas. El método que se utiliza para recopilar los registros varía en función de cómo se ejecuta el complemento Docker. 
+---
+= Recopilar registros
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede recopilar registros para obtener ayuda con la solución de problemas. El método que se utiliza para recopilar los registros varía en función de cómo se ejecuta el complemento Docker.
+
+
+
+== Recopile registros para solucionar problemas
+
+.Pasos
+. Si ejecuta Astra Trident con el método de complemento gestionado recomendado (por ejemplo, mediante `docker plugin` comandos), visualizarlos de la siguiente manera:
++
+[listing]
+----
+docker plugin ls
+ID                  NAME                DESCRIPTION                          ENABLED
+4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
+journalctl -u docker | grep 4fb97d2b956b
+----
++
+El nivel de registro estándar debe permitirle diagnosticar la mayoría de los problemas. Si encuentra que eso no es suficiente, puede habilitar el registro de depuración.
+
+. Para habilitar el registro de depuración, instale el plugin con el registro de depuración activado:
++
+[listing]
+----
+docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
+----
++
+O bien, active el registro de depuración cuando el plugin ya esté instalado:
+
++
+[listing]
+----
+docker plugin disable <plugin>
+docker plugin set <plugin> debug=true
+docker plugin enable <plugin>
+----
+. Si ejecuta el binario en sí mismo en el host, los registros están disponibles en el host `/var/log/netappdvp` directorio. Para habilitar el registro de depuración, especifique `-debug` al ejecutar el plugin.
+
+
+
+
+== Sugerencias generales para la solución de problemas
+
+* El problema más común en el que se ejecutan los nuevos usuarios es una configuración errónea que impide que el plugin se inicialice. Cuando esto sucede, es probable que vea un mensaje como este cuando intente instalar o activar el plugin:
++
+`Error response from daemon: dial unix /run/docker/plugins/<id>/netapp.sock: connect: no such file or directory`
+
++
+Esto significa que el plugin no se pudo iniciar. Afortunadamente, el complemento se ha creado con una completa capacidad de registro que le ayudará a diagnosticar la mayoría de los problemas que es probable que se encuentren.
+
+* Si hay problemas con el montaje de un PV en un contenedor, asegúrese de que `rpcbind` está instalado y en ejecución. Utilice el administrador de paquetes necesario para el sistema operativo del host y compruebe si `rpcbind` está en ejecución. Puede comprobar el estado del servicio rpcbind ejecutando un `systemctl status rpcbind` o su equivalente.
+

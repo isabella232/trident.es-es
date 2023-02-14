@@ -1,0 +1,493 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/objects.html 
+keywords: kubernetes objects, trident objects, persistent volume claim, storage class, backend, snapshot, priority class, system-node-critical, daemonset, resource quota, resourcequota, system node critical 
+summary: Existen varios objetos de recursos que dictan la relación entre Kubernetes y Trident, Trident y el almacenamiento, y Kubernetes y el almacenamiento. Algunos de estos objetos se gestionan mediante Kubernetes y los demás se gestionan mediante Trident. 
+---
+= Objetos de Kubernetes y Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede interactuar con Kubernetes y Trident mediante las API DE REST a través de la lectura y la escritura de objetos de recursos. Existen varios objetos de recursos que dictan la relación entre Kubernetes y Trident, Trident y el almacenamiento, y Kubernetes y el almacenamiento. Algunos de estos objetos se gestionan mediante Kubernetes y los demás se gestionan mediante Trident.
+
+
+
+== ¿Cómo interactúan los objetos entre sí?
+
+Quizás la forma más sencilla de comprender los objetos, qué hacen y cómo interactúan sea, es seguir una única solicitud de almacenamiento a un usuario de Kubernetes:
+
+. Un usuario crea un `PersistentVolumeClaim` solicitando un nuevo `PersistentVolume` De un tamaño concreto de un Kubernetes `StorageClass` previamente configurado por el administrador.
+. Kubernetes `StorageClass` Identifica a Trident como su aprovisionador y incluye los parámetros que indican a Trident cómo aprovisionar un volumen para la clase solicitada.
+. Trident analiza sus propios recursos `StorageClass` con el mismo nombre que identifica la coincidencia `Backends` y.. `StoragePools` que puede usar para aprovisionar volúmenes para la clase.
+. Trident aprovisiona el almacenamiento en un back-end coincidente y crea dos objetos: Un `PersistentVolume` En Kubernetes, donde se indica cómo encontrar, montar y tratar el volumen, y un volumen en Trident que conserva la relación entre `PersistentVolume` y el almacenamiento real.
+. Kubernetes enlaza con el `PersistentVolumeClaim` a los nuevos `PersistentVolume`. Pods que incluyen `PersistentVolumeClaim` monte ese volumen persistente en cualquier host en el que se ejecute.
+. Un usuario crea un `VolumeSnapshot` De un PVC existente, utilizando un `VolumeSnapshotClass` Eso es lo que apunta a Trident.
+. Trident identifica el volumen asociado con la RVP y crea una copia Snapshot del volumen en su back-end. También crea un `VolumeSnapshotContent` Esto indica a Kubernetes cómo identificar la snapshot.
+. Un usuario puede crear un `PersistentVolumeClaim` uso `VolumeSnapshot` como origen.
+. Trident identifica la instantánea necesaria y realiza el mismo conjunto de pasos involucrados en la creación de un `PersistentVolume` y un `Volume`.
+
+
+
+TIP: Para obtener más información sobre los objetos de Kubernetes, recomendamos encarecidamente que lea la https://kubernetes.io/docs/concepts/storage/persistent-volumes/["Volúmenes persistentes"^] De la documentación de Kubernetes.
+
+
+
+== Kubernetes `PersistentVolumeClaim` objetos
+
+Un Kubernetes `PersistentVolumeClaim` El objeto es una solicitud de almacenamiento que realiza un usuario de clúster de Kubernetes.
+
+Además de la especificación estándar, Trident permite a los usuarios especificar las siguientes anotaciones específicas del volumen si desean anular los valores predeterminados que se establecen en la configuración de back-end:
+
+[cols=",,"]
+|===
+| Anotación | Opción de volumen | Controladores compatibles 
+
+
+| trident.netapp.io/fileSystem | Sistema de archivos | ontap-san, solidfire-san, ontap-san-economy 
+
+
+| trident.netapp.io/cloneFromPVC | ClonSourceVolume | ontap-nas, ontap-san, solidfire-san, azure-netapp-files, gcp-cvs, ontap-san-economía 
+
+
+| trident.netapp.io/splitOnClone | SplitOnClone | ontap-nas y ontap-san 
+
+
+| trident.netapp.io/protocol | protocolo | cualquiera 
+
+
+| trident.netapp.io/exportPolicy | Política de exportoPolicy | ontap-nas, ontap-nas-economy y ontap-nas-flexgroup 
+
+
+| trident.netapp.io/snapshotPolicy | Política de copias Snapshot | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup y ontap-san 
+
+
+| trident.netapp.io/snapshotReserve | Reserva de copias Snapshot | ontap-nas, ontap-nas-flexgroup, ontap-san, gcp-cvs 
+
+
+| trident.netapp.io/snapshotDirectory | Snapshot shotDirectory | ontap-nas, ontap-nas-economy y ontap-nas-flexgroup 
+
+
+| trident.netapp.io/unixPermissions | Permisos univalados | ontap-nas, ontap-nas-economy y ontap-nas-flexgroup 
+
+
+| trident.netapp.io/blockSize | Tamaño del bloque | solidfire-san 
+|===
+Si el VP creado tiene el `Delete` Reclamar política, Trident elimina el VP y el volumen de respaldo cuando se libera el VP (es decir, cuando el usuario elimina la RVP). Si la acción de eliminación falla, Trident Marca el VP como tal y reintenta periódicamente la operación hasta que esta se complete o se elimine manualmente el VP. Si el VP utiliza `+Retain+` Política, Trident ignora la operación y asume que el administrador la limpiará desde Kubernetes y el back-end, lo que permitirá realizar un backup o la inspección del volumen antes de su eliminación. Tenga en cuenta que al eliminar el VP, Trident no eliminará el volumen de backup. Debe quitarlo usando la API DE REST (`tridentctl`).
+
+Trident admite la creación de instantáneas de volumen utilizando la especificación CSI: Puede crear una instantánea de volumen y utilizarla como origen de datos para clonar las RVP existentes. De este modo, las copias puntuales de VP pueden exponerse a Kubernetes en forma de snapshots. Las instantáneas pueden utilizarse para crear nuevos VP. Eche un vistazo `+On-Demand Volume Snapshots+` para ver cómo funcionaría.
+
+Trident también proporciona la `cloneFromPVC` y.. `splitOnClone` anotaciones para crear clones. Puede utilizar estas anotaciones para clonar un PVC sin tener que utilizar la implementación de CSI (en Kubernetes 1.13 y versiones anteriores) o si su versión de Kubernetes no es compatible con las copias Snapshot de volumen beta (Kubernetes 1.16 y versiones anteriores). Tenga en cuenta que Trident 19.10 admite el flujo de trabajo CSI para clonar desde un PVC.
+
+
+NOTE: Puede utilizar el `cloneFromPVC` y.. `splitOnClone` Anotaciones con CSI Trident así como el frontend tradicional no CSI.
+
+A continuación se muestra un ejemplo: Si un usuario ya tiene una RVP llamada `mysql`, El usuario puede crear un nuevo PVC llamado `mysqlclone` mediante la anotación, por ejemplo `trident.netapp.io/cloneFromPVC: mysql`. Con este conjunto de anotaciones, Trident clona el volumen correspondiente a la RVP de mysql, en lugar de aprovisionar un volumen desde cero.
+
+Considere los siguientes puntos:
+
+* Se recomienda clonar un volumen inactivo.
+* Una RVP y su clon deben estar en el mismo espacio de nombres de Kubernetes y tener el mismo tipo de almacenamiento.
+* Con la `ontap-nas` y.. `ontap-san` Controladores, es posible que sea conveniente establecer la anotación de PVC `trident.netapp.io/splitOnClone` en conjunto con `trident.netapp.io/cloneFromPVC`. Con `trident.netapp.io/splitOnClone` establezca en `true`, Trident divide el volumen clonado del volumen principal y, por lo tanto, separa completamente el ciclo de vida del volumen clonado de su principal a costa de perder alguna eficiencia de almacenamiento. No está configurado `trident.netapp.io/splitOnClone` o establecerlo en `false` provoca una reducción del consumo de espacio en el back-end a costa de crear dependencias entre los volúmenes principal y clonado, de modo que no se pueda eliminar el volumen principal, a menos que el clon se elimine primero. Una situación en la que dividir el clon tiene sentido es clonar un volumen de base de datos vacío donde se espera que tanto el volumen como su clon desvíen enormemente y no se beneficien de las eficiencias del almacenamiento ofrecidas por ONTAP.
+
+
+La `sample-input` el directorio contiene ejemplos de definiciones de PVC para utilizarlas con Trident. Consulte los objetos de Trident Volume para obtener una descripción completa de los parámetros y la configuración asociados con Trident Volumes.
+
+
+
+== Kubernetes `PersistentVolume` objetos
+
+Un Kubernetes `PersistentVolume` Object representa un fragmento de almacenamiento que se pone a disposición del clúster de Kubernetes. Tiene un ciclo de vida independiente del pod que lo utiliza.
+
+
+NOTE: Crea Trident `PersistentVolume` Los objetos y los registra automáticamente con el clúster Kubernetes en función de los volúmenes que aprovisiona. No se espera que usted los gestione usted mismo.
+
+Cuando se crea una RVP que hace referencia a un sistema basado en Trident `StorageClass`, Trident aprovisiona un nuevo volumen utilizando la clase de almacenamiento correspondiente y registra un nuevo VP para ese volumen. Al configurar el volumen aprovisionado y el VP correspondiente, Trident sigue las siguientes reglas:
+
+* Trident genera un nombre PV para Kubernetes y un nombre interno que utiliza para aprovisionar el almacenamiento. En ambos casos, se asegura de que los nombres son únicos en su alcance.
+* El tamaño del volumen coincide con el tamaño solicitado en el PVC lo más cerca posible, aunque podría redondearse a la cantidad más cercana asignable, dependiendo de la plataforma.
+
+
+
+
+== Kubernetes `StorageClass` objetos
+
+Kubernetes `StorageClass` los objetos se especifican por nombre en `PersistentVolumeClaims` para aprovisionar el almacenamiento con una serie de propiedades. La clase de almacenamiento identifica el aprovisionador que se usará y define ese conjunto de propiedades en términos que entiende el aprovisionador.
+
+Es uno de los dos objetos básicos que el administrador debe crear y gestionar. El otro es el objeto back-end de Trident.
+
+Un Kubernetes `StorageClass` Objeto que usa Trident tiene el siguiente aspecto:
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: <Name>
+provisioner: csi.trident.netapp.io
+mountOptions: <Mount Options>
+parameters:
+  <Trident Parameters>
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+----
+Estos parámetros son específicos de Trident y dicen a Trident cómo aprovisionar volúmenes para la clase.
+
+Los parámetros de la clase de almacenamiento son:
+
+[cols=",,,"]
+|===
+| Atributo | Tipo | Obligatorio | Descripción 
+
+
+| atributos | map[string]string | no | Consulte la sección atributos a continuación 
+
+
+| Pools de almacenamiento | Map[string]StringList | no | Asignación de nombres de back-end a listas de pools de almacenamiento dentro 
+
+
+| AdicionalStoragePools | Map[string]StringList | no | Asignación de nombres de back-end a listas de pools de almacenamiento dentro 
+
+
+| ExcludeStoragePools | Map[string]StringList | no | Asignación de nombres de back-end a listas de pools de almacenamiento dentro 
+|===
+Los atributos de almacenamiento y sus posibles valores se pueden clasificar en atributos de selección de pools de almacenamiento y atributos de Kubernetes.
+
+
+
+=== Atributos de selección del pool de almacenamiento
+
+Estos parámetros determinan qué pools de almacenamiento gestionados por Trident se deben utilizar para aprovisionar volúmenes de un determinado tipo.
+
+[cols=",,,,,"]
+|===
+| Atributo | Tipo | Valores | Oferta | Solicitud | Admitido por 
+
+
+| media 1 | cadena | hdd, híbrido, ssd | Pool contiene medios de este tipo; híbrido significa ambos | Tipo de medios especificado | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san y solidfire-san 
+
+
+| AprovisionaciónTipo | cadena | delgado, grueso | El pool admite este método de aprovisionamiento | Método de aprovisionamiento especificado | grueso: all ONTAP; thin: all ONTAP y solidfire-san 
+
+
+| Tipo de backendType | cadena  a| 
+ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san, gcp-cvs, azure-netapp-files, ontap-san-economy
+| Pool pertenece a este tipo de backend | Backend especificado | Todos los conductores 
+
+
+| snapshot | bool | verdadero, falso | El pool admite volúmenes con Snapshot | Volumen con snapshots habilitadas | ontap-nas, ontap-san, solidfire-san y gcp-cvs 
+
+
+| clones | bool | verdadero, falso | Pool admite el clonado de volúmenes | Volumen con clones habilitados | ontap-nas, ontap-san, solidfire-san y gcp-cvs 
+
+
+| cifrado | bool | verdadero, falso | El pool admite volúmenes cifrados | Volumen con cifrado habilitado | ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, ontap-san 
+
+
+| IOPS | int | entero positivo | El pool es capaz de garantizar IOPS en este rango | El volumen garantizado de estas IOPS | solidfire-san 
+|===
+Esta versión 1: No es compatible con sistemas ONTAP Select
+
+En la mayoría de los casos, los valores solicitados influyen directamente en el aprovisionamiento; por ejemplo, solicitar un aprovisionamiento de alto rendimiento da lugar a un volumen considerablemente aprovisionado. Sin embargo, un pool de almacenamiento de Element utiliza el valor mínimo y máximo de IOPS que ofrece para establecer los valores de calidad de servicio, en lugar del valor solicitado. En este caso, el valor solicitado se utiliza solo para seleccionar el pool de almacenamiento.
+
+Lo ideal es que pueda usar `attributes` solo para modelar las cualidades del almacenamiento que necesita para satisfacer las necesidades de una clase particular. Trident detecta y selecciona automáticamente pools de almacenamiento que coincidan _all_ del `attributes` que especifique.
+
+Si no puede utilizar `attributes` para seleccionar automáticamente los grupos adecuados para una clase, puede utilizar `storagePools` y.. `additionalStoragePools` parámetros para refinar más los pools o incluso seleccionar un conjunto específico de agrupaciones.
+
+Puede utilizar el `storagePools` el parámetro para restringir aún más el conjunto de pools que coinciden con cualquier especificado `attributes`. En otras palabras, Trident utiliza la intersección de pools identificados por el `attributes` y.. `storagePools` parámetros para el aprovisionamiento. Es posible usar un parámetro solo o ambos juntos.
+
+Puede utilizar el `additionalStoragePools` Parámetro para ampliar el conjunto de pools que Trident utiliza para el aprovisionamiento, independientemente de cualquier pool que seleccione `attributes` y.. `storagePools` parámetros.
+
+Puede utilizar el `excludeStoragePools` Parámetro para filtrar el conjunto de pools que Trident utiliza para el aprovisionamiento. Cuando se usa este parámetro, se quitan todos los pools que coinciden.
+
+En la `storagePools` y.. `additionalStoragePools` parámetros, cada entrada toma el formulario `<backend>:<storagePoolList>`, donde `<storagePoolList>` es una lista de pools de almacenamiento separados por comas para el back-end especificado. Por ejemplo, un valor para `additionalStoragePools` puede parecer `ontapnas_192.168.1.100:aggr1,aggr2;solidfire_192.168.1.101:bronze`. Estas listas aceptan valores regex para los valores de backend y list. Puede utilizar `tridentctl get backend` para obtener la lista de los back-ends y sus pools.
+
+
+
+=== Atributos de Kubernetes
+
+Trident no afecta a la selección de pools y back-ends de almacenamiento durante el aprovisionamiento dinámico. En su lugar, estos atributos simplemente ofrecen parámetros compatibles con los volúmenes persistentes de Kubernetes. Los nodos de trabajo son responsables de las operaciones de creación del sistema de archivos y pueden requerir utilidades del sistema de archivos, como xfsprogs.
+
+[cols=",,,,,"]
+|===
+| Atributo | Tipo | Valores | Descripción | Controladores relevantes | Versión de Kubernetes 
+
+
+| Tipo fstype | cadena | ext4, ext3, xfs, etc. | El tipo de sistema de archivos para los volúmenes de bloques | solidfire-san, ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economía | Todo 
+
+
+| Expansión de allowVolume | booleano | verdadero, falso | Habilite o deshabilite el soporte para aumentar el tamaño de PVC | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy, solidfire-san, gcp-cvs, azure-netapp-files | 1.11 o posterior 
+
+
+| VolumeBindingMode | cadena | Inmediatamente, WaitForFirstConsumer | Elija cuándo se producen el enlace de volumen y el aprovisionamiento dinámico | Todo | 1.19 - 1.26 
+|===
+[TIP]
+====
+* La `fsType` El parámetro se utiliza para controlar el tipo de sistema de archivos deseado para las LUN DE SAN. Además, Kubernetes utiliza también la presencia de `fsType` en una clase de almacenamiento para indicar que existe un sistema de archivos. La propiedad del volumen se puede controlar mediante la `fsGroup` contexto de seguridad de un pod solo if `fsType` está configurado. Consulte link:https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Kubernetes: Configure un contexto de seguridad para un Pod o contenedor"^] para obtener información general sobre la configuración de la propiedad del volumen con `fsGroup` contexto. Kubernetes aplicará el `fsGroup` valor solo si:
++
+** `fsType` se establece en la clase de almacenamiento.
+** El modo de acceso de PVC es RWO.
+
+
++
+Para los controladores de almacenamiento NFS, ya existe un sistema de archivos como parte de la exportación NFS. Para utilizar `fsGroup` la clase de almacenamiento aún debe especificar un `fsType`. Puede configurarlo en `nfs` o cualquier valor que no sea nulo.
+
+* Consulte link:https://docs.netapp.com/us-en/trident/trident-use/vol-expansion.html["Expanda los volúmenes"] para obtener más información sobre la expansión de volumen.
+* El paquete de instalación de Trident proporciona varias definiciones de clase de almacenamiento de ejemplo para usar con Trident en ``sample-input/storage-class-*.yaml``. Al eliminar una clase de almacenamiento Kubernetes, también se elimina el tipo de almacenamiento Trident correspondiente.
+
+
+====
+
+
+== Kubernetes `VolumeSnapshotClass` objetos
+
+Kubernetes `VolumeSnapshotClass` los objetos son similares `StorageClasses`. Ayudan a definir varias clases de almacenamiento y las instantáneas de volumen hacen referencia a ellas para asociar la snapshot a la clase de snapshot necesaria. Cada copia de Snapshot de volumen se asocia con una sola clase de copia de Snapshot de volumen.
+
+A. `VolumeSnapshotClass` debe ser definido por un administrador para crear snapshots. Una clase de snapshot de volumen se crea con la siguiente definición:
+
+[listing]
+----
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-snapclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+La `driver` Especifica a Kubernetes que solicitudes de snapshots de volumen del `csi-snapclass` Trident gestiona la clase. La `deletionPolicy` especifica la acción que se debe realizar cuando se debe eliminar una instantánea. Cuando `deletionPolicy` se establece en `Delete`, los objetos de instantánea del volumen, así como la instantánea subyacente en el clúster de almacenamiento, se eliminan cuando se elimina una instantánea. Como alternativa, establecerlo en `Retain` significa eso `VolumeSnapshotContent` y se conserva la snapshot física.
+
+
+
+== Kubernetes `VolumeSnapshot` objetos
+
+Un Kubernetes `VolumeSnapshot` objeto es una solicitud para crear una copia de snapshot de un volumen. Del mismo modo que la RVP representa una solicitud al usuario para un volumen, un snapshot de volumen es una solicitud al que hace un usuario para crear una copia Snapshot de una RVP existente.
+
+Cuando llega una solicitud Snapshot de volumen, Trident gestiona automáticamente la creación de la snapshot para el volumen en el back-end y expone la snapshot creando un único
+`VolumeSnapshotContent` objeto. Puede crear instantáneas a partir de EVs existentes y utilizar las instantáneas como DataSource al crear nuevas CVP.
+
+
+NOTE: El ciclo de vida de un VolumeSnapshot es independiente del PVC de origen: Una instantánea persiste incluso después de eliminar el PVC de origen. Cuando se elimina un PVC que tiene instantáneas asociadas, Trident Marca el volumen de respaldo de este PVC con el estado *Eliminación*, pero no lo elimina por completo. El volumen se elimina cuando se eliminan todas las Snapshot asociadas.
+
+
+
+== Kubernetes `VolumeSnapshotContent` objetos
+
+Un Kubernetes `VolumeSnapshotContent` object representa una snapshot tomada de un volumen ya aprovisionado. Es similar a un `PersistentVolume` y significa una instantánea aprovisionada en el clúster de almacenamiento. Similar a. `PersistentVolumeClaim` y.. `PersistentVolume` los objetos, cuando se crea una snapshot, el `VolumeSnapshotContent` object mantiene una asignación de uno a uno `VolumeSnapshot` objeto, que solicitó la creación de la snapshot.
+
+
+NOTE: Crea Trident `VolumeSnapshotContent` Los objetos y los registra automáticamente con el clúster Kubernetes en función de los volúmenes que aprovisiona. No se espera que usted los gestione usted mismo.
+
+La `VolumeSnapshotContent` el objeto contiene detalles que identifican de manera única la instantánea, como la `snapshotHandle`. Este `snapshotHandle` Es una combinación única del nombre del PV y el nombre del `VolumeSnapshotContent` objeto.
+
+Cuando llega una solicitud de Snapshot, Trident crea la snapshot en el back-end. Una vez creada la copia de Snapshot, Trident configura un `VolumeSnapshotContent` Objeto y, por lo tanto, expone la snapshot a la API de Kubernetes.
+
+
+
+== Kubernetes `CustomResourceDefinition` objetos
+
+Los recursos personalizados de Kubernetes son extremos en la API de Kubernetes que define el administrador y que se usan para agrupar objetos similares. Kubernetes admite la creación de recursos personalizados para almacenar un conjunto de objetos. Puede obtener estas definiciones de recursos ejecutando `kubectl get crds`.
+
+Kubernetes almacena en su almacén de metadatos las definiciones de recursos personalizadas (CRD) y los metadatos de objetos asociados. De este modo, no es necesario disponer de un almacén aparte para Trident.
+
+A partir del lanzamiento de la versión 19.07, Trident utiliza una serie de `CustomResourceDefinition` Objetos que conservan la identidad de objetos de Trident, como los back-ends de Trident, las clases de almacenamiento de Trident y los volúmenes de Trident. Trident gestiona estos objetos. Además, el marco de instantáneas de volumen CSI introduce algunos CRD necesarios para definir instantáneas de volumen.
+
+Los multos son una estructura de Kubernetes. Trident crea los objetos de los recursos definidos anteriormente. Como ejemplo simple, cuando se crea un back-end usando `tridentctl`, a correspondiente `tridentbackends` El objeto CRD se crea para el consumo por parte de Kubernetes.
+
+A continuación se indican algunos puntos que hay que tener en cuenta sobre los CRD de Trident:
+
+* Cuando se instala Trident, se crea un conjunto de CRD que se puede utilizar como cualquier otro tipo de recurso.
+* Al actualizar desde una versión anterior de Trident (una que utilizó `etcd` Para mantener el estado), el instalador de Trident migra los datos del `etcd` Almacén de datos clave-valor y crea los objetos CRD correspondientes.
+* Al desinstalar Trident mediante la `tridentctl uninstall` Comando, los pods de Trident se eliminan, pero los CRD creados no se borran. Consulte link:../trident-managing-k8s/uninstall-trident.html["Desinstale Trident"] Para comprender cómo Trident se puede eliminar por completo y volver a configurar desde cero.
+
+
+
+
+== Trident `StorageClass` objetos
+
+Trident crea clases de almacenamiento coincidentes para Kubernetes `StorageClass` objetos que especifican `csi.trident.netapp.io`/`netapp.io/trident` en su campo de aprovisionamiento. El nombre de la clase de almacenamiento coincide con el de Kubernetes `StorageClass` objeto que representa.
+
+
+NOTE: Con Kubernetes, estos objetos se crean automáticamente cuando se crea un Kubernetes `StorageClass` Que usa Trident como aprovisionador está registrado.
+
+Las clases de almacenamiento comprenden un conjunto de requisitos para los volúmenes. Trident enlaza estos requisitos con los atributos presentes en cada pool de almacenamiento; si coinciden, ese pool de almacenamiento es un objetivo válido para aprovisionar volúmenes que utilizan esa clase de almacenamiento.
+
+Puede crear configuraciones de clase de almacenamiento para definir clases de almacenamiento directamente mediante la API DE REST. Sin embargo, en el caso de las puestas en marcha de Kubernetes, esperamos que se creen al registrar el nuevo Kubernetes `StorageClass` objetos.
+
+
+
+== Objetos de back-end de Trident
+
+Los back-ends representan a los proveedores de almacenamiento, además de los cuales Trident aprovisiona volúmenes; una única instancia de Trident puede gestionar cualquier número de back-ends.
+
+
+NOTE: Éste es uno de los dos tipos de objeto que se crean y administran a sí mismo. El otro es Kubernetes `StorageClass` objeto.
+
+Para obtener más información acerca de cómo construir estos objetos, consulte link:../trident-use/backends.html["configuración de los back-ends"].
+
+
+
+== Trident `StoragePool` objetos
+
+Los pools de almacenamiento representan las distintas ubicaciones disponibles para aprovisionar en cada back-end. Para ONTAP, corresponden a los agregados en las SVM. Para HCI/SolidFire de NetApp, corresponden a las bandas de calidad de servicio especificadas por el administrador. Para Cloud Volumes Service, se corresponden con las regiones de proveedores de cloud. Cada pool de almacenamiento tiene un conjunto de atributos de almacenamiento distintos que definen sus características de rendimiento y sus características de protección de datos.
+
+Al contrario de lo que ocurre con otros objetos aquí, los candidatos de pools de almacenamiento siempre se detectan y gestionan automáticamente.
+
+
+
+== Trident `Volume` objetos
+
+Los volúmenes son la unidad básica de aprovisionamiento y constan de extremos back-end, como recursos compartidos de NFS y LUN iSCSI. En Kubernetes, se corresponden directamente con `PersistentVolumes`. Cuando crea un volumen, asegúrese de que tiene una clase de almacenamiento, que determina dónde se puede aprovisionar ese volumen junto con un tamaño.
+
+
+NOTE: En Kubernetes, estos objetos se gestionan automáticamente. Es posible verlos para ver qué ha aprovisionado Trident.
+
+
+TIP: Al eliminar un VP con instantáneas asociadas, el volumen Trident correspondiente se actualiza a un estado *Eliminación*. Para que se elimine el volumen de Trident, es necesario quitar las snapshots del volumen.
+
+Una configuración de volumen define las propiedades que debe tener un volumen aprovisionado.
+
+[cols=",,,"]
+|===
+| Atributo | Tipo | Obligatorio | Descripción 
+
+
+| versión | cadena | no | Versión de la API de Trident ("1") 
+
+
+| nombre | cadena | sí | Nombre del volumen que se va a crear 
+
+
+| Clase de almacenamiento | cadena | sí | Clase de almacenamiento que se utilizará al aprovisionar el volumen 
+
+
+| tamaño | cadena | sí | El tamaño del volumen que se va a aprovisionar en bytes 
+
+
+| protocolo | cadena | no | Tipo de protocolo que se va a utilizar; "archivo" o "bloque" 
+
+
+| InternalName | cadena | no | Nombre del objeto en el sistema de almacenamiento, generado por Trident 
+
+
+| ClonSourceVolume | cadena | no | ONTAP (nas, san) y SolidFire-*: Nombre del volumen desde el que se va a clonar 
+
+
+| SplitOnClone | cadena | no | ONTAP (nas, san): Divida el clon entre su primario 
+
+
+| Política de copias Snapshot | cadena | no | ONTAP-*: Política de instantánea a utilizar 
+
+
+| Reserva de copias Snapshot | cadena | no | ONTAP-*: Porcentaje del volumen reservado para instantáneas 
+
+
+| Política de exportoPolicy | cadena | no | ontap-nas*: Política de exportación que se va a utilizar 
+
+
+| Snapshot shotDirectory | bool | no | ontap-nas*: Si el directorio de instantáneas está visible 
+
+
+| Permisos univalados | cadena | no | ontap-nas*: Permisos iniciales de UNIX 
+
+
+| Tamaño del bloque | cadena | no | SolidFire-*: Tamaño de bloque/sector 
+
+
+| Sistema de archivos | cadena | no | Tipo de sistema de archivos 
+|===
+Genera Trident `internalName` al crear el volumen. Esto consta de dos pasos. En primer lugar, prepens el prefijo de almacenamiento (ya sea el predeterminado) `trident` o el prefijo de la configuración del back-end) al nombre del volumen, lo que genera el nombre del formulario `<prefix>-<volume-name>`. A continuación, procede a desinfectar el nombre y a reemplazar los caracteres no permitidos en el backend. En los back-ends de ONTAP, reemplaza guiones con guiones bajos (de esta forma, el nombre interno se convierte en `<prefix>_<volume-name>`). En los back-ends de Element, reemplaza guiones bajos por guiones.
+
+Puede utilizar configuraciones de volumen para aprovisionar directamente los volúmenes mediante la API REST, pero en las puestas en marcha de Kubernetes esperamos que la mayoría de los usuarios usen el Kubernetes estándar `PersistentVolumeClaim` método. Trident crea este objeto de volumen automáticamente como parte del proceso de aprovisionamiento.
+
+
+
+== Trident `Snapshot` objetos
+
+Las Snapshot son una copia de un momento específico de los volúmenes, que se pueden usar para aprovisionar nuevos volúmenes o restaurar el estado. En Kubernetes, se corresponden directamente con `VolumeSnapshotContent` objetos. Cada copia de Snapshot se asocia con un volumen, que es el origen de los datos de la copia de Snapshot.
+
+Cada uno `Snapshot` object incluye las propiedades que se enumeran a continuación:
+
+[cols=",,,"]
+|===
+| Atributo | Tipo | Obligatorio | Descripción 
+
+
+| versión | Cadena  a| 
+Sí
+| Versión de la API de Trident ("1") 
+
+
+| nombre | Cadena  a| 
+Sí
+| Nombre del objeto Snapshot de Trident 
+
+
+| InternalName | Cadena  a| 
+Sí
+| Nombre del objeto Snapshot de Trident en el sistema de almacenamiento 
+
+
+| Nombre de volumen | Cadena  a| 
+Sí
+| Nombre del volumen persistente para el que se crea la snapshot 
+
+
+| VolumeInternalName | Cadena  a| 
+Sí
+| Nombre del objeto de volumen de Trident asociado en el sistema de almacenamiento 
+|===
+
+NOTE: En Kubernetes, estos objetos se gestionan automáticamente. Es posible verlos para ver qué ha aprovisionado Trident.
+
+Cuando un Kubernetes `VolumeSnapshot` Se crea la solicitud del objeto, Trident funciona mediante la creación de un objeto Snapshot en el sistema de almacenamiento que realiza backups. La `internalName` de este objeto snapshot se genera combinando el prefijo `snapshot-` con la `UID` de la `VolumeSnapshot` objeto (por ejemplo, `snapshot-e8d8a0ca-9826-11e9-9807-525400f3f660`). `volumeName` y.. `volumeInternalName` para rellenar, obtendrá los detalles del volumen de backup.
+
+
+
+== Astra Trident `ResourceQuota` objeto
+
+El inicio de Trident consume un `system-node-critical` Clase de prioridad, la clase de prioridad más alta disponible en Kubernetes, para garantizar que Astra Trident pueda identificar y limpiar volúmenes durante un apagado correcto de nodos y permitir que Trident demonset pods prevea las cargas de trabajo con una prioridad menor en clústeres donde hay una alta presión en los recursos.
+
+Para conseguirlo, Astra Trident utiliza una `ResourceQuota` Objeto garantizar que se cumple una clase prioritaria "system-node-Critical" en el demonset de Trident. Antes de la puesta en marcha y la creación de demonset, Astra Trident busca la `ResourceQuota` object y, si no se detecta, lo aplica.
+
+Si necesita más control sobre la cuota de recursos predeterminada y la clase de prioridad, puede generar una `custom.yaml` o configure el `ResourceQuota` Objeto mediante el gráfico Helm.
+
+A continuación se muestra un ejemplo de un objeto "ResourceQuota'object que da prioridad al demonset de Trident.
+
+[listing]
+----
+apiVersion: <version>
+kind: ResourceQuota
+metadata:
+  name: trident-csi
+  labels:
+    app: node.csi.trident.netapp.io
+spec:
+  scopeSelector:
+     matchExpressions:
+       - operator : In
+         scopeName: PriorityClass
+         values: ["system-node-critical"]
+----
+Para obtener más información acerca de las cuotas de recursos, consulte link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes: Cuotas de recursos"^].
+
+
+
+=== Limpie `ResourceQuota` si la instalación falla
+
+En el raro caso en que la instalación falle después del `ResourceQuota` se crea el objeto, primero se intenta link:../trident-managing-k8s/uninstall-trident.html["desinstalando"] y, a continuación, vuelva a instalar.
+
+Si esto no funciona, quite manualmente la `ResourceQuota` objeto.
+
+
+
+=== Quitar `ResourceQuota`
+
+Si prefiere controlar su propia asignación de recursos, puede eliminar Astra Trident `ResourceQuota` objeto con el comando:
+
+[listing]
+----
+kubectl delete quota trident-csi -n trident
+----

@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-san.html 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fsx 
+summary: Obtenga información sobre la configuración de un back-end de ONTAP con controladores DE SAN de ONTAP. 
+---
+= Configuración de un back-end con controladores SAN de ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Obtenga información sobre la configuración de un back-end de ONTAP con controladores SAN de ONTAP y Cloud Volumes ONTAP.
+
+* link:ontap-san-prep.html["Preparación"^]
+* link:ontap-san-examples.html["Configuración y ejemplos"^]
+
+
+[WARNING]
+====
+Astra Control proporciona una protección fluida, recuperación ante desastres y movilidad (mover volúmenes entre clústeres de Kubernetes) para los volúmenes creados con el `ontap-nas`, `ontap-nas-flexgroup`, y. `ontap-san` de windows Consulte link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Requisitos previos de replicación de Astra Control"^] para obtener más detalles.
+
+* Debe usar `ontap-nas` para cargas de trabajo de producción que requieren protección de datos, recuperación ante desastres y movilidad.
+* Uso `ontap-san-economy` Cuando se espera que el uso previsto de volumen sea mucho superior al soporte de ONTAP.
+* Uso `ontap-nas-economy` Únicamente en los casos en los que se espera que el uso previsto del volumen sea mucho superior al soporte de ONTAP y la `ontap-san-economy` no se puede utilizar el conductor.
+* No utilizar `ontap-nas-economy` si prevé la necesidad de protección de datos, recuperación ante desastres o movilidad.
+
+
+====
+
+
+== Permisos de usuario
+
+Astra Trident espera que se ejecute como administrador de ONTAP o SVM, normalmente mediante el `admin` usuario del clúster o un `vsadmin` Usuario de SVM o un usuario con un nombre diferente que tenga el mismo rol. Para puestas en marcha de Amazon FSX para ONTAP de NetApp, Astra Trident espera que se ejecute como administrador de ONTAP o SVM, mediante el clúster `fsxadmin` usuario o un `vsadmin` Usuario de SVM o un usuario con un nombre diferente que tenga el mismo rol. La `fsxadmin` el usuario es un reemplazo limitado para el usuario administrador del clúster.
+
+
+NOTE: Si utiliza la `limitAggregateUsage` parámetro, se necesitan permisos de administrador de clúster. Cuando se utiliza Amazon FSX para ONTAP de NetApp con Astra Trident, el `limitAggregateUsage` el parámetro no funciona con el `vsadmin` y.. `fsxadmin` cuentas de usuario. La operación de configuración generará un error si se especifica este parámetro.
+
+Si bien es posible crear una función más restrictiva dentro de ONTAP que pueda utilizar un controlador Trident, no lo recomendamos. La mayoría de las nuevas versiones de Trident denominan API adicionales que se tendrían que tener en cuenta, por lo que las actualizaciones son complejas y propensas a errores.

@@ -1,0 +1,607 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-nas-examples.html 
+keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
+summary: Obtenga más información sobre cómo crear y utilizar controladores NAS de ONTAP con su instalación de Astra Trident. En esta sección, se ofrecen ejemplos de configuración del back-end y detalles sobre cómo asignar back-ends a StorageClasses. 
+---
+= Opciones y ejemplos de configuración NAS de ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Obtenga más información sobre cómo crear y utilizar controladores NAS de ONTAP con su instalación de Astra Trident. En esta sección, se ofrecen ejemplos de configuración del back-end y detalles sobre cómo asignar back-ends a StorageClasses.
+
+
+
+== Opciones de configuración del back-end
+
+Consulte la siguiente tabla para ver las opciones de configuración del back-end:
+
+[cols="3"]
+|===
+| Parámetro | Descripción | Predeterminado 
+
+
+| `version` |  | Siempre 1 
+
+
+| `storageDriverName` | Nombre del controlador de almacenamiento | “ontap-nas”, “ontap-nas-economy”, “ontap-nas-flexgroup”, “ontap-san” y “ontap-san-economy” 
+
+
+| `backendName` | Nombre personalizado o el back-end de almacenamiento | Nombre del conductor + “_” + dataLIF 
+
+
+| `managementLIF` | Dirección IP de un LIF de gestión de SVM o clúster para una conmutación de sitios MetroCluster fluida, debe especificar una LIF de gestión de SVM. Se puede especificar un nombre de dominio completo (FQDN). Se puede configurar para que utilice direcciones IPv6 si se instaló Astra Trident mediante el `--use-ipv6` bandera. Las direcciones IPv6 deben definirse entre corchetes, como [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. | “10.0.0.1”, “[2001:1234:abcd::fefe]” 
+
+
+| `dataLIF` | Dirección IP de LIF de protocolo. Recomendamos especificar `dataLIF`. En caso de no proporcionar esta información, Astra Trident busca las LIF de datos desde la SVM. Puede especificar un nombre de dominio completo (FQDN) para las operaciones de montaje de NFS, lo que permite crear un DNS round-robin para lograr el equilibrio de carga entre varios LIF de datos. Se puede cambiar después del ajuste inicial. Consulte . Se puede configurar para que utilice direcciones IPv6 si se instaló Astra Trident mediante el `--use-ipv6` bandera. Las direcciones IPv6 deben definirse entre corchetes, como [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. | Dirección especificada o derivada de la SVM, si no se especifica (no recomendada) 
+
+
+| `autoExportPolicy` | Habilite la creación y actualización automática de la política de exportación [Boolean]. Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar automáticamente las políticas de exportación. | falso 
+
+
+| `autoExportCIDRs` | Lista de CIDR para filtrar las IP de nodo de Kubernetes contra cuándo `autoExportPolicy` está habilitado. Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar automáticamente las políticas de exportación. | [“0.0.0.0/0”, “:/0”]” 
+
+
+| `labels` | Conjunto de etiquetas con formato JSON arbitrario que se aplica en los volúmenes | "" 
+
+
+| `clientCertificate` | Valor codificado en base64 del certificado de cliente. Se utiliza para autenticación basada en certificados | "" 
+
+
+| `clientPrivateKey` | Valor codificado en base64 de la clave privada de cliente. Se utiliza para autenticación basada en certificados | "" 
+
+
+| `trustedCACertificate` | Valor codificado en base64 del certificado de CA de confianza. Opcional. Se utiliza para autenticación basada en certificados | "" 
+
+
+| `username` | Nombre de usuario para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales |  
+
+
+| `password` | Contraseña para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales |  
+
+
+| `svm` | Máquina virtual de almacenamiento que usar | Derivado si una SVM `managementLIF` está especificado 
+
+
+| `storagePrefix` | El prefijo que se utiliza cuando se aprovisionan volúmenes nuevos en la SVM. No se puede actualizar después de configurarlo | "trident" 
+
+
+| `limitAggregateUsage` | Error al aprovisionar si el uso supera este porcentaje. *No se aplica a Amazon FSX para ONTAP* | “” (no se aplica de forma predeterminada) 
+
+
+| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. | “” (no se aplica de forma predeterminada) 
+
+
+| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. También restringe el tamaño máximo de los volúmenes que gestiona para qtrees y LUN, y la `qtreesPerFlexvol` Permite personalizar el número máximo de qtrees por FlexVol. | “” (no se aplica de forma predeterminada) 
+
+
+| `lunsPerFlexvol` | El número máximo de LUN por FlexVol debe estar comprendido entre [50 y 200] | “100” 
+
+
+| `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Por ejemplo, {“api”:false, “method”:true} no se utiliza `debugTraceFlags` a menos que esté solucionando problemas y necesite un volcado de registro detallado. | nulo 
+
+
+| `nfsMountOptions` | Lista de opciones de montaje NFS separadas por comas. Las opciones de montaje para los volúmenes persistentes de Kubernetes se especifican normalmente en tipos de almacenamiento, pero si no se especifican opciones de montaje en una clase de almacenamiento, Astra Trident se pondrá en contacto con las opciones de montaje especificadas en el archivo de configuración del back-end de almacenamiento. Si no se especifican opciones de montaje en la clase de almacenamiento o el archivo de configuración, Astra Trident no configurará ninguna opción de montaje en un volumen persistente asociado. | "" 
+
+
+| `qtreesPerFlexvol` | El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300] | “200” 
+
+
+| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*
+`useREST` se proporciona como **avance técnico** que se recomienda para entornos de prueba y no para cargas de trabajo de producción. Cuando se establece en `true`, Astra Trident utilizará las API DE REST de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` cliente más. Esto está satisfecho por el predefinido `vsadmin` y.. `cluster-admin` funciones.
+`useREST` No es compatible con MetroCluster. | falso 
+|===
+
+
+=== Opciones de configuración de back-end para el aprovisionamiento de volúmenes
+
+Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en la `defaults` sección de la configuración. Para ver un ejemplo, vea los ejemplos de configuración siguientes.
+
+[cols="3"]
+|===
+| Parámetro | Descripción | Predeterminado 
+
+
+| `spaceAllocation` | Asignación de espacio para las LUN | “verdadero” 
+
+
+| `spaceReserve` | Modo de reserva de espacio; “none” (thin) o “VOLUME” (grueso) | “ninguna” 
+
+
+| `snapshotPolicy` | Política de Snapshot que se debe usar | “ninguna” 
+
+
+| `qosPolicy` | Grupo de políticas de calidad de servicio que se asignará a los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento | "" 
+
+
+| `adaptiveQosPolicy` | Grupo de políticas de calidad de servicio adaptativo que permite asignar los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento. no admitido por ontap-nas-Economy. | "" 
+
+
+| `snapshotReserve` | Porcentaje del volumen reservado para instantáneas “0” | Si `snapshotPolicy` no es “ninguno”, sino “” 
+
+
+| `splitOnClone` | Divida un clon de su elemento principal al crearlo | “falso” 
+
+
+| `encryption` | Habilite el cifrado de volúmenes de NetApp (NVE) en el volumen nuevo; el valor predeterminado es `false`. Para usar esta opción, debe tener una licencia para NVE y habilitarse en el clúster. Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Astra Trident estará habilitado para NAE. Para obtener más información, consulte: link:../trident-reco/security-reco.html["Cómo funciona Astra Trident con NVE y NAE"]. | “falso” 
+
+
+| `tieringPolicy` | Política de organización en niveles para usar "ninguno" | “Solo Snapshot” para configuración previa a ONTAP 9.5 SVM-DR 
+
+
+| `unixPermissions` | Modo para volúmenes nuevos | “777” para volúmenes NFS; vacío (no aplicable) para volúmenes SMB 
+
+
+| `snapshotDir` | Controla la visibilidad de `.snapshot` directorio | “falso” 
+
+
+| `exportPolicy` | Política de exportación que se va a utilizar | “predeterminado” 
+
+
+| `securityStyle` | Estilo de seguridad para nuevos volúmenes. Compatibilidad con NFS `mixed` y.. `unix` estilos de seguridad. SMB admite `mixed` y.. `ntfs` estilos de seguridad. | El valor predeterminado de NFS es `unix`. La opción predeterminada de SMB es `ntfs`. 
+|===
+
+NOTE: El uso de grupos de políticas de calidad de servicio con Astra Trident requiere ONTAP 9.8 o posterior. Se recomienda utilizar un grupo de políticas de calidad de servicio no compartido y asegurarse de que el grupo de políticas se aplique a cada componente individualmente. Un grupo de políticas de calidad de servicio compartido hará que se aplique el techo para el rendimiento total de todas las cargas de trabajo.
+
+
+
+==== Ejemplos de aprovisionamiento de volúmenes
+
+A continuación se muestra un ejemplo con valores predeterminados definidos:
+
+[listing]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "backendName": "customBackendName",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "labels": {"k8scluster": "dev1", "backend": "dev1-nasbackend"},
+  "svm": "trident_svm",
+  "username": "cluster-admin",
+  "password": "password",
+  "limitAggregateUsage": "80%",
+  "limitVolumeSize": "50Gi",
+  "nfsMountOptions": "nfsvers=4",
+  "debugTraceFlags": {"api":false, "method":true},
+  "defaults": {
+    "spaceReserve": "volume",
+    "qosPolicy": "premium",
+    "exportPolicy": "myk8scluster",
+    "snapshotPolicy": "default",
+    "snapshotReserve": "10"
+  }
+}
+----
+Para `ontap-nas` y.. `ontap-nas-flexgroups`, Astra Trident utiliza ahora un nuevo cálculo para garantizar que el tamaño de la FlexVol sea correcto con el porcentaje snapshotReserve y la RVP. Cuando el usuario solicita una RVP, Astra Trident crea el FlexVol original con más espacio mediante el nuevo cálculo. Este cálculo garantiza que el usuario recibe el espacio de escritura que solicitó en el PVC y no menos espacio que el que solicitó. Antes de v21.07, cuando el usuario solicita una RVP (por ejemplo, 5GIB) con el 50 por ciento de snapshotReserve, solo obtiene 2,5 GIB de espacio editable. Esto se debe a que el usuario solicitó es todo el volumen y. `snapshotReserve` es un porcentaje de esta situación. Con Trident 21.07, lo que el usuario solicita es el espacio editable y Astra Trident define el `snapshotReserve` número como porcentaje del volumen completo. Esto no se aplica a. `ontap-nas-economy`. Vea el siguiente ejemplo para ver cómo funciona:
+
+El cálculo es el siguiente:
+
+[listing]
+----
+Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)
+----
+Para snapshotReserve = 50 % y la solicitud de RVP = 5 GIB, el tamaño total del volumen es 2/.5 = 10 GIB y el tamaño disponible es de 5 GIB, lo que es lo que solicitó el usuario en la solicitud de RVP. La `volume show` el comando debería mostrar resultados similares a los de este ejemplo:
+
+image::../media/volume-show-nas.png[Muestra el resultado del comando volume show.]
+
+Los back-ends existentes de instalaciones anteriores aprovisionan volúmenes como se explicó anteriormente al actualizar Astra Trident. En el caso de los volúmenes que creó antes de actualizar, debe cambiar el tamaño de sus volúmenes para que se observe el cambio. Por ejemplo, una RVP de 2 GIB con `snapshotReserve=50` Anteriormente, se produjo un volumen que proporciona 1 GIB de espacio editable. Cambiar el tamaño del volumen a 3 GIB, por ejemplo, proporciona a la aplicación 3 GIB de espacio editable en un volumen de 6 GIB.
+
+
+
+== Ejemplos
+
+
+
+=== Ejemplos de configuración mínima
+
+Los ejemplos siguientes muestran configuraciones básicas que dejan la mayoría de los parámetros en los valores predeterminados. Esta es la forma más sencilla de definir un back-end.
+
+
+NOTE: Si utiliza Amazon FSX en ONTAP de NetApp con Trident, la recomendación es especificar nombres DNS para las LIF en lugar de direcciones IP.
+
+.Las opciones predeterminadas de <code>-tap-nas-economitdisponible </code>
+[%collapsible%open]
+====
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas-economy",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret"
+}
+----
+====
+.Autenticación basada en certificados
+[%collapsible%open]
+====
+Este es un ejemplo de configuración de backend mínima. `clientCertificate`, `clientPrivateKey`, y. `trustedCACertificate` (Opcional, si se utiliza una CA de confianza) se completan en `backend.json` Y tome los valores codificados base64 del certificado de cliente, la clave privada y el certificado de CA de confianza, respectivamente.
+
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "DefaultNASBackend",
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.15",
+  "svm": "nfs_svm",
+  "clientCertificate": "ZXR0ZXJwYXB...ICMgJ3BhcGVyc2",
+  "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
+  "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz",
+  "storagePrefix": "myPrefix_"
+}
+----
+====
+.Política de exportación automática
+[%collapsible%open]
+====
+Estos ejemplos muestran cómo puede instruir a Astra Trident para que utilice políticas de exportación dinámicas para crear y gestionar la directiva de exportación automáticamente. Esto funciona igual para el `ontap-nas-economy` y.. `ontap-nas-flexgroup` de windows
+
+.controlador ontap-nas
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "labels": {"k8scluster": "test-cluster-east-1a", "backend": "test1-nasbackend"},
+    "autoExportPolicy": true,
+    "autoExportCIDRs": ["10.0.0.0/24"],
+    "username": "admin",
+    "password": "secret",
+    "nfsMountOptions": "nfsvers=4",
+}
+----
+.driver <code> de tap-nas-flexpodrele </code>
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas-flexgroup",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "labels": {"k8scluster": "test-cluster-east-1b", "backend": "test1-ontap-cluster"},
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+}
+----
+====
+.El uso de direcciones IPv6
+[%collapsible%open]
+====
+Este ejemplo muestra `managementLIF` Uso de una dirección IPv6.
+
+[listing]
+----
+{
+ "version": 1,
+ "storageDriverName": "ontap-nas",
+ "backendName": "nas_ipv6_backend",
+ "managementLIF": "[5c5d:5edf:8f:7657:bef8:109b:1b41:d491]",
+ "labels": {"k8scluster": "test-cluster-east-1a", "backend": "test1-ontap-ipv6"},
+ "svm": "nas_ipv6_svm",
+ "username": "vsadmin",
+ "password": "netapp123"
+}
+----
+====
+
+
+=== `ontap-nas-economy` controlador
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas-economy",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret"
+}
+----
+
+
+=== `ontap-nas` Controlador para Amazon FSX para ONTAP mediante SMB Volumes
+
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "SMBBackend",
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "example.mgmt.fqdn.aws.com",
+  “nasType”: “smb”,
+  "dataLIF": "10.0.0.15",
+  "svm": "nfs_svm",
+  "clientCertificate": "ZXR0ZXJwYXB...ICMgJ3BhcGVyc2",
+  "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
+  "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz",
+  "storagePrefix": "myPrefix_"
+}
+----
+
+
+== Ejemplos de back-ends con pools virtuales
+
+En el archivo de definición del back-end de ejemplo que se muestra a continuación, se establecen valores predeterminados específicos para todos los grupos de almacenamiento, como `spaceReserve` en ninguno, `spaceAllocation` en falso, y. `encryption` en falso. Los pools virtuales se definen en la sección de almacenamiento.
+
+Astra Trident establece etiquetas de aprovisionamiento en el campo "Comentarios". Los comentarios se establecen en FlexVol para `ontap-nas` O FlexGroup para `ontap-nas-flexgroup`. Astra Trident copia todas las etiquetas presentes en un pool virtual al volumen de almacenamiento al aprovisionar. Para mayor comodidad, los administradores de almacenamiento pueden definir etiquetas por pool virtual y agrupar volúmenes por etiqueta.
+
+En este ejemplo, algunos de los recursos compartidos de almacenamiento son los suyos propios `spaceReserve`, `spaceAllocation`, y. `encryption` los valores y algunos pools sobrescriben los valores predeterminados establecidos anteriormente.
+
+.driver <code> de </code> de otap-oed
+[%collapsible%open]
+====
+[listing]
+----
+{
+    {
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "admin",
+    "password": "secret",
+    "nfsMountOptions": "nfsvers=4",
+
+    "defaults": {
+          "spaceReserve": "none",
+          "encryption": "false",
+          "qosPolicy": "standard"
+    },
+    "labels":{"store":"nas_store", "k8scluster": "prod-cluster-1"},
+    "region": "us_east_1",
+    "storage": [
+        {
+            "labels":{"app":"msoffice", "cost":"100"},
+            "zone":"us_east_1a",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "true",
+                "unixPermissions": "0755",
+                "adaptiveQosPolicy": "adaptive-premium"
+            }
+        },
+        {
+            "labels":{"app":"slack", "cost":"75"},
+            "zone":"us_east_1b",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"app":"wordpress", "cost":"50"},
+            "zone":"us_east_1c",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0775"
+            }
+        },
+        {
+            "labels":{"app":"mysqldb", "cost":"25"},
+            "zone":"us_east_1d",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "false",
+                "unixPermissions": "0775"
+            }
+        }
+    ]
+}
+----
+====
+.driver <code> de tap-nas-flexpodrele </code>
+[%collapsible%open]
+====
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas-flexgroup",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+
+    "defaults": {
+          "spaceReserve": "none",
+          "encryption": "false"
+    },
+    "labels":{"store":"flexgroup_store", "k8scluster": "prod-cluster-1"},
+    "region": "us_east_1",
+    "storage": [
+        {
+            "labels":{"protection":"gold", "creditpoints":"50000"},
+            "zone":"us_east_1a",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"protection":"gold", "creditpoints":"30000"},
+            "zone":"us_east_1b",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"protection":"silver", "creditpoints":"20000"},
+            "zone":"us_east_1c",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0775"
+            }
+        },
+        {
+            "labels":{"protection":"bronze", "creditpoints":"10000"},
+            "zone":"us_east_1d",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "false",
+                "unixPermissions": "0775"
+            }
+        }
+    ]
+}
+----
+====
+.driver <code> de </code> tap-nas-economieconomic
+[%collapsible%open]
+====
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas-economy",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+
+    "defaults": {
+          "spaceReserve": "none",
+          "encryption": "false"
+    },
+    "labels":{"store":"nas_economy_store"},
+    "region": "us_east_1",
+    "storage": [
+        {
+            "labels":{"department":"finance", "creditpoints":"6000"},
+            "zone":"us_east_1a",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"department":"legal", "creditpoints":"5000"},
+            "zone":"us_east_1b",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0755"
+            }
+        },
+        {
+            "labels":{"department":"engineering", "creditpoints":"3000"},
+            "zone":"us_east_1c",
+            "defaults": {
+                "spaceReserve": "none",
+                "encryption": "true",
+                "unixPermissions": "0775"
+            }
+        },
+        {
+            "labels":{"department":"humanresource", "creditpoints":"2000"},
+            "zone":"us_east_1d",
+            "defaults": {
+                "spaceReserve": "volume",
+                "encryption": "false",
+                "unixPermissions": "0775"
+            }
+        }
+    ]
+}
+----
+====
+
+
+== Actualizar `dataLIF` tras la configuración inicial
+
+Puede cambiar la LIF de datos tras la configuración inicial ejecutando el siguiente comando para proporcionar el nuevo archivo JSON back-end con LIF de datos actualizadas.
+
+[listing]
+----
+tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
+----
+
+NOTE: Si los RVP están conectados a uno o varios pods, deben recuperar todos los pods correspondientes y, a continuación, traerlos para que surta efecto el nuevo LIF de datos.
+
+
+
+== Asigne los back-ends a StorageClass
+
+Las siguientes definiciones de StorageClass se refieren a los pools virtuales anteriores. Con el `parameters.selector` Field, cada clase de almacenamiento llama a qué pools virtuales se pueden utilizar para alojar un volumen. El volumen tendrá los aspectos definidos en el pool virtual elegido.
+
+* El primer tipo de almacenamiento (`protection-gold`) se asignará al primer, segundo grupo virtual del `ontap-nas-flexgroup` backend y el primer pool virtual del `ontap-san` back-end. Se trata de la única piscina que ofrece protección de nivel Gold.
+* El segundo tipo de almacenamiento (`protection-not-gold`) se asignará al tercer, cuarto grupo virtual en `ontap-nas-flexgroup` backend y el segundo, tercer pool virtual en `ontap-san` back-end. Estos son los únicos pools que ofrecen un nivel de protección distinto al Gold.
+* El tercer tipo de almacenamiento (`app-mysqldb`) se asignará al cuarto pool virtual en `ontap-nas` backend y el tercer pool virtual en `ontap-san-economy` back-end. Estos son los únicos grupos que ofrecen la configuración del pool de almacenamiento para la aplicación de tipo mysqldb.
+* El cuarto tipo de almacenamiento (`protection-silver-creditpoints-20k`) se asignará al tercer grupo virtual en `ontap-nas-flexgroup` backend y el segundo pool virtual en `ontap-san` back-end. Estas son las únicas piscinas que ofrecen protección de nivel Gold con 20000 puntos de crédito.
+* El quinto tipo de almacenamiento (`creditpoints-5k`) se asignará al segundo pool virtual en `ontap-nas-economy` backend y el tercer pool virtual en `ontap-san` back-end. Se trata de la única oferta de pool en 5000 puntos de crédito.
+
+
+Astra Trident decidirá qué pool virtual se selecciona y garantizará que se cumplan los requisitos de almacenamiento.
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-gold
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection=gold"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-not-gold
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection!=gold"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: app-mysqldb
+provisioner: netapp.io/trident
+parameters:
+  selector: "app=mysqldb"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-silver-creditpoints-20k
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection=silver; creditpoints=20000"
+  fsType: "ext4"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: creditpoints-5k
+provisioner: netapp.io/trident
+parameters:
+  selector: "creditpoints=5000"
+  fsType: "ext4"
+----

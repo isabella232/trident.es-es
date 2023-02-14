@@ -1,0 +1,264 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-nas-prep.html 
+keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups 
+summary: Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP. 
+---
+= Prepárese para configurar un back-end con controladores NAS de ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP. Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
+
+Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
+
+Recuerde que también puede ejecutar más de un controlador y crear clases de almacenamiento que señalen a uno o a otro. Por ejemplo, puede configurar una clase Gold que utilice `ontap-nas` Controlador y clase Bronze que utiliza `ontap-nas-economy` uno.
+
+Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas NFS adecuadas. Consulte link:worker-node-prep.html["aquí"] para obtener más detalles.
+
+
+
+== Autenticación
+
+Astra Trident ofrece dos modos de autenticación de un back-end de ONTAP.
+
+* Basado en credenciales: El nombre de usuario y la contraseña de un usuario ONTAP con los permisos requeridos. Se recomienda utilizar un rol de inicio de sesión de seguridad predefinido, como `admin` o. `vsadmin` Garantizar la máxima compatibilidad con versiones de ONTAP.
+* Basado en certificados: Astra Trident también puede comunicarse con un clúster de ONTAP mediante un certificado instalado en el back-end. Aquí, la definición de backend debe contener valores codificados en Base64 del certificado de cliente, la clave y el certificado de CA de confianza si se utiliza (recomendado).
+
+
+Puede actualizar los back-ends existentes para moverse entre métodos basados en credenciales y basados en certificados. Sin embargo, solo se admite un método de autenticación a la vez. Para cambiar a un método de autenticación diferente, debe eliminar el método existente de la configuración del back-end.
+
+
+WARNING: Si intenta proporcionar *tanto credenciales como certificados*, la creación de backend fallará y se producirá un error en el que se haya proporcionado más de un método de autenticación en el archivo de configuración.
+
+
+
+=== Habilite la autenticación basada en credenciales
+
+Astra Trident requiere las credenciales a un administrador con ámbito de SVM o clúster para comunicarse con el back-end de ONTAP. Se recomienda utilizar funciones estándar predefinidas como `admin` o. `vsadmin`. De este modo se garantiza la compatibilidad con futuras versiones de ONTAP que puedan dar a conocer API de funciones que podrán utilizarse en futuras versiones de Astra Trident. Se puede crear y utilizar una función de inicio de sesión de seguridad personalizada con Astra Trident, pero no es recomendable.
+
+Una definición de backend de ejemplo tendrá este aspecto:
+
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "ExampleBackend",
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "secret"
+}
+----
+Tenga en cuenta que la definición de backend es el único lugar en el que las credenciales se almacenan en texto sin formato. Una vez creado el back-end, los nombres de usuario y las contraseñas se codifican con Base64 y se almacenan como secretos de Kubernetes. La creación/mejora de un backend es el único paso que requiere conocimiento de las credenciales. Por tanto, es una operación de solo administración que deberá realizar el administrador de Kubernetes o almacenamiento.
+
+
+
+=== Habilite la autenticación basada en certificados
+
+Los back-ends nuevos y existentes pueden utilizar un certificado y comunicarse con el back-end de ONTAP. Se necesitan tres parámetros en la definición de backend.
+
+* ClientCertificate: Valor codificado en base64 del certificado de cliente.
+* ClientPrivateKey: Valor codificado en base64 de la clave privada asociada.
+* TrustedCACertificate: Valor codificado en base64 del certificado de CA de confianza. Si se utiliza una CA de confianza, se debe proporcionar este parámetro. Esto se puede ignorar si no se utiliza ninguna CA de confianza.
+
+
+Un flujo de trabajo típico implica los pasos siguientes.
+
+.Pasos
+. Genere una clave y un certificado de cliente. Al generar, establezca el nombre común (CN) en el usuario de ONTAP para autenticarse como.
++
+[listing]
+----
+openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout k8senv.key -out k8senv.pem -subj "/C=US/ST=NC/L=RTP/O=NetApp/CN=vsadmin"
+----
+. Añada un certificado de CA de confianza al clúster ONTAP. Es posible que ya sea gestionado por el administrador de almacenamiento. Ignore si no se utiliza ninguna CA de confianza.
++
+[listing]
+----
+security certificate install -type server -cert-name <trusted-ca-cert-name> -vserver <vserver-name>
+ssl modify -vserver <vserver-name> -server-enabled true -client-enabled true -common-name <common-name> -serial <SN-from-trusted-CA-cert> -ca <cert-authority>
+----
+. Instale el certificado y la clave de cliente (desde el paso 1) en el clúster ONTAP.
++
+[listing]
+----
+security certificate install -type client-ca -cert-name <certificate-name> -vserver <vserver-name>
+security ssl modify -vserver <vserver-name> -client-enabled true
+----
+. Confirme los compatibilidad con el rol de inicio de sesión de seguridad ONTAP `cert` método de autenticación.
++
+[listing]
+----
+security login create -user-or-group-name vsadmin -application ontapi -authentication-method cert -vserver <vserver-name>
+security login create -user-or-group-name vsadmin -application http -authentication-method cert -vserver <vserver-name>
+----
+. Probar la autenticación mediante un certificado generado. Reemplace <LIF de gestión de ONTAP> y <vserver name> por la IP de LIF de gestión y el nombre de SVM. Debe asegurarse de que la LIF tiene su política de servicio establecida en `default-data-management`.
++
+[listing]
+----
+curl -X POST -Lk https://<ONTAP-Management-LIF>/servlets/netapp.servlets.admin.XMLrequest_filer --key k8senv.key --cert ~/k8senv.pem -d '<?xml version="1.0" encoding="UTF-8"?><netapp xmlns="http://www.netapp.com/filer/admin" version="1.21" vfiler="<vserver-name>"><vserver-get></vserver-get></netapp>'
+----
+. Codifique certificados, claves y certificados de CA de confianza con Base64.
++
+[listing]
+----
+base64 -w 0 k8senv.pem >> cert_base64
+base64 -w 0 k8senv.key >> key_base64
+base64 -w 0 trustedca.pem >> trustedca_base64
+----
+. Cree un backend utilizando los valores obtenidos del paso anterior.
++
+[listing]
+----
+cat cert-backend-updated.json
+{
+"version": 1,
+"storageDriverName": "ontap-nas",
+"backendName": "NasBackend",
+"managementLIF": "1.2.3.4",
+"dataLIF": "1.2.3.8",
+"svm": "vserver_test",
+"clientCertificate": "Faaaakkkkeeee...Vaaalllluuuueeee",
+"clientPrivateKey": "LS0tFaKE...0VaLuES0tLS0K",
+"storagePrefix": "myPrefix_"
+}
+
+#Update backend with tridentctl
+tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
++------------+----------------+--------------------------------------+--------+---------+
+|    NAME    | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++------------+----------------+--------------------------------------+--------+---------+
+| NasBackend | ontap-nas      | 98e19b74-aec7-4a3d-8dcf-128e5033b214 | online |       9 |
++------------+----------------+--------------------------------------+--------+---------+
+----
+
+
+
+
+=== Actualice los métodos de autenticación o gire las credenciales
+
+Puede actualizar un back-end existente para utilizar un método de autenticación diferente o para rotar sus credenciales. Esto funciona de las dos maneras: Los back-ends que utilizan nombre de usuario/contraseña se pueden actualizar para usar certificados. Los back-ends que utilizan certificados pueden actualizarse a nombre de usuario/contraseña. Para ello, debe eliminar el método de autenticación existente y agregar el nuevo método de autenticación. A continuación, utilice el archivo backend.json actualizado que contiene los parámetros necesarios para ejecutarse `tridentctl backend update`.
+
+[listing]
+----
+cat cert-backend-updated.json
+{
+"version": 1,
+"storageDriverName": "ontap-nas",
+"backendName": "NasBackend",
+"managementLIF": "1.2.3.4",
+"dataLIF": "1.2.3.8",
+"svm": "vserver_test",
+"username": "vsadmin",
+"password": "secret",
+"storagePrefix": "myPrefix_"
+}
+
+#Update backend with tridentctl
+tridentctl update backend NasBackend -f cert-backend-updated.json -n trident
++------------+----------------+--------------------------------------+--------+---------+
+|    NAME    | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++------------+----------------+--------------------------------------+--------+---------+
+| NasBackend | ontap-nas      | 98e19b74-aec7-4a3d-8dcf-128e5033b214 | online |       9 |
++------------+----------------+--------------------------------------+--------+---------+
+----
+
+NOTE: Cuando gira contraseñas, el administrador de almacenamiento debe actualizar primero la contraseña del usuario en ONTAP. A esto le sigue una actualización de back-end. Al rotar certificados, se pueden agregar varios certificados al usuario. A continuación, el back-end se actualiza para usar el nuevo certificado, siguiendo el cual se puede eliminar el certificado antiguo del clúster de ONTAP.
+
+La actualización de un back-end no interrumpe el acceso a los volúmenes que se han creado ni afecta a las conexiones de volúmenes realizadas después. Una actualización de back-end correcta indica que Astra Trident puede comunicarse con el back-end de ONTAP y gestionar futuras operaciones de volúmenes.
+
+
+
+== Gestione las políticas de exportación de NFS
+
+Astra Trident utiliza las políticas de exportación de NFS para controlar el acceso a los volúmenes que aprovisiona.
+
+Astra Trident ofrece dos opciones al trabajar con directivas de exportación:
+
+* Astra Trident puede gestionar dinámicamente la propia política de exportación; en este modo de funcionamiento, el administrador de almacenamiento especifica una lista de bloques CIDR que representan direcciones IP admisibles. Astra Trident agrega automáticamente las IP de nodo que se incluyen en estos rangos a la directiva de exportación. Como alternativa, cuando no se especifican CIDR, toda IP de unidifusión de ámbito global encontrada en los nodos se agregará a la política de exportación.
+* Los administradores de almacenamiento pueden crear una normativa de exportación y añadir reglas manualmente. Astra Trident utiliza la directiva de exportación predeterminada a menos que se especifique un nombre de directiva de exportación diferente en la configuración.
+
+
+
+
+=== Gestione de forma dinámica políticas de exportación
+
+La versión 20.04 de CSI Trident ofrece la capacidad de gestionar dinámicamente políticas de exportación para los back-ends de ONTAP. De este modo, el administrador de almacenamiento puede especificar un espacio de direcciones permitido para las IP de nodos de trabajo, en lugar de definir reglas explícitas de forma manual. Simplifica en gran medida la gestión de políticas de exportación; las modificaciones de la política de exportación ya no requieren intervención manual en el clúster de almacenamiento. Además, esto ayuda a restringir el acceso al clúster de almacenamiento solo a nodos de trabajo con IP en el rango especificado, lo que permite una gestión automatizada y de gran granularidad.
+
+
+NOTE: La gestión dinámica de las políticas de exportación sólo está disponible para CSI Trident. Es importante asegurarse de que los nodos de trabajo no estén siendo atados.
+
+
+
+==== Ejemplo
+
+Hay dos opciones de configuración que deben utilizarse. A continuación se muestra un ejemplo de definición de backend:
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "ontap_nas_auto_export,
+    "managementLIF": "192.168.0.135",
+    "svm": "svm1",
+    "username": "vsadmin",
+    "password": "FaKePaSsWoRd",
+    "autoExportCIDRs": ["192.168.0.0/24"],
+    "autoExportPolicy": true
+}
+----
+
+NOTE: Al usar esta función, debe asegurarse de que la unión raíz de la SVM tenga una política de exportación creada previamente con una regla de exportación que permite el bloque CIDR de nodo (como la política de exportación predeterminada). Siga siempre la mejor práctica recomendada por NetApp para dedicar una SVM para Astra Trident.
+
+A continuación se ofrece una explicación del funcionamiento de esta función utilizando el ejemplo anterior:
+
+*  `autoExportPolicy` se establece en `true`. Esto indica que Astra Trident creará una directiva de exportación para `svm1` SVM y gestionan la adición y eliminación de reglas mediante `autoExportCIDRs` bloques de direcciones. Por ejemplo, un back-end con UUID 403b5326-8482-40db-96d0-d83fb3f4daec y. `autoExportPolicy` establezca en `true` crea una política de exportación llamada `trident-403b5326-8482-40db-96d0-d83fb3f4daec` En la SVM.
+* `autoExportCIDRs` contiene una lista de bloques de direcciones. Este campo es opcional y se establece de forma predeterminada en ["0.0.0.0/0", ":/0"]. Si no se define, Astra Trident agrega todas las direcciones de unidifusión de ámbito global que se encuentran en los nodos de trabajo.
+
+
+En este ejemplo, la `192.168.0.0/24` se proporciona espacio de dirección. Esto indica que las IP de nodo de Kubernetes que entran dentro de este rango de direcciones se añadirán a la política de exportación que crea Astra Trident. Cuando Astra Trident registra un nodo en el que se ejecuta, recupera las direcciones IP del nodo y las comprueba con respecto a los bloques de direcciones proporcionados en `autoExportCIDRs`. Después de filtrar las IP, Astra Trident crea reglas de política de exportación para las IP de cliente que detecta, con una regla para cada nodo que identifica.
+
+Puede actualizar `autoExportPolicy` y.. `autoExportCIDRs` para los back-ends después de crearlos. Puede añadir CIDR nuevos para un back-end que se gestiona o elimina automáticamente CIDR existentes. Tenga cuidado al eliminar CIDR para asegurarse de que las conexiones existentes no se hayan caído. También puede optar por desactivar `autoExportPolicy` para un back-end y caer en una política de exportación creada manualmente. Esto requerirá establecer la `exportPolicy` parámetro en la configuración del back-end.
+
+Una vez que Astra Trident crea o actualiza un back-end, puede comprobar el backend mediante `tridentctl` o el correspondiente `tridentbackend` CRD:
+
+[listing]
+----
+./tridentctl get backends ontap_nas_auto_export -n trident -o yaml
+items:
+- backendUUID: 403b5326-8482-40db-96d0-d83fb3f4daec
+  config:
+    aggregate: ""
+    autoExportCIDRs:
+    - 192.168.0.0/24
+    autoExportPolicy: true
+    backendName: ontap_nas_auto_export
+    chapInitiatorSecret: ""
+    chapTargetInitiatorSecret: ""
+    chapTargetUsername: ""
+    chapUsername: ""
+    dataLIF: 192.168.0.135
+    debug: false
+    debugTraceFlags: null
+    defaults:
+      encryption: "false"
+      exportPolicy: <automatic>
+      fileSystemType: ext4
+----
+A medida que se añaden nodos a un clúster de Kubernetes y se registran con la controladora Astra Trident, se actualizan las políticas de exportación de los back-ends existentes (siempre que entren en el rango de direcciones especificado en la `autoExportCIDRs` para el back-end).
+
+Cuando se quita un nodo, Astra Trident comprueba todos los back-ends que están en línea para quitar la regla de acceso del nodo. Al eliminar esta IP de nodo de las políticas de exportación de los back-ends gestionados, Astra Trident evita los montajes no autorizados, a menos que se vuelva a utilizar esta IP con un nodo nuevo del clúster.
+
+Para los back-ends anteriores, actualizando el back-end con `tridentctl update backend` Se asegurará de que Astra Trident gestiona las políticas de exportación de forma automática. Esto creará una nueva política de exportación denominada después de que el UUID del back-end y los volúmenes presentes en el back-end utilicen la política de exportación recién creada cuando se vuelvan a montar.
+
+
+NOTE: Si se elimina un back-end con políticas de exportación gestionadas automáticamente, se eliminará la política de exportación creada de forma dinámica. Si se vuelve a crear el back-end, se trata como un nuevo back-end y dará lugar a la creación de una nueva política de exportación.
+
+Si se actualiza la dirección IP de un nodo activo, debe reiniciar el pod Astra Trident en el nodo. A continuación, Astra Trident actualizará la política de exportación para los back-ends que gestiona para reflejar este cambio de IP.

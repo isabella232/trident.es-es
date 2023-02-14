@@ -1,0 +1,230 @@
+---
+sidebar: sidebar 
+permalink: trident-use/worker-node-prep.html 
+keywords: storage class, manage storage class, storage classes, kubernetes storage classes, worker node, nfs, iscsi, kubernetes clusters, self-healing, healing 
+summary: Todos los nodos de trabajo del clúster de Kubernetes deben poder montar los volúmenes que haya aprovisionado para los pods. Si utiliza el controlador ontap-nas, ontap-nas-Economy, ontap-nas-flexgroup para uno de los back-ends, sus nodos de trabajo necesitan las herramientas NFS. De lo contrario, se necesitan las herramientas iSCSI. 
+---
+= Prepare el nodo de trabajo
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Todos los nodos de trabajadores del clúster de Kubernetes deben poder montar los volúmenes que haya aprovisionado para los pods. Para preparar los nodos de trabajo, debe instalar las herramientas NFS o iSCSI según su selección de controlador.
+
+
+
+== Seleccionar las herramientas adecuadas
+
+Si utiliza una combinación de controladores, debe instalar herramientas NFS e iSCSI.
+
+.Herramientas de NFS
+Instale las herramientas NFS si utiliza: `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`
+
+.Herramientas iSCSI
+Instale las herramientas iSCSI si utiliza: `ontap-san`, `ontap-san-economy`, `solidfire-san`
+
+
+NOTE: Las versiones recientes de RedHat CoreOS tienen instaladas NFS e iSCSI de forma predeterminada.
+
+
+
+== Detección del servicio de nodos
+
+Astra Trident intenta detectar automáticamente si el nodo puede ejecutar servicios iSCSI o NFS.
+
+
+NOTE: La detección de servicios de nodo identifica los servicios detectados, pero no garantiza que los servicios se configuren correctamente. Por el contrario, la ausencia de un servicio detectado no garantiza que se produzca un error en el montaje del volumen.
+
+.Revisar los eventos
+Astra Trident crea eventos para que el nodo identifique los servicios detectados. Para revisar estos eventos, ejecute:
+
+[listing]
+----
+kubectl get event -A --field-selector involvedObject.name=<Kubernetes node name>
+----
+.Revisar los servicios detectados
+Astra Trident identifica los servicios habilitados para cada nodo en el CR del nodo de Trident. Para ver los servicios detectados, ejecute:
+
+[listing]
+----
+tridentctl get node -o wide -n <Trident namespace>
+----
+
+
+== Volúmenes de NFS
+
+Instale las herramientas de NFS mediante los comandos del sistema operativo. Asegúrese de que el servicio NFS se haya iniciado durante el arranque.
+
+[role="tabbed-block"]
+====
+.RHEL 8 O POSTERIOR
+--
+[listing]
+----
+sudo yum install -y nfs-utils
+----
+--
+.Ubuntu
+--
+[listing]
+----
+sudo apt-get install -y nfs-common
+----
+--
+====
+
+WARNING: Reinicie los nodos de trabajo después de instalar las herramientas NFS para evitar que se produzcan fallos cuando conecte volúmenes a los contenedores.
+
+
+
+== Volúmenes iSCSI
+
+Astra Trident puede establecer automáticamente una sesión iSCSI, analizar LUN y detectar dispositivos multivía, darles formato y montarlos en un pod.
+
+
+
+=== Funcionalidades de reparación automática de iSCSI
+
+En el caso de los sistemas ONTAP, Astra Trident ejecuta la reparación automática de iSCSI cada cinco minutos para:
+
+. *Identifique* el estado de sesión iSCSI deseado y el estado actual de la sesión iSCSI.
+. *Compare* el estado deseado al estado actual para identificar las reparaciones necesarias. Astra Trident determina las prioridades de reparación y cuándo deben anticiparse a las reparaciones.
+. *Realice las reparaciones* necesarias para devolver el estado actual de la sesión iSCSI al estado deseado de la sesión iSCSI.
+
+
+
+NOTE: Los registros de la actividad de reparación automática se encuentran en la `trident-main` Contenedor en el dosis de Demonset correspondiente. Para ver los registros, debe haber configurado `debug` A "verdadero" durante la instalación de Astra Trident.
+
+Las funcionalidades de reparación automática de iSCSI de Astra Trident pueden ayudar a prevenir:
+
+* Sesiones iSCSI obsoletas o poco saludables que podrían producirse después de un problema de conectividad de red. En caso de una sesión obsoleta, Astra Trident espera siete minutos antes de cerrar la sesión para restablecer la conexión con un portal.
++
+
+NOTE: Por ejemplo, si los secretos CHAP se rotaban en la controladora de almacenamiento y la red pierde la conectividad, podrían persistir los secretos CHAP antiguos (_obsoleta_). La reparación automática puede reconocer esto y restablecer automáticamente la sesión para aplicar los secretos CHAP actualizados.
+
+* Faltan sesiones iSCSI
+* Faltan LUN
+
+
+
+
+=== Instale las herramientas iSCSI
+
+Instale las herramientas iSCSI mediante los comandos del sistema operativo.
+
+.Antes de empezar
+* Cada nodo del clúster de Kubernetes debe tener un IQN único. *Este es un requisito previo necesario*.
+* Si utiliza RHCOS versión 4.5 o posterior, u otra distribución Linux compatible con RHEL, con `solidfire-san` Controlador y Element OS 12.5 o anterior, asegúrese de que el algoritmo de autenticación CHAP esté establecido en MD5 in `/etc/iscsi/iscsid.conf`. Los algoritmos CHAP SHA1, SHA-256 y SHA3-256 compatibles con FIPS están disponibles con Element 12.7.
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf
+----
+* Cuando utilice nodos de trabajo que ejecutan RHEL/RedHat CoreOS con VP iSCSI, especifique el `discard` MountOption en StorageClass para realizar un reclamación de espacio en línea. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["La documentación de redhat"^].
+
+
+[role="tabbed-block"]
+====
+.RHEL 8 O POSTERIOR
+--
+. Instale los siguientes paquetes del sistema:
++
+[listing]
+----
+sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
+----
+. Compruebe que la versión de iscsi-initiator-utils sea 6.2.0.874-2.el7 o posterior:
++
+[listing]
+----
+rpm -q iscsi-initiator-utils
+----
+. Configure el escaneo en manual:
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
+. Activar accesos múltiples:
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que así sea `iscsid` y.. `multipathd` están en ejecución:
++
+[listing]
+----
+sudo systemctl enable --now iscsid multipathd
+----
+. Activar e iniciar `iscsi`:
++
+[listing]
+----
+sudo systemctl enable --now iscsi
+----
+
+
+--
+.Ubuntu
+--
+. Instale los siguientes paquetes del sistema:
++
+[listing]
+----
+sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools
+----
+. Compruebe que la versión Open-iscsi sea 2.0.874-5ubuntu2.10 o posterior (para bionic) o 2.0.874-7.1ubuntu6.1 o posterior (para focal):
++
+[listing]
+----
+dpkg -l open-iscsi
+----
+. Configure el escaneo en manual:
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
+. Activar accesos múltiples:
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-'EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: Asegúrese `etc/multipath.conf` contiene `find_multipaths no` inferior `defaults`.
+
+. Asegúrese de que así sea `open-iscsi` y.. `multipath-tools` están habilitadas y en ejecución:
++
+[listing]
+----
+sudo systemctl status multipath-tools
+sudo systemctl enable --now open-iscsi.service
+sudo systemctl status open-iscsi
+----
++
+
+NOTE: Para Ubuntu 18.04, debe descubrir los puertos de destino con `iscsiadm` antes de comenzar `open-iscsi` Para que se inicie el daemon iSCSI. También puede modificar el `iscsi` servicio para empezar `iscsid` automáticamente.
+
+
+
+--
+====
+
+WARNING: Reinicie los nodos de trabajo después de instalar las herramientas iSCSI para evitar que se produzcan fallos cuando conecte volúmenes a contenedores.

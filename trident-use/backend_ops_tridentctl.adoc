@@ -1,0 +1,105 @@
+---
+sidebar: sidebar 
+permalink: trident-use/backend_ops_tridentctl.html 
+keywords: backends, storage system, anf, cvs for aws, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, tridentctl, create backends, delete backends, view backends, update backends 
+summary: 'Obtenga información sobre cómo realizar operaciones de administración de back-end mediante `tridentctl`.' 
+---
+= Realizar la administración de back-end con trimentctl
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Obtenga información sobre cómo realizar operaciones de administración de back-end mediante `tridentctl`.
+
+
+
+== Cree un back-end
+
+Después de crear un link:backends.html["archivo de configuración del back-end"^], ejecute el siguiente comando:
+
+[listing]
+----
+tridentctl create backend -f <backend-file> -n trident
+----
+Si se produce un error en la creación del back-end, algo estaba mal con la configuración del back-end. Puede ver los registros para determinar la causa ejecutando el siguiente comando:
+
+[listing]
+----
+tridentctl logs -n trident
+----
+Después de identificar y corregir el problema con el archivo de configuración, simplemente puede ejecutar el `create` comando de nuevo.
+
+
+
+== Eliminar un back-end
+
+Para eliminar un back-end de Astra Trident, haga lo siguiente:
+
+. Recupere el nombre del backend:
++
+[listing]
+----
+tridentctl get backend -n trident
+----
+. Eliminar el back-end:
++
+[listing]
+----
+tridentctl delete backend <backend-name> -n trident
+----
+
+
+
+NOTE: Si Astra Trident ha aprovisionado volúmenes y snapshots de este back-end que aún existen, al eliminar el back-end se impiden que el departamento de tecnología aprovisione nuevos volúmenes. El back-end continuará existiendo en un estado de “eliminación” y Trident seguirá gestionando esos volúmenes y instantáneas hasta que se eliminen.
+
+
+
+== Ver los back-ends existentes
+
+Para ver los back-ends que Trident conoce, haga lo siguiente:
+
+* Para obtener un resumen, ejecute el siguiente comando:
++
+[listing]
+----
+tridentctl get backend -n trident
+----
+* Para obtener todos los detalles, ejecute el siguiente comando:
++
+[listing]
+----
+tridentctl get backend -o json -n trident
+----
+
+
+
+
+== Actualizar un back-end
+
+Después de crear un nuevo archivo de configuración de back-end, ejecute el siguiente comando:
+
+[listing]
+----
+tridentctl update backend <backend-name> -f <backend-file> -n trident
+----
+Si falla la actualización del back-end, algo estaba mal con la configuración del back-end o intentó una actualización no válida. Puede ver los registros para determinar la causa ejecutando el siguiente comando:
+
+[listing]
+----
+tridentctl logs -n trident
+----
+Después de identificar y corregir el problema con el archivo de configuración, simplemente puede ejecutar el `update` comando de nuevo.
+
+
+
+== Identifique las clases de almacenamiento que utilizan un back-end
+
+Este es un ejemplo del tipo de preguntas que puede responder con el JSON que `tridentctl` salidas para objetos backend. Utiliza la `jq` utilidad, que debe instalar.
+
+[listing]
+----
+tridentctl get backend -o json | jq '[.items[] | {backend: .name, storageClasses: [.storage[].storageClasses]|unique}]'
+----
+Esto también se aplica a los back-ends que se crearon con el uso `TridentBackendConfig`.

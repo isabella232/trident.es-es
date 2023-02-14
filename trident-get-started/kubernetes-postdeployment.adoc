@@ -1,0 +1,183 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-postdeployment.html 
+keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize, tridentorchestrator, trident backend, storage class, create backend, create storage class, provision volume, mount volume 
+summary: Después de implementar Astra Trident, puede continuar con la creación de un entorno de administración, la creación de una clase de almacenamiento, el aprovisionamiento de un volumen y el montaje del volumen en un pod. 
+---
+= ¿Cuál es el siguiente?
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de instalar Astra Trident, puede continuar con la creación de un entorno de administración, la creación de una clase de almacenamiento, el aprovisionamiento de un volumen y el montaje del volumen en un pod.
+
+
+
+== Paso 1: Crear un back-end
+
+Ahora puede Adelante y crear un back-end que utilizará Astra Trident para aprovisionar volúmenes. Para ello, cree un `backend.json` archivo que contiene los parámetros necesarios. Se pueden encontrar archivos de configuración de ejemplo para diferentes tipos de backend en la `sample-input` directorio.
+
+Consulte link:../trident-use/backends.html["aquí"^] para obtener más información acerca de cómo configurar el archivo para el tipo de backend.
+
+[listing]
+----
+cp sample-input/<backend template>.json backend.json
+vi backend.json
+----
+[listing]
+----
+./tridentctl -n trident create backend -f backend.json
++-------------+----------------+--------------------------------------+--------+---------+
+|    NAME     | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------+----------------+--------------------------------------+--------+---------+
+| nas-backend | ontap-nas      | 98e19b74-aec7-4a3d-8dcf-128e5033b214 | online |       0 |
++-------------+----------------+--------------------------------------+--------+---------+
+----
+Si la creación falla, algo estaba mal en la configuración del back-end. Puede ver los registros para determinar la causa ejecutando el siguiente comando:
+
+[listing]
+----
+./tridentctl -n trident logs
+----
+Después de solucionar el problema, simplemente vuelva al principio de este paso e inténtelo de nuevo. Para obtener más consejos sobre la solución de problemas, consulte link:../troubleshooting.html["la solución de problemas"^] sección.
+
+
+
+== Paso 2: Crear una clase de almacenamiento
+
+Los usuarios de Kubernetes aprovisionan volúmenes mediante reclamaciones de volumen persistente (RVP) que especifican un https://kubernetes.io/docs/concepts/storage/storage-classes/["clase de almacenamiento"^] por nombre. Los detalles están ocultos de los usuarios, pero una clase de almacenamiento identifica el aprovisionador que se utiliza para esa clase (en este caso, Trident) y lo que significa esa clase para el aprovisionador.
+
+Cree una clase de almacenamiento que los usuarios de Kubernetes especifiquen cuando quieran un volumen. La configuración de la clase debe modelar el back-end que ha creado en el paso anterior, de modo que Astra Trident lo utilice para aprovisionar nuevos volúmenes.
+
+La clase de almacenamiento más sencilla que se debe empezar por está basada en la `sample-input/storage-class-csi.yaml.templ` archivo que viene con el instalador, reemplazar `__BACKEND_TYPE__` con el nombre del controlador de almacenamiento.
+
+[listing]
+----
+./tridentctl -n trident get backend
++-------------+----------------+--------------------------------------+--------+---------+
+|    NAME     | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------+----------------+--------------------------------------+--------+---------+
+| nas-backend | ontap-nas      | 98e19b74-aec7-4a3d-8dcf-128e5033b214 | online |       0 |
++-------------+----------------+--------------------------------------+--------+---------+
+
+cp sample-input/storage-class-csi.yaml.templ sample-input/storage-class-basic-csi.yaml
+
+# Modify __BACKEND_TYPE__ with the storage driver field above (e.g., ontap-nas)
+vi sample-input/storage-class-basic-csi.yaml
+----
+Este es un objeto de Kubernetes, por lo que se usa `kubectl` Para crear en Kubernetes.
+
+[listing]
+----
+kubectl create -f sample-input/storage-class-basic-csi.yaml
+----
+Ahora debería ver una clase de almacenamiento * Basic-csi* tanto en Kubernetes como en Astra Trident, y Astra Trident debería haber descubierto las piscinas en el back-end.
+
+[listing]
+----
+kubectl get sc basic-csi
+NAME         PROVISIONER             AGE
+basic-csi    csi.trident.netapp.io   15h
+
+./tridentctl -n trident get storageclass basic-csi -o json
+{
+  "items": [
+    {
+      "Config": {
+        "version": "1",
+        "name": "basic-csi",
+        "attributes": {
+          "backendType": "ontap-nas"
+        },
+        "storagePools": null,
+        "additionalStoragePools": null
+      },
+      "storage": {
+        "ontapnas_10.0.0.1": [
+          "aggr1",
+          "aggr2",
+          "aggr3",
+          "aggr4"
+        ]
+      }
+    }
+  ]
+}
+----
+
+
+== Paso 3: Aprovisionar el primer volumen
+
+Ahora está listo para aprovisionar de forma dinámica el primer volumen. Esto se realiza mediante la creación de un Kubernetes https://kubernetes.io/docs/concepts/storage/persistent-volumes["reclamación de volumen persistente"^] Objeto (PVC).
+
+Cree una RVP para un volumen que utiliza la clase de almacenamiento que acaba de crear.
+
+Consulte `sample-input/pvc-basic-csi.yaml` por ejemplo. Asegúrese de que el nombre de la clase de almacenamiento coincida con el que ha creado.
+
+[listing]
+----
+kubectl create -f sample-input/pvc-basic-csi.yaml
+
+kubectl get pvc --watch
+NAME      STATUS    VOLUME                                     CAPACITY   ACCESS MODES  STORAGECLASS   AGE
+basic     Pending                                                                       basic          1s
+basic     Pending   pvc-3acb0d1c-b1ae-11e9-8d9f-5254004dfdb7   0                        basic          5s
+basic     Bound     pvc-3acb0d1c-b1ae-11e9-8d9f-5254004dfdb7   1Gi        RWO           basic          7s
+----
+
+
+== Paso 4: Monte los volúmenes en un pod
+
+Ahora vamos a montar el volumen. Lanzaremos una vaina nginx que monta el PV debajo `/usr/share/nginx/html`.
+
+[listing]
+----
+cat << EOF > task-pv-pod.yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+       claimName: basic
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+EOF
+kubectl create -f task-pv-pod.yaml
+----
+[listing]
+----
+# Wait for the pod to start
+kubectl get pod --watch
+
+# Verify that the volume is mounted on /usr/share/nginx/html
+kubectl exec -it task-pv-pod -- df -h /usr/share/nginx/html
+
+# Delete the pod
+kubectl delete pod task-pv-pod
+----
+En este momento, el pod (la aplicación) ya no existe pero el volumen sigue ahí. Puede utilizarlo desde otro pod si lo desea.
+
+Para eliminar el volumen, elimine la reclamación:
+
+[listing]
+----
+kubectl delete pvc basic
+----
+Ahora puede realizar tareas adicionales, como las siguientes:
+
+* link:../trident-use/backends.html["Configurar back-ends adicionales."^]
+* link:../trident-use/manage-stor-class.html["Cree clases de almacenamiento adicionales."^]
+

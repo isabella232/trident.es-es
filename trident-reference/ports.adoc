@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/ports.html 
+keywords: astra trident, port, ports 
+summary: Obtenga más información sobre los puertos a los que Astra Trident se comunica. 
+---
+= Puertos Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Obtenga más información sobre los puertos que utiliza Astra Trident para la comunicación.
+
+
+
+== Puertos Astra Trident
+
+Astra Trident se comunica mediante los siguientes puertos:
+
+[cols="2,4"]
+|===
+| Puerto | Específico 
+
+
+| 8443 | HTTPS de canal posterior 
+
+
+| 8001 | Extremo de métricas de Prometheus 
+
+
+| 8000 | Servidor REST de Trident 
+
+
+| 17546 | Puerto de sonda de presencia/preparación utilizado por los pods demonset de Trident 
+|===
+
+NOTE: El puerto de la sonda de nivel de gravedad/preparación se puede cambiar durante la instalación utilizando el `--probe-port` bandera. Es importante asegurarse de que este puerto no esté siendo utilizado por otro proceso en los nodos de trabajo.

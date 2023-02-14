@@ -1,0 +1,181 @@
+---
+sidebar: sidebar 
+permalink: trident-use/monitor-trident.html 
+keywords: telemetry, astra trident, monitor, metrics, health, volume usage, autosupport 
+summary: Astra Trident proporciona un conjunto de extremos de métricas Prometheus que puede utilizar para supervisar el rendimiento de Astra Trident. 
+---
+= Supervisión de Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Astra Trident proporciona un conjunto de extremos de métricas Prometheus que puede utilizar para supervisar el rendimiento de Astra Trident.
+
+Las métricas proporcionadas por Astra Trident le permiten hacer lo siguiente:
+
+* Mantenga pestañas sobre el estado y la configuración de Astra Trident. Puede examinar la eficacia de las operaciones y si puede comunicarse con los back-ends como se esperaba.
+* Examine la información de uso del back-end, y comprenda cuántos volúmenes se aprovisionan en un entorno de administración y la cantidad de espacio consumido, etc.
+* Mantenga una asignación de la cantidad de volúmenes aprovisionados en los back-ends disponibles.
+* Seguimiento del rendimiento. Podrá observar el tiempo que tarda Astra Trident en comunicarse con los back-ends y realizar operaciones.
+
+
+
+NOTE: De forma predeterminada, las métricas de Trident se exponen en el puerto de destino `8001` en la `/metrics` extremo. Estas métricas están *activadas de forma predeterminada* cuando se instala Trident.
+
+.Lo que necesitará
+* Un clúster de Kubernetes con Astra Trident instalado.
+* Una instancia Prometheus. Esto puede ser un https://github.com/prometheus-operator/prometheus-operator["Puesta en marcha de Prometeo en contenedores"^] También puede optar por ejecutar Prometheus como a. https://prometheus.io/download/["aplicación nativa"^].
+
+
+
+
+== Paso 1: Definir un objetivo Prometheus
+
+Debe definir un destino Prometheus para recopilar las métricas y obtener información sobre los back-ends que administra Astra Trident, los volúmenes que crea, etc. Este https://netapp.io/2020/02/20/prometheus-and-trident/["blog"^] Explica cómo puede usar Prometheus y Grafana con Astra Trident para recuperar métricas. En el blog se explica cómo puede ejecutar Prometheus como operador de su clúster de Kubernetes y la creación de un ServiceMonitor para obtener las métricas de Astra Trident.
+
+
+
+== Paso 2: Cree un Prometheus ServiceMonitor
+
+Para usar las métricas de Trident, debe crear un Prometheus ServiceMonitor que vaya a ver el `trident-csi` el servicio y escucha el `metrics` puerto. Un ejemplo de ServiceMonitor tiene este aspecto:
+
+[listing]
+----
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: trident-sm
+  namespace: monitoring
+  labels:
+      release: prom-operator
+  spec:
+    jobLabel: trident
+    selector:
+      matchLabels:
+        app: controller.csi.trident.netapp.io
+    namespaceSelector:
+      matchNames:
+      - trident
+    endpoints:
+    - port: metrics
+      interval: 15s
+----
+Esta definición de ServiceMonitor recupera las métricas devueltas por `trident-csi` servicio y busca específicamente la `metrics` extremo del servicio. Como resultado, Prometheus ahora está configurado para comprender las métricas de Astra Trident.
+
+Además de las métricas disponibles directamente de Astra Trident, kubelet expone muchas `kubelet_volume_*` métricas a través de su propio extremo de métricas. Kubelet puede proporcionar información sobre los volúmenes adjuntos y los pods y otras operaciones internas que realiza. Consulte https://kubernetes.io/docs/concepts/cluster-administration/monitoring/["aquí"^].
+
+
+
+== Paso 3: Consulte las métricas de Trident con PromQL
+
+PromQL es adecuado para crear expresiones que devuelvan datos tabulares o de series temporales.
+
+A continuación se muestran algunas consultas PromQL que se pueden utilizar:
+
+
+
+=== Obtenga información de estado de Trident
+
+* **Porcentaje de respuestas HTTP 2XX de Astra Trident**
+
+
+[listing]
+----
+(sum (trident_rest_ops_seconds_total_count{status_code=~"2.."} OR on() vector(0)) / sum (trident_rest_ops_seconds_total_count)) * 100
+----
+* **Porcentaje de respuestas DE DESCANSO de Astra Trident a través del código de estado**
+
+
+[listing]
+----
+(sum (trident_rest_ops_seconds_total_count) by (status_code)  / scalar (sum (trident_rest_ops_seconds_total_count))) * 100
+----
+* **Duración media en ms de operaciones realizadas por Astra Trident**
+
+
+[listing]
+----
+sum by (operation) (trident_operation_duration_milliseconds_sum{success="true"}) / sum by (operation) (trident_operation_duration_milliseconds_count{success="true"})
+----
+
+
+=== Obtenga la información de uso de Astra Trident
+
+* **Tamaño medio del volumen**
+
+
+[listing]
+----
+trident_volume_allocated_bytes/trident_volume_count
+----
+* **Espacio total por volumen aprovisionado por cada backend**
+
+
+[listing]
+----
+sum (trident_volume_allocated_bytes) by (backend_uuid)
+----
+
+
+=== Obtenga el uso de cada volumen
+
+
+NOTE: Esto solo se habilita si también se recopilan las métricas Kubelet.
+
+* **Porcentaje de espacio usado para cada volumen**
+
+
+[listing]
+----
+kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes * 100
+----
+
+
+== Obtenga más información sobre la telemetría Astra Trident AutoSupport
+
+De forma predeterminada, Astra Trident envía a NetApp métricas y información básica sobre los back-end a través de una cadencia diaria.
+
+* Para que Astra Trident deje de enviar métricas Prometheus e información básica del back-end a NetApp, pase el `--silence-autosupport` Durante la instalación de Astra Trident.
+* Astra Trident también puede enviar registros de contenedores al soporte de NetApp bajo demanda a través `tridentctl send autosupport`. Deberá activar Astra Trident para cargar los registros. Antes de enviar los registros, debe aceptar lashttps://www.netapp.com/company/legal/privacy-policy/["política de privacidad"^].
+* A menos que se especifique lo contrario, Astra Trident recupera los registros de las últimas 24 horas.
+* Se puede especificar el lapso de retención del registro con el `--since` bandera. Por ejemplo: `tridentctl send autosupport --since=1h`. Esta información se recopila y se envía a través de un `trident-autosupport` Contenedor instalado junto a Astra Trident. Puede obtener la imagen del contenedor en https://hub.docker.com/r/netapp/trident-autosupport["AutoSupport de Trident"^].
+* Trident AutoSupport no recopila ni transmite información personal identificable (PII) ni Información personal. Viene con un https://www.netapp.com/us/media/enduser-license-agreement-worldwide.pdf["CLUF"^] Esto no se aplica a la imagen del contenedor Trident. Puede obtener más información sobre el compromiso de NetApp con la seguridad y la confianza de los datos https://www.netapp.com/us/company/trust-center/index.aspx["aquí"^].
+
+
+Una carga útil de ejemplo enviada por Astra Trident tiene el siguiente aspecto:
+
+[listing]
+----
+{
+  "items": [
+    {
+      "backendUUID": "ff3852e1-18a5-4df4-b2d3-f59f829627ed",
+      "protocol": "file",
+      "config": {
+        "version": 1,
+        "storageDriverName": "ontap-nas",
+        "debug": false,
+        "debugTraceFlags": null,
+        "disableDelete": false,
+        "serialNumbers": [
+          "nwkvzfanek_SN"
+        ],
+        "limitVolumeSize": ""
+      },
+      "state": "online",
+      "online": true
+    }
+  ]
+}
+----
+* Los mensajes de AutoSupport se envían al extremo AutoSupport de NetApp. Si está utilizando un Registro privado para almacenar imágenes contenedoras, puede utilizar `--image-registry` bandera.
+* También puede configurar direcciones URL proxy generando los archivos YLMA de instalación. Esto se puede hacer usando `tridentctl install --generate-custom-yaml` Para crear los archivos YAML y agregar `--proxy-url` argumento para `trident-autosupport` contenedor en `trident-deployment.yaml`.
+
+
+
+
+== Deshabilite las métricas de Astra Trident
+
+Para ** desactivar las métricas** de ser reportadas, debe generar YAMLs personalizados (utilizando la `--generate-custom-yaml` y editarlas para eliminar `--metrics` no se invoca el indicador para el `trident-main`contenedor.

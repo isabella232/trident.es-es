@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
+keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize 
+summary: Puede utilizar el instalador de Astra Trident para personalizar la implementación. 
+---
+= Personalice la instalación trimentctl
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el instalador de Astra Trident para personalizar la instalación.
+
+
+
+== Obtenga más información sobre el instalador
+
+El instalador de Astra Trident le permite personalizar atributos. Por ejemplo, si ha copiado la imagen de Trident en un repositorio privado, puede especificar el nombre de la imagen mediante `--trident-image`. Si ha copiado la imagen Trident así como las imágenes sidecar CSI necesarias en un repositorio privado, puede que sea preferible especificar la ubicación de ese repositorio mediante el `--image-registry` switch, que toma la forma `<registry FQDN>[:port]`.
+
+Si utiliza una distribución de Kubernetes, donde `kubelet` mantiene los datos en una ruta distinta de la habitual `/var/lib/kubelet`, puede especificar la ruta alternativa mediante `--kubelet-dir`.
+
+Si necesita personalizar la instalación más allá de lo que permiten los argumentos del instalador, también puede personalizar los archivos de implementación. Con el `--generate-custom-yaml` El parámetro crea los siguientes archivos YAML en el instalador `setup` directorio:
+
+* `trident-clusterrolebinding.yaml`
+* `trident-deployment.yaml`
+* `trident-crds.yaml`
+* `trident-clusterrole.yaml`
+* `trident-daemonset.yaml`
+* `trident-service.yaml`
+* `trident-namespace.yaml`
+* `trident-serviceaccount.yaml`
+* `trident-resourcequota.yaml`
+
+
+Después de haber generado estos archivos, puede modificarlos según sus necesidades y luego usarlos `--use-custom-yaml` para instalar su implementación personalizada.
+
+[listing]
+----
+./tridentctl install -n trident --use-custom-yaml
+----

@@ -1,0 +1,114 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-deploy-helm-mirror.html 
+keywords: deploy, astra trident, operator, helm, helm chart, configuration, values, offline, air gap, gap, registry 
+summary: Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. 
+---
+= Implementar el operador de Trident con Helm (modo sin conexión)
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. Si no dispone de un registro de imágenes privado, utilice link:kubernetes-deploy-helm.html["proceso de implementación estándar"].
+
+
+
+== Información crucial sobre Astra Trident 23.01
+
+* Debe leer la siguiente información crítica sobre Astra Trident.*
+
+.<strong> información bï¿½tico sobre Astra Tridbï¿½tico </strong>
+[%collapsible%open]
+====
+* Kubernetes 1.26 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Astra Trident cumple estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en el archivo multipath.conf.
++
+Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
+
+
+
+====
+
+
+== Ponga en marcha el operador de Trident e instale Astra Trident con Helm
+
+Usar Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Carta del timón"^] Es posible poner en marcha el operador de Trident e instalar Trident en un paso.
+
+Revisar link:../trident-get-started/kubernetes-deploy.html["descripción general de la instalación"] para asegurarse de cumplir con los requisitos previos de instalación y seleccionar la opción de instalación correcta para el entorno.
+
+.Antes de empezar
+Además de la link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["requisitos previos a la implementación"] que necesita link:https://v3.helm.sh/["Versión timón 3"^].
+
+.Pasos
+. Añada el repositorio de Astra Trident Helm:
++
+[listing]
+----
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+----
+. Uso `helm install` y especifique un nombre para la implementación y la ubicación o ubicaciones del registro de imágenes como en los ejemplos siguientes. En los ejemplos: `23.01.0` Es la versión de Astra Trident que está instalando.
++
+[role="tabbed-block"]
+====
+.Imágenes Trident y CSI en un registro
+--
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.01.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+----
+--
+.Imágenes Trident y CSI en diferentes registros
+--
+Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicaciones de registro.
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.01.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.01.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.01 --set tridentImage=<your-registry>/netapp/trident:23.01.0 --create-namespace --namespace <trident-namespace>
+----
+--
+====
++
+
+NOTE: Si ya creó un espacio de nombres para Trident, el `--create-namespace` el parámetro no creará un espacio de nombres adicional.
+
+
+
+Puede utilizar `helm list` para revisar detalles de la instalación como nombre, espacio de nombres, gráfico, estado, versión de la aplicación, y el número de revisión.
+
+
+
+== Pasar los datos de configuración durante la instalación
+
+Existen dos formas de pasar los datos de configuración durante la instalación:
+
+[cols="2"]
+|===
+| Opción | Descripción 
+
+
+| `--values` (o. `-f`)  a| 
+Especifique un archivo YAML con anulaciones. Esto se puede especificar varias veces y el archivo de la derecha tendrá prioridad.
+
+
+
+| `--set`  a| 
+Especifique anulaciones en la línea de comandos.
+
+|===
+Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguiente `--set` comando donde `23.01.0` Es la versión de Astra Trident que está instalando:
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.01.0  --create-namespace --namespace --set tridentDebug=true
+----
+
+NOTE: La `values.yaml` Archivo, que forma parte del gráfico Helm, proporciona la lista de claves y sus valores predeterminados.
+
+
+
+== El futuro
+
+Ahora es posible link:kubernetes-postdeployment.html["cree una clase de back-end y almacenamiento, aprovisione un volumen y monte el volumen en un pod"].

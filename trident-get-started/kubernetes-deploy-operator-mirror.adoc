@@ -1,0 +1,296 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/kubernetes-deploy-operator-mirror.html 
+keywords: deploy, astra trident, methods, operator, tridentctl, mirrored, registry, registries 
+summary: Es posible poner en marcha manualmente el operador de Trident para instalar Astra Trident. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. 
+---
+= Implemente manualmente el operador Trident (modo sin conexión).
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible poner en marcha manualmente el operador de Trident para instalar Astra Trident. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. Si no dispone de un registro de imágenes privado, utilice link:kubernetes-deploy-operator.html["proceso de implementación estándar"].
+
+
+
+== Información crucial sobre Astra Trident 23.01
+
+* Debe leer la siguiente información crítica sobre Astra Trident.*
+
+.<strong> información bï¿½tico sobre Astra Tridbï¿½tico </strong>
+[%collapsible%open]
+====
+* Kubernetes 1.26 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Astra Trident cumple estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en el archivo multipath.conf.
++
+Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
+
+
+
+====
+
+
+== Implemente manualmente el operador de Trident e instale Trident
+
+Revisar link:../trident-get-started/kubernetes-deploy.html["descripción general de la instalación"] para asegurarse de cumplir con los requisitos previos de instalación y seleccionar la opción de instalación correcta para el entorno.
+
+.Antes de empezar
+Inicie sesión en el host Linux y compruebe que está gestionando un funcionamiento y. link:requirements.html["Clúster de Kubernetes compatible"^] y que tenga los privilegios necesarios.
+
+
+NOTE: Con OpenShift, utilícelo `oc` en lugar de `kubectl` en todos los ejemplos que siguen, e inicie sesión como *system:admin* primero ejecutando `oc login -u system:admin` o. `oc login -u kube-admin`.
+
+[%collapsible%open]
+====
+. Compruebe su versión de Kubernetes:
++
+[listing]
+----
+kubectl version
+----
+. Comprobar los privilegios de administrador de clúster:
++
+[listing]
+----
+kubectl auth can-i '*' '*' --all-namespaces
+----
+. Compruebe que puede iniciar un pod que utilice una imagen de Docker Hub para llegar al sistema de almacenamiento a través de la red de pod:
++
+[listing]
+----
+kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
+  ping <management IP>
+----
+
+
+====
+
+
+=== Paso 1: Descargue el paquete de instalación de Trident
+
+El paquete de instalación de Astra Trident incluye todo lo necesario para poner en marcha al operador de Trident e instalar Astra Trident. Descargue y extraiga la versión más reciente del instalador de Trident link:https://github.com/NetApp/trident/releases/latest["La sección _Assets_ de GitHub"^].
+
+[listing]
+----
+wget https://github.com/NetApp/trident/releases/download/v23.01.0/trident-installer-23.01.0.tar.gz
+tar -xf trident-installer-23.01.0.tar.gz
+cd trident-installer
+----
+
+
+=== Paso 2: Cree la `TridentOrchestrator` CRD
+
+Cree el `TridentOrchestrator` Definición de recurso personalizado (CRD). Creará una `TridentOrchestrator` Recursos personalizados más adelante. Use la versión adecuada de CRD YAML en `deploy/crds` para crear la `TridentOrchestrator` CRD:
+
+[listing]
+----
+kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_<VERSION>.yaml
+----
+
+
+=== Paso 3: Actualice la ubicación del registro en el operador
+
+Pulg `operator.yaml`, actualizar `image: docker.io/netapp/trident-operator:23.01.0` para reflejar la ubicación del registro de imágenes. Por ejemplo:
+
+* `image: <your-registry>/trident-operator:23.01.0` si todas las imágenes están ubicadas en un registro.
+* `image: <your-registry>/netapp/trident-operator:23.01.0` Si sus imágenes Trident y CSI se encuentran en diferentes registros.
+
+
+
+
+=== Paso 3: Ponga en marcha el operador de Trident
+
+El instalador de Trident pone en marcha el operador en la `trident` espacio de nombres. Si la `trident` no existe el espacio de nombres, utilice `kubectl apply -f deploy/namespace.yaml` para crearlo.
+
+Para implementar el operador en un espacio de nombres distinto del `trident` espacio de nombres, actualización `serviceaccount.yaml`, `clusterrolebinding.yaml` y.. `operator.yaml` antes de desplegar el operador.
+
+. Crear los recursos e implementar el operador:
++
+[listing]
+----
+kubectl kustomize deploy/ > deploy/<BUNDLE>.yaml
+----
++
+[NOTE]
+====
+El instalador de Astra Trident proporciona un archivo de paquete que se puede utilizar para instalar el operador y crear objetos asociados. El archivo de paquete es una forma sencilla de poner en marcha el operador e instalar Astra Trident con una configuración predeterminada.
+
+** Para los clústeres que ejecutan Kubernetes 1.24 o inferior, utilice `bundle_pre_1_25.yaml`.
+** Utilice el para clústeres que ejecuten Kubernetes 1.25 o superior `bundle_post_1_25.yaml`.
+
+
+====
+. Compruebe que el operador se ha desplegado.
++
+[listing]
+----
+kubectl get deployment -n <operator-namespace>
+
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+trident-operator   1/1     1            1           3m
+----
+
+
+
+IMPORTANT: Solo debe haber *una instancia* del operador en un clúster de Kubernetes. No cree varias implementaciones del operador Trident.
+
+
+
+=== Paso 4: Actualice la ubicación del registro de imágenes en el `TridentOrchestrator`
+
+Sus imágenes Trident y CSI se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. Actualizar `deploy/crds/tridentorchestrator_cr.yaml` para agregar las especificaciones de ubicación adicionales basadas en la configuración de su registro.
+
+[role="tabbed-block"]
+====
+.Imágenes Trident y CSI en un registro
+--
+[listing]
+----
+imageRegistry: "<your-registry>"
+autosupportImage: "<your-registry>/trident-autosupport:23.01"
+tridentImage: "<your-registry>/trident:23.01.0"
+----
+--
+.Imágenes Trident y CSI en diferentes registros
+--
+Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicaciones de registro.
+
+[listing]
+----
+imageRegistry: "<your-registry>/sig-storage"
+autosupportImage: "<your-registry>/netapp/trident-autosupport:23.01"
+tridentImage: "<your-registry>/netapp/trident:23.01.0"
+----
+--
+====
+
+
+=== Paso 5: Cree el `TridentOrchestrator` E instale Trident
+
+Ahora puede crear el `TridentOrchestrator` E instale Astra Trident. Si lo desea, puede ir más allá link:kubernetes-customize-deploy.html["Personalice su instalación de Trident"] uso de los atributos de la `TridentOrchestrator` espec. En el siguiente ejemplo se muestra una instalación donde las imágenes Trident y CSI se encuentran en diferentes registros.
+
+[listing]
+----
+kubectl create -f deploy/crds/tridentorchestrator_cr.yaml
+tridentorchestrator.trident.netapp.io/trident created
+
+kubectl describe torc trident
+
+Name:        trident
+Namespace:
+Labels:      <none>
+Annotations: <none>
+API Version: trident.netapp.io/v1
+Kind:        TridentOrchestrator
+...
+Spec:
+  Autosupport Image:  <your-registry>/netapp/trident-autosupport:23.01
+  Debug:              true
+  Image Registry:     <your-registry>/sig-storage
+  Namespace:          trident
+  Trident Image:      <your-registry>/netapp/trident:23.01.0
+Status:
+  Current Installation Params:
+    IPv6:                       false
+    Autosupport Hostname:
+    Autosupport Image:          <your-registry>/netapp/trident-autosupport:23.01
+    Autosupport Proxy:
+    Autosupport Serial Number:
+    Debug:                      true
+    Http Request Timeout:       90s
+    Image Pull Secrets:
+    Image Registry:       <your-registry>/sig-storage
+    k8sTimeout:           30
+    Kubelet Dir:          /var/lib/kubelet
+    Log Format:           text
+    Probe Port:           17546
+    Silence Autosupport:  false
+    Trident Image:        <your-registry>/netapp/trident:23.01.0
+  Message:                Trident installed
+  Namespace:              trident
+  Status:                 Installed
+  Version:                v23.01.0
+Events:
+    Type Reason Age From Message ---- ------ ---- ---- -------Normal
+    Installing 74s trident-operator.netapp.io Installing Trident Normal
+    Installed 67s trident-operator.netapp.io Trident installed
+----
+
+
+== Compruebe la instalación
+
+Existen varias formas de verificar su instalación.
+
+
+
+=== Uso `TridentOrchestrator` estado
+
+El estado de `TridentOrchestrator` Indica si la instalación se realizó correctamente y muestra la versión de Trident instalada. Durante la instalación, el estado de `TridentOrchestrator` cambios de `Installing` para `Installed`. Si observa la `Failed` y el operador no puede recuperar por sí solo, link:../troubleshooting.html["compruebe los registros"].
+
+[cols="2"]
+|===
+| Estado | Descripción 
+
+
+| Instalación | El operador está instalando Astra Trident con este método `TridentOrchestrator` CR. 
+
+
+| Instalado | Astra Trident se ha instalado correctamente. 
+
+
+| Desinstalando | El operador está desinstalando Astra Trident, porque
+`spec.uninstall=true`. 
+
+
+| Desinstalado | Astra Trident se desinstala. 
+
+
+| Error | El operador no pudo instalar, aplicar parches, actualizar o desinstalar Astra Trident; el operador intentará recuperarse automáticamente de este estado. Si este estado continúa, necesitará solucionar problemas. 
+
+
+| Actualizando | El operador está actualizando una instalación existente. 
+
+
+| Error | La `TridentOrchestrator` no se utiliza. Otro ya existe. 
+|===
+
+
+=== Uso del estado de creación de pod
+
+Para confirmar si la instalación de Astra Trident ha finalizado, revise el estado de los pods creados:
+
+[listing]
+----
+kubectl get pods -n trident
+
+NAME                                       READY   STATUS    RESTARTS   AGE
+trident-controller-7d466bf5c7-v4cpw        6/6     Running   0           1m
+trident-node-linux-mr6zc                   2/2     Running   0           1m
+trident-node-linux-xrp7w                   2/2     Running   0           1m
+trident-node-linux-zh2jt                   2/2     Running   0           1m
+trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
+----
+
+
+=== Uso `tridentctl`
+
+Puede utilizar `tridentctl` Para comprobar la versión de Astra Trident instalada.
+
+[listing]
+----
+./tridentctl -n trident version
+
++----------------+----------------+
+| SERVER VERSION | CLIENT VERSION |
++----------------+----------------+
+| 23.01.0        | 23.01.0        |
++----------------+----------------+
+----
+
+
+== El futuro
+
+Ahora es posible link:kubernetes-postdeployment.html["cree una clase de back-end y almacenamiento, aprovisione un volumen y monte el volumen en un pod"].

@@ -1,0 +1,194 @@
+---
+sidebar: sidebar 
+permalink: trident-use/trident-fsx-examples.html 
+keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
+summary: Obtenga información acerca de las opciones de configuración de back-end para Amazon FSX para ONTAP. Esta sección proporciona ejemplos de configuración de fondo. 
+---
+= Opciones y ejemplos de configuración de FSX para ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Obtenga información acerca de las opciones de configuración de back-end para Amazon FSX para ONTAP. Esta sección proporciona ejemplos de configuración de fondo.
+
+
+
+== Opciones de configuración del back-end
+
+Consulte la siguiente tabla para ver las opciones de configuración del back-end:
+
+[cols="3"]
+|===
+| Parámetro | Descripción | Ejemplo 
+
+
+| `version` |  | Siempre 1 
+
+
+| `storageDriverName` | Nombre del controlador de almacenamiento | “ontap-nas”, “ontap-nas-economy”, “ontap-nas-flexgroup”, “ontap-san” y “ontap-san-economy” 
+
+
+| `backendName` | Nombre personalizado o el back-end de almacenamiento | Nombre del conductor + “_” + dataLIF 
+
+
+| `managementLIF` | Dirección IP de un LIF de gestión de SVM o clúster para una conmutación de sitios MetroCluster fluida, debe especificar una LIF de gestión de SVM. Se puede especificar un nombre de dominio completo (FQDN). Se puede configurar para que utilice direcciones IPv6 si se instaló Astra Trident mediante el `--use-ipv6` bandera. Las direcciones IPv6 deben definirse entre corchetes, como [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. | “10.0.0.1”, “[2001:1234:abcd::fefe]” 
+
+
+| `dataLIF` | Dirección IP de LIF de protocolo. *Controladores NAS de ONTAP*: Recomendamos especificar dataLIF. En caso de no proporcionar esta información, Astra Trident busca las LIF de datos desde la SVM. Puede especificar un nombre de dominio completo (FQDN) para las operaciones de montaje de NFS, lo que permite crear un DNS round-robin para lograr el equilibrio de carga entre varios LIF de datos. Se puede cambiar después del ajuste inicial. Consulte . *Controladores SAN ONTAP*: No se especifica para iSCSI. Astra Trident utiliza la asignación selectiva de LUN de ONTAP para descubrir los LIF iSCSI necesarios para establecer una sesión de varias rutas. Se genera una advertencia si dataLIF se define explícitamente. Se puede configurar para que utilice direcciones IPv6 si se instaló Astra Trident mediante el `--use-ipv6` bandera. Las direcciones IPv6 deben definirse entre corchetes, como [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. |  
+
+
+| `autoExportPolicy` | Habilite la creación y actualización automática de la política de exportación [Boolean]. Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar automáticamente las políticas de exportación. | "falso" 
+
+
+| `autoExportCIDRs` | Lista de CIDR para filtrar las IP de nodo de Kubernetes contra cuándo `autoExportPolicy` está habilitado. Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar automáticamente las políticas de exportación. | "[“0.0.0.0/0”, “:/0”]" 
+
+
+| `labels` | Conjunto de etiquetas con formato JSON arbitrario que se aplica en los volúmenes | "" 
+
+
+| `clientCertificate` | Valor codificado en base64 del certificado de cliente. Se utiliza para autenticación basada en certificados | "" 
+
+
+| `clientPrivateKey` | Valor codificado en base64 de la clave privada de cliente. Se utiliza para autenticación basada en certificados | "" 
+
+
+| `trustedCACertificate` | Valor codificado en base64 del certificado de CA de confianza. Opcional. Se utiliza para autenticación basada en certificados. | "" 
+
+
+| `username` | El nombre de usuario para conectarse al clúster o SVM. Se utiliza para autenticación basada en credenciales. Por ejemplo, vsadmin. |  
+
+
+| `password` | La contraseña para conectarse al clúster o SVM. Se utiliza para autenticación basada en credenciales. |  
+
+
+| `svm` | Máquina virtual de almacenamiento que usar | Derivado si se especifica una LIF de gestión de SVM. 
+
+
+| `igroupName` | Nombre del igroup para volúmenes DE SAN que usar. Consulte . | "Trident-<backend-UUID>" 
+
+
+| `storagePrefix` | El prefijo que se utiliza cuando se aprovisionan volúmenes nuevos en la SVM. No se puede modificar una vez creada. Para actualizar este parámetro, deberá crear un nuevo backend. | "trident" 
+
+
+| `limitAggregateUsage` | *No especifique para Amazon FSX para ONTAP de NetApp.* el proporcionado `fsxadmin` y.. `vsadmin` No incluya los permisos necesarios para recuperar el uso de agregados y limitarlo mediante Astra Trident. | No utilizar. 
+
+
+| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. También restringe el tamaño máximo de los volúmenes que gestiona para qtrees y LUN, y la `qtreesPerFlexvol` Permite personalizar el número máximo de qtrees por FlexVol. | “” (no se aplica de forma predeterminada) 
+
+
+| `lunsPerFlexvol` | El número máximo de LUN por FlexVol debe estar comprendido entre [50 y 200]. Solo SAN. | "100" 
+
+
+| `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Por ejemplo, {“api”:false, “method”:true} no se utiliza `debugTraceFlags` a menos que esté solucionando problemas y necesite un volcado de registro detallado. | nulo 
+
+
+| `nfsMountOptions` | Lista de opciones de montaje NFS separadas por comas. Las opciones de montaje para los volúmenes persistentes de Kubernetes se especifican normalmente en tipos de almacenamiento, pero si no se especifican opciones de montaje en una clase de almacenamiento, Astra Trident se pondrá en contacto con las opciones de montaje especificadas en el archivo de configuración del back-end de almacenamiento. Si no se especifican opciones de montaje en la clase de almacenamiento o el archivo de configuración, Astra Trident no configurará ninguna opción de montaje en un volumen persistente asociado. | "" 
+
+
+| `nasType` | Configure la creación de volúmenes NFS o SMB. Las opciones son `nfs`, `smb`, o nulo. *Debe establecer en `smb` Para volúmenes SMB.* el valor predeterminado es null en volúmenes NFS. | "nfs" 
+
+
+| `qtreesPerFlexvol` | El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300] | "200" 
+
+
+| `smbShare` | Nombre del recurso compartido SMB creado mediante Shared Folder Microsoft Management Console. *Necesario para volúmenes SMB.* | "recursos compartidos de smb" 
+
+
+| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*
+`useREST` se proporciona como **avance técnico** que se recomienda para entornos de prueba y no para cargas de trabajo de producción. Cuando se establece en `true`, Astra Trident utilizará las API DE REST de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` cliente más. Esto está satisfecho por el predefinido `vsadmin` y.. `cluster-admin` funciones. | "falso" 
+|===
+
+
+=== Detalles acerca de `igroupName`
+
+`igroupName` Puede establecerse en un igroup que ya se creó en el clúster de ONTAP. Si no se especifica, Astra Trident crea automáticamente un igroup con el nombre `trident-<backend-UUID>`.
+
+Si se proporciona un nombre de programa medio predefinido, recomendamos usar un igroup por clúster de Kubernetes, si la SVM se va a compartir entre entornos. Esto es necesario para que Astra Trident mantenga automáticamente las adiciones y eliminaciones de IQN.
+
+* `igroupName` Se puede actualizar para que apunte a un nuevo igroup que se crea y gestiona en la SVM fuera de Astra Trident.
+* `igroupName` se puede omitir. En este caso, Astra Trident creará y gestionará un igroup llamado `trident-<backend-UUID>` automáticamente.
+
+
+En ambos casos, los archivos adjuntos de volumen seguirán siendo accesibles. Los futuros archivos adjuntos de volumen utilizarán el igroup actualizado. Esta actualización no interrumpe el acceso a los volúmenes presentes en el back-end.
+
+
+
+=== Actualizar `dataLIF` tras la configuración inicial
+
+Puede cambiar la LIF de datos tras la configuración inicial ejecutando el siguiente comando para proporcionar el nuevo archivo JSON back-end con LIF de datos actualizadas.
+
+[listing]
+----
+tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
+----
+
+NOTE: Si los RVP están conectados a uno o varios pods, deben recuperar todos los pods correspondientes y, a continuación, traerlos para que surta efecto el nuevo LIF de datos.
+
+
+
+== Opciones de configuración de back-end para el aprovisionamiento de volúmenes
+
+Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en la `defaults` sección de la configuración. Para ver un ejemplo, vea los ejemplos de configuración siguientes.
+
+[cols="3"]
+|===
+| Parámetro | Descripción | Predeterminado 
+
+
+| `spaceAllocation` | Asignación de espacio para las LUN | “verdadero” 
+
+
+| `spaceReserve` | Modo de reserva de espacio; “none” (thin) o “VOLUME” (grueso) | “ninguna” 
+
+
+| `snapshotPolicy` | Política de Snapshot que se debe usar | “ninguna” 
+
+
+| `qosPolicy` | Grupo de políticas de calidad de servicio que se asignará a los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool de almacenamiento o back-end. El uso de grupos de políticas de calidad de servicio con Astra Trident requiere ONTAP 9.8 o posterior. Recomendamos utilizar un grupo de políticas QoS no compartido y garantizar que el grupo de políticas se aplique a cada componente por separado. Un grupo de políticas de calidad de servicio compartido hará que se aplique el techo para el rendimiento total de todas las cargas de trabajo. | "" 
+
+
+| `adaptiveQosPolicy` | Grupo de políticas de calidad de servicio adaptativo que permite asignar los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool de almacenamiento o back-end. no admitido por ontap-nas-Economy. | "" 
+
+
+| `snapshotReserve` | Porcentaje del volumen reservado para instantáneas “0” | Si `snapshotPolicy` no es “ninguno”, sino “” 
+
+
+| `splitOnClone` | Divida un clon de su elemento principal al crearlo | “falso” 
+
+
+| `encryption` | Habilite el cifrado de volúmenes de NetApp (NVE) en el volumen nuevo; el valor predeterminado es `false`. Para usar esta opción, debe tener una licencia para NVE y habilitarse en el clúster. Si NAE está habilitado en el back-end, cualquier volumen aprovisionado en Astra Trident estará habilitado para NAE. Para obtener más información, consulte: link:../trident-reco/security-reco.html["Cómo funciona Astra Trident con NVE y NAE"]. | “falso” 
+
+
+| `luksEncryption` | Active el cifrado LUKS. Consulte link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["Usar la configuración de clave unificada de Linux (LUKS)"]. Solo SAN. | "" 
+
+
+| `tieringPolicy` | Política de organización en niveles para usar "ninguno" | “Solo Snapshot” para configuración previa a ONTAP 9.5 SVM-DR 
+
+
+| `unixPermissions` | Modo para volúmenes nuevos. *Dejar vacío para volúmenes SMB.* | "" 
+
+
+| `securityStyle` | Estilo de seguridad para nuevos volúmenes. Compatibilidad con NFS `mixed` y.. `unix` estilos de seguridad. SMB admite `mixed` y.. `ntfs` estilos de seguridad. | El valor predeterminado de NFS es `unix`. La opción predeterminada de SMB es `ntfs`. 
+|===
+
+
+== Ejemplo
+
+Uso `nasType`, `node-stage-secret-name`, y. `node-stage-secret-namespace`, Puede especificar un volumen SMB y proporcionar las credenciales necesarias de Active Directory. Se admiten los volúmenes de SMB mediante el `ontap-nas` sólo conductor.
+
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nas-smb-sc
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
+  csi.storage.k8s.io/node-stage-secret-namespace: "default"
+----
