@@ -49,18 +49,18 @@ Además de la link:../trident-get-started/kubernetes-deploy.html#before-you-depl
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Uso `helm install` y especifique un nombre para la implementación y la ubicación o ubicaciones del registro de imágenes como en los ejemplos siguientes. En los ejemplos: `23.01.0` Es la versión de Astra Trident que está instalando.
+. Uso `helm install` y especifique un nombre para su implementación y ubicación del registro de imágenes. Su link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"] Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos: `23.01.0` Es la versión de Astra Trident que está instalando.
 +
 [role="tabbed-block"]
 ====
-.Imágenes Trident y CSI en un registro
+.Imágenes en un registro
 --
 [listing]
 ----
 helm install <name> netapp-trident/trident-operator --version 23.01.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
 --
-.Imágenes Trident y CSI en diferentes registros
+.Imágenes en diferentes registros
 --
 Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicaciones de registro.
 
