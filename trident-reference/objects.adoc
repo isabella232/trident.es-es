@@ -123,7 +123,7 @@ Un Kubernetes `StorageClass` Objeto que usa Trident tiene el siguiente aspecto:
 
 [listing]
 ----
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: <Name>
@@ -250,7 +250,7 @@ A. `VolumeSnapshotClass` debe ser definido por un administrador para crear snaps
 
 [listing]
 ----
-apiVersion: snapshot.storage.k8s.io/v1beta1
+apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-snapclass
