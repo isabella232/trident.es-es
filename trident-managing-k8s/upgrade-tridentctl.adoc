@@ -94,7 +94,7 @@ Source:
 +
 El VP se creó mediante la `netapp.io/trident` provisioner y es del tipo NFS. Para admitir todas las nuevas funciones proporcionadas por Astra Trident, este PV debe actualizarse al tipo CSI.
 
-. Ejecute el `tridenctl upgrade volume <name-of-trident-volume>` Comando para actualizar un volumen heredado de Astra Trident a la especificación CSI.
+. Ejecute el `tridentctl upgrade volume <name-of-trident-volume>` Comando para actualizar un volumen heredado de Astra Trident a la especificación CSI.
 +
 [listing]
 ----

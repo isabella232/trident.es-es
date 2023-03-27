@@ -19,10 +19,25 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 
 
-== Novedades en 23.01
+== Novedades en 23.01.1
 
 
-IMPORTANT: Kubernetes 1.26 ahora es compatible con Trident. Actualice Trident antes de actualizar Kubernetes.
+
+=== Soluciones
+
+* Se ha corregido el operador Trident para usar IPv6 localhost para la instalación cuando se especifica en SPEC.
+* Se han corregido los permisos de rol de clúster del operador de Trident para que estén sincronizados con los permisos del paquete link:https://github.com/NetApp/trident/issues/799["Número 799"^].
+* Se ha agregado una corrección para permitir que los procesos externos se ejecuten hasta su finalización.
+* Se ha solucionado el problema al conectar un volumen de bloques sin configurar en varios nodos en el modo RWX.
+* Compatibilidad con clonado de FlexGroup fijo e importación de volúmenes para volúmenes de SMB.
+
+
+
+
+== Cambios en 23.01
+
+
+IMPORTANT: Kubernetes 1.26 ahora es compatible con Trident. Actualice Astra Trident antes de actualizar Kubernetes.
 
 
 

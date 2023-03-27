@@ -188,79 +188,79 @@ Para instalaciones con problemas de conexión aérea, la siguiente lista es una 
 
 
 | 1.21.0  a| 
-* netapp/trident:23.01.0
+* netapp/trident:23.01.1
 * netapp/trident-autosupport:23.01
 * k8s.io/sig-storage/csi-aprovisionador:v3.4.0
 * k8s.io/sig-storage/csi-attacher:v4.1.0
 * k8s.io/sig-storage/csi-reszer:v1.7.0
 * k8s.io/sig-storage/csi-snapshotter:v6.2.1
 * k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/operador especializado: 23.01.0 (opcional)
+* netapp/operador especializado: 23.01.1 (opcional)
 
 
 
 
 | v1.22.0  a| 
-* netapp/trident:23.01.0
+* netapp/trident:23.01.1
 * netapp/trident-autosupport:23.01
 * k8s.io/sig-storage/csi-aprovisionador:v3.4.0
 * k8s.io/sig-storage/csi-attacher:v4.1.0
 * k8s.io/sig-storage/csi-reszer:v1.7.0
 * k8s.io/sig-storage/csi-snapshotter:v6.2.1
 * k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/operador especializado: 23.01.0 (opcional)
+* netapp/operador especializado: 23.01.1 (opcional)
 
 
 
 
 | v1.23.0  a| 
-* netapp/trident:23.01.0
+* netapp/trident:23.01.1
 * netapp/trident-autosupport:23.01
 * k8s.io/sig-storage/csi-aprovisionador:v3.4.0
 * k8s.io/sig-storage/csi-attacher:v4.1.0
 * k8s.io/sig-storage/csi-reszer:v1.7.0
 * k8s.io/sig-storage/csi-snapshotter:v6.2.1
 * k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/operador especializado: 23.01.0 (opcional)
+* netapp/operador especializado: 23.01.1 (opcional)
 
 
 
 
 | v1.24.0  a| 
-* netapp/trident:23.01.0
+* netapp/trident:23.01.1
 * netapp/trident-autosupport:23.01
 * k8s.io/sig-storage/csi-aprovisionador:v3.4.0
 * k8s.io/sig-storage/csi-attacher:v4.1.0
 * k8s.io/sig-storage/csi-reszer:v1.7.0
 * k8s.io/sig-storage/csi-snapshotter:v6.2.1
 * k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/operador especializado: 23.01.0 (opcional)
+* netapp/operador especializado: 23.01.1 (opcional)
 
 
 
 
 | v1.25.0  a| 
-* netapp/trident:23.01.0
+* netapp/trident:23.01.1
 * netapp/trident-autosupport:23.01
 * k8s.io/sig-storage/csi-aprovisionador:v3.4.0
 * k8s.io/sig-storage/csi-attacher:v4.1.0
 * k8s.io/sig-storage/csi-reszer:v1.7.0
 * k8s.io/sig-storage/csi-snapshotter:v6.2.1
 * k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/operador especializado: 23.01.0 (opcional)
+* netapp/operador especializado: 23.01.1 (opcional)
 
 
 
 
 | v1.26.0  a| 
-* netapp/trident:23.01.0
+* netapp/trident:23.01.1
 * netapp/trident-autosupport:23.01
 * k8s.io/sig-storage/csi-aprovisionador:v3.4.0
 * k8s.io/sig-storage/csi-attacher:v4.1.0
 * k8s.io/sig-storage/csi-reszer:v1.7.0
 * k8s.io/sig-storage/csi-snapshotter:v6.2.1
 * k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/operador especializado: 23.01.0 (opcional)
+* netapp/operador especializado: 23.01.1 (opcional)
 
 
 |===

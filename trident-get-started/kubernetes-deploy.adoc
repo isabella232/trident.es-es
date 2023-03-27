@@ -111,9 +111,9 @@ Con link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernet
 ====
 
 
-=== Uso `tridenctl`
+=== Uso `tridentctl`
 
-Si tiene una puesta en marcha existente que debe actualizarse o si desea personalizar altamente su puesta en marcha, debe tener en cuenta link:kubernetes-deploy-tridentctl.html["instalación mediante trimentctl"]. Este es el método convencional de puesta en marcha de Astra Trident.
+Si tiene una puesta en marcha existente que debe actualizarse o si desea personalizar altamente su puesta en marcha, debe tener en cuenta . Este es el método convencional de puesta en marcha de Astra Trident.
 
 Puede hacerlo  Para generar los manifiestos de los recursos de Trident. Esto incluye la implementación, el conjunto demoníaco, la cuenta de servicio y el rol de clúster que crea Astra Trident como parte de su instalación.
 
