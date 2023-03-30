@@ -87,7 +87,7 @@ Cree el `TridentOrchestrator` Definici√≥n de recurso personalizado (CRD). Crear√
 
 [listing]
 ----
-kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_<VERSION>.yaml
+kubectl create -f deploy/crds/<VERSION>.yaml
 ----
 
 
