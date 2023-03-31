@@ -52,7 +52,7 @@ Una definición de backend de ejemplo tendrá este aspecto:
   "dataLIF": "10.0.0.2",
   "svm": "svm_nfs",
   "username": "vsadmin",
-  "password": "secret"
+  "password": "password"
 }
 ----
 Tenga en cuenta que la definición de backend es el único lugar en el que las credenciales se almacenan en texto sin formato. Una vez creado el back-end, los nombres de usuario y las contraseñas se codifican con Base64 y se almacenan como secretos de Kubernetes. La creación/mejora de un backend es el único paso que requiere conocimiento de las credenciales. Por tanto, es una operación de solo administración que deberá realizar el administrador de Kubernetes o almacenamiento.
@@ -156,7 +156,7 @@ cat cert-backend-updated.json
 "dataLIF": "1.2.3.8",
 "svm": "vserver_test",
 "username": "vsadmin",
-"password": "secret",
+"password": "password",
 "storagePrefix": "myPrefix_"
 }
 
@@ -209,7 +209,7 @@ Hay dos opciones de configuración que deben utilizarse. A continuación se mues
     "managementLIF": "192.168.0.135",
     "svm": "svm1",
     "username": "vsadmin",
-    "password": "FaKePaSsWoRd",
+    "password": "password",
     "autoExportCIDRs": ["192.168.0.0/24"],
     "autoExportPolicy": true
 }

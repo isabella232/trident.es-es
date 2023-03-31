@@ -258,7 +258,7 @@ Este es un ejemplo de configuración de backend mínima. Esta configuración bá
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret"
+    "password": "password"
 }
 ----
 
@@ -279,7 +279,7 @@ Este es un ejemplo de configuración de backend mínima. Esta configuración bá
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret"
+    "password": "password"
 }
 ----
 
@@ -307,7 +307,7 @@ En este ejemplo, algunos de los recursos compartidos de almacenamiento son los s
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret",
+    "password": "password",
 
     "defaults": {
           "spaceAllocation": "false",
@@ -362,7 +362,7 @@ A continuación, se muestra un ejemplo de iSCSI para el `ontap-san-economy` cont
     "chapUsername": "uh2aNCLSd6cNwxyz",
     "igroupName": "trident",
     "username": "vsadmin",
-    "password": "secret",
+    "password": "password",
 
     "defaults": {
           "spaceAllocation": "false",
