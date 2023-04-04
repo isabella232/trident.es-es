@@ -43,6 +43,12 @@ Para realizar la actualización con el operador, se deben cumplir las siguientes
 Siga estos pasos para actualizar una instalación de operador de Trident de ámbito del clúster. Todas las versiones 21.01 y posteriores de Astra Trident utilizan un operador con ámbito de clúster.
 
 .Pasos
+. Compruebe su versión de Astra Trident:
++
+[listing]
+----
+./tridentctl -n trident version
+----
 . Elimine el operador Trident que se ha utilizado para instalar la instancia actual de Astra Trident. Por ejemplo, si va a actualizar desde 22.01, ejecute el siguiente comando:
 +
 [listing]
@@ -116,7 +122,7 @@ pwd
 /root/20.10.1/trident-installer
 
 #Delete the namespace-scoped operator
-kubectl delete -f deploy/<BUNDLE.YAML>
+kubectl delete -f deploy/<BUNDLE.YAML> -n trident
 serviceaccount "trident-operator" deleted
 clusterrole.rbac.authorization.k8s.io "trident-operator" deleted
 clusterrolebinding.rbac.authorization.k8s.io "trident-operator" deleted
