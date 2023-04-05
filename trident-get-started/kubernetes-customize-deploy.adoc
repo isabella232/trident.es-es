@@ -12,18 +12,28 @@ summary: 'El operador Trident le permite personalizar la manera en que se instal
 
 
 [role="lead"]
-El operador Trident le permite personalizar la instalación de Astra Trident con los atributos del `TridentOrchestrator` espec.
-
-Si desea personalizar la instalación más allá de qué `TridentOrchestrator` los argumentos permiten, debe considerar utilizar `tridentctl` Para generar manifiestos YAML personalizados que puede modificar según sea necesario.
+El operador Trident le permite personalizar la instalación de Astra Trident con los atributos del `TridentOrchestrator` espec. Si desea personalizar la instalación más allá de qué `TridentOrchestrator` los argumentos lo permiten, considere usar `tridentctl` Para generar manifiestos YAML personalizados y modificarlos según sea necesario.
 
 
-WARNING: `spec.namespace` se especifica en `TridentOrchestrator` Para indicar qué espacio de nombres está instalado Astra Trident. Este parámetro *no se puede actualizar después de instalar Astra Trident*. Al intentar hacerlo, se genera el `TridentOrchestrator` estado a cambiar a. `Failed`. Astra Trident no está pensado para la migración entre espacios de nombres.
+
+== Descripción de los pods de la controladora y los pods de nodo
+
+Astra Trident se ejecuta como un único pod de la controladora, más un pod de nodos en cada nodo de trabajo del clúster. El pod del nodo debe ejecutarse en cualquier host en el que desee montar potencialmente un volumen Astra Trident.
+
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selectores de nodos"^] y.. link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["toleraciones y tintes"^] se utilizan para restringir un pod para ejecutarse en un nodo concreto o preferido. Uso del "ControllerPlugin" y. `NodePlugin`, puede especificar restricciones y anulaciones.
+
+* El complemento de la controladora se ocupa del aprovisionamiento y la gestión de volúmenes, como snapshots y redimensionamiento.
+* El complemento de nodo se encarga de conectar el almacenamiento al nodo.
+
 
 
 
 == Opciones de configuración
 
-Esta tabla detalla `TridentOrchestrator` atributos:
+
+WARNING: `spec.namespace` se especifica en `TridentOrchestrator` Para indicar el espacio de nombres en el que está instalado Astra Trident. Este parámetro *no se puede actualizar después de instalar Astra Trident*. Al intentar hacerlo, se genera el `TridentOrchestrator` estado a cambiar a. `Failed`. Astra Trident no está pensado para la migración entre espacios de nombres.
+
+Esta tabla detalla `TridentOrchestrator` atributos.
 
 [cols="3"]
 |===
@@ -85,16 +95,16 @@ Esta tabla detalla `TridentOrchestrator` atributos:
 `Never` para no tirar nunca de la imagen. | `IfNotPresent` 
 
 
-| `controllerPluginNodeSelector` | Selectores de nodos adicionales para POD que ejecutan el complemento Trident Controller CSI. Sigue el mismo formato que pod.spec.nodeSelector. | Sin valores predeterminados; opcional 
+| `controllerPluginNodeSelector` | Selectores de nodos adicionales para POD. Sigue el mismo formato que pod.spec.nodeSelector. | Sin valores predeterminados; opcional 
 
 
-| `controllerPluginTolerations` | Anula la tolerancia de los pods que ejecutan el complemento CSI del controlador Trident. Sigue el mismo formato que el de pod.spec.tolerancias. | Sin valores predeterminados; opcional 
+| `controllerPluginTolerations` | Anula la toleración de Kubernetes en pods. Sigue el mismo formato que el de pod.spec.tolerancias. | Sin valores predeterminados; opcional 
 
 
-| `nodePluginNodeSelector` | Selectores de nodos adicionales para POD que ejecutan el complemento Trident Node CSI. Sigue el mismo formato que pod.spec.nodeSelector. | Sin valores predeterminados; opcional 
+| `nodePluginNodeSelector` | Selectores de nodos adicionales para POD. Sigue el mismo formato que pod.spec.nodeSelector. | Sin valores predeterminados; opcional 
 
 
-| `nodePluginTolerations` | Anula las toleraciones para los pods que ejecutan el complemento CSI de nodos Trident. Sigue el mismo formato que el de pod.spec.tolerancias. | Sin valores predeterminados; opcional 
+| `nodePluginTolerations` | Anula la toleración de Kubernetes en pods. Sigue el mismo formato que el de pod.spec.tolerancias. | Sin valores predeterminados; opcional 
 |===
 
 NOTE: Para obtener más información sobre el formato de los parámetros del POD, consulte link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Asignación de pods a nodos"^].
