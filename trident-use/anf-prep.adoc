@@ -11,24 +11,24 @@ summary: Antes de configurar el back-end ANF, debe asegurarse de que se cumplen 
 :imagesdir: ../media/
 
 
+[role="lead"]
 Antes de configurar el back-end de Azure NetApp Files, debe asegurarse de que se cumplan los siguientes requisitos.
 
-Si es la primera vez que utiliza Azure NetApp Files o está en una nueva ubicación, se requiere alguna configuración inicial.
 
-* Para configurar Azure NetApp Files y crear un volumen NFS, consulte https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configure Azure NetApp Files y cree un volumen NFS"^].
-* Para configurar Azure NetApp Files y añadir un volumen SMB, consulte: https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-volumes-smb["Azure: Cree un volumen de SMB para Azure NetApp Files"^].
+NOTE: Si utiliza Azure NetApp Files por primera vez o en una ubicación nueva, es necesario realizar alguna configuración inicial para configurar Azure NetApp Files y crear un volumen NFS. Consulte https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configure Azure NetApp Files y cree un volumen NFS"^].
 
 
 
-
-== Requisitos
+== Requisitos previos para volúmenes NFS y SMB
 
 Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, necesita lo siguiente:
 
+* Un pool de capacidad. Consulte link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft: Cree un pool de capacidad para Azure NetApp Files"^].
+* Una subred delegada en Azure NetApp Files. Consulte link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft: Delegue una subred en Azure NetApp Files"^].
 * `subscriptionID` Desde una suscripción de Azure con Azure NetApp Files habilitado.
 * `tenantID`, `clientID`, y. `clientSecret` desde una link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["Registro de aplicaciones"^] En Azure Active Directory con permisos suficientes para el servicio Azure NetApp Files. El registro de aplicaciones debe usar:
 +
-** El rol propietario o Colaborador link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Predefinidos por Azure"^]
+** El rol propietario o Colaborador link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Predefinidos por Azure"^].
 ** A. link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Rol Colaborador personalizado"] en el nivel de suscripción (`assignableScopes`) Con los siguientes permisos que están limitados únicamente a lo que Astra Trident necesita. Después de crear el rol personalizado, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Asigne el rol mediante el portal de Azure"^].
 +
 [source, JSON]
@@ -86,8 +86,11 @@ Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/
 
 == Requisitos adicionales para volúmenes SMB
 
+Para crear un volumen de SMB, debe tener lo siguiente:
+
+* Active Directory configurado y conectado a Azure NetApp Files. Consulte link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft: Cree y gestione conexiones de Active Directory para Azure NetApp Files"^].
 * Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2019. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
-* Al menos un secreto Astra Trident que contiene sus credenciales de Active Directory para que ANF pueda autenticarse en Active Directory. Generar secreto `smbcreds`:
+* Al menos un secreto de Astra Trident que contiene sus credenciales de Active Directory para que Azure NetApp Files pueda autenticarse en Active Directory. Generar secreto `smbcreds`:
 +
 [listing]
 ----
