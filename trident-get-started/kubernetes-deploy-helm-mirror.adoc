@@ -105,7 +105,131 @@ Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguien
 helm install <name> netapp-trident/trident-operator --version 23.01.1  --create-namespace --namespace --set tridentDebug=true
 ----
 
-NOTE: La `values.yaml` Archivo, que forma parte del gráfico Helm, proporciona la lista de claves y sus valores predeterminados.
+
+== Opciones de configuración
+
+Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporciona la lista de claves y sus valores predeterminados.
+
+[cols="3"]
+|===
+| Opción | Descripción | Predeterminado 
+
+
+| `nodeSelector` | Etiquetas de nodo para la asignación de pod |  
+
+
+| `podAnnotations` | Anotaciones del pod |  
+
+
+| `deploymentAnnotations` | Anotaciones de despliegue |  
+
+
+| `tolerations` | Toleraciones para la asignación de POD |  
+
+
+| `affinity` | Afinidad para la asignación de pod |  
+
+
+| `tridentControllerPluginNodeSelector` | Selectores de nodos adicionales para POD. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+
+
+| `tridentControllerPluginTolerations` | Anula la toleración de Kubernetes en pods. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+
+
+| `tridentNodePluginNodeSelector` | Selectores de nodos adicionales para POD. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+
+
+| `tridentNodePluginTolerations` | Anula la toleración de Kubernetes en pods. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+
+
+| `imageRegistry` | Identifica el registro del `trident-operator`, `trident`, y otras imágenes. Déjelo vacío para aceptar el valor predeterminado. | "" 
+
+
+| `imagePullPolicy` | Establece la política de extracción de imágenes para el `trident-operator`. | `IfNotPresent` 
+
+
+| `imagePullSecrets` | Establece los secretos de extracción de imágenes para el `trident-operator`, `trident`, y otras imágenes. |  
+
+
+| `kubeletDir` | Permite anular la ubicación del host del estado interno de kubelet. | ''/var/lib/kubelet'' 
+
+
+| `operatorLogLevel` | Permite establecer el nivel de registro del operador Trident en: `trace`, `debug`, `info`, `warn`, `error`, o. `fatal`. | `"info"` 
+
+
+| `operatorDebug` | Permite configurar en debug el nivel de registro del operador Trident. | `true` 
+
+
+| `operatorImage` | Permite la sustitución completa de la imagen durante `trident-operator`. | "" 
+
+
+| `operatorImageTag` | Permite sobrescribir la etiqueta del `trident-operator` imagen. | "" 
+
+
+| `tridentIPv6` | Permite permitir que Astra Trident funcione en clústeres de IPv6. | `false` 
+
+
+| `tridentK8sTimeout` | Anula el tiempo de espera predeterminado de 30 segundos para la mayoría de las operaciones de la API de Kubernetes (si no es cero, en segundos). | `0` 
+
+
+| `tridentHttpRequestTimeout` | Sustituye el timeout por defecto de 90 segundos para las solicitudes HTTP, con `0s` ser una duración infinita para el timeout. No se permiten valores negativos. | `"90s"` 
+
+
+| `tridentSilenceAutosupport` | Permite deshabilitar la generación de informes periódicos de AutoSupport de Astra Trident. | `false` 
+
+
+| `tridentAutosupportImageTag` | Permite sobrescribir la etiqueta de la imagen del contenedor AutoSupport de Astra Trident. | `<version>` 
+
+
+| `tridentAutosupportProxy` | Permite que el contenedor Astra Trident AutoSupport telefonee a casa a través de un proxy HTTP. | "" 
+
+
+| `tridentLogFormat` | Establece el formato de registro de Astra Trident (`text` o. `json`). | `"text"` 
+
+
+| `tridentDisableAuditLog` | Deshabilita el registro de auditorías de Astra Trident. | `true` 
+
+
+| `tridentLogLevel` | Permite establecer el nivel de registro de Astra Trident en: `trace`, `debug`, `info`, `warn`, `error`, o. `fatal`. | `"info"` 
+
+
+| `tridentDebug` | Permite establecer el nivel de registro de Astra Trident `debug`. | `false` 
+
+
+| `tridentLogWorkflows` | Permite habilitar flujos de trabajo específicos de Astra Trident para el registro de seguimiento o la supresión de registros. | "" 
+
+
+| `tridentLogLayers` | Permite habilitar capas específicas de Astra Trident para el registro de seguimiento o la supresión de registros. | "" 
+
+
+| `tridentImage` | Permite anular por completo la imagen de Astra Trident. | "" 
+
+
+| `tridentImageTag` | Permite sobrescribir la etiqueta de la imagen para Astra Trident. | "" 
+
+
+| `tridentProbePort` | Permite sobrescribir el puerto predeterminado utilizado para las sondas de vida/preparación de Kubernetes. | "" 
+
+
+| `windows` | Permite instalar Astra Trident en el nodo de trabajo de Windows. | `false` 
+
+
+| `enableForceDetach` | Permite habilitar la función Forzar separación. | `false` 
+
+
+| `excludePodSecurityPolicy` | Excluye la política de seguridad del pod del operador de la creación. | `false` 
+|===
+
+
+=== Descripción de los pods de la controladora y los pods de nodo
+
+Astra Trident se ejecuta como un único pod de la controladora, más un pod de nodos en cada nodo de trabajo del clúster. El pod del nodo debe ejecutarse en cualquier host en el que desee montar potencialmente un volumen Astra Trident.
+
+Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selectores de nodos"^] y.. link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["toleraciones y tintes"^] se utilizan para restringir un pod para ejecutarse en un nodo concreto o preferido. Uso del "ControllerPlugin" y. `NodePlugin`, puede especificar restricciones y anulaciones.
+
+* El complemento de la controladora se ocupa del aprovisionamiento y la gestión de volúmenes, como snapshots y redimensionamiento.
+* El complemento de nodo se encarga de conectar el almacenamiento al nodo.
+
 
 
 
