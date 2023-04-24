@@ -110,7 +110,7 @@ Nota al pie: Yesfonote:1[]: No administrado por Astra Trident Yesfootnote:2[]: A
 
 Astra Trident utiliza `azure-netapp-files` controlador para administrar link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] servicio.
 
-Puede encontrar más información acerca de este controlador y cómo configurarlo en link:https://azure.microsoft.com/en-us/services/netapp/["Configuración de back-end de Astra Trident para Azure NetApp Files"^].
+Puede encontrar más información acerca de este controlador y cómo configurarlo en link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Configuración de back-end de Astra Trident para Azure NetApp Files"^].
 
 [cols="20,10,10,10,10,10,10"]
 |===
