@@ -162,26 +162,29 @@ A continuación se muestra un ejemplo con valores predeterminados definidos:
 
 [listing]
 ----
-{
- "version": 1,
- "storageDriverName": "ontap-san",
- "managementLIF": "10.0.0.1",
- "dataLIF": "10.0.0.2",
- "svm": "trident_svm",
- "username": "admin",
- "password": "password",
- "labels": {"k8scluster": "dev2", "backend": "dev2-sanbackend"},
- "storagePrefix": "alternate-trident",
- "igroupName": "custom",
- "debugTraceFlags": {"api":false, "method":true},
- "defaults": {
-     "spaceReserve": "volume",
-     "qosPolicy": "standard",
-     "spaceAllocation": "false",
-     "snapshotPolicy": "default",
-     "snapshotReserve": "10"
- }
-}
+---
+version: 1
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: admin
+password: password
+labels:
+  k8scluster: dev2
+  backend: dev2-sanbackend
+storagePrefix: alternate-trident
+igroupName: custom
+debugTraceFlags:
+  api: false
+  method: true
+defaults:
+  spaceReserve: volume
+  qosPolicy: standard
+  spaceAllocation: 'false'
+  snapshotPolicy: default
+  snapshotReserve: '10'
+
 ----
 
 NOTE: Para todos los volúmenes creados mediante la `ontap-san` Controlador, Astra Trident añade un 10 % adicional de capacidad a FlexVol para acomodar los metadatos de las LUN. La LUN se aprovisionará con el tamaño exacto que el usuario solicite en la RVP. Astra Trident añade el 10 % a FlexVol (se muestra como tamaño disponible en ONTAP). Los usuarios obtienen ahora la cantidad de capacidad utilizable que soliciten. Este cambio también impide que las LUN se conviertan en de solo lectura a menos que se utilice completamente el espacio disponible. Esto no se aplica a ontap-san-economy.
@@ -215,23 +218,22 @@ Este es un ejemplo de configuración de backend mínima. `clientCertificate`, `c
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "backendName": "DefaultSANBackend",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi",
-    "useCHAP": true,
-    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
-    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
-    "chapTargetUsername": "iJF4heBRT0TCwxyz",
-    "chapUsername": "uh2aNCLSd6cNwxyz",
-    "igroupName": "trident",
-    "clientCertificate": "ZXR0ZXJwYXB...ICMgJ3BhcGVyc2",
-    "clientPrivateKey": "vciwKIyAgZG...0cnksIGRlc2NyaX",
-    "trustedCACertificate": "zcyBbaG...b3Igb3duIGNsYXNz"
-}
+---
+version: 1
+storageDriverName: ontap-san
+backendName: DefaultSANBackend
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.3
+svm: svm_iscsi
+useCHAP: true
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
+igroupName: trident
+clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
+clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
+trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 ----
 
 
@@ -241,22 +243,23 @@ Este es un ejemplo de configuración de backend mínima. Esta configuración bá
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi",
-    "labels": {"k8scluster": "test-cluster-1", "backend": "testcluster1-sanbackend"},
-    "useCHAP": true,
-    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
-    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
-    "chapTargetUsername": "iJF4heBRT0TCwxyz",
-    "chapUsername": "uh2aNCLSd6cNwxyz",
-    "igroupName": "trident",
-    "username": "vsadmin",
-    "password": "password"
-}
+---
+version: 1
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.3
+svm: svm_iscsi
+labels:
+  k8scluster: test-cluster-1
+  backend: testcluster1-sanbackend
+useCHAP: true
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
+igroupName: trident
+username: vsadmin
+password: password
 ----
 
 
@@ -264,20 +267,19 @@ Este es un ejemplo de configuración de backend mínima. Esta configuración bá
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-san-economy",
-    "managementLIF": "10.0.0.1",
-    "svm": "svm_iscsi_eco",
-    "useCHAP": true,
-    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
-    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
-    "chapTargetUsername": "iJF4heBRT0TCwxyz",
-    "chapUsername": "uh2aNCLSd6cNwxyz",
-    "igroupName": "trident",
-    "username": "vsadmin",
-    "password": "password"
-}
+---
+version: 1
+storageDriverName: ontap-san-economy
+managementLIF: 10.0.0.1
+svm: svm_iscsi_eco
+useCHAP: true
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
+igroupName: trident
+username: vsadmin
+password: password
 ----
 
 
@@ -291,109 +293,98 @@ En este ejemplo, algunos de los recursos compartidos de almacenamiento son los s
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi",
-    "useCHAP": true,
-    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
-    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
-    "chapTargetUsername": "iJF4heBRT0TCwxyz",
-    "chapUsername": "uh2aNCLSd6cNwxyz",
-    "igroupName": "trident",
-    "username": "vsadmin",
-    "password": "password",
-
-    "defaults": {
-          "spaceAllocation": "false",
-          "encryption": "false",
-          "qosPolicy": "standard"
-    },
-    "labels":{"store": "san_store", "kubernetes-cluster": "prod-cluster-1"},
-    "region": "us_east_1",
-    "storage": [
-        {
-            "labels":{"protection":"gold", "creditpoints":"40000"},
-            "zone":"us_east_1a",
-            "defaults": {
-                "spaceAllocation": "true",
-                "encryption": "true",
-                "adaptiveQosPolicy": "adaptive-extreme"
-            }
-        },
-        {
-            "labels":{"protection":"silver", "creditpoints":"20000"},
-            "zone":"us_east_1b",
-            "defaults": {
-                "spaceAllocation": "false",
-                "encryption": "true",
-                "qosPolicy": "premium"
-            }
-        },
-        {
-            "labels":{"protection":"bronze", "creditpoints":"5000"},
-            "zone":"us_east_1c",
-            "defaults": {
-                "spaceAllocation": "true",
-                "encryption": "false"
-            }
-        }
-    ]
-}
+---
+version: 1
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.3
+svm: svm_iscsi
+useCHAP: true
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
+igroupName: trident
+username: vsadmin
+password: password
+defaults:
+  spaceAllocation: 'false'
+  encryption: 'false'
+  qosPolicy: standard
+labels:
+  store: san_store
+  kubernetes-cluster: prod-cluster-1
+region: us_east_1
+storage:
+- labels:
+    protection: gold
+    creditpoints: '40000'
+  zone: us_east_1a
+  defaults:
+    spaceAllocation: 'true'
+    encryption: 'true'
+    adaptiveQosPolicy: adaptive-extreme
+- labels:
+    protection: silver
+    creditpoints: '20000'
+  zone: us_east_1b
+  defaults:
+    spaceAllocation: 'false'
+    encryption: 'true'
+    qosPolicy: premium
+- labels:
+    protection: bronze
+    creditpoints: '5000'
+  zone: us_east_1c
+  defaults:
+    spaceAllocation: 'true'
+    encryption: 'false'
 ----
 A continuación, se muestra un ejemplo de iSCSI para el `ontap-san-economy` controlador:
 
 [listing]
 ----
-{
-    "version": 1,
-    "storageDriverName": "ontap-san-economy",
-    "managementLIF": "10.0.0.1",
-    "svm": "svm_iscsi_eco",
-    "useCHAP": true,
-    "chapInitiatorSecret": "cl9qxIm36DKyawxy",
-    "chapTargetInitiatorSecret": "rqxigXgkesIpwxyz",
-    "chapTargetUsername": "iJF4heBRT0TCwxyz",
-    "chapUsername": "uh2aNCLSd6cNwxyz",
-    "igroupName": "trident",
-    "username": "vsadmin",
-    "password": "password",
-
-    "defaults": {
-          "spaceAllocation": "false",
-          "encryption": "false"
-    },
-    "labels":{"store":"san_economy_store"},
-    "region": "us_east_1",
-    "storage": [
-        {
-            "labels":{"app":"oracledb", "cost":"30"},
-            "zone":"us_east_1a",
-            "defaults": {
-                "spaceAllocation": "true",
-                "encryption": "true"
-            }
-        },
-        {
-            "labels":{"app":"postgresdb", "cost":"20"},
-            "zone":"us_east_1b",
-            "defaults": {
-                "spaceAllocation": "false",
-                "encryption": "true"
-            }
-        },
-        {
-            "labels":{"app":"mysqldb", "cost":"10"},
-            "zone":"us_east_1c",
-            "defaults": {
-                "spaceAllocation": "true",
-                "encryption": "false"
-            }
-        }
-    ]
-}
+---
+version: 1
+storageDriverName: ontap-san-economy
+managementLIF: 10.0.0.1
+svm: svm_iscsi_eco
+useCHAP: true
+chapInitiatorSecret: cl9qxIm36DKyawxy
+chapTargetInitiatorSecret: rqxigXgkesIpwxyz
+chapTargetUsername: iJF4heBRT0TCwxyz
+chapUsername: uh2aNCLSd6cNwxyz
+igroupName: trident
+username: vsadmin
+password: password
+defaults:
+  spaceAllocation: 'false'
+  encryption: 'false'
+labels:
+  store: san_economy_store
+region: us_east_1
+storage:
+- labels:
+    app: oracledb
+    cost: '30'
+  zone: us_east_1a
+  defaults:
+    spaceAllocation: 'true'
+    encryption: 'true'
+- labels:
+    app: postgresdb
+    cost: '20'
+  zone: us_east_1b
+  defaults:
+    spaceAllocation: 'false'
+    encryption: 'true'
+- labels:
+    app: mysqldb
+    cost: '10'
+  zone: us_east_1c
+  defaults:
+    spaceAllocation: 'true'
+    encryption: 'false'
 ----
 
 

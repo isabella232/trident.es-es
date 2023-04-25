@@ -28,7 +28,7 @@ Estas opciones de configuración se aplican a todas las configuraciones de Astra
 | `version`  a| 
 Número de versión del archivo de configuración
  a| 
-1
+`1`
 
 
 
@@ -41,16 +41,16 @@ Nombre del controlador de almacenamiento
 
 
 | `storagePrefix`  a| 
-Prefijo opcional para los nombres de volúmenes. Por defecto: “Netappdvp_”.
+Prefijo opcional para los nombres de volúmenes. Valor predeterminado: `netappdvp_`.
  a| 
-estadificación_
+`staging_`
 
 
 
 | `limitVolumeSize`  a| 
 Restricción opcional de los tamaños de volumen. Por defecto: "" (no se aplica)
  a| 
-10 g
+`10g`
 
 |===
 
@@ -64,9 +64,9 @@ Las opciones predeterminadas están disponibles para evitar tener que especifica
 
 
 | `size`  a| 
-Tamaño predeterminado opcional para los nuevos volúmenes. Predeterminado: “1G”
+Tamaño predeterminado opcional para los nuevos volúmenes. Valor predeterminado: `1G`
  a| 
-10 G
+`10G`
 
 |===
 
@@ -83,7 +83,7 @@ Además de los valores de configuración global anteriores, al utilizar ONTAP, e
 | `managementLIF`  a| 
 Dirección IP de LIF de gestión de ONTAP. Es posible especificar un nombre de dominio completo (FQDN).
  a| 
-10.0.0.1
+`10.0.0.1`
 
 
 
@@ -94,70 +94,70 @@ Dirección IP de LIF de protocolo.
 
 *Controladores SAN ONTAP*: No se especifica para iSCSI. Usos de Astra Trident link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Asignación de LUN selectiva de ONTAP"^] Para descubrir los LIF iSCSI necesarios para establecer una sesión de ruta múltiple. Se genera una advertencia if `dataLIF` se define explícitamente.
  a| 
-10.0.0.2
+`10.0.0.2`
 
 
 
 | `svm`  a| 
 Utilizar máquinas virtuales de almacenamiento (necesaria, si LIF de gestión es una LIF de clúster)
  a| 
-svm_nfs
+`svm_nfs`
 
 
 
 | `username`  a| 
 Nombre de usuario para conectarse al dispositivo de almacenamiento
  a| 
-vsadmin
+`vsadmin`
 
 
 
 | `password`  a| 
 Contraseña para conectarse al dispositivo de almacenamiento
  a| 
-secreto
+`secret`
 
 
 
 | `aggregate`  a| 
 Agregado para el aprovisionamiento (opcional; si se establece, se debe asignar a la SVM). Para la `ontap-nas-flexgroup` controlador, esta opción se ignora. Todos los agregados asignados al SVM se utilizan para aprovisionar un volumen de FlexGroup.
  a| 
-agr1
+`aggr1`
 
 
 
 | `limitAggregateUsage`  a| 
 Opcional, fallo en el aprovisionamiento si el uso supera este porcentaje
  a| 
-75 %
+`75%`
 
 
 
 | `nfsMountOptions`  a| 
 Control detallado de las opciones de montaje NFS; valor predeterminado es “-o nfsvers=3”. *Disponible sólo para `ontap-nas` y.. `ontap-nas-economy` controladores*. https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["Consulte la información de configuración del host NFS aquí"^].
  a| 
--o nfsvers=4
+`-o nfsvers=4`
 
 
 
 | `igroupName`  a| 
-el igroup utilizado por el plugin; de forma predeterminada, es “netappdvp”. *Disponible sólo para el 'ontap-san'driver*.
+el igroup utilizado por el plugin; de forma predeterminada a. `netappdvp`. *Disponible sólo para el 'ontap-san'driver*.
  a| 
-miygroup
+`myigroup`
 
 
 
 | `limitVolumeSize`  a| 
 Tamaño máximo del volumen que se puede volver a realizar la consulta y tamaño del volumen principal de qtree. *Para `ontap-nas-economy` Controlador, esta opción limita además el tamaño de los FlexVols que crea*.
  a| 
-300 g
+`300g`
 
 
 
 | `qtreesPerFlexvol`  a| 
 El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300], y el valor predeterminado es 200. *Para `ontap-nas-economy` Controlador, esta opción permite personalizar el número máximo de qtrees por FlexVol*.
  a| 
-300
+`300`
 
 |===
 Las opciones predeterminadas están disponibles para evitar tener que especificarlas en cada volumen que cree:
@@ -168,30 +168,30 @@ Las opciones predeterminadas están disponibles para evitar tener que especifica
 
 
 | `spaceReserve`  a| 
-Modo de reserva de espacio; “none” (thin provisioning) o “volume” (grueso)
+Modo de reserva de espacio; `none` (con thin provisioning) o `volume` (grueso)
  a| 
-ninguno
+`none`
 
 
 
 | `snapshotPolicy`  a| 
-Política de instantánea que se va a utilizar, el valor predeterminado es “none”.
+La política de Snapshot que se va a utilizar, el valor predeterminado es `none`
  a| 
-ninguno
+`none`
 
 
 
 | `snapshotReserve`  a| 
-El porcentaje de reserva de instantánea, el valor predeterminado es “” para aceptar el valor predeterminado de ONTAP
+Porcentaje de reserva de Snapshot, el valor predeterminado es « » para aceptar el valor predeterminado de ONTAP
  a| 
-10
+`10`
 
 
 
 | `splitOnClone`  a| 
-Dividir un clon de su padre en la creación, de manera predeterminada a “false”
+Divida un clon de su elemento principal tras su creación (el valor predeterminado es `false`
  a| 
-falso
+`false`
 
 
 
@@ -207,23 +207,23 @@ verdadero
 
 
 | `unixPermissions`  a| 
-Opción NAS para volúmenes NFS aprovisionados, de forma predeterminada, es “777”
+La opción de NAS para volúmenes NFS aprovisionados, de forma predeterminada a. `777`
  a| 
-777
+`777`
 
 
 
 | `snapshotDir`  a| 
-Opción NAS para acceder a `.snapshot` directorio, por defecto es “falso”
+Opción NAS para acceder a `.snapshot` directorio, el valor predeterminado es `false`
  a| 
-verdadero
+`true`
 
 
 
 | `exportPolicy`  a| 
-Opción NAS para que la directiva de exportación NFS se utilice, por defecto es “default”
+La opción de NAS para la política de exportación de NFS que va a utilizar, de forma predeterminada a. `default`
  a| 
-predeterminado
+`default`
 
 
 
@@ -237,16 +237,16 @@ Compatibilidad con NFS `mixed` y.. `unix` estilos de seguridad. El valor predete
 
 
 | `fileSystemType`  a| 
-Opción SAN para seleccionar el tipo de sistema de archivos, por defecto es “ext4”
+Opción SAN para seleccionar el tipo de sistema de archivos, de forma predeterminada a. `ext4`
  a| 
-xfs
+`xfs`
 
 
 
 | `tieringPolicy`  a| 
-La política de organización en niveles que se va a utilizar, el valor predeterminado es “ninguna”; “sólo snapshot” para la configuración SVM-DR anterior a ONTAP 9.5
+Política de organización en niveles que se va a utilizar, el valor predeterminado es `none`; `snapshot-only` Para configuraciones anteriores a ONTAP 9,5 SVM-DR
  a| 
-ninguno
+`none`
 
 |===
 
@@ -395,14 +395,14 @@ Puerto y dirección IP de iSCSI
 | `TenantName`  a| 
 Debe utilizar el inquilino SolidFireF (creado si no encontrado)
  a| 
-“docker”
+`docker`
 
 
 
 | `InitiatorIFace`  a| 
 Especifique la interfaz cuando restrinja el tráfico de iSCSI a una interfaz no predeterminada
  a| 
-“predeterminado”
+`default`
 
 
 
@@ -416,7 +416,7 @@ Vea el ejemplo siguiente
 | `LegacyNamePrefix`  a| 
 Prefijo para instalaciones actualizadas de Trident. Si utilizó una versión de Trident anterior a la 1.3.2 y realiza una actualización con volúmenes existentes, deberá establecer este valor para acceder a los volúmenes antiguos que se asignaron mediante el método volume-name.
  a| 
-“netappdvp-”
+`netappdvp-`
 
 |===
 La `solidfire-san` El controlador no es compatible con Docker Swarm.

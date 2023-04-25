@@ -45,7 +45,7 @@ Para administrar un back-end preexistente mediante `kubectl`, tendrá que crear 
 
 === Paso 0: Identificar el back-end
 
-Para crear un `TridentBackendConfig` que se enlaza a un back-end existente, necesitará obtener la configuración del back-end. En este ejemplo, supongamos que se ha creado un back-end mediante la siguiente definición JSON:
+Para crear un `TridentBackendConfig` que se enlaza a un backend existente, necesitará obtener la configuración de backend. En este ejemplo, supongamos que se ha creado un back-end mediante la siguiente definición JSON:
 
 [listing]
 ----
