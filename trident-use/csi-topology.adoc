@@ -28,7 +28,7 @@ NOTE: La `WaitForFirstConsumer` el modo de encuadernación no requiere etiquetas
 .Lo que necesitará
 Para utilizar la topología CSI, necesita lo siguiente:
 
-* Un clúster de Kubernetes que ejecuta un link:requirements.html["Compatible con la versión de Kubernetes"]
+* Un clúster de Kubernetes que ejecuta un link:../trident-get-started/requirements.html["Compatible con la versión de Kubernetes"]
 +
 [listing]
 ----

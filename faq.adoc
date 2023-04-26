@@ -310,7 +310,7 @@ Puede establecer permisos Unix en el volumen aprovisionado por Astra Trident med
 
 === ¿Cómo puedo configurar un conjunto explícito de opciones de montaje NFS de ONTAP al aprovisionar un volumen?
 
-De forma predeterminada, Astra Trident no establece las opciones de montaje en ningún valor con Kubernetes. Para especificar las opciones de montaje en la clase de almacenamiento Kubernetes, siga el ejemplo dado https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-ontapnas-k8s1.8-mountoptions.yaml#L6["aquí"^].
+De forma predeterminada, Astra Trident no establece las opciones de montaje en ningún valor con Kubernetes. Para especificar las opciones de montaje en la clase de almacenamiento Kubernetes, siga el ejemplo dado link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-ontapnas-k8s1.8-mountoptions.yaml["aquí"^].
 
 
 
