@@ -40,53 +40,22 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 | Parámetro | Descripción | Predeterminado 
 
 
-| `namespace` | Espacio de nombres para instalar Astra Trident en | "predeterminado" 
-
-
-| `debug` | Habilite la depuración para Astra Trident | falso 
-
-
-| `windows` | Ajuste a. `true` Permite la instalación en nodos de trabajo de Windows. | falso 
-
-
-| `IPv6` | Instale Astra Trident sobre IPv6 | falso 
-
-
-| `k8sTimeout` | Tiempo de espera para las operaciones de Kubernetes | 30 seg 
-
-
-| `silenceAutosupport` | No envíe paquetes AutoSupport a NetApp automáticamente | falso 
-
-
-| `enableNodePrep` | Administrar automáticamente las dependencias del nodo de trabajo (*BETA*) | falso 
-
-
-| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | "netapp/trident-autosupport:23.01" 
+| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | «netapp/trident-autosupport:23.04.0» 
 
 
 | `autosupportProxy` | La dirección/puerto de un proxy para enviar telemetría AutoSupport | "http://proxy.example.com:8888"[] 
 
 
-| `uninstall` | Una Marca utilizada para desinstalar Astra Trident | falso 
+| `controllerPluginNodeSelector` | Selectores de nodos adicionales para POD que ejecutan el complemento Trident Controller CSI. Sigue el mismo formato que `pod.spec.nodeSelector`. | Sin valores predeterminados; opcional 
 
 
-| `logFormat` | Formato de registro de Astra Trident para utilizar [text,json] | "texto" 
+| `controllerPluginTolerations` | Anula la tolerancia de los pods que ejecutan el complemento CSI del controlador Trident. Sigue el mismo formato que `pod.spec.Tolerations`. | Sin valores predeterminados; opcional 
 
 
-| `tridentImage` | Imagen de Astra Trident para instalar | "netapp/trident:21.04" 
+| `debug` | Habilite la depuración para Astra Trident | `false` 
 
 
-| `imageRegistry` | Ruta de acceso al registro interno, del formato
-`<registry FQDN>[:port][/subpath]` | "k8s.gcr.io/sig-storage (k8s 1.19+) o quay.io/k8scsi" 
-
-
-| `kubeletDir` | Ruta al directorio kubelet del host | “/var/lib/kubelet” 
-
-
-| `wipeout` | Una lista de recursos para eliminar y realizar una eliminación completa de Astra Trident |  
-
-
-| `imagePullSecrets` | Secretos para extraer imágenes de un registro interno |  
+| `enableForceDetach` | `ontap-san` y.. `ontap-san-economy` solamente. Funciona con cierre de nodos no controlado (NGN) de Kubernetes para conceder a los administradores de clústeres la capacidad de migrar de forma segura cargas de trabajo con volúmenes montados a nodos nuevos en caso de que un nodo se vuelva en mal estado. *Esta es una característica experimental en 23,04.* Consulte <<Detalles acerca de forzar separación>> para obtener detalles importantes. | `false` 
 
 
 | `imagePullPolicy` | Establece la política de extracción de imágenes para el operador Trident. Valores válidos:
@@ -108,6 +77,31 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 |===
 
 NOTE: Para obtener más información sobre el formato de los parámetros del POD, consulte link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Asignación de pods a nodos"^].
+
+
+
+=== Detalles acerca de forzar separación
+
+Forzar separación está disponible para `ontap-san` y.. `ontap-san-economy` solamente. Antes de habilitar la desconexión forzada, se debe habilitar el cierre de nodos (NGN) no controlado en el clúster de Kubernetes. Para obtener más información, consulte link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes: Cierre de nodo sin gracia"^].
+
+
+WARNING: Dado que Astra Trident se basa en NGN de Kubernetes, no lo elimine `out-of-service` mantiene un nodo en mal estado hasta que se reprograman todas las cargas de trabajo no tolerables. La aplicación o eliminación imprudente de la contaminación puede poner en peligro la protección de datos de back-end.
+
+Cuando el administrador del clúster de Kubernetes ha aplicado el `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` mancha al nodo y. `enableForceDetach` se establece en `true`, Astra Trident determinará el estado del nodo y:
+
+. Cese el acceso de I/O back-end para los volúmenes montados en ese nodo.
+. Marque el objeto de nodo de Astra Trident como `dirty` (no es seguro para las nuevas publicaciones).
++
+
+NOTE: La controladora Trident rechazará nuevas solicitudes de volumen de publicación hasta que el nodo se vuelva a calificar (después de haberse marcado como `dirty`) Por el pod del nodo de Trident. No se aceptarán todas las cargas de trabajo programadas con una RVP montada (incluso después de que el nodo del clúster esté en buen estado y listo) hasta que Astra Trident pueda verificar el nodo `clean` (seguro para nuevas publicaciones).
+
+
+
+Cuando se restaure el estado del nodo y se elimine el tinte, Astra Trident:
+
+. Identifique y limpie las rutas publicadas obsoletas en el nodo.
+. Si el nodo está en `cleanable` estado (se ha eliminado la contaminación de fuera de servicio y el nodo está en `Ready` estatal) Y todas las rutas obsoletas publicadas están limpias, Astra Trident reenviará el nodo como `clean` y permitir nuevos volúmenes publicados al nodo.
+
 
 
 

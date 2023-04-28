@@ -11,7 +11,12 @@ summary: Descubra cómo preparar un back-end de ONTAP con controladores NAS de O
 :imagesdir: ../media/
 
 
-Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP. Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
+[role="lead"]
+Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP.
+
+
+
+== Descripción general
 
 Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
 

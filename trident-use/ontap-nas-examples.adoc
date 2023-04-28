@@ -11,6 +11,7 @@ summary: Obtenga más información sobre cómo crear y utilizar controladores NA
 :imagesdir: ../media/
 
 
+[role="lead"]
 Obtenga más información sobre cómo crear y utilizar controladores NAS de ONTAP con su instalación de Astra Trident. En esta sección, se ofrecen ejemplos de configuración del back-end y detalles sobre cómo asignar back-ends a StorageClasses.
 
 
@@ -84,10 +85,16 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 | `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Por ejemplo, {“api”:false, “method”:true} no se utiliza `debugTraceFlags` a menos que esté solucionando problemas y necesite un volcado de registro detallado. | nulo 
 
 
+| `nasType` | Configure la creación de volúmenes NFS o SMB. Las opciones son `nfs`, `smb` o nulo. El valor predeterminado es nulo en volúmenes de NFS. | `nfs` 
+
+
 | `nfsMountOptions` | Lista de opciones de montaje NFS separadas por comas. Las opciones de montaje para los volúmenes persistentes de Kubernetes se especifican normalmente en tipos de almacenamiento, pero si no se especifican opciones de montaje en una clase de almacenamiento, Astra Trident se pondrá en contacto con las opciones de montaje especificadas en el archivo de configuración del back-end de almacenamiento. Si no se especifican opciones de montaje en la clase de almacenamiento o el archivo de configuración, Astra Trident no configurará ninguna opción de montaje en un volumen persistente asociado. | "" 
 
 
 | `qtreesPerFlexvol` | El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300] | “200” 
+
+
+| `smbShare` | Puede especificar el nombre del recurso compartido de SMB creado con la carpeta compartida Microsoft Management Console o especificar un nombre de recurso compartido para permitir que Astra Trident cree el recurso compartido de SMB. Como alternativa, es posible dejar el parámetro vacío para evitar el acceso al recurso compartido común a los volúmenes. | `smb-share` 
 
 
 | `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*

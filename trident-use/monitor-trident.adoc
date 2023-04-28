@@ -11,7 +11,12 @@ summary: Astra Trident proporciona un conjunto de extremos de métricas Promethe
 :imagesdir: ../media/
 
 
-Astra Trident proporciona un conjunto de extremos de métricas Prometheus que puede utilizar para supervisar el rendimiento de Astra Trident.
+[role="lead"]
+Astra Trident proporciona un conjunto de extremos de métricas de Prometheus que puedes utilizar para supervisar el rendimiento de Astra Trident.
+
+
+
+== Descripción general
 
 Las métricas proporcionadas por Astra Trident le permiten hacer lo siguiente:
 

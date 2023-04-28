@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-reco/security-luks.html 
-keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, passphrase, nist, aes-ni, aes 
+keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, import 
 summary: 'Puede habilitar Unified Key Setup (LUKS) de Linux para cifrar los volúmenes DE ECONOMÍA SAN de ONTAP y SAN DE ONTAP en Astra Trident. Astra Trident admite el cambio de tamaño de volúmenes y la rotación de claves (Passphrase) para volúmenes cifrados con LUKS.' 
 ---
 = Configuración de clave unificada de Linux (LUKS)
@@ -92,6 +92,27 @@ stringData:
 
 Los volúmenes cifrados LUKS no pueden aprovechar la deduplicación y la compresión de ONTAP.
 
+
+
+== Configuración de backend para importar volúmenes LUKS
+
+Para importar un volumen LUKS, debe establecer `luksEncryption` para(`true` en el backend. La `luksEncryption` La opción indica a Astra Trident si el volumen cumple con la normativa LUKS (`true`) O no cumple con LUKS (`false`) como se muestra en el siguiente ejemplo.
+
+[listing]
+----
+version: 1
+storageDriverName: ontap-san
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: admin
+password: password
+defaults:
+  luksEncryption: 'true'
+  spaceAllocation: 'false'
+  snapshotPolicy: default
+  snapshotReserve: '10'
+----
 
 
 == Gire una frase de paso LUKS

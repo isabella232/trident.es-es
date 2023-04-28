@@ -11,11 +11,18 @@ summary: Descubra cómo preparar un back-end de ONTAP con controladores DE SAN d
 :imagesdir: ../media/
 
 
-Descubra cómo preparar un back-end de ONTAP con controladores DE SAN de ONTAP. Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
+[role="lead"]
+Descubra cómo preparar un back-end de ONTAP con controladores DE SAN de ONTAP.
+
+
+
+== Descripción general
+
+Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
 
 Recuerde que también puede ejecutar más de un controlador y crear clases de almacenamiento que señalen a uno o a otro. Por ejemplo, puede configurar un `san-dev` clase que utiliza `ontap-san` controlador y a `san-default` clase que utiliza `ontap-san-economy` uno.
 
-Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas iSCSI adecuadas. Consulte link:worker-node-prep.html["aquí"] para obtener más detalles.
+Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas iSCSI adecuadas. Consulte link:worker-node-prep.html["Prepare el nodo de trabajo"] para obtener más detalles.
 
 
 
@@ -183,25 +190,6 @@ La actualización de un back-end no interrumpe el acceso a los volúmenes que se
 
 
 
-== Especifique iGroups
-
-Astra Trident utiliza iGroups para controlar el acceso a los volúmenes (LUN) que aprovisiona. Los administradores tienen dos opciones cuando se trata de especificar iGroups para los back-ends:
-
-* Astra Trident puede crear y gestionar automáticamente un igroup por back-end. Si `igroupName` No se incluye en la definición de back-end, Astra Trident crea un igroup llamado `trident-<backend-UUID>` En la SVM. De este modo, cada back-end cuenta con un igroup dedicado y manejar la adición/eliminación automatizada de IQN de nodos de Kubernetes.
-* De forma alternativa, los iGroups creados previamente también se pueden proporcionar en una definición de back-end. Esto se puede hacer usando `igroupName` parámetro config. Astra Trident añadirá/eliminará IQN de nodos de Kubernetes al igroup preexistente.
-
-
-Para los back-ends que tengan `igroupName` definida, el `igroupName` se puede eliminar con un `tridentctl backend update` Para tener iGroups de gestión automática Astra Trident. Esto no interrumpirá el acceso a volúmenes que ya están conectados a las cargas de trabajo. Futuras conexiones se gestionarán con el igroup Astra Trident creado.
-
-
-IMPORTANT: Dedicar un igroup para cada instancia única de Astra Trident es una práctica recomendada que beneficia al administrador de Kubernetes y al administrador de almacenamiento. CSI Trident automatiza la adición y la eliminación de IQN de nodos de clúster al igroup, por lo que simplifica en gran medida su gestión. Cuando se utiliza la misma SVM en entornos de Kubernetes (y instalaciones de Astra Trident), el uso de un igroup dedicado garantiza que los cambios realizados en un clúster de Kubernetes no afecten a los iGroups asociados a otro. Además, también es importante garantizar que cada nodo del clúster de Kubernetes tenga un IQN único. Como se ha mencionado anteriormente, Astra Trident se encarga automáticamente de la adición y eliminación de IQN. La reutilización de IQN entre hosts puede provocar situaciones no deseadas en las que los hosts se confunden entre sí y se deniega el acceso a las LUN.
-
-Si Astra Trident está configurada para que funcione como un aprovisionador de nodos CSI, los IQN de nodos de Kubernetes se añaden o eliminan automáticamente del igroup. Cuando se añaden nodos a un clúster de Kubernetes, `trident-csi` DemonSet despliega un pod (`trident-csi-xxxxx` en versiones anteriores a la versión 23.01 o. `trident-node<operating system>-xxxx` en 23.01 y versiones posteriores) en los nodos recién añadidos y registre los nuevos nodos a los que puede asociar volúmenes. Los IQN de nodos también se agregan al igroup del backend. Un conjunto de pasos similares tratan de la eliminación de IQN cuando se acortan, drenan y se eliminan nodos de Kubernetes.
-
-Si Astra Trident no se ejecuta como un aprovisionador CSI, el igroup se debe actualizar manualmente para contener los IQN iSCSI de cada nodo de trabajo del clúster de Kubernetes. Se deberán añadir al igroup varios IQN de nodos que se unen al clúster de Kubernetes. De igual manera, los IQN de nodos que se quitan del clúster de Kubernetes se deben quitar del igroup.
-
-
-
 == Autentica conexiones con CHAP bidireccional
 
 Astra Trident puede autenticar sesiones iSCSI con CHAP bidireccional para `ontap-san` y.. `ontap-san-economy` de windows Esto requiere habilitar el `useCHAP` opción en su definición de backend. Cuando se establece en `true`, Astra Trident configura la seguridad del iniciador predeterminada de la SVM en CHAP bidireccional y establece el nombre de usuario y los secretos del archivo de entorno de administración. NetApp recomienda utilizar CHAP bidireccional para autenticar las conexiones. Consulte la siguiente configuración de ejemplo:
@@ -241,7 +229,6 @@ Mediante ajuste `useCHAP` Para true, el administrador de almacenamiento ordena a
 
 
 * Configurar el iniciador de CHAP, el nombre de usuario y los secretos de destino; estas opciones deben especificarse en la configuración del back-end (como se muestra más arriba).
-* Gestión de la adición de iniciadores a la `igroupName` dado en el backend. Si no se especifica, el valor predeterminado es `trident`.
 
 
 Una vez creado el back-end, Astra Trident crea una correspondiente `tridentbackend` CRD y almacena los secretos y nombres de usuario de CHAP como secretos de Kubernetes. Todos los VP creados por Astra Trident en este back-end se montarán y se conectan mediante CHAP.
@@ -267,7 +254,6 @@ cat backend-san.json
     "useCHAP": true,
     "username": "vsadmin",
     "password": "password",
-    "igroupName": "trident",
     "chapInitiatorSecret": "cl9qxUpDaTeD",
     "chapTargetInitiatorSecret": "rqxigXgkeUpDaTeD",
     "chapTargetUsername": "iJF4heBRT0TCwxyz",

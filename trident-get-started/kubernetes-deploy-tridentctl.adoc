@@ -16,14 +16,14 @@ Puede instalar Astra Trident con `tridentctl`. Este proceso se aplica a instalac
 
 
 
-== Información crucial sobre Astra Trident 23.01
+== Información vital sobre Astra Trident 23,04
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
 
 .<strong> información bï¿½tico sobre Astra Tridbï¿½tico </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.26 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Kubernetes 1,27 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
 * Astra Trident cumple estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en el archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -75,8 +75,8 @@ El paquete de instalación de Astra Trident crea un pod Trident, configura los o
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.01.1/trident-installer-23.01.1.tar.gz
-tar -xf trident-installer-23.01.1.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
+tar -xf trident-installer-23.04.0.tar.gz
 cd trident-installer
 ----
 
@@ -84,9 +84,6 @@ cd trident-installer
 == Paso 2: Instale Astra Trident
 
 Instale Astra Trident en el espacio de nombres deseado ejecutando `tridentctl install` comando. Puede agregar argumentos adicionales para especificar la ubicación del registro de imágenes.
-
-
-NOTE: Para habilitar Astra Trident para que se ejecute en los nodos de Windows, añada `--windows` marque el comando install: `$ ./tridentctl install --windows -n trident`.
 
 [role="tabbed-block"]
 ====
@@ -101,7 +98,7 @@ NOTE: Para habilitar Astra Trident para que se ejecute en los nodos de Windows, 
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.01 --trident-image <your-registry>/trident:23.01.1
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.04 --trident-image <your-registry>/trident:23.04.0
 ----
 --
 .Imágenes en diferentes registros
@@ -110,7 +107,7 @@ Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicacio
 
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:23.01 --trident-image <your-registry>/netapp/trident:23.01.1
+./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:23.04 --trident-image <your-registry>/netapp/trident:23.04.0
 ----
 --
 ====
@@ -131,7 +128,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=23.01.1
+INFO Trident REST interface is up.                 version=23.04.0
 INFO Trident installation succeeded.
 ....
 ----
@@ -171,9 +168,33 @@ Puede utilizar `tridentctl` Para comprobar la versión de Astra Trident instalad
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.01.1        | 23.01.1        |
+| 23.04.0        | 23.04.0        |
 +----------------+----------------+
 ----
+
+
+== Configuraciones de ejemplo
+
+.Ejemplo 1: Habilitar Astra Trident para que se ejecute en los nodos de Windows
+[%collapsible%open]
+====
+Para permitir que Astra Trident se ejecute en los nodos de Windows:
+
+[listing]
+----
+tridentctl install --windows -n trident
+----
+====
+.Ejemplo 2: Activar la desconexión forzada
+[%collapsible%open]
+====
+Para obtener más información acerca de forzar separación, consulte link:..trident-get-started/kubernetes-customize-deploy.html["Personalice la instalación del operador de Trident"].
+
+[listing]
+----
+tridentctl install --enable-force-detach=true -n trident
+----
+====
 
 
 == El futuro

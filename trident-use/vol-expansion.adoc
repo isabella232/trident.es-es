@@ -11,6 +11,7 @@ summary: Astra Trident ofrece a los usuarios de Kubernetes la capacidad de ampli
 :imagesdir: ../media/
 
 
+[role="lead"]
 Astra Trident ofrece a los usuarios de Kubernetes la capacidad de ampliar sus volúmenes una vez que se han creado. Encuentre información sobre las configuraciones que se necesitan para ampliar los volúmenes iSCSI y NFS.
 
 

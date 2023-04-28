@@ -4,21 +4,20 @@ permalink: trident-use/ontap-san.html
 keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fsx 
 summary: Obtenga información sobre la configuración de un back-end de ONTAP con controladores DE SAN de ONTAP. 
 ---
-= Configuración de un back-end con controladores SAN de ONTAP
+= Información general del controlador de SAN de ONTAP
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
+[role="lead"]
 Obtenga información sobre la configuración de un back-end de ONTAP con controladores SAN de ONTAP y Cloud Volumes ONTAP.
 
-* link:ontap-san-prep.html["Preparación"^]
-* link:ontap-san-examples.html["Configuración y ejemplos"^]
 
 
-[WARNING]
-====
+== Información importante sobre los controladores de SAN de ONTAP
+
 Astra Control proporciona una protección fluida, recuperación ante desastres y movilidad (mover volúmenes entre clústeres de Kubernetes) para los volúmenes creados con el `ontap-nas`, `ontap-nas-flexgroup`, y. `ontap-san` de windows Consulte link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Requisitos previos de replicación de Astra Control"^] para obtener más detalles.
 
 * Debe usar `ontap-nas` para cargas de trabajo de producción que requieren protección de datos, recuperación ante desastres y movilidad.
@@ -27,7 +26,6 @@ Astra Control proporciona una protección fluida, recuperación ante desastres y
 * No utilizar `ontap-nas-economy` si prevé la necesidad de protección de datos, recuperación ante desastres o movilidad.
 
 
-====
 
 
 == Permisos de usuario

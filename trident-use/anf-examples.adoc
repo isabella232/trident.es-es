@@ -11,16 +11,17 @@ summary: Obtenga más información acerca de las opciones de configuración de b
 :imagesdir: ../media/
 
 
+[role="lead"]
 Obtenga más información acerca de las opciones de configuración de back-end de NFS y SMB para ANF y revise ejemplos de configuración.
+
+
+
+== Opciones de configuración del back-end
 
 Astra Trident utiliza la configuración de back-end (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes ANF en pools de capacidad disponibles en la ubicación solicitada y que coincidan con el nivel de servicio y la subred solicitados.
 
 
 NOTE: Astra Trident no admite pools de capacidad de calidad de servicio manual.
-
-
-
-== Opciones de configuración del back-end
 
 Los back-ends DE ANF proporcionan estas opciones de configuración.
 

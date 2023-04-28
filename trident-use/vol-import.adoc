@@ -11,6 +11,7 @@ summary: 'Es posible importar volúmenes de almacenamiento existentes como un VP
 :imagesdir: ../media/
 
 
+[role="lead"]
 Es posible importar volúmenes de almacenamiento existentes como un VP de Kubernetes mediante `tridentctl import`.
 
 
@@ -151,9 +152,6 @@ Astra Trident también puede importar SAN FlexVols de ONTAP que contienen una ú
 * Proporcione la ruta de la definición de PVC que debe utilizarse con el `-f` bandera.
 * Elija entre administrar o no administrar el PVC. De forma predeterminada, Trident gestionará la RVP y cambiará el nombre de los FlexVol y LUN en el back-end. Para importar como volumen no administrado, pase el `--no-manage` bandera.
 
-
-
-TIP: Al importar un no administrado `ontap-san` Volumen, debe asegurarse de que el nombre de la LUN de la FlexVol sea `lun0` y se asigna a un igroup con los iniciadores deseados. Astra Trident se encarga automáticamente de esto en una importación gestionada.
 
 A continuación, Astra Trident importará el FlexVol y lo asociará con la definición de PVC. Astra Trident también cambia el nombre de FlexVol al `pvc-<uuid>` Formatear y la LUN dentro de la FlexVol a. `lun0`.
 

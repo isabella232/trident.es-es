@@ -11,6 +11,7 @@ summary: 'Obtenga informaci처n sobre c처mo realizar operaciones de administraci�
 :imagesdir: ../media/
 
 
+[role="lead"]
 Obtenga informaci처n sobre c처mo realizar operaciones de administraci처n de back-end mediante `tridentctl`.
 
 

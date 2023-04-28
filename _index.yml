@@ -4,16 +4,16 @@ indexpage:
     que mantiene NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones
     en contenedores gestionadas por Docker y Kubernetes.
   tiles:
-  - title: Información crucial para la versión 23.01
+  - title: Notas de la versión
     links:
-    - title: Notas de la versión
+    - title: Novedades
       url: trident-rn.html
+    - title: Versiones anteriores
+      url: "/earlier-versions.html"
   - title: Manos a la obra
     links:
     - title: Obtenga más información sobre Astra Trident
       url: "/trident-concepts/intro.html"
-    - title: Notas de la versión
-      url: trident-rn.html
     - title: Requisitos
       url: "/trident-get-started/requirements.html"
     - title: Pruébelo

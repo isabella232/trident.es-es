@@ -145,7 +145,7 @@ NOTE: Consulte link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-
 | Parámetro | Descripción | Ejemplo 
 
 
-| `smbShare` | Nombre del recurso compartido SMB creado mediante Shared Folder Microsoft Management Console. Por ejemplo «smb-share». *Necesario para volúmenes SMB.* | `smb-share` 
+| `smbShare` | Puede especificar el nombre del recurso compartido de SMB creado con la carpeta compartida Microsoft Management Console o especificar un nombre de recurso compartido para permitir que Astra Trident cree el recurso compartido de SMB. Como alternativa, es posible dejar el parámetro vacío para evitar el acceso al recurso compartido común a los volúmenes. | `smb-share` 
 
 
 | `nasType` | *Debe establecer en `smb`.* Si es nulo, el valor predeterminado es `nfs`. | `smb` 

@@ -11,7 +11,8 @@ summary: Puede crear una clase de almacenamiento, eliminar una clase de almacena
 :imagesdir: ../media/
 
 
-Busque información sobre cómo crear una clase de almacenamiento, eliminar una clase de almacenamiento y ver las clases de almacenamiento existentes.
+[role="lead"]
+Puede crear una clase de almacenamiento, eliminar una clase de almacenamiento y ver las clases de almacenamiento existentes.
 
 
 

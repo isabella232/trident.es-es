@@ -11,7 +11,14 @@ summary: Astra Trident ofrece varias funciones para gestionar sus volúmenes. Ob
 :imagesdir: ../media/
 
 
+[role="lead"]
 Más información sobre las funciones que ofrece Astra Trident para la gestión de volúmenes.
+
+
+
+== Gestión de volúmenes
+
+Consulte los siguientes documentos para obtener más información sobre cómo se pueden gestionar los volúmenes con Astra Trident.
 
 * link:csi-topology.html["Utilice Topología CSI"^]
 * link:vol-snapshots.html["Trabajar con instantáneas"^]
