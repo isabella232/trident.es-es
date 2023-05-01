@@ -1504,7 +1504,6 @@
   <block id="e4f61797b38c111b04c612b285a06659" category="summary">Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP.</block>
   <block id="fd05c90de484dbc1cb963df796886af4" category="doc">Prepárese para configurar un back-end con controladores NAS de ONTAP</block>
   <block id="00b8b321c68facfb94b31690cbd23e00" category="paragraph">Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.</block>
-  <block id="c6cd2f38be30f5256f7116692ab56edd" category="paragraph">Recuerde que también puede ejecutar más de un controlador y crear clases de almacenamiento que señalen a uno o a otro. Por ejemplo, puede configurar una clase Gold que utilice<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> Controlador y clase Bronze que utiliza<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> uno.</block>
   <block id="6dc4cb19f2792a3eadfa64d4b4b6d177" category="paragraph">Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas NFS adecuadas. Consulte <block ref="f1f954e59a21e3ffe189e77dd2ee9f86" category="inline-link-macro-rx"></block> para obtener más detalles.</block>
   <block id="c75f7811d70d17dbcd88e9d03752cbed" category="section-title">Autenticación</block>
   <block id="51e35cec1e001fb8abfbe474a18dd282" category="paragraph">Astra Trident ofrece dos modos de autenticación de un back-end de ONTAP.</block>
@@ -3657,4 +3656,5 @@
   <block id="d7393ea674321a4e126b601e3097f2ec" category="admonition">Kubernetes 1,27 ahora es compatible con Trident. Actualice Astra Trident antes de actualizar Kubernetes.</block>
   <block id="99836a64b28c522e35a15aa0a4b39257" category="list-text">Los volúmenes de ONTAP-SAN ahora utilizan iGroups por nodo y solo asignan LUN a iGroups, mientras se publican de forma activa en esos nodos para mejorar nuestra política de seguridad. Los volúmenes existentes se cambiarán de forma oportunista al nuevo esquema de igroup cuando Astra Trident determine que es seguro hacerlo sin afectar a las cargas de trabajo activas.</block>
   <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">Novedades</block>
+  <block id="ffd4000c9e43a23d97e231d47f99dcd4" category="list-text">Puede ejecutar más de un controlador y crear clases de almacenamiento que apunten a uno u otro. Por ejemplo, puede configurar una clase Gold que utilice<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> Controlador y clase Bronze que utiliza<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> uno.</block>
 </blocks>

@@ -16,13 +16,13 @@ Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP.
 
 
 
-== Descripción general
+== Consideraciones
 
-Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
+* Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
+* Puede ejecutar más de un controlador y crear clases de almacenamiento que apunten a uno u otro. Por ejemplo, puede configurar una clase Gold que utilice `ontap-nas` Controlador y clase Bronze que utiliza `ontap-nas-economy` uno.
+* Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas NFS adecuadas. Consulte link:worker-node-prep.html["aquí"] para obtener más detalles.
+* Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
 
-Recuerde que también puede ejecutar más de un controlador y crear clases de almacenamiento que señalen a uno o a otro. Por ejemplo, puede configurar una clase Gold que utilice `ontap-nas` Controlador y clase Bronze que utiliza `ontap-nas-economy` uno.
-
-Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas NFS adecuadas. Consulte link:worker-node-prep.html["aquí"] para obtener más detalles.
 
 
 
