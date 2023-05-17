@@ -22,7 +22,7 @@ Además de link:../trident-get-started/requirements.html["Requisitos de Astra Tr
 * Nodos de trabajo preparados para link:worker-node-prep.html["NFS o iSCSI"].
 +
 
-NOTE: Asegúrese de seguir los pasos de preparación de nodos necesarios para Amazon Linux y Ubuntu https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html["Imágenes de máquina de Amazon"^] (AMI) en función del tipo de IAM EKS.
+NOTE: Asegúrese de seguir los pasos de preparación de nodos necesarios para Amazon Linux y Ubuntu https://["Imágenes de máquina de Amazon"^] (AMI) en función del tipo de IAM EKS.
 
 
 

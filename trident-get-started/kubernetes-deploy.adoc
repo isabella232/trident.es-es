@@ -42,7 +42,7 @@ Independientemente de la ruta de instalación, debe tener:
 * Capacidad para montar volúmenes de todos los nodos de trabajo de Kubernetes.
 * Un host Linux con `kubectl` (o. `oc`, Si está utilizando OpenShift) instalado y configurado para administrar el clúster de Kubernetes que desea utilizar.
 * La `KUBECONFIG` Variable de entorno establecida en el clúster de Kubernetes.
-* Si utiliza Kubernetes con Docker Enterprise, https://docs.docker.com/ee/ucp/user-access/cli/["Siga sus pasos para habilitar el acceso a la CLI"^].
+* Si utiliza Kubernetes con Docker Enterprise, https://["Siga sus pasos para habilitar el acceso a la CLI"^].
 
 
 

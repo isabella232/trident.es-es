@@ -12,4 +12,4 @@ summary: Obtenga más información sobre las partes del sistema Kubernetes.
 
 
 [role="lead"]
-Obtenga más información sobre las partes del https://kubernetes.io/docs/concepts/["Sistema Kubernetes"^].
+Obtenga más información sobre las partes del https://["Sistema Kubernetes"^].

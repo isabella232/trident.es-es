@@ -19,7 +19,7 @@ Debe instalar y configurar los requisitos previos del protocolo necesarios en su
 == Compruebe los requisitos
 
 * Compruebe que la implementación se adapte a todas las link:../trident-get-started/requirements.html["requisitos"].
-* Compruebe que tiene instalada una versión compatible de Docker. Si la versión de Docker no está actualizada, https://docs.docker.com/engine/install/["instálelo o actualícelo"^].
+* Compruebe que tiene instalada una versión compatible de Docker. Si la versión de Docker no está actualizada, https://["instálelo o actualícelo"^].
 +
 [listing]
 ----

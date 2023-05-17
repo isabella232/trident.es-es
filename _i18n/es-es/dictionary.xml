@@ -1489,7 +1489,6 @@
   <block id="387492c079b6cb13a8ba91c4a60f67b7" category="section-title">Implementar una controladora Snapshot de volumen</block>
   <block id="9c87569b835a8f66b7490390d350d9a4" category="paragraph">Si su distribución de Kubernetes no incluye el controlador de snapshots y los CRD, puede implementarlos de la siguiente manera.</block>
   <block id="469f7ca16938508b5dcb777767828b70" category="list-text">Crear CRD de snapshot de volumen.</block>
-  <block id="65b146df7d5c27b212f54a7c9980960b" category="list-text">Cree la controladora Snapshot en el espacio de nombres que desee. Edite los manifiestos YAML a continuación para modificar el espacio de nombres.</block>
   <block id="f6bd0d7447ff66cc6b859603a88fbde9" category="section-title">Enlaces relacionados</block>
   <block id="35aa4a2a819e526c2e930e487df8d423" category="list-text"><block ref="35aa4a2a819e526c2e930e487df8d423" category="inline-link-macro-rx"></block></block>
   <block id="19476662cd814e0aa085eca121de89b8" category="inline-link-macro">VolumeSnapshotClass</block>
@@ -3657,4 +3656,6 @@
   <block id="99836a64b28c522e35a15aa0a4b39257" category="list-text">Los volúmenes de ONTAP-SAN ahora utilizan iGroups por nodo y solo asignan LUN a iGroups, mientras se publican de forma activa en esos nodos para mejorar nuestra política de seguridad. Los volúmenes existentes se cambiarán de forma oportunista al nuevo esquema de igroup cuando Astra Trident determine que es seguro hacerlo sin afectar a las cargas de trabajo activas.</block>
   <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">Novedades</block>
   <block id="ffd4000c9e43a23d97e231d47f99dcd4" category="list-text">Puede ejecutar más de un controlador y crear clases de almacenamiento que apunten a uno u otro. Por ejemplo, puede configurar una clase Gold que utilice<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> Controlador y clase Bronze que utiliza<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> uno.</block>
+  <block id="a571dbb3887a364b4b4dcb82a5fa6ec9" category="list-text">Cree la controladora Snapshot.</block>
+  <block id="ae3ba2e438847d5fb2abc16b3c73ccab" category="admonition">Si es necesario, abra<block ref="31a2c725707ce238c3eb4dd82c7e3af9" prefix=" " category="inline-code"></block> y actualícelo<block ref="89801e9e98979062e84647433a8ed3e9" prefix=" " category="inline-code"></block> en el espacio de nombres.</block>
 </blocks>

@@ -12,7 +12,7 @@ summary: Obtenga más información sobre trimentctl, una utilidad de línea de c
 
 
 [role="lead"]
-La https://github.com/NetApp/trident/releases["Paquete de instalación de Trident"^] incluye una utilidad de línea de comandos, `tridentctl`, Que proporciona un acceso sencillo a Astra Trident. Los usuarios de Kubernetes con suficientes privilegios pueden usarlo para instalar Astra Trident y también para interactuar con ella directamente para gestionar el espacio de nombres que contiene el pod Astra Trident.
+La https://["Paquete de instalación de Trident"^] incluye una utilidad de línea de comandos, `tridentctl`, Que proporciona un acceso sencillo a Astra Trident. Los usuarios de Kubernetes con suficientes privilegios pueden usarlo para instalar Astra Trident y también para interactuar con ella directamente para gestionar el espacio de nombres que contiene el pod Astra Trident.
 
 
 

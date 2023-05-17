@@ -123,7 +123,7 @@ Instale las herramientas iSCSI mediante los comandos del sistema operativo.
 ----
 sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf
 ----
-* Cuando utilice nodos de trabajo que ejecutan RHEL/RedHat CoreOS con VP iSCSI, especifique el `discard` MountOption en StorageClass para realizar un reclamación de espacio en línea. Consulte https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["La documentación de redhat"^].
+* Cuando utilice nodos de trabajo que ejecutan RHEL/RedHat CoreOS con VP iSCSI, especifique el `discard` MountOption en StorageClass para realizar un reclamación de espacio en línea. Consulte https://["La documentación de redhat"^].
 
 
 [role="tabbed-block"]

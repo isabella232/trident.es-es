@@ -43,7 +43,7 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 | `autosupportImage` | La imagen contenedora para telemetría AutoSupport | «netapp/trident-autosupport:23.04.0» 
 
 
-| `autosupportProxy` | La dirección/puerto de un proxy para enviar telemetría AutoSupport | "http://proxy.example.com:8888"[] 
+| `autosupportProxy` | La dirección/puerto de un proxy para enviar telemetría AutoSupport | "http://[] 
 
 
 | `controllerPluginNodeSelector` | Selectores de nodos adicionales para POD que ejecutan el complemento Trident Controller CSI. Sigue el mismo formato que `pod.spec.nodeSelector`. | Sin valores predeterminados; opcional 

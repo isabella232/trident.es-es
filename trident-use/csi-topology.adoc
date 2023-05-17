@@ -12,7 +12,7 @@ summary: Astra Trident puede crear y adjuntar volúmenes a los nodos presentes e
 
 
 [role="lead"]
-Astra Trident puede crear y conectar volúmenes a los nodos presentes en un clúster de Kubernetes de forma selectiva mediante el uso de https://kubernetes-csi.github.io/docs/topology.html["Función de topología CSI"^].
+Astra Trident puede crear y conectar volúmenes a los nodos presentes en un clúster de Kubernetes de forma selectiva mediante el uso de https://["Función de topología CSI"^].
 
 
 
@@ -21,7 +21,7 @@ Astra Trident puede crear y conectar volúmenes a los nodos presentes en un clú
 Con la función de topología CSI, el acceso a los volúmenes puede limitarse a un subconjunto de nodos, en función de regiones y zonas de disponibilidad. En la actualidad, los proveedores de cloud permiten a los administradores de Kubernetes generar nodos basados en zonas. Los nodos se pueden ubicar en diferentes zonas de disponibilidad dentro de una región o en varias regiones. Para facilitar el aprovisionamiento de volúmenes para cargas de trabajo en una arquitectura de varias zonas, Astra Trident utiliza la topología CSI.
 
 
-TIP: Obtenga más información sobre la característica de topología CSI https://kubernetes.io/blog/2018/10/11/topology-aware-volume-provisioning-in-kubernetes/["aquí"^].
+TIP: Obtenga más información sobre la característica de topología CSI https://["aquí"^].
 
 Kubernetes ofrece dos modos de enlace de volúmenes únicos:
 
@@ -289,8 +289,8 @@ Se pueden actualizar los back-ends preexistentes para incluir una lista de `supp
 
 == Obtenga más información
 
-* https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestione recursos para contenedores"^]
-* https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector["Selector de nodos"^]
-* https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity["Afinidad y anti-afinidad"^]
-* https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["Tolerancias y taints"^]
+* https://["Gestione recursos para contenedores"^]
+* https://["Selector de nodos"^]
+* https://["Afinidad y anti-afinidad"^]
+* https://["Tolerancias y taints"^]
 
