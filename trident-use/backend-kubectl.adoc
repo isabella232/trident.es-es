@@ -49,7 +49,7 @@ spec:
   credentials:
     name: backend-tbc-ontap-san-secret
 ----
-También puede echar un vistazo a los ejemplos de la https://["instalador de trident"^] directorio para configuraciones de ejemplo para la plataforma o servicio de almacenamiento que desee.
+También puede echar un vistazo a los ejemplos de la https://github.com/NetApp/trident/tree/stable/v21.07/trident-installer/sample-input/backends-samples["instalador de trident"^] directorio para configuraciones de ejemplo para la plataforma o servicio de almacenamiento que desee.
 
 La `spec` toma parámetros de configuración específicos del back-end. En este ejemplo, el back-end utiliza el `ontap-san` controlador de almacenamiento y utiliza los parámetros de configuración que se tabulan aquí. Para obtener una lista de las opciones de configuración del controlador de almacenamiento que desee, consulte link:backends.html["información de configuración del back-end para el controlador de almacenamiento"^].
 
@@ -76,7 +76,7 @@ TIP: Back-ends creados con `tridentctl` no tienen asociado `TridentBackendConfig
 
 Para crear un nuevo back-end mediante `kubectl`, debe hacer lo siguiente:
 
-. Cree un https://["Secreto Kubernetes"^]. El secreto contiene las credenciales que Astra Trident necesita para comunicarse con el clúster/servicio de almacenamiento.
+. Cree un https://kubernetes.io/docs/concepts/configuration/secret/["Secreto Kubernetes"^]. El secreto contiene las credenciales que Astra Trident necesita para comunicarse con el clúster/servicio de almacenamiento.
 . Cree un `TridentBackendConfig` objeto. Este contiene detalles sobre el servicio/clúster de almacenamiento y hace referencia al secreto creado en el paso anterior.
 
 

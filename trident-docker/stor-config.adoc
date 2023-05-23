@@ -134,7 +134,7 @@ Opcional, fallo en el aprovisionamiento si el uso supera este porcentaje
 
 
 | `nfsMountOptions`  a| 
-Control detallado de las opciones de montaje NFS; valor predeterminado es “-o nfsvers=3”. *Disponible sólo para `ontap-nas` y.. `ontap-nas-economy` controladores*. https://["Consulte la información de configuración del host NFS aquí"^].
+Control detallado de las opciones de montaje NFS; valor predeterminado es “-o nfsvers=3”. *Disponible sólo para `ontap-nas` y.. `ontap-nas-economy` controladores*. https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["Consulte la información de configuración del host NFS aquí"^].
  a| 
 `-o nfsvers=4`
 
@@ -277,7 +277,7 @@ Elija la `ontap-nas-flexgroup` controlador para aumentar el paralelismo con un �
 * No se admite la clonado en volúmenes de FlexGroup.
 
 
-Para obtener información acerca de FlexGroups y las cargas de trabajo adecuadas para FlexGroups, consulte https://["Prácticas recomendadas y guía de implementación de los volúmenes FlexGroup de NetApp"^].
+Para obtener información acerca de FlexGroups y las cargas de trabajo adecuadas para FlexGroups, consulte https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["Prácticas recomendadas y guía de implementación de los volúmenes FlexGroup de NetApp"^].
 
 Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorno, puede ejecutar varias instancias del complemento para volúmenes de Docker, utilizando una `ontap-nas` y otro uso `ontap-nas-economy`.
 

@@ -20,8 +20,8 @@ Puede actualizar fácilmente una instalación de Astra Trident existente mediant
 
 Cuando actualice a la versión más reciente de Astra Trident, tenga en cuenta lo siguiente:
 
-* A partir de Trident 20.01, solo la versión en beta de https://["copias de snapshot de volumen"^] compatible. Los administradores de Kubernetes deben tener cuidado de realizar un backup o convertir de forma segura los objetos Snapshot alfa en beta para conservar las snapshots alfa heredadas.
-* La versión beta de instantáneas de volumen introduce un conjunto modificado de CRD y una controladora Snapshot, que deben configurarse antes de instalar Astra Trident. https://["Este blog"^] explica los pasos que se deben seguir para migrar instantáneas de volúmenes alfa al formato beta.
+* A partir de Trident 20.01, solo la versión en beta de https://kubernetes.io/docs/concepts/storage/volume-snapshots/["copias de snapshot de volumen"^] compatible. Los administradores de Kubernetes deben tener cuidado de realizar un backup o convertir de forma segura los objetos Snapshot alfa en beta para conservar las snapshots alfa heredadas.
+* La versión beta de instantáneas de volumen introduce un conjunto modificado de CRD y una controladora Snapshot, que deben configurarse antes de instalar Astra Trident. https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["Este blog"^] explica los pasos que se deben seguir para migrar instantáneas de volúmenes alfa al formato beta.
 * La desinstalación y reinstalación de Astra Trident actúa como una actualización. Cuando desinstala Trident, la reclamación de volumen persistente (PVC) y el volumen persistente (PV) que utiliza la puesta en marcha de Astra Trident no se eliminan. Las RVP que ya se han aprovisionado seguirán disponibles mientras Astra Trident está offline y Astra Trident aprovisiona volúmenes para cualquier RVP que se crean interanualmente una vez que vuelve a estar online.
 
 

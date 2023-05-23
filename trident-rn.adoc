@@ -239,7 +239,7 @@ Un nuevo link:https://docs.netapp.com/us-en/trident/trident-reference/pod-securi
 
 == Cambios en 22.04
 
-NetApp mejora y mejora continuamente sus productos y servicios. Estas son algunas de las últimas funciones de Astra Trident. Para las versiones anteriores, consulte https://["Versiones anteriores de la documentación"].
+NetApp mejora y mejora continuamente sus productos y servicios. Estas son algunas de las últimas funciones de Astra Trident. Para las versiones anteriores, consulte https://docs.netapp.com/us-en/trident/earlier-versions.html["Versiones anteriores de la documentación"].
 
 
 IMPORTANT: Si actualiza desde cualquier versión de Trident anterior y utiliza Azure NetApp Files, el ``location`` el parámetro config es ahora un campo obligatorio singleton.
@@ -397,7 +397,7 @@ Los problemas conocidos identifican problemas por los que el uso correcto del pr
 * Astra Trident ahora pone en práctica un espacio en blanco `fsType` (`fsType=""`) para los volúmenes que no tienen `fsType` Especificado en su clase de almacenamiento. Cuando trabaje con Kubernetes 1.17 o posterior, Trident admite proporcionar un espacio en blanco `fsType` Para volúmenes NFS. En los volúmenes iSCSI, se requiere que configure el `fsType` En el clase de almacenamiento al aplicar un `fsGroup` Uso de un contexto de seguridad.
 * Si se utiliza un back-end en varias instancias de Astra Trident, cada archivo de configuración de back-end debería tener una diferencia `storagePrefix` Los valores para los back-ends de ONTAP o utilizan una diferencia `TenantName` Para back-ends de SolidFire. Astra Trident no puede detectar los volúmenes que han creado otras instancias de Astra Trident. El intento de crear un volumen existente en los back-ends de ONTAP o SolidFire se realiza correctamente, porque Astra Trident trata la creación de volúmenes como una operación idempotente. Si `storagePrefix` o. `TenantName` no difieren, es posible que haya colisiones de nombres para los volúmenes creados en el mismo back-end.
 * Al instalar Astra Trident (mediante `tridentctl` O el operador de Trident) y uso `tridentctl` Para gestionar Astra Trident, debe garantizar que `KUBECONFIG` la variable de entorno está configurada. Esto es necesario para indicar el clúster de Kubernetes que `tridentctl` debe trabajar en contra. Cuando trabaje con varios entornos de Kubernetes, debe asegurarse de que lo haga `KUBECONFIG` el archivo se ha originado con precisión.
-* Para realizar una reclamación de espacio en línea para VP iSCSI, el sistema operativo subyacente del nodo de trabajo puede requerir que se pasen las opciones de montaje al volumen. Esto es así para las instancias de RHEL/RedHat CoreOS, que requieren el `discard` https://["opción de montaje"^]; Asegúrese de que la opción de montaje de descarte esté incluida en su[`StorageClass`para admitir descarte de bloques en línea.
+* Para realizar una reclamación de espacio en línea para VP iSCSI, el sistema operativo subyacente del nodo de trabajo puede requerir que se pasen las opciones de montaje al volumen. Esto es así para las instancias de RHEL/RedHat CoreOS, que requieren el `discard` https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["opción de montaje"^]; Asegúrese de que la opción de montaje de descarte esté incluida en su[`StorageClass`para admitir descarte de bloques en línea.
 * Si dispone de más de una instancia de Astra Trident por clúster de Kubernetes, Astra Trident no puede comunicarse con otras instancias y no puede detectar otros volúmenes que han creado, lo que conduce a un comportamiento inesperado e incorrecto si más de una instancia se ejecuta en un clúster. Solo debe haber una instancia de Astra Trident por clúster de Kubernetes.
 * Si se basa en Astra Trident `StorageClass` Los objetos se eliminan de Kubernetes mientras Astra Trident está offline, Astra Trident no elimina las clases de almacenamiento correspondientes de su base de datos cuando vuelve a estar online. Debe eliminar estas clases de almacenamiento mediante `tridentctl` O la API DE REST.
 * Si un usuario elimina un VP aprovisionado por Astra Trident antes de eliminar la RVP correspondiente, Astra Trident no elimina automáticamente el volumen del respaldo. Debe eliminar el volumen a través de `tridentctl` O la API DE REST.
@@ -414,6 +414,6 @@ NOTE: No puede especificar `dataLIF` En un entorno de administración SAN de ONT
 
 == Obtenga más información
 
-* https://["Astra Trident GitHub"^]
-* https://["Blogs de Astra Trident"^]
+* https://github.com/NetApp/trident["Astra Trident GitHub"^]
+* https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Blogs de Astra Trident"^]
 

@@ -26,12 +26,12 @@ Para realizar la actualización con el operador, se deben cumplir las siguientes
 * Si ha desinstalado CSI Trident y los metadatos de la instalación persisten, puede realizar la actualización mediante el operador.
 * Solo debe haber una instalación de Astra Trident en todos los espacios de nombres en un clúster de Kubernetes determinado.
 * Debe usar un clúster de Kubernetes en ejecución link:../trident-get-started/requirements.html["Una versión de Kubernetes compatible"].
-* Si hay CRD de instantánea alfa, debe eliminarlos con `tridentctl obliviate alpha-snapshot-crd`. De esta forma se eliminan los CRD para la especificación de instantánea alfa. Para obtener información sobre las snapshots existentes que se deben eliminar/migrar, consulte https://["este blog"^].
+* Si hay CRD de instantánea alfa, debe eliminarlos con `tridentctl obliviate alpha-snapshot-crd`. De esta forma se eliminan los CRD para la especificación de instantánea alfa. Para obtener información sobre las snapshots existentes que se deben eliminar/migrar, consulte https://netapp.io/2020/01/30/alpha-to-beta-snapshots/["este blog"^].
 
 
 [WARNING]
 ====
-* Al actualizar Trident con el operador en OpenShift Container Platform, debe actualizar a Trident 21.01.1 o una versión posterior. El operador Trident publicado con 21.01.0 contiene un problema conocido que se ha solucionado en 21.01.1. Si quiere más detalles, consulte https://["Detalles del problema en GitHub"^].
+* Al actualizar Trident con el operador en OpenShift Container Platform, debe actualizar a Trident 21.01.1 o una versión posterior. El operador Trident publicado con 21.01.0 contiene un problema conocido que se ha solucionado en 21.01.1. Si quiere más detalles, consulte https://github.com/NetApp/trident/issues/517["Detalles del problema en GitHub"^].
 * Si utiliza una, no utilice el operador para actualizar Trident `etcd`Versión de Trident basada en (19.04 o anterior).
 
 
@@ -95,7 +95,7 @@ Version:  v20.10.1
 ----
 +
 
-NOTE: Si el estado muestra `Updating`, asegúrese de resolverlo antes de continuar. Para obtener una lista de los posibles valores de estado, consulte https://["aquí"^].
+NOTE: Si el estado muestra `Updating`, asegúrese de resolverlo antes de continuar. Para obtener una lista de los posibles valores de estado, consulte https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["aquí"^].
 
 . Cree el `TridentOrchestrator` CRD mediante el manifiesto proporcionado con el instalador de Trident.
 +

@@ -36,7 +36,7 @@ Astra Trident puede crear volúmenes de Cloud Volumes Service en uno de dos link
 
 
 .Lo que necesitará
-Para configurar y usar el https://["Cloud Volumes Service para Google Cloud"^] back-end, necesita lo siguiente:
+Para configurar y usar el https://cloud.netapp.com/cloud-volumes-service-for-gcp?utm_source=NetAppTrident_ReadTheDocs&utm_campaign=Trident["Cloud Volumes Service para Google Cloud"^] back-end, necesita lo siguiente:
 
 * Una cuenta de Google Cloud configurada con Cloud Volumes Service de NetApp
 * Número de proyecto de su cuenta de Google Cloud
