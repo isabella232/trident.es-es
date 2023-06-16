@@ -54,7 +54,6 @@ entries:
 - title: Gestione las clases de almacenamiento
   url: "/trident-use/manage-stor-class.html"
 - title: Realizar operaciones de volumen
-  url: "/trident-use/vol-operations.html"
   entries:
   - title: Utilice Topología CSI
     url: "/trident-use/csi-topology.html"

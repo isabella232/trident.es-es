@@ -994,9 +994,6 @@
   <block id="ee50d481128d1543f9945b4a4f3fbe9d" category="paragraph">Para instalaciones con problemas de conexión aérea, la siguiente lista es una referencia de las imágenes de contenedor necesarias para instalar Astra Trident. Utilice la<block ref="4ebf280824868255c952dc529072ecb9" prefix=" " category="inline-code"></block> comando para verificar la lista de imágenes de contenedor necesarias.</block>
   <block id="aa92c4c233bc01609d957e469736b699" category="cell">Imagen de contenedor</block>
   <block id="6f0b081bef5e745ef2429ef74472d9bd" category="cell">1.21.0</block>
-  <block id="7f7b6bf613e5a94b472dc4003c3c9d47" category="list-text">k8s.io/sig-storage/csi-reszer:v1.7.0</block>
-  <block id="bc5a94d13573ba35693929cfc2df5614" category="list-text">k8s.io/sig-storage/csi-snapshotter:v6.2.1</block>
-  <block id="938a05d206d8fc8b1d8a4342f0a74da0" category="list-text">k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0</block>
   <block id="681d715b456f6d29a501b8f132e941a1" category="cell">v1.22.0</block>
   <block id="73e93ad328287e5ce4c06228cfdba2bf" category="cell">v1.23.0</block>
   <block id="468bc1e7f7712a8dc9b91d063523cdff" category="cell">v1.24.0</block>
@@ -1471,10 +1468,8 @@
   <block id="e5879288a130fbd8d0b8682cfc375c4f" category="doc">Trabajar con instantáneas</block>
   <block id="1ee74a3407fb0558688a68f8a4011d8b" category="paragraph">Debe tener un controlador de instantánea externo y definiciones de recursos personalizados (CRD). Esta es la responsabilidad del orquestador de Kubernetes (por ejemplo: Kubeadm, GKE, OpenShift).</block>
   <block id="4e9d71562a7ee4d135b94aa7e33203d4" category="paragraph">Si su distribución de Kubernetes no incluye el controlador de instantáneas ni los CRD, consulte <block ref="66b3d1bc7c4350b2c78856aa6724afe9" category="inline-xref-macro-rx"></block>.</block>
-  <block id="af79c649a1b22da7699446c292250fcc" category="admonition">No cree una controladora de instantáneas si crea instantáneas de volumen bajo demanda en un entorno GKE. GKE utiliza un controlador de instantáneas oculto integrado.</block>
   <block id="a19c6b176bcf5d5df56d61bfda053c09" category="section-title">Paso 1: Cree un<block ref="19476662cd814e0aa085eca121de89b8" prefix=" " category="inline-code"></block></block>
   <block id="5113d8074a0a5072af49f1e1fa6901bd" category="paragraph">En este ejemplo, se crea una clase de snapshot de volumen.</block>
-  <block id="4744d2c82c1c470ab40280b2ebba0c08" category="paragraph">La<block ref="e2d45d57c7e2941b65c6ccd64af4223e" prefix=" " category="inline-code"></block> Apunta al driver CSI de Astra Trident.<block ref="98e7d6463271d7848db255ae6467817a" prefix=" " category="inline-code"></block> puede ser<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block> o.<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>. Cuando se establece en<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>, la instantánea física subyacente en el clúster de almacenamiento se conserva incluso cuando<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> el objeto se ha eliminado.</block>
   <block id="ce43eda1a51d5de70f422e14ca195db3" category="paragraph">Para obtener más información, consulte el enlace:./trident-reference/objects.html#kubernetes-volumesnapshotclass-objects<block ref="19476662cd814e0aa085eca121de89b8" prefix="[" category="inline-code"></block>].</block>
   <block id="0ab6380edce0d0e7b8538ebf3215ebbd" category="section-title">Paso 2: Crear una instantánea de una RVP existente</block>
   <block id="a599393b295f7ad56a8c7f1d327290de" category="paragraph">En este ejemplo, se crea una copia Snapshot de una RVP existente.</block>
@@ -3437,11 +3432,6 @@
   <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+ (AMD64 Y ARM64)</block>
   <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22,04 o posterior (AMD64 y ARM64)</block>
   <block id="1285a056fd837828136d15f7e76d09cc" category="list-text">Windows Server 2019 (AMD64)</block>
-  <block id="491d412c8451b30af0235ea14c6884ce" category="list-text">netapp/trident:23.04.0</block>
-  <block id="e1c8364426dfd7c124c013720fd79184" category="list-text">netapp/trident-autosupport:23,04</block>
-  <block id="f74c1ba486136c87105b3ee7c6b4a588" category="list-text">k8s.io/sig-storage/csi-provisioner:v3,4.1</block>
-  <block id="69e020afa682d186164750d700cc7b94" category="list-text">k8s.io/sig-storage/csi-attacher:v4,2.0</block>
-  <block id="1ee49b3835b8025abda346d6f4263ac9" category="list-text">netapp/trident-operator:23.04.0 (opcional)</block>
   <block id="b38420e98813aed20daa115db2ac94a9" category="cell">v.1.27.0</block>
   <block id="1ff1fd258a61bd04eee000a1fb6131fa" category="example-title">Ejemplo 1: Habilitar Astra Trident para que se ejecute en los nodos de Windows</block>
   <block id="f53514cf8829a41463c245b088ae732e" category="paragraph">Para permitir que Astra Trident se ejecute en los nodos de Windows:</block>
@@ -3662,4 +3652,14 @@
   <block id="7501988e9549daa8c2fcd13e55b9fc78" category="admonition">Para importar un volumen de Azure NetApp Files, identifique el volumen por su ruta de volumen. La ruta del volumen es la parte de la ruta de exportación del volumen después del<block ref="fb256b96ee496724e4579987e5a6e4da" prefix=" " category="inline-code"></block>. Por ejemplo, si la ruta de montaje es<block ref="a88065dde27cea3a008a18172c5a9c9e" prefix=" " category="inline-code"></block>, la ruta de volumen es<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>.</block>
   <block id="1cfd9b4e20d41cdca62f758d3b0cb58b" category="paragraph-title">Ejemplo de Azure NetApp Files</block>
   <block id="bd46b0a8c2c4c89a60ee85052ad2dd0e" category="paragraph">El siguiente ejemplo importa un<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> volumen en el back-end<block ref="d8dd89ab9d39f5487714722f9becb468" prefix=" " category="inline-code"></block> con la ruta del volumen<block ref="062b749476713f7b5bbc675159e90bad" prefix=" " category="inline-code"></block>.</block>
+  <block id="48c807e08099dd321790a397d4e17e28" category="list-text">docker.io/netapp/trident:23.04.0</block>
+  <block id="417605e9cc8da2514c99aaf846144b96" category="list-text">docker.io/netapp/trident-autosupport:23,04</block>
+  <block id="e25b6bdb94c83d79f50a7d33929b965a" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v3,4.1</block>
+  <block id="cbad6fc461000c6d8790221b622aceb0" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4,2.0</block>
+  <block id="42b4a2f67addae58772b1c250a251f7e" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v1,7.0</block>
+  <block id="6171b5857bec22984fe260652936c7b1" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1</block>
+  <block id="87cd48d9616779fe4d3afb72f325eb12" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0</block>
+  <block id="8eb8a41b260e1d77c7ffe733b87d87a1" category="list-text">docker.io/netapp/trident-operator:23.04.0 (opcional)</block>
+  <block id="0b8ca2be5f4fe564fb8e843cbc53703d" category="admonition">No cree una controladora Snapshot si crea instantáneas de volumen bajo demanda en un entorno de GKE. GKE utiliza un controlador de instantáneas oculto integrado.</block>
+  <block id="dfbfe722a0ce7e388b78027f9cfed8dd" category="paragraph">La<block ref="e2d45d57c7e2941b65c6ccd64af4223e" prefix=" " category="inline-code"></block> Señala el controlador CSI de Astra Trident.<block ref="98e7d6463271d7848db255ae6467817a" prefix=" " category="inline-code"></block> puede ser<block ref="f2a6c498fb90ee345d997f888fce3b18" prefix=" " category="inline-code"></block> o.<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>. Cuando se establece en<block ref="afece4245269582cb2f1009d4fb52047" prefix=" " category="inline-code"></block>, la instantánea física subyacente en el clúster de almacenamiento se conserva incluso cuando<block ref="310a3378435f31620fbc3e7831ac7286" prefix=" " category="inline-code"></block> el objeto se ha eliminado.</block>
 </blocks>

@@ -188,92 +188,92 @@ Para instalaciones con problemas de conexión aérea, la siguiente lista es una 
 
 
 | 1.21.0  a| 
-* netapp/trident:23.04.0
-* netapp/trident-autosupport:23,04
-* k8s.io/sig-storage/csi-provisioner:v3,4.1
-* k8s.io/sig-storage/csi-attacher:v4,2.0
-* k8s.io/sig-storage/csi-reszer:v1.7.0
-* k8s.io/sig-storage/csi-snapshotter:v6.2.1
-* k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/trident-operator:23.04.0 (opcional)
+* docker.io/netapp/trident:23.04.0
+* docker.io/netapp/trident-autosupport:23,04
+* registry.k8s.io/sig-storage/csi-provisioner:v3,4.1
+* registry.k8s.io/sig-storage/csi-attacher:v4,2.0
+* registry.k8s.io/sig-storage/csi-resizer:v1,7.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0
+* docker.io/netapp/trident-operator:23.04.0 (opcional)
 
 
 
 
 | v1.22.0  a| 
-* netapp/trident:23.04.0
-* netapp/trident-autosupport:23,04
-* k8s.io/sig-storage/csi-provisioner:v3,4.1
-* k8s.io/sig-storage/csi-attacher:v4,2.0
-* k8s.io/sig-storage/csi-reszer:v1.7.0
-* k8s.io/sig-storage/csi-snapshotter:v6.2.1
-* k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/trident-operator:23.04.0 (opcional)
+* docker.io/netapp/trident:23.04.0
+* docker.io/netapp/trident-autosupport:23,04
+* registry.k8s.io/sig-storage/csi-provisioner:v3,4.1
+* registry.k8s.io/sig-storage/csi-attacher:v4,2.0
+* registry.k8s.io/sig-storage/csi-resizer:v1,7.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0
+* docker.io/netapp/trident-operator:23.04.0 (opcional)
 
 
 
 
 | v1.23.0  a| 
-* netapp/trident:23.04.0
-* netapp/trident-autosupport:23,04
-* k8s.io/sig-storage/csi-provisioner:v3,4.1
-* k8s.io/sig-storage/csi-attacher:v4,2.0
-* k8s.io/sig-storage/csi-reszer:v1.7.0
-* k8s.io/sig-storage/csi-snapshotter:v6.2.1
-* k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/trident-operator:23.04.0 (opcional)
+* docker.io/netapp/trident:23.04.0
+* docker.io/netapp/trident-autosupport:23,04
+* registry.k8s.io/sig-storage/csi-provisioner:v3,4.1
+* registry.k8s.io/sig-storage/csi-attacher:v4,2.0
+* registry.k8s.io/sig-storage/csi-resizer:v1,7.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0
+* docker.io/netapp/trident-operator:23.04.0 (opcional)
 
 
 
 
 | v1.24.0  a| 
-* netapp/trident:23.04.0
-* netapp/trident-autosupport:23,04
-* k8s.io/sig-storage/csi-provisioner:v3,4.1
-* k8s.io/sig-storage/csi-attacher:v4,2.0
-* k8s.io/sig-storage/csi-reszer:v1.7.0
-* k8s.io/sig-storage/csi-snapshotter:v6.2.1
-* k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/trident-operator:23.04.0 (opcional)
+* docker.io/netapp/trident:23.04.0
+* docker.io/netapp/trident-autosupport:23,04
+* registry.k8s.io/sig-storage/csi-provisioner:v3,4.1
+* registry.k8s.io/sig-storage/csi-attacher:v4,2.0
+* registry.k8s.io/sig-storage/csi-resizer:v1,7.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0
+* docker.io/netapp/trident-operator:23.04.0 (opcional)
 
 
 
 
 | v1.25.0  a| 
-* netapp/trident:23.04.0
-* netapp/trident-autosupport:23,04
-* k8s.io/sig-storage/csi-provisioner:v3,4.1
-* k8s.io/sig-storage/csi-attacher:v4,2.0
-* k8s.io/sig-storage/csi-reszer:v1.7.0
-* k8s.io/sig-storage/csi-snapshotter:v6.2.1
-* k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/trident-operator:23.04.0 (opcional)
+* docker.io/netapp/trident:23.04.0
+* docker.io/netapp/trident-autosupport:23,04
+* registry.k8s.io/sig-storage/csi-provisioner:v3,4.1
+* registry.k8s.io/sig-storage/csi-attacher:v4,2.0
+* registry.k8s.io/sig-storage/csi-resizer:v1,7.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0
+* docker.io/netapp/trident-operator:23.04.0 (opcional)
 
 
 
 
 | v1.26.0  a| 
-* netapp/trident:23.04.0
-* netapp/trident-autosupport:23,04
-* k8s.io/sig-storage/csi-provisioner:v3,4.1
-* k8s.io/sig-storage/csi-attacher:v4,2.0
-* k8s.io/sig-storage/csi-reszer:v1.7.0
-* k8s.io/sig-storage/csi-snapshotter:v6.2.1
-* k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/trident-operator:23.04.0 (opcional)
+* docker.io/netapp/trident:23.04.0
+* docker.io/netapp/trident-autosupport:23,04
+* registry.k8s.io/sig-storage/csi-provisioner:v3,4.1
+* registry.k8s.io/sig-storage/csi-attacher:v4,2.0
+* registry.k8s.io/sig-storage/csi-resizer:v1,7.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0
+* docker.io/netapp/trident-operator:23.04.0 (opcional)
 
 
 
 
 | v.1.27.0  a| 
-* netapp/trident:23.04.0
-* netapp/trident-autosupport:23,04
-* k8s.io/sig-storage/csi-provisioner:v3,4.1
-* k8s.io/sig-storage/csi-attacher:v4,2.0
-* k8s.io/sig-storage/csi-reszer:v1.7.0
-* k8s.io/sig-storage/csi-snapshotter:v6.2.1
-* k8s.io/sig-storage/csi-node-driver-registrador:v2.7.0
-* netapp/trident-operator:23.04.0 (opcional)
+* docker.io/netapp/trident:23.04.0
+* docker.io/netapp/trident-autosupport:23,04
+* registry.k8s.io/sig-storage/csi-provisioner:v3,4.1
+* registry.k8s.io/sig-storage/csi-attacher:v4,2.0
+* registry.k8s.io/sig-storage/csi-resizer:v1,7.0
+* registry.k8s.io/sig-storage/csi-snapshotter:v6,2.1
+* registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,7.0
+* docker.io/netapp/trident-operator:23.04.0 (opcional)
 
 
 |===

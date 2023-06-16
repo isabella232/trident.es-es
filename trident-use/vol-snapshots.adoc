@@ -20,7 +20,7 @@ Debe tener un controlador de instantánea externo y definiciones de recursos per
 Si su distribución de Kubernetes no incluye el controlador de instantáneas ni los CRD, consulte <<Implementar una controladora Snapshot de volumen>>.
 
 
-NOTE: No cree una controladora de instantáneas si crea instantáneas de volumen bajo demanda en un entorno GKE. GKE utiliza un controlador de instantáneas oculto integrado.
+NOTE: No cree una controladora Snapshot si crea instantáneas de volumen bajo demanda en un entorno de GKE. GKE utiliza un controlador de instantáneas oculto integrado.
 
 
 
@@ -38,7 +38,7 @@ metadata:
 driver: csi.trident.netapp.io
 deletionPolicy: Delete
 ----
-La `driver` Apunta al driver CSI de Astra Trident. `deletionPolicy` puede ser `Delete` o. `Retain`. Cuando se establece en `Retain`, la instantánea física subyacente en el clúster de almacenamiento se conserva incluso cuando `VolumeSnapshot` el objeto se ha eliminado.
+La `driver` Señala el controlador CSI de Astra Trident. `deletionPolicy` puede ser `Delete` o. `Retain`. Cuando se establece en `Retain`, la instantánea física subyacente en el clúster de almacenamiento se conserva incluso cuando `VolumeSnapshot` el objeto se ha eliminado.
 
 Para obtener más información, consulte el enlace:./trident-reference/objects.html#kubernetes-volumesnapshotclass-objects[`VolumeSnapshotClass`].
 
