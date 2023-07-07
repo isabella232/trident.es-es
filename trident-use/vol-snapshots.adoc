@@ -103,7 +103,7 @@ La `Snapshot Content Name` Identifica el objeto VolumeSnapshotContent que sirve 
 
 == Paso 3: Creación de EVs a partir de VolumeSnapshots
 
-En este ejemplo, se crea una RVP mediante una Snapshot:
+En este ejemplo, se crea una RVP con una copia Snapshot.
 
 [listing]
 ----
@@ -127,7 +127,13 @@ spec:
 `dataSource` Muestra que la RVP debe crearse con un VolumeSnapshot llamado `pvc1-snap` como la fuente de los datos. Esto le indica a Astra Trident que cree una RVP a partir de la snapshot. Una vez creada la RVP, se puede conectar a un pod y utilizarla como cualquier otro PVC.
 
 
-NOTE: Cuando se elimina un volumen persistente con instantáneas asociadas, el volumen Trident correspondiente se actualiza a un “estado de eliminación”. Para eliminar el volumen Astra Trident, deben eliminarse las snapshots del volumen.
+WARNING: La RVP debe crearse en el mismo espacio de nombres que su `dataSource`.
+
+
+
+== Eliminación de un VP con instantáneas
+
+Cuando se elimina un volumen persistente con instantáneas asociadas, el volumen Trident correspondiente se actualiza a un “estado de eliminación”. Quite las snapshots de volumen para eliminar el volumen de Astra Trident.
 
 
 
