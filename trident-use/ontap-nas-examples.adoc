@@ -172,7 +172,7 @@ labels:
   backend: dev1-nasbackend
 svm: trident_svm
 username: cluster-admin
-password: password
+password: <password>
 limitAggregateUsage: 80%
 limitVolumeSize: 50Gi
 nfsMountOptions: nfsvers=4
@@ -203,20 +203,18 @@ Los back-ends existentes de instalaciones anteriores aprovisionan volúmenes com
 
 
 
-== Ejemplos
-
-
-
-=== Ejemplos de configuración mínima
+== Ejemplos de configuración mínima
 
 Los ejemplos siguientes muestran configuraciones básicas que dejan la mayoría de los parámetros en los valores predeterminados. Esta es la forma más sencilla de definir un back-end.
 
 
 NOTE: Si utiliza Amazon FSX en ONTAP de NetApp con Trident, la recomendación es especificar nombres DNS para las LIF en lugar de direcciones IP.
 
-.Las opciones predeterminadas de <code>-tap-nas-economitdisponible </code>
+.Ejemplo de configuración mínima de la economía de NAS de ONTAP
 [%collapsible%open]
 ====
+Se trata de una configuración básica que utiliza el `ontap-nas-economy` controlador.
+
 [listing]
 ----
 ---
@@ -226,13 +224,30 @@ managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: password
+password: <password>
 ----
 ====
-.Autenticación basada en certificados
+.Ejemplo de configuración mínima de FlexGroup NAS de ONTAP
 [%collapsible%open]
 ====
-Este es un ejemplo de configuración de backend mínima. `clientCertificate`, `clientPrivateKey`, y. `trustedCACertificate` (Opcional, si se utiliza una CA de confianza) se completan en `backend.json` Y tome los valores codificados base64 del certificado de cliente, la clave privada y el certificado de CA de confianza, respectivamente.
+Se trata de una configuración básica que utiliza el `ontap-nas-flexgroup` controlador.
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas-flexgroup
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: <password>
+----
+====
+.Ejemplo de autenticación basada en certificados
+[%collapsible%open]
+====
+En este ejemplo de configuración básica `clientCertificate`, `clientPrivateKey`, y. `trustedCACertificate` (Opcional, si se utiliza una CA de confianza) se completan en `backend.json` Y tome los valores codificados base64 del certificado de cliente, la clave privada y el certificado de CA de confianza, respectivamente.
 
 [listing]
 ----
@@ -249,12 +264,11 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
 ----
 ====
-.Política de exportación automática
+.Ejemplo de política de exportación automática
 [%collapsible%open]
 ====
-Estos ejemplos muestran cómo puede instruir a Astra Trident para que utilice políticas de exportación dinámicas para crear y gestionar la directiva de exportación automáticamente. Esto funciona igual para el `ontap-nas-economy` y.. `ontap-nas-flexgroup` de windows
+En este ejemplo, Astra Trident utiliza políticas de exportación dinámicas para crear y gestionar la política de exportación automáticamente. Esto funciona igual para el `ontap-nas-economy` y.. `ontap-nas-flexgroup` de windows
 
-.controlador ontap-nas
 [listing]
 ----
 ---
@@ -270,26 +284,11 @@ autoExportPolicy: true
 autoExportCIDRs:
 - 10.0.0.0/24
 username: admin
-password: password
+password: <password>
 nfsMountOptions: nfsvers=4
 ----
-.driver <code> de tap-nas-flexpodrele </code>
-[listing]
-----
----
-version: 1
-storageDriverName: ontap-nas-flexgroup
-managementLIF: 10.0.0.1
-dataLIF: 10.0.0.2
-labels:
-  k8scluster: test-cluster-east-1b
-  backend: test1-ontap-cluster
-svm: svm_nfs
-username: vsadmin
-password: password
-----
 ====
-.El uso de direcciones IPv6
+.Usando el ejemplo de direcciones IPv6
 [%collapsible%open]
 ====
 Este ejemplo muestra `managementLIF` Uso de una dirección IPv6.
@@ -306,28 +305,14 @@ labels:
   backend: test1-ontap-ipv6
 svm: nas_ipv6_svm
 username: vsadmin
-password: password
+password: <password>
 
 ----
 ====
-
-
-=== `ontap-nas-economy` controlador
-
-[listing]
-----
----
-version: 1
-storageDriverName: ontap-nas-economy
-managementLIF: 10.0.0.1
-dataLIF: 10.0.0.2
-svm: svm_nfs
-username: vsadmin
-password: password
-----
-
-
-=== `ontap-nas` Controlador para Amazon FSX para ONTAP mediante SMB Volumes
+.Ejemplo de Amazon FSx para ONTAP mediante volúmenes de bloque de mensajes del servidor
+[%collapsible%open]
+====
+Este ejemplo crea un back-end de Amazon FSx para ONTAP mediante volúmenes de SMB.
 
 [listing]
 ----
@@ -344,17 +329,18 @@ clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
 trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
 ----
+====
 
 
 == Ejemplos de back-ends con pools virtuales
 
-En el archivo de definición del back-end de ejemplo que se muestra a continuación, se establecen valores predeterminados específicos para todos los grupos de almacenamiento, como `spaceReserve` en ninguno, `spaceAllocation` en falso, y. `encryption` en falso. Los pools virtuales se definen en la sección de almacenamiento.
+En los archivos de definición de backend de ejemplo que se muestran a continuación, se establecen valores predeterminados específicos para todos los pools de almacenamiento, como `spaceReserve` en ninguno, `spaceAllocation` en falso, y. `encryption` en falso. Los pools virtuales se definen en la sección de almacenamiento.
 
 Astra Trident establece etiquetas de aprovisionamiento en el campo "Comentarios". Los comentarios se establecen en FlexVol para `ontap-nas` O FlexGroup para `ontap-nas-flexgroup`. Astra Trident copia todas las etiquetas presentes en un pool virtual al volumen de almacenamiento al aprovisionar. Para mayor comodidad, los administradores de almacenamiento pueden definir etiquetas por pool virtual y agrupar volúmenes por etiqueta.
 
-En este ejemplo, algunos de los recursos compartidos de almacenamiento son los suyos propios `spaceReserve`, `spaceAllocation`, y. `encryption` los valores y algunos pools sobrescriben los valores predeterminados establecidos anteriormente.
+En estos ejemplos, algunos de los pools de almacenamiento establecen sus propios `spaceReserve`, `spaceAllocation`, y. `encryption` y algunos pools sustituyen los valores predeterminados.
 
-.driver <code> de </code> de otap-oed
+.Ejemplo de NAS de ONTAP
 [%collapsible%open]
 ====
 [listing]
@@ -363,10 +349,9 @@ En este ejemplo, algunos de los recursos compartidos de almacenamiento son los s
 version: 1
 storageDriverName: ontap-nas
 managementLIF: 10.0.0.1
-dataLIF: 10.0.0.2
 svm: svm_nfs
 username: admin
-password: password
+password: <password>
 nfsMountOptions: nfsvers=4
 defaults:
   spaceReserve: none
@@ -395,6 +380,14 @@ storage:
     encryption: 'true'
     unixPermissions: '0755'
 - labels:
+    department: legal
+    creditpoints: '5000'
+  zone: us_east_1b
+  defaults:
+    spaceReserve: none
+    encryption: 'true'
+    unixPermissions: '0755'
+- labels:
     app: wordpress
     cost: '50'
   zone: us_east_1c
@@ -412,7 +405,7 @@ storage:
     unixPermissions: '0775'
 ----
 ====
-.driver <code> de tap-nas-flexpodrele </code>
+.Ejemplo de FlexGroup NAS de ONTAP
 [%collapsible%open]
 ====
 [listing]
@@ -421,10 +414,9 @@ storage:
 version: 1
 storageDriverName: ontap-nas-flexgroup
 managementLIF: 10.0.0.1
-dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: password
+password: <password>
 defaults:
   spaceReserve: none
   encryption: 'false'
@@ -465,10 +457,9 @@ storage:
     spaceReserve: volume
     encryption: 'false'
     unixPermissions: '0775'
-
 ----
 ====
-.driver <code> de </code> tap-nas-economieconomic
+.Ejemplo de economía NAS de ONTAP
 [%collapsible%open]
 ====
 [listing]
@@ -477,10 +468,9 @@ storage:
 version: 1
 storageDriverName: ontap-nas-economy
 managementLIF: 10.0.0.1
-dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: password
+password: <password>
 defaults:
   spaceReserve: none
   encryption: 'false'
@@ -497,7 +487,7 @@ storage:
     encryption: 'true'
     unixPermissions: '0755'
 - labels:
-    department: legal
+    protection: bronze
     creditpoints: '5000'
   zone: us_east_1b
   defaults:
@@ -520,9 +510,83 @@ storage:
     spaceReserve: volume
     encryption: 'false'
     unixPermissions: '0775'
-
 ----
 ====
+
+
+== Asigne los back-ends a StorageClass
+
+Las siguientes definiciones de StorageClass se refieren a <<Ejemplos de back-ends con pools virtuales>>. Con el `parameters.selector` Cada StorageClass llama la atención sobre qué pools virtuales pueden usarse para alojar un volumen. El volumen tendrá los aspectos definidos en el pool virtual elegido.
+
+* La `protection-gold` StorageClass se asignará al primer y segundo pool virtual del `ontap-nas-flexgroup` back-end. Estos son los únicos pools que ofrecen protección de nivel Gold.
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-gold
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection=gold"
+  fsType: "ext4"
+----
+* La `protection-not-gold` StorageClass se asignará al tercer y cuarto pool virtual del `ontap-nas-flexgroup` back-end. Estos son los únicos pools que ofrecen un nivel de protección distinto al Gold.
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-not-gold
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection!=gold"
+  fsType: "ext4"
+----
+* La `app-mysqldb` StorageClass se asignará al cuarto pool virtual del `ontap-nas` back-end. Este es el único pool que ofrece configuración de pool de almacenamiento para la aplicación de tipo mysqldb.
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: app-mysqldb
+provisioner: netapp.io/trident
+parameters:
+  selector: "app=mysqldb"
+  fsType: "ext4"
+----
+* T. `protection-silver-creditpoints-20k` StorageClass se asignará al tercer pool virtual del `ontap-nas-flexgroup` back-end. Este es el único pool que ofrece protección de nivel plata y 20000 puntos de crédito.
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: protection-silver-creditpoints-20k
+provisioner: netapp.io/trident
+parameters:
+  selector: "protection=silver; creditpoints=20000"
+  fsType: "ext4"
+----
+* La `creditpoints-5k` StorageClass se asignará al tercer pool virtual del `ontap-nas` backend y segundo pool virtual en `ontap-nas-economy` back-end. Estas son las únicas ofertas de grupo con 5000 puntos de crédito.
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: creditpoints-5k
+provisioner: netapp.io/trident
+parameters:
+  selector: "creditpoints=5000"
+  fsType: "ext4"
+----
+
+
+Astra Trident decidirá qué pool virtual se selecciona y garantizará que se cumplan los requisitos de almacenamiento.
+
 
 
 == Actualizar `dataLIF` tras la configuración inicial
@@ -535,66 +599,3 @@ tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-upda
 ----
 
 NOTE: Si los RVP están conectados a uno o varios pods, deben recuperar todos los pods correspondientes y, a continuación, traerlos para que surta efecto el nuevo LIF de datos.
-
-
-
-== Asigne los back-ends a StorageClass
-
-Las siguientes definiciones de StorageClass se refieren a los pools virtuales anteriores. Con el `parameters.selector` Field, cada clase de almacenamiento llama a qué pools virtuales se pueden utilizar para alojar un volumen. El volumen tendrá los aspectos definidos en el pool virtual elegido.
-
-* El primer tipo de almacenamiento (`protection-gold`) se asignará al primer, segundo grupo virtual del `ontap-nas-flexgroup` backend y el primer pool virtual del `ontap-san` back-end. Se trata de la única piscina que ofrece protección de nivel Gold.
-* El segundo tipo de almacenamiento (`protection-not-gold`) se asignará al tercer, cuarto grupo virtual en `ontap-nas-flexgroup` backend y el segundo, tercer pool virtual en `ontap-san` back-end. Estos son los únicos pools que ofrecen un nivel de protección distinto al Gold.
-* El tercer tipo de almacenamiento (`app-mysqldb`) se asignará al cuarto pool virtual en `ontap-nas` backend y el tercer pool virtual en `ontap-san-economy` back-end. Estos son los únicos grupos que ofrecen la configuración del pool de almacenamiento para la aplicación de tipo mysqldb.
-* El cuarto tipo de almacenamiento (`protection-silver-creditpoints-20k`) se asignará al tercer grupo virtual en `ontap-nas-flexgroup` backend y el segundo pool virtual en `ontap-san` back-end. Estas son las únicas piscinas que ofrecen protección de nivel Gold con 20000 puntos de crédito.
-* El quinto tipo de almacenamiento (`creditpoints-5k`) se asignará al segundo pool virtual en `ontap-nas-economy` backend y el tercer pool virtual en `ontap-san` back-end. Se trata de la única oferta de pool en 5000 puntos de crédito.
-
-
-Astra Trident decidirá qué pool virtual se selecciona y garantizará que se cumplan los requisitos de almacenamiento.
-
-[listing]
-----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: protection-gold
-provisioner: netapp.io/trident
-parameters:
-  selector: "protection=gold"
-  fsType: "ext4"
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: protection-not-gold
-provisioner: netapp.io/trident
-parameters:
-  selector: "protection!=gold"
-  fsType: "ext4"
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: app-mysqldb
-provisioner: netapp.io/trident
-parameters:
-  selector: "app=mysqldb"
-  fsType: "ext4"
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: protection-silver-creditpoints-20k
-provisioner: netapp.io/trident
-parameters:
-  selector: "protection=silver; creditpoints=20000"
-  fsType: "ext4"
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: creditpoints-5k
-provisioner: netapp.io/trident
-parameters:
-  selector: "creditpoints=5000"
-  fsType: "ext4"
-----
