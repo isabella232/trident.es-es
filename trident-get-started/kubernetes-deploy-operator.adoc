@@ -99,7 +99,30 @@ El instalador de Astra Trident proporciona un archivo de paquete que se puede ut
 * Para los clústeres que ejecutan Kubernetes 1,25 o posterior, utilice `bundle_post_1_25.yaml`.
 
 
-El instalador de Trident pone en marcha el operador en la `trident` espacio de nombres. Si la `trident` no existe el espacio de nombres, utilice `kubectl apply -f deploy/namespace.yaml` para crearlo.
+.Antes de empezar
+* De forma predeterminada, el instalador de Trident implementa el operador en la `trident` espacio de nombres. Si la `trident` el espacio de nombres no existe, créelo con:
++
+[listing]
+----
+kubectl apply -f deploy/namespace.yaml
+----
+* Para implementar el operador en un espacio de nombres distinto del `trident` espacio de nombres, actualización `serviceaccount.yaml`, `clusterrolebinding.yaml` y.. `operator.yaml` y genere el archivo del paquete con el `kustomization.yaml`.
++
+.. Cree el `kustomization.yaml` con el siguiente comando donde está _<bundle>_ `bundle_pre_1_25` o. `bundle_post_1_25` Según su versión de Kubernetes.
++
+[listing]
+----
+cp kustomization_<bundle>.yaml kustomization.yaml
+----
+.. Compile el paquete con el siguiente comando donde está _<bundle>_ `bundle_pre_1_25` o. `bundle_post_1_25` Según su versión de Kubernetes.
++
+[listing]
+----
+kubectl kustomize deploy/ > deploy/<bundle>.yaml
+----
+
+
+
 
 .Pasos
 . Crear los recursos e implementar el operador:
@@ -108,24 +131,11 @@ El instalador de Trident pone en marcha el operador en la `trident` espacio de n
 ----
 kubectl create -f deploy/<bundle>.yaml
 ----
-+
-[NOTE]
-====
-Para implementar el operador en un espacio de nombres distinto del `trident` espacio de nombres, actualización `serviceaccount.yaml`, `clusterrolebinding.yaml` y.. `operator.yaml` y genere el archivo del paquete con el `kustomization.yaml`:
-
-[listing]
-----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
-----
-====
-. Compruebe que el operador se ha desplegado.
+. Compruebe que se han creado el operador, el despliegue y los replicasets.
 +
 [listing]
 ----
-kubectl get deployment -n <operator-namespace>
-
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-trident-operator   1/1     1            1           3m
+kubectl get all -n <operator-namespace>
 ----
 
 
