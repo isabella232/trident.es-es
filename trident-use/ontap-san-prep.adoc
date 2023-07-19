@@ -12,11 +12,11 @@ summary: Descubra cómo preparar un back-end de ONTAP con controladores DE SAN d
 
 
 [role="lead"]
-Descubra cómo preparar un back-end de ONTAP con controladores DE SAN de ONTAP.
+Conozca los requisitos y las opciones de autenticación para configurar un back-end de ONTAP con controladores SAN de ONTAP.
 
 
 
-== Descripción general
+== Requisitos
 
 Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
 
@@ -26,7 +26,7 @@ Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas
 
 
 
-== Autenticación
+== Autentique el backend de ONTAP
 
 Astra Trident ofrece dos modos de autenticación de un back-end de ONTAP.
 

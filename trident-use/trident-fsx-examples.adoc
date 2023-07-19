@@ -91,7 +91,9 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 | `qtreesPerFlexvol` | El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300] | `200` 
 
 
-| `smbShare` | Puede especificar el nombre del recurso compartido de SMB creado con la carpeta compartida Microsoft Management Console o especificar un nombre de recurso compartido para permitir que Astra Trident cree el recurso compartido de SMB. Como alternativa, es posible dejar el parámetro vacío para evitar el acceso al recurso compartido común a los volúmenes. | `smb-share` 
+| `smbShare` | Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado con la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP, o bien un nombre para permitir que Astra Trident cree el recurso compartido de SMB.
+
+Este parámetro es obligatorio para los back-ends de Amazon FSx para ONTAP. | `smb-share` 
 
 
 | `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*

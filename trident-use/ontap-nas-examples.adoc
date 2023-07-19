@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/ontap-nas-examples.html 
 keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
-summary: Obtenga más información sobre cómo crear y utilizar controladores NAS de ONTAP con su instalación de Astra Trident. En esta sección, se ofrecen ejemplos de configuración del back-end y detalles sobre cómo asignar back-ends a StorageClasses. 
+summary: Descubre cómo crear y utilizar controladores NAS de ONTAP con tu instalación de Astra Trident. En esta sección, se ofrecen ejemplos de configuración del back-end y detalles sobre cómo asignar back-ends a StorageClasses. 
 ---
 = Opciones y ejemplos de configuración NAS de ONTAP
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Obtenga más información sobre cómo crear y utilizar controladores NA
 
 
 [role="lead"]
-Obtenga más información sobre cómo crear y utilizar controladores NAS de ONTAP con su instalación de Astra Trident. En esta sección, se ofrecen ejemplos de configuración del back-end y detalles sobre cómo asignar back-ends a StorageClasses.
+Descubre cómo crear y utilizar controladores NAS de ONTAP con tu instalación de Astra Trident. En esta sección, se ofrecen ejemplos de configuración del back-end y detalles sobre cómo asignar back-ends a StorageClasses.
 
 
 
@@ -94,7 +94,11 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 | `qtreesPerFlexvol` | El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300] | “200” 
 
 
-| `smbShare` | Puede especificar el nombre del recurso compartido de SMB creado con la carpeta compartida Microsoft Management Console o especificar un nombre de recurso compartido para permitir que Astra Trident cree el recurso compartido de SMB. Como alternativa, es posible dejar el parámetro vacío para evitar el acceso al recurso compartido común a los volúmenes. | `smb-share` 
+| `smbShare` | Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado mediante la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP; un nombre para permitir que Astra Trident cree el recurso compartido de SMB; o bien puede dejar el parámetro en blanco para evitar el acceso de recurso compartido común a los volúmenes.
+
+Este parámetro es opcional para ONTAP en las instalaciones.
+
+Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no puede estar en blanco. | `smb-share` 
 
 
 | `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*
@@ -210,11 +214,9 @@ Los ejemplos siguientes muestran configuraciones básicas que dejan la mayoría 
 
 NOTE: Si utiliza Amazon FSX en ONTAP de NetApp con Trident, la recomendación es especificar nombres DNS para las LIF en lugar de direcciones IP.
 
-.Ejemplo de configuración mínima de la economía de NAS de ONTAP
+.Configuración mínima para <code>ontap-nas-economy</code>
 [%collapsible%open]
 ====
-Se trata de una configuración básica que utiliza el `ontap-nas-economy` controlador.
-
 [listing]
 ----
 ---
@@ -224,14 +226,12 @@ managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: <password>
+password: password
 ----
 ====
-.Ejemplo de configuración mínima de FlexGroup NAS de ONTAP
+.Configuración mínima para <code>ontap-nas-flexgroup</code>
 [%collapsible%open]
 ====
-Se trata de una configuración básica que utiliza el `ontap-nas-flexgroup` controlador.
-
 [listing]
 ----
 ---
@@ -241,13 +241,33 @@ managementLIF: 10.0.0.1
 dataLIF: 10.0.0.2
 svm: svm_nfs
 username: vsadmin
-password: <password>
+password: password
 ----
 ====
-.Ejemplo de autenticación basada en certificados
+.Configuración mínima para volúmenes de SMB
 [%collapsible%open]
 ====
-En este ejemplo de configuración básica `clientCertificate`, `clientPrivateKey`, y. `trustedCACertificate` (Opcional, si se utiliza una CA de confianza) se completan en `backend.json` Y tome los valores codificados base64 del certificado de cliente, la clave privada y el certificado de CA de confianza, respectivamente.
+[listing]
+----
+
+---
+version: 1
+backendName: ExampleBackend
+storageDriverName: ontap-nas
+managementLIF: 10.0.0.1
+nasType: smb
+securityStyle: ntfs
+unixPermissions: ""
+dataLIF: 10.0.0.2
+svm: svm_nfs
+username: vsadmin
+password: password
+----
+====
+.Autenticación basada en certificados
+[%collapsible%open]
+====
+Este es un ejemplo de configuración de backend mínima. `clientCertificate`, `clientPrivateKey`, y. `trustedCACertificate` (Opcional, si se utiliza una CA de confianza) se completan en `backend.json` Y tome los valores codificados base64 del certificado de cliente, la clave privada y el certificado de CA de confianza, respectivamente.
 
 [listing]
 ----
@@ -264,10 +284,10 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
 ----
 ====
-.Ejemplo de política de exportación automática
+.Política de exportación automática
 [%collapsible%open]
 ====
-En este ejemplo, Astra Trident utiliza políticas de exportación dinámicas para crear y gestionar la política de exportación automáticamente. Esto funciona igual para el `ontap-nas-economy` y.. `ontap-nas-flexgroup` de windows
+En este ejemplo se muestra cómo puede indicar a Astra Trident que utilice políticas de exportación dinámicas para crear y gestionar automáticamente la directiva de exportación. Esto funciona igual para el `ontap-nas-economy` y.. `ontap-nas-flexgroup` de windows
 
 [listing]
 ----
@@ -284,11 +304,11 @@ autoExportPolicy: true
 autoExportCIDRs:
 - 10.0.0.0/24
 username: admin
-password: <password>
+password: password
 nfsMountOptions: nfsvers=4
 ----
 ====
-.Usando el ejemplo de direcciones IPv6
+.El uso de direcciones IPv6
 [%collapsible%open]
 ====
 Este ejemplo muestra `managementLIF` Uso de una dirección IPv6.
@@ -305,14 +325,13 @@ labels:
   backend: test1-ontap-ipv6
 svm: nas_ipv6_svm
 username: vsadmin
-password: <password>
-
+password: password
 ----
 ====
-.Ejemplo de Amazon FSx para ONTAP mediante volúmenes de bloque de mensajes del servidor
+.Amazon FSx para ONTAP mediante volúmenes SMB
 [%collapsible%open]
 ====
-Este ejemplo crea un back-end de Amazon FSx para ONTAP mediante volúmenes de SMB.
+La `smbShare` El parámetro es obligatorio para FSx para ONTAP mediante volúmenes de bloque de mensajes del servidor.
 
 [listing]
 ----
@@ -324,6 +343,7 @@ managementLIF: example.mgmt.fqdn.aws.com
 nasType: smb
 dataLIF: 10.0.0.15
 svm: nfs_svm
+smbShare: smb-share
 clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
 clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
 trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/ontap-nas-prep.html 
 keywords: trident backend, ontap nas, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups 
-summary: Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP. 
+summary: Conozca los requisitos, las opciones de autenticación y las políticas de exportación para configurar un backend de ONTAP con controladores NAS de ONTAP. 
 ---
 = Prepárese para configurar un back-end con controladores NAS de ONTAP
 :hardbreaks:
@@ -12,21 +12,21 @@ summary: Descubra cómo preparar un back-end de ONTAP con controladores NAS de O
 
 
 [role="lead"]
-Descubra cómo preparar un back-end de ONTAP con controladores NAS de ONTAP.
+Conozca los requisitos, las opciones de autenticación y las políticas de exportación para configurar un backend de ONTAP con controladores NAS de ONTAP.
 
 
 
-== Consideraciones
+== Requisitos
 
 * Para todos los back-ends de ONTAP, Astra Trident requiere al menos un agregado asignado a la SVM.
 * Puede ejecutar más de un controlador y crear clases de almacenamiento que apunten a uno u otro. Por ejemplo, puede configurar una clase Gold que utilice `ontap-nas` Controlador y clase Bronze que utiliza `ontap-nas-economy` uno.
 * Todos sus nodos de trabajo de Kubernetes deben tener instaladas las herramientas NFS adecuadas. Consulte link:worker-node-prep.html["aquí"] para obtener más detalles.
-* Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
+* Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows. Consulte <<Prepárese para aprovisionar los volúmenes de SMB>> para obtener más detalles.
 
 
 
 
-== Autenticación
+== Autentique el backend de ONTAP
 
 Astra Trident ofrece dos modos de autenticación de un back-end de ONTAP.
 
@@ -288,3 +288,79 @@ Para los back-ends anteriores, actualizando el back-end con `tridentctl update b
 NOTE: Si se elimina un back-end con políticas de exportación gestionadas automáticamente, se eliminará la política de exportación creada de forma dinámica. Si se vuelve a crear el back-end, se trata como un nuevo back-end y dará lugar a la creación de una nueva política de exportación.
 
 Si se actualiza la dirección IP de un nodo activo, debe reiniciar el pod Astra Trident en el nodo. A continuación, Astra Trident actualizará la política de exportación para los back-ends que gestiona para reflejar este cambio de IP.
+
+
+
+== Prepárese para aprovisionar los volúmenes de SMB
+
+Con un poco de preparación adicional, puede aprovisionar volúmenes SMB con `ontap-nas` de windows
+
+
+WARNING: Debe configurar tanto los protocolos NFS como SMB/CIFS en la SVM para crear un `ontap-nas-economy` Volumen SMB para ONTAP en las instalaciones. Si no se configura ninguno de estos protocolos, se producirá un error en la creación del volumen de SMB.
+
+.Antes de empezar
+Para poder aprovisionar volúmenes de SMB, debe tener lo siguiente.
+
+* Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2019. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
+* Al menos un secreto Astra Trident que contiene sus credenciales de Active Directory. Generar secreto `smbcreds`:
++
+[listing]
+----
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
+----
+* Proxy CSI configurado como servicio de Windows. Para configurar un `csi-proxy`, consulte link:https://github.com/kubernetes-csi/csi-proxy["GitHub: Proxy CSI"^] o. link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub: Proxy CSI para Windows"^] Para nodos Kubernetes que se ejecutan en Windows.
+
+
+.Pasos
+. Para la ONTAP en las instalaciones, puede crear opcionalmente un recurso compartido de SMB, o bien Astra Trident puede crearlo para usted.
++
+
+NOTE: Los recursos compartidos de SMB se requieren para Amazon FSx para ONTAP.
+
++
+Puede crear recursos compartidos de administrador de SMB de una de dos formas mediante el link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Consola de administración de Microsoft"^] Complemento carpetas compartidas o uso de la CLI de ONTAP. Para crear los recursos compartidos de SMB mediante la CLI de ONTAP:
+
++
+.. Si es necesario, cree la estructura de ruta de acceso de directorio para el recurso compartido.
++
+La `vserver cifs share create` comando comprueba la ruta especificada en la opción -path durante la creación del recurso compartido. Si la ruta especificada no existe, el comando falla.
+
+.. Cree un recurso compartido de SMB asociado con la SVM especificada:
++
+[listing]
+----
+vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
+----
+.. Compruebe que se ha creado el recurso compartido:
++
+[listing]
+----
+vserver cifs share show -share-name share_name
+----
++
+
+NOTE: Consulte link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["Cree un recurso compartido de SMB"^] para obtener todos los detalles.
+
+
+
+. Al crear el back-end, debe configurar lo siguiente para especificar volúmenes de SMB. Para obtener información sobre todas las opciones de configuración del entorno de administración de ONTAP, consulte link:trident-fsx-examples.html["Opciones y ejemplos de configuración de FSX para ONTAP"].
++
+[cols="3"]
+|===
+| Parámetro | Descripción | Ejemplo 
+
+
+| `smbShare`
+Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado mediante la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP; un nombre para permitir que Astra Trident cree el recurso compartido de SMB; o bien puede dejar el parámetro en blanco para evitar el acceso de recurso compartido común a los volúmenes.
+
+Este parámetro es opcional para ONTAP en las instalaciones.
+
+Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no puede estar en blanco. | `smb-share` | `nasType` 
+
+
+| *Debe establecer en `smb`.* Si es nulo, el valor predeterminado es `nfs`. | `smb` | `securityStyle` 
+
+
+| Estilo de seguridad para nuevos volúmenes. *Debe estar configurado en `ntfs` o. `mixed` Para volúmenes SMB.* | `ntfs` o. `mixed` Para volúmenes de SMB | `unixPermissions` 
+|===
+
