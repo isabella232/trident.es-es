@@ -42,34 +42,37 @@ Astra Trident proporciona los controladores de almacenamiento siguientes para co
 
 | `ontap-nas`  a| 
 NFS
+SMB
  a| 
 Sistema de archivos
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-"", nfs
+« », nfs, smb
 
 
 
 | `ontap-nas-economy`  a| 
 NFS
+SMB
  a| 
 Sistema de archivos
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-"", nfs
+« », nfs, smb
 
 
 
 | `ontap-nas-flexgroup`  a| 
 NFS
+SMB
  a| 
 Sistema de archivos
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-"", nfs
+« », nfs, smb
 
 
 
