@@ -147,8 +147,8 @@ O bien, https://docs.docker.com/engine/install/["siga las instrucciones de su di
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.04.0/trident-installer-23.04.0.tar.gz
-tar zxf trident-installer-23.04.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.07.0/trident-installer-23.07.0.tar.gz
+tar zxf trident-installer-23.07.0.tar.gz
 ----
 .. Desplazarse a una ubicación en la ruta de la bandeja:
 +
@@ -183,7 +183,7 @@ EOF
 ----
 
 
-. Después de colocar el archivo binario y crear los archivos de configuración, inicie el daemon Trident con el archivo de configuración deseado.
+. Después de colocar el binario y crear el archivo de configuración, inicie el daemon de Trident con el archivo de configuración que desee.
 +
 [listing]
 ----

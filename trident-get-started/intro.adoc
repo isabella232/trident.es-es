@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/intro.html 
+keywords: product overview, astra trident, fsx, element, astra, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
+summary: 'Astra Trident es un proyecto de código abierto con soporte completo que mantiene NetApp como parte de la familia de productos Astra. Se ha diseñado para ayudarle a cumplir las demandas de persistencia de sus aplicaciones en contenedores mediante interfaces estándar del sector, como la Container Storage Interface (CSI).' 
+---
+= Obtenga más información sobre Astra Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Astra Trident es un proyecto de código abierto totalmente compatible y mantenido por NetApp como parte de la link:https://docs.netapp.com/us-en/astra-family/intro-family.html["Familia de productos Astra"^]. Se ha diseñado para ayudarle a cumplir las demandas de persistencia de sus aplicaciones en contenedores mediante interfaces estándar del sector, como la Container Storage Interface (CSI).
+
+
+
+== ¿Qué es Astra?
+
+Astra facilita a las empresas la gestión, la protección y el movimiento de sus cargas de trabajo en contenedores con una gran cantidad de datos que se ejecutan en Kubernetes en los clouds públicos y en las instalaciones.
+
+Astra aprovisiona y proporciona almacenamiento en contenedores persistente basado en Astra Trident. Además, ofrece funcionalidades avanzadas de gestión de datos para aplicaciones, como instantáneas, backup y restauración, registros de actividades y clonado activo para protección de datos, recuperación de datos/desastres, auditoría de datos y casos prácticos de migración para cargas de trabajo de Kubernetes.
+
+Más información acerca de link:https://bluexp.netapp.com/astra["Astra o regístrate para una prueba gratuita"^].
+
+
+
+== ¿Qué es Astra Trident?
+
+Astra Trident permite el consumo y la gestión de recursos de almacenamiento en todas las plataformas de almacenamiento de NetApp más conocidas, tanto en el cloud público como en las instalaciones, incluidos ONTAP (AFF, FAS, Select, Cloud, Amazon FSx para NetApp ONTAP), el software Element (NetApp HCI, SolidFire), el servicio Azure NetApp Files y Cloud Volumes Service en Google Cloud.
+
+Astra Trident es una interfaz de almacenamiento de contenedores (CSI) orquestador de almacenamiento dinámico conforme a la normativa que se integra de forma nativa con link:https://kubernetes.io/["Kubernetes"^]. Astra Trident se ejecuta como un pod de controladora único más un pod de nodo en cada nodo trabajador del clúster. Consulte link:../trident-get-started/architecture.html["Arquitectura de Astra Trident"] para obtener más detalles.
+
+Astra Trident también proporciona integración directa con el ecosistema de Docker para las plataformas de almacenamiento de NetApp. El complemento para volúmenes de Docker de NetApp (nDVP) admite el aprovisionamiento y la gestión de recursos de almacenamiento desde la plataforma de almacenamiento a los hosts de Docker. Consulte link:../trident-docker/deploy-docker.html["Ponga en marcha Astra Trident para Docker"] para obtener más detalles.
+
+
+NOTE: Si es la primera vez que usa Kubernetes, deberá familiarizarse con el link:https://kubernetes.io/docs/home/["Conceptos y herramientas de Kubernetes"^].
+
+
+
+== Acepta la prueba de Astra Trident
+
+Para realizar una prueba, solicite acceso a la página «Puesta en marcha y clonación sencilla del almacenamiento persistente para cargas de trabajo contenerizadas». link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["Versión de prueba de NetApp"^] uso de una imagen de laboratorio lista para usar. La unidad de prueba proporciona un entorno de pruebas con un clúster de Kubernetes de tres nodos y Astra Trident instalado y configurado. Esta es una excelente manera de familiarizarse con Astra Trident y explorar sus funciones.
+
+Otra opción es la link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Guía de instalación de Kubeadm"] Proporcionado por Kubernetes.
+
+
+NOTE: No utilice un clúster de Kubernetes creado con estas instrucciones en un entorno de producción. Use las guías de puesta en marcha de producción proporcionadas por su distribución para clústeres listos para la producción.
+
+
+
+== Si quiere más información
+
+* https://docs.netapp.com/us-en/astra-family/intro-family.html["Familia de productos Astra de NetApp"^]
+* https://docs.netapp.com/us-en/astra/get-started/intro.html["Documentación de Astra Control Service"^]
+* https://docs.netapp.com/us-en/astra-control-center/index.html["Documentación de Astra Control Center"^]
+* https://docs.netapp.com/us-en/astra-automation/get-started/before_get_started.html["Documentación de API de Astra"^]
+

@@ -1,0 +1,24 @@
+---
+section: trident-install
+title: Instale Astra Trident
+entries:
+- title: Información general de la instalación
+  url: "/trident-get-started/kubernetes-deploy.html"
+- title: Realice la instalación mediante el operador Trident
+  entries:
+  - title: Implementación manual del operador de Trident (estándar)
+    url: "/trident-get-started/kubernetes-deploy-operator.html"
+  - title: Implemente manualmente el operador Trident (sin conexión).
+    url: "/trident-get-started/kubernetes-deploy-operator-mirror.html"
+  - title: Usar gráfico de Helm de Trident (estándar)
+    url: "/trident-get-started/kubernetes-deploy-helm.html"
+  - title: Usar el gráfico de Helm de Trident (sin conexión)
+    url: "/trident-get-started/kubernetes-deploy-helm-mirror.html"
+  - title: Personalice la instalación del operador de Trident
+    url: "/trident-get-started/kubernetes-customize-deploy.html"
+- title: Instale utilizando trimentctl
+  entries:
+  - title: Instale utilizando trimentctl
+    url: "/trident-get-started/kubernetes-deploy-tridentctl.html"
+  - title: Personalice la instalación trimentctl
+    url: "/trident-get-started/kubernetes-customize-deploy-tridentctl.html"

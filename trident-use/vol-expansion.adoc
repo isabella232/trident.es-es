@@ -23,24 +23,11 @@ Puede expandir un volumen persistente iSCSI (PV) mediante el aprovisionador CSI.
 
 NOTE: La ampliación del volumen iSCSI se admite en el `ontap-san`, `ontap-san-economy`, `solidfire-san` Requiere Kubernetes 1.16 o posterior.
 
-.Descripción general
-Para expandir un VP iSCSI, se deben realizar los siguientes pasos:
-
-* Editar la definición de StorageClass para establecer el `allowVolumeExpansion` campo a. `true`.
-* Edición de la definición de PVC y actualización de `spec.resources.requests.storage` para reflejar el nuevo tamaño deseado, que debe ser mayor que el tamaño original.
-* Para que se pueda cambiar el tamaño, se debe conectar el PV a un pod. Existen dos situaciones a la hora de cambiar el tamaño de un VP iSCSI:
-+
-** Si el VP está conectado a un pod, Astra Trident amplía el volumen en el back-end de almacenamiento, vuelve a buscar el dispositivo y cambia el tamaño del sistema de archivos.
-** Cuando se intenta cambiar el tamaño de un VP sin conectar, Astra Trident amplía el volumen en el back-end de almacenamiento. Una vez que la RVP está Unido a un pod, Trident vuelve a buscar el dispositivo y cambia el tamaño del sistema de archivos. Kubernetes, después, actualiza el tamaño de RVP después de completar correctamente la operación de ampliación.
-
-
-
-
-El ejemplo siguiente muestra cómo funcionan las VP iSCSI.
-
 
 
 === Paso 1: Configure el tipo de almacenamiento para que admita la ampliación de volumen
+
+Edite la definición de StorageClass para establecer el `allowVolumeExpansion` campo a. `true`.
 
 [listing]
 ----
@@ -60,6 +47,8 @@ En el caso de un tipo de almacenamiento existente, edítelo para incluir el `all
 
 
 === Paso 2: Cree una RVP con el tipo de almacenamiento que ha creado
+
+Edite la definición de PVC y actualice el `spec.resources.requests.storage` para reflejar el nuevo tamaño deseado, que debe ser mayor que el tamaño original.
 
 [listing]
 ----
@@ -91,6 +80,12 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 
 === Paso 3: Defina un pod que fije el PVC
+
+Conecte el VP a un pod para que se cambie su tamaño. Existen dos situaciones a la hora de cambiar el tamaño de un VP iSCSI:
+
+* Si el VP está conectado a un pod, Astra Trident amplía el volumen en el back-end de almacenamiento, vuelve a buscar el dispositivo y cambia el tamaño del sistema de archivos.
+* Cuando se intenta cambiar el tamaño de un VP sin conectar, Astra Trident amplía el volumen en el back-end de almacenamiento. Una vez que la RVP está Unido a un pod, Trident vuelve a buscar el dispositivo y cambia el tamaño del sistema de archivos. Kubernetes, después, actualiza el tamaño de RVP después de completar correctamente la operación de ampliación.
+
 
 En este ejemplo, se crea un pod que utiliza `san-pvc`.
 

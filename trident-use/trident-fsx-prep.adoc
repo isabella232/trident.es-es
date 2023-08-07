@@ -97,9 +97,6 @@ Para obtener información sobre la creación de back-ends, consulte estos enlace
 
 
 
-.Resultados
-Después de la implementación, puede crear una link:../trident-get-started/kubernetes-postdeployment.html["clase de almacenamiento, aprovisione un volumen y monte el volumen en un pod"].
-
 
 
 == Prepárese para aprovisionar los volúmenes de SMB

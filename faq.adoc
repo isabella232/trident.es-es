@@ -46,7 +46,7 @@ Utilice la `tridentctl get` Comando para obtener más información acerca de la 
 
 === ¿Puedo obtener mediciones sobre cómo aprovisiona Astra Trident el almacenamiento?
 
-Sí. Trident 20.01 presenta extremos que se pueden utilizar para recopilar información sobre el funcionamiento de Astra Trident, como el número de back-ends gestionados, el número de volúmenes aprovisionados, bytes consumidos, etc. También puede usar Cloud Insights para la supervisión y el análisis.
+Sí. Extremos de Prometheus que se pueden utilizar para recopilar información sobre la operación de Astra Trident, como el número de back-ends gestionados, el número de volúmenes aprovisionados, bytes consumidos, etc. También puede utilizar link:https://docs.netapp.com/us-en/cloudinsights/["Cloud Insights"^] para supervisión y análisis.
 
 
 
@@ -57,12 +57,6 @@ No No hay cambios en cuanto a la experiencia del usuario y las funcionalidades. 
 
 
 == Instale y use Astra Trident en un clúster de Kubernetes
-
-
-
-=== ¿De qué versiones son compatibles `etcd`?
-
-Astra Trident ya no necesita una `etcd`. Utiliza CRD para mantener el estado.
 
 
 
@@ -220,19 +214,13 @@ El LIF de gestión es obligatorio. Data LIF varía:
 
 === ¿Puede Astra Trident configurar CHAP para los back-ends de ONTAP?
 
-Sí. A partir de 20.04, Astra Trident admite CHAP bidireccional para los back-ends de ONTAP. Esto requiere configuración `useCHAP=true` en la configuración de back-end.
+Sí. Astra Trident es compatible con CHAP bidireccional para back-ends de ONTAP. Esto requiere configuración `useCHAP=true` en la configuración de back-end.
 
 
 
 === ¿Cómo puedo gestionar las políticas de exportación con Astra Trident?
 
-Astra Trident puede crear y gestionar dinámicamente políticas de exportación a partir de la versión 20.04. Esto permite al administrador de almacenamiento proporcionar uno o varios bloques CIDR en la configuración back-end y hacer que Trident añada IP de nodo dentro de estos rangos a una política de exportación que cree. De esta forma, Astra Trident gestiona automáticamente la adición y eliminación de reglas para nodos con IP en los CIDR dados. Esta función requiere CSI Trident.
-
-
-
-=== ¿Podemos especificar un puerto en DataLIF?
-
-Astra Trident 19.01 y versiones posteriores admiten la especificación de un puerto en DataLIF. Configúrelo en la `backend.json` archivo como ``“managementLIF”: <ip address>:<port>”``. Por ejemplo, si la dirección IP del LIF de gestión es 192.0.2.1 y el puerto es 1000, configure ``"managementLIF": "192.0.2.1:1000"``.
+Astra Trident puede crear y gestionar dinámicamente políticas de exportación a partir de la versión 20.04. Esto permite al administrador de almacenamiento proporcionar uno o varios bloques CIDR en la configuración back-end y hacer que Trident añada IP de nodo dentro de estos rangos a una política de exportación que cree. De esta forma, Astra Trident gestiona automáticamente la adición y eliminación de reglas para nodos con IP en los CIDR dados.
 
 
 
@@ -354,12 +342,6 @@ Sí. Puede ampliar una RVP creada por Astra Trident. Tenga en cuenta que el crec
 
 
 
-=== Si tengo un volumen creado fuera de Astra Trident, ¿puedo importarlo a Astra Trident?
-
-A partir de la versión 19.04, se puede usar la función de importación de volúmenes para llevar los volúmenes a Kubernetes.
-
-
-
 === ¿Puedo importar un volumen mientras está en SnapMirror Data Protection (DP) o en modo sin conexión?
 
 Se produce un error en la importación del volumen si el volumen externo está en modo DP o sin conexión. Recibe el siguiente mensaje de error:
@@ -369,12 +351,6 @@ Se produce un error en la importación del volumen si el volumen externo está e
 Error: could not import volume: volume import failed to get size of volume: volume <name> was not found (400 Bad Request) command terminated with exit code 1.
 Make sure to remove the DP mode or put the volume online before importing the volume.
 ----
-
-
-=== ¿Puedo ampliar las RVP iSCSI creadas por Astra Trident?
-
-Trident 19.10 admite la ampliación de VP iSCSI mediante el aprovisionador CSI.
-
 
 
 === ¿Cómo se traduce la cuota de recursos en un clúster de NetApp?

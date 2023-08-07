@@ -19,7 +19,82 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 
 
-== ¿Cuáles son las novedades de 23,04
+== ¿Cuáles son las novedades de 23,07
+
+
+
+=== Soluciones
+
+
+
+==== Kubernetes
+
+* Se ha corregido la actualización de Trident para ignorar los pods antiguos atascados en estado de finalización (link:https://github.com/NetApp/trident/issues/740["Problema n.o 740"^]).
+* Se ha agregado tolerancia a la definición de «transient-trident-version-pod» (link:https://github.com/NetApp/trident/issues/795["Problema n.o 795"^]).
+
+
+
+
+==== Astra Trident
+
+* Se han corregido las solicitudes de ZAPI de ONTAP para garantizar que se consulten los números de serie de LUN al obtener atributos de LUN para identificar y corregir dispositivos iSCSI fantasma durante las operaciones de almacenamiento en caché de nodos.
+* Arreglado el manejo de errores en el código del controlador de almacenamiento (link:https://github.com/NetApp/trident/issues/816["Problema n.o 816"^]).
+* Se corrigió el cambio de tamaño de la cuota al utilizar controladores ONTAP con use-rest=true.
+* Creación de clones LUN fijos en ontap-san-economy.
+* Revertir el campo de información de publicación desde `rawDevicePath` para `devicePath`; se ha añadido lógica para rellenar y recuperar (en algunos casos) `devicePath` campo.
+
+
+
+
+=== Mejoras
+
+
+
+==== Kubernetes
+
+* Se añadió compatibilidad para importar snapshots aprovisionadas previamente.
+* Minimización de la implementación y el inicio de los permisos de linux (link:https://github.com/NetApp/trident/issues/817["Problema n.o 817"^]).
+
+
+
+
+==== Astra Trident
+
+* Ya no se notifica el campo de estado para volúmenes y copias Snapshot «en línea».
+* Actualiza el estado del backend si el backend de ONTAP está fuera de línea (link:https://github.com/NetApp/trident/issues/801["Problemas #801"^], link:https://github.com/NetApp/trident/issues/543["N.o 543"^]).
+* El número de serie de LUN siempre se recupera y se publica durante el flujo de trabajo ControllerVolumePublish.
+* Se ha agregado lógica adicional para verificar el tamaño y el número de serie del dispositivo multivía iSCSI.
+* Verificación adicional de los volúmenes iSCSI para garantizar que se deja sin almacenar el dispositivo multivía correcto.
+
+
+
+
+==== Mejora experimental
+
+Se ha añadido soporte de vista previa técnica para NVMe over TCP para el controlador ONTAP-SAN.
+
+
+
+==== Documentación
+
+Se han realizado muchas mejoras organizativas y de formato.
+
+
+
+=== Amortización
+
+
+
+==== Kubernetes
+
+* Se ha eliminado el soporte para las instantáneas v1beta1.
+* Se ha eliminado la compatibilidad con los volúmenes previos a CSI y las clases de almacenamiento.
+* Se actualizó el mínimo admitido de Kubernetes a 1,22.
+
+
+
+
+== Cambios en 23,04
 
 
 IMPORTANT: La fuerza de desconexión de volúmenes para volúmenes ONTAP-SAN-* solo es compatible con las versiones de Kubernetes con la puerta de la función de apagado de nodos no agraciados habilitada. La desconexión forzada debe estar habilitada en el momento de la instalación mediante `--enable-force-detach` Indicador del instalador de Trident.

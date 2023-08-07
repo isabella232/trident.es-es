@@ -12,6 +12,110 @@ summary: NetApp ofrece compatibilidad con Trident de distintas formas. Hay dispo
 
 
 [role="lead"]
-Astra Trident es un proyecto de NetApp con soporte oficial. Puede ponerse en contacto con NetApp mediante cualquiera de los mecanismos estándar y obtener el soporte de nivel empresarial que necesita.
+NetApp ofrece compatibilidad con Astra Trident de muchas maneras. Hay disponibles amplias opciones de soporte gratuito las 24 horas del día, los 7 días de la semana, como artículos de la base de conocimiento (KB) y un canal Discord.
 
-Además, nuestra Astra cuenta con una vibrante comunidad pública de usuarios de contenedores (incluidos los desarrolladores de Astra Trident) link:https://discord.gg/NetApp["Canal de discordia"^]. Este es un gran lugar para hacer preguntas generales sobre el proyecto y discutir temas relacionados con compañeros de ideas afines.
+
+
+== Ciclo de vida del soporte de Astra Trident
+
+Astra Trident proporciona tres niveles de soporte en función de su versión. Consulte link:https://mysupport.netapp.com/site/info/version-support["Compatibilidad con la versión del software NetApp para definiciones"^].
+
+Soporte completo:: Astra Trident proporciona soporte completo durante doce meses a partir de la fecha de lanzamiento.
+Soporte limitado:: Astra Trident ofrece un soporte limitado durante los meses entre 13 y 24 desde la fecha de lanzamiento.
+Autosoporte:: La documentación de Astra Trident está disponible durante los meses 25 - 36, desde la fecha de lanzamiento.
+
+
+[cols="1, 1, 1, 1"]
+|===
+| Versión | Soporte completo | Soporte limitado | Autosoporte 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident/index.html["23,07"^]
+| Julio de 2024 | Julio de 2025 | Julio de 2026 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2304/index.html["23,04"^]
+| Abril de 2024 | Abril de 2025 | Abril de 2026 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2301/index.html["23,01"^]
+| A enero de 2024 | A enero de 2025 | A enero de 2026 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2210/index.html["22,10"^]
+| Octubre de 2023 | Octubre de 2024 | Octubre de 2025 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2207/index.html["22,07"^]
+| -- | Julio de 2024 | Julio de 2025 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2204/index.html["22,04"^]
+| -- | Abril de 2024 | Abril de 2025 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2201/index.html["22,01"^]
+| -- | A enero de 2024 | A enero de 2025 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2110/index.html["21,10"^]
+| -- | Octubre de 2023 | Octubre de 2024 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2107/index.html["21,07"^]
+| -- | -- | Julio de 2024 
+
+
+ a| 
+link:https://netapp-trident.readthedocs.io/en/stable-v21.04/["21,04"^]
+| -- | -- | Abril de 2024 
+
+
+ a| 
+link:https://netapp-trident.readthedocs.io/en/stable-v21.01/["21,01"^]
+| -- | -- | A enero de 2024 
+
+
+ a| 
+link:https://netapp-trident.readthedocs.io/en/stable-v20.11/["20,10"^]
+| -- | -- | Octubre de 2023 
+|===
+
+NOTE: Versiones anteriores a 21.07, redirigir al sitio de documentación heredado.
+
+
+
+== Autosoporte
+
+Para obtener una lista completa de los artículos de solución de problemas, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["Base de conocimientos de NetApp (se requiere inicio de sesión)"^]. También puede encontrar información sobre la solución de problemas relacionados con Astra https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra["aquí"^].
+
+
+
+== Soporte de la comunidad
+
+Existe una vibrante comunidad pública de usuarios de contenedores (incluidos los desarrolladores de Astra Trident) en Astra link:https://discord.gg/NetApp["Canal de discordia"^]. Este es un gran lugar para hacer preguntas generales sobre el proyecto y discutir temas relacionados con compañeros de ideas afines.
+
+
+
+== Soporte técnico de NetApp
+
+Si necesita ayuda con Astra Trident, cree un paquete de soporte con `tridentctl logs -a -n trident` y envíelo a. `NetApp Support <Getting Help>`.
+
+
+
+== Si quiere más información
+
+* link:https://cloud.netapp.com/blog/topic/astra["Blogs de Astra"^]
+* link:https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Blogs de Astra Trident"^]
+* link:https://cloud.netapp.com/kubernetes-hub["Kubernetes Hub"^]
+* link:https://netapp.io/["NetApp.io"^]
+

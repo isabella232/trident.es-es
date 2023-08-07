@@ -67,7 +67,12 @@ Astra Trident ofrece 2 controladores SAN para ONTAP, cuyas funciones se muestran
 | `ontap-san-economy` | Sí | Sí | Yespie de página:4[] | Sí | Yespie de página:3[] | Sí | Yespie de página:3[] 
 |===
 [verse]
-Nota al pie de página para las tablas anteriores: Yesnota al pie:1[]: No administrado por Astra Trident Yesnota al pie de página:2[]: Administrado por Astra Trident, pero no por PV Yesnota 3 al pie de página granular:4[]: Compatible con volúmenes de bloque bruto Yesnota al pie de página:5[]: Respaldado por CSI Trident
+Nota al pie de las tablas anteriores:
+Nota:1[]: No gestionado por Astra Trident
+YesFootnote:2[]: Gestionado por Astra Trident, pero no por VP granular
+Nota:3[]: No gestionado por Astra Trident y no por VP granular
+Yesfootnote:4[]: Compatible con volúmenes de bloques sin configurar
+YesFootnote:5[]: Apoyado por Astra Trident
 
 Las funciones que no son granulares en los VP se aplican a todo el FlexVolume y todos los VP (es decir, qtrees o LUN de FlexVols compartidos) compartirán un programa común.
 

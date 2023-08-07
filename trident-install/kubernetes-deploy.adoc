@@ -16,7 +16,7 @@ Para garantizar que Astra Trident se puede instalar en una amplia variedad de en
 
 
 
-== Información vital sobre Astra Trident 23,04
+== Información vital sobre Astra Trident 23,07
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
 
@@ -74,6 +74,12 @@ El operador Trident crea automáticamente los siguientes objetos para la versió
 
 
 ====
+.<strong>Contabilidad de recursos </strong>
+[%collapsible]
+====
+El operador Trident en el ámbito del clúster gestiona los recursos asociados con una instalación de Astra Trident en el nivel del clúster. Esto mitiga los errores que pueden producirse al mantener los recursos de ámbito de cluster mediante un operador de ámbito de espacio de nombres. Esto es esencial para la reparación automática y la aplicación de parches.
+
+====
 .<strong> </strong> de capeel de curación de las Ouna
 [%collapsible]
 ====
@@ -91,7 +97,13 @@ Por ejemplo, piense en una situación en la que necesita habilitar Astra Trident
 ----
 kubectl patch torc <trident-orchestrator-name> -n trident --type=merge -p '{"spec":{"debug":true}}'
 ----
-Después `TridentOrchestrator` se actualiza, el operador procesa las actualizaciones y parches de la instalación existente. Esto puede activar la creación de nuevos POD para modificar la instalación según corresponda.
+Después `TridentOrchestrator` se actualiza, el operador procesa las actualizaciones y parches de la instalación existente. Esto podría desencadenar la creación de nuevos pods para modificar la instalación en consecuencia.
+
+====
+.<strong>Clean reinstallation</strong>
+[%collapsible]
+====
+El operador Trident en el ámbito del clúster permite eliminar sin problemas los recursos del ámbito del clúster. Los usuarios pueden desinstalar completamente Astra Trident y reinstalarlo fácilmente.
 
 ====
 .Mejora a <strong> de Kubernetes a mano </strong>

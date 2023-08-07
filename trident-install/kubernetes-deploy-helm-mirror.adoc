@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy-helm.html 
-keywords: deploy, astra trident, operator, helm, helm chart, configuration, values, standard, registry 
-summary: Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident no se almacenan en un registro privado. 
+permalink: trident-get-started/kubernetes-deploy-helm-mirror.html 
+keywords: deploy, astra trident, operator, helm, helm chart, configuration, values, offline, air gap, gap, registry 
+summary: Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. 
 ---
-= Puesta en marcha del operador de Trident con Helm (modo estándar)
+= Implementar el operador de Trident con Helm (modo sin conexión)
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,11 +12,11 @@ summary: Puede poner en marcha el operador de Trident e instalar Astra Trident c
 
 
 [role="lead"]
-Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident no se almacenan en un registro privado. Si dispone de un registro de imágenes privado, utilice link:kubernetes-deploy-helm-mirror.html["proceso de puesta en marcha sin conexión"].
+Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. Este proceso se aplica a instalaciones en las que las imágenes de contenedor requeridas por Astra Trident se almacenan en un registro privado. Si no dispone de un registro de imágenes privado, utilice link:kubernetes-deploy-helm.html["proceso de implementación estándar"].
 
 
 
-== Información vital sobre Astra Trident 23,04
+== Información vital sobre Astra Trident 23,07
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
 
@@ -49,12 +49,27 @@ Además de la link:../trident-get-started/kubernetes-deploy.html#before-you-depl
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Uso `helm install` y especifique un nombre para la implementación como en el ejemplo siguiente donde `23.04.0` Es la versión de Astra Trident que está instalando.
+. Uso `helm install` y especifique un nombre para su implementación y ubicación del registro de imágenes. Su link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"] Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos: `23.07.0` Es la versión de Astra Trident que está instalando.
 +
+[role="tabbed-block"]
+====
+.Imágenes en un registro
+--
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 23.07.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
+--
+.Imágenes en diferentes registros
+--
+Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicaciones de registro.
+
+[listing]
+----
+helm install <name> netapp-trident/trident-operator --version 23.07.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.07.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.07 --set tridentImage=<your-registry>/netapp/trident:23.07.0 --create-namespace --namespace <trident-namespace>
+----
+--
+====
 +
 
 NOTE: Si ya creó un espacio de nombres para Trident, el `--create-namespace` el parámetro no creará un espacio de nombres adicional.
@@ -83,11 +98,11 @@ Especifique un archivo YAML con anulaciones. Esto se puede especificar varias ve
 Especifique anulaciones en la línea de comandos.
 
 |===
-Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguiente `--set` comando donde `23.04.0` Es la versión de Astra Trident que está instalando:
+Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguiente `--set` comando donde `23.07.0` Es la versión de Astra Trident que está instalando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.04.0  --create-namespace --namespace --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 23.07.0  --create-namespace --namespace --set tridentDebug=true
 ----
 
 
@@ -206,18 +221,4 @@ Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporcio
 |===
 
 
-=== Descripción de los pods de la controladora y los pods de nodo
-
-Astra Trident se ejecuta como un único pod de la controladora, más un pod de nodos en cada nodo de trabajo del clúster. El pod del nodo debe ejecutarse en cualquier host en el que desee montar potencialmente un volumen Astra Trident.
-
-Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["selectores de nodos"^] y.. link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["toleraciones y tintes"^] se utilizan para restringir un pod para ejecutarse en un nodo concreto o preferido. Uso del "ControllerPlugin" y. `NodePlugin`, puede especificar restricciones y anulaciones.
-
-* El complemento de la controladora se ocupa del aprovisionamiento y la gestión de volúmenes, como snapshots y redimensionamiento.
-* El complemento de nodo se encarga de conectar el almacenamiento al nodo.
-
-
-
-
 == El futuro
-
-Ahora es posible link:kubernetes-postdeployment.html["cree una clase de back-end y almacenamiento, aprovisione un volumen y monte el volumen en un pod"].

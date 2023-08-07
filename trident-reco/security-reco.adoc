@@ -31,18 +31,13 @@ Astra Trident admite la autenticación basada en CHAP para las cargas de trabajo
 En el caso de los back-ends de ONTAP que utilizan controladores de almacenamiento SAN, Astra Trident puede configurar CHAP bidireccional y gestionar los nombres de usuario y los secretos CHAP a través de `tridentctl`. Consulte link:../trident-use/ontap-san-prep.html["aquí"] Para comprender cómo Astra Trident configura CHAP en los back-ends de ONTAP.
 
 
-NOTE: La compatibilidad CON CHAP para los back-ends de ONTAP está disponible con Trident 20.04 y versiones posteriores.
-
-
 
 == Utilice la autenticación CHAP con NetApp HCI y back-ends de SolidFire
 
-NetApp recomienda poner en marcha CHAP bidireccional para garantizar la autenticación entre un host y los back-ends de NetApp HCI y SolidFire. Astra Trident utiliza un objeto secreto que incluye dos contraseñas CHAP por inquilino. Cuando Trident se instala como aprovisionador CSI, gestiona los secretos CHAP y los almacena en un `tridentvolume` Objeto CR para el PV correspondiente. Cuando se crea un VP, CSI Astra Trident utiliza los secretos CHAP para iniciar una sesión iSCSI y comunicarse con el sistema NetApp HCI y SolidFire a través de CHAP.
+NetApp recomienda poner en marcha CHAP bidireccional para garantizar la autenticación entre un host y los back-ends de NetApp HCI y SolidFire. Astra Trident utiliza un objeto secreto que incluye dos contraseñas CHAP por inquilino. Cuando se instala Astra Trident, gestiona los secretos CHAP y los almacena en `tridentvolume` Objeto CR para el PV correspondiente. Al crear un VP, Astra Trident utiliza los secretos de CHAP para iniciar una sesión iSCSI y comunicarse con el sistema NetApp HCI y SolidFire a través de CHAP.
 
 
-NOTE: Los volúmenes creados por CSI Trident no están asociados con ningún grupo de acceso de volúmenes.
-
-En el frontend que no sea CSI, Kubernetes gestiona la conexión de volúmenes como dispositivos en los nodos de trabajo. Tras crear un volumen, Astra Trident realiza una llamada API al sistema HCI/SolidFire de NetApp para recuperar los secretos si ese secreto no existe ya. A continuación, Astra Trident pasa los secretos a Kubernetes. La kuelet que se encuentra en cada nodo accede a los secretos a través de la API de Kubernetes y los utiliza para ejecutar y habilitar CHAP entre cada nodo que accede al volumen y el sistema HCI/SolidFire de NetApp donde están ubicados los volúmenes.
+NOTE: Los volúmenes que crea Astra Trident no están asociados con ningún grupo de acceso de volumen.
 
 
 

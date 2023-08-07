@@ -1,0 +1,156 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-provision.html 
+keywords: volumes, pvc, pv, persistentvolume, persistentvolumeclaim, mount, pod, provision 
+summary: 'Cree un volumen persistente (VP) y una reclamación de volumen persistente (RVP) que utilice el tipo de almacenamiento de Kubernetes configurado para solicitar acceso al VP. A continuación, puede montar el VP en un pod.' 
+---
+= Aprovisione un volumen
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cree un volumen persistente (VP) y una reclamación de volumen persistente (RVP) que utilice el tipo de almacenamiento de Kubernetes configurado para solicitar acceso al VP. A continuación, puede montar el VP en un pod.
+
+
+
+== Descripción general
+
+A. link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_Volumen persistente_"^] (PV) es un recurso de almacenamiento físico aprovisionado por el administrador del clúster en un clúster de Kubernetes. La https://kubernetes.io/docs/concepts/storage/persistent-volumes["_Claim de volumen persistente_"^] (RVP) es una solicitud para acceder al volumen persistente en el clúster.
+
+La RVP se puede configurar para solicitar almacenamiento de un determinado tamaño o modo de acceso. Mediante el StorageClass asociado, el administrador del clúster puede controlar mucho más que el tamaño de los volúmenes persistentes y el modo de acceso, como el rendimiento o el nivel de servicio.
+
+Después de crear el VP y la RVP, puede montar el volumen en un pod.
+
+
+
+=== Manifiestos de muestra
+
+.Manifiesto de muestra de volumen persistente
+[%collapsible]
+====
+Este manifiesto de ejemplo muestra un PV básico de 10Gi que está asociado con StorageClass `basic-csi`.
+
+[listing]
+----
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-storage
+  labels:
+    type: local
+spec:
+  storageClassName: basic-csi
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/my/host/path"
+----
+====
+.Manifiesto de muestra de PersistentVolumeClaim
+[%collapsible]
+====
+En este ejemplo se muestra una RVP básica con acceso RWO que está asociada con una clase de almacenamiento denominada `basic-csi`.
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: basic-csi
+----
+====
+.Muestra de manifiesto de POD
+[%collapsible]
+====
+[listing]
+----
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pv-pod
+spec:
+  volumes:
+    - name: pv-storage
+      persistentVolumeClaim:
+       claimName: basic
+  containers:
+    - name: pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/my/mount/path"
+          name: pv-storage
+----
+====
+
+
+== Cree el VP y la RVP
+
+.Pasos
+. Cree el VP.
++
+[listing]
+----
+kubectl create -f pv.yaml
+----
+. Compruebe el estado de PV.
++
+[listing]
+----
+kubectl get pv
+NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
+pv-storage  4Gi       RWO           Retain          Available                              7s
+----
+. Cree la RVP.
++
+[listing]
+----
+kubectl create -f pvc.yaml
+----
+. Verifique el estado de la RVP.
++
+[listing]
+----
+kubectl get pvc
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
+. Monte el volumen en un pod.
++
+[listing]
+----
+kubectl create -f pv-pod.yaml
+----
++
+
+NOTE: Puede supervisar el progreso con `kubectl get pod --watch`.
+
+. Compruebe que el volumen está montado en `/my/mount/path`.
++
+[listing]
+----
+kubectl exec -it task-pv-pod -- df -h /my/mount/path
+----
+. Ahora puede eliminar el Pod. La aplicación Pod ya no existirá, pero el volumen permanecerá.
++
+[listing]
+----
+kubectl delete pod task-pv-pod
+----
+
+
+Consulte link:../trident-reference/objects.html["Objetos de Kubernetes y Trident"] si desea obtener información detallada sobre cómo interactúan las clases de almacenamiento con el `PersistentVolumeClaim` Y parámetros para controlar de qué forma Astra Trident aprovisiona volúmenes.
