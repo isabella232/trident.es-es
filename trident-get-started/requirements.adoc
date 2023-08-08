@@ -82,56 +82,56 @@ La siguiente tabla resume las funciones disponibles con esta versión de Astra T
 
 
 | Astra Trident  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 
 
 
 | Snapshots de volumen  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 
 
 
 | RVP desde snapshots de volumen  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 
 
 
 | Cambio de tamaño del VP de iSCSI  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 
 
 
 | CHAP bidireccional de ONTAP  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 
 
 
 | Políticas de exportación dinámicas  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 
 
 
 | Operador de Trident  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 
 
 
 | Topología CSI  a| 
-1,21 - 1,27
+1,22 - 1,27
  a| 
 No
 

@@ -3114,7 +3114,6 @@
   <block id="cd494508ccf1cdc45163d6d9d0f401ff" category="list-text"><block ref="cd494508ccf1cdc45163d6d9d0f401ff" category="inline-link-rx"></block></block>
   <block id="2122a8acb599837078e6b76436e892c4" category="list-text">Kubernetes 1,27 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.</block>
   <block id="40991bba76926bfbcf7fb0b9c207187f" category="list-text">Anthos on-premises (VMware) y Anthos en 1,12 básico</block>
-  <block id="fe74bcccaeacaddf91b58dec28fef5be" category="paragraph">1,21 - 1,27</block>
   <block id="362997bacf08e019288e372d8ae1f070" category="list-text">Versiones de RedHat CoreOS (RHCOS) compatibles con OpenShift Container Platform (AMD64 y ARM64)</block>
   <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+ (AMD64 Y ARM64)</block>
   <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22,04 o posterior (AMD64 y ARM64)</block>
@@ -3806,4 +3805,5 @@ YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="143c9ea21ac76ba425aa94411fbba07b" category="sidebar">Descripción general de Astra Trident</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">Gestione y supervise Astra Trident</block>
   <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident para Docker proporciona integración directa con el ecosistema de Docker para las plataformas de almacenamiento de NetApp. Admite el aprovisionamiento y la gestión de recursos de almacenamiento desde la plataforma de almacenamiento hasta hosts Docker, con un marco para añadir plataformas adicionales en el futuro.</block>
+  <block id="5d22e3d2d8e7ef4a3b8d79728779c6d8" category="paragraph">1,22 - 1,27</block>
 </blocks>
