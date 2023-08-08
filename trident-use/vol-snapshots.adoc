@@ -113,6 +113,9 @@ Status:
 
 Puede utilizar `dataSource` Para crear una RVP con una Snapshot de volumen llamada `<pvc-name>` como la fuente de los datos. Una vez creada la RVP, se puede conectar a un pod y utilizarla como cualquier otro PVC.
 
+
+WARNING: La RVP debe crearse en el mismo espacio de nombres que su `dataSource`.
+
 En el siguiente ejemplo se crea la RVP con `pvc1-snap` como origen de datos.
 
 [listing]
@@ -134,9 +137,6 @@ spec:
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
 ----
-
-WARNING: La RVP debe crearse en el mismo espacio de nombres que su `dataSource`.
-
 
 
 == Importe una copia de Snapshot de volumen
