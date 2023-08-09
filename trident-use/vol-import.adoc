@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/vol-import.html 
-keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed, unmanaged 
+keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed 
 summary: 'Es posible importar volúmenes de almacenamiento existentes como un VP de Kubernetes mediante `tridentctl import`.' 
 ---
 = Importar volúmenes
@@ -149,7 +149,7 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 === SAN de ONTAP
 
-Astra Trident admite la importación de volúmenes mediante el `ontap-san` controlador.
+Astra Trident admite la importación de volúmenes mediante el `ontap-san` controlador. No se admite la importación de volúmenes en el `ontap-san-economy` controlador.
 
 Astra Trident puede importar volúmenes FlexVol de SAN de ONTAP que contengan una única LUN. Esto es consistente con `ontap-san` Controlador, que crea una FlexVol para cada RVP y una LUN dentro del FlexVol. Astra Trident importa el FlexVol y lo asocia con la definición de RVP.
 
