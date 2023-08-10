@@ -114,7 +114,7 @@ Status:
 Puede utilizar `dataSource` Para crear una RVP con una Snapshot de volumen llamada `<pvc-name>` como la fuente de los datos. Una vez creada la RVP, se puede conectar a un pod y utilizarla como cualquier otro PVC.
 
 
-WARNING: La RVP debe crearse en el mismo espacio de nombres que su `dataSource`.
+WARNING: La RVP se creará en el mismo back-end que el volumen de origen. Consulte link:https://kb.netapp.com/Cloud/Astra/Trident/Creating_a_PVC_from_a_Trident_PVC_Snapshot_cannot_be_created_in_an_alternate_backend["KB: La creación de una RVP a partir de una snapshot de RVP de Trident no se puede crear en un back-end alternativo"^].
 
 En el siguiente ejemplo se crea la RVP con `pvc1-snap` como origen de datos.
 
