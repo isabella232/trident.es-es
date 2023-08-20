@@ -418,7 +418,7 @@ Vea el ejemplo siguiente
 
 
 | `LegacyNamePrefix`  a| 
-Prefijo para instalaciones actualizadas de Trident. Si utilizó una versión de Trident anterior a la 1.3.2 y realiza una actualización con volúmenes existentes, deberá establecer este valor para acceder a los volúmenes antiguos que se asignaron mediante el método volume-name.
+Prefijo para instalaciones actualizadas de Trident. Si utilizó una versión de Trident anterior a la 1.3.2 y realizó una actualización con volúmenes existentes, deberá configurar este valor para acceder a los volúmenes antiguos que se asignaron a través del método de nombre del volumen.
  a| 
 `netappdvp-`
 

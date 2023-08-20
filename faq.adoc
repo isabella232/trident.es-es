@@ -86,7 +86,7 @@ Astra Trident lee desde el servidor de API de Kubernetes para determinar cuándo
 
 === ¿Cuáles son las funciones y los privilegios que utiliza Astra Trident?
 
-El instalador de Trident crea un archivo Kubernetes ClusterRole que tiene acceso específico a los recursos Persistent Volume, Persistent Claim, StorageClass y Secret del clúster de Kubernetes. Consulte link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["aquí"].
+El instalador de Trident crea un ClusterRole de Kubernetes, que tiene acceso específico a los recursos PersistentVolume, PersistentVolumeClaim, StorageClass y Secret del clúster de Kubernetes. Consulte link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html["aquí"].
 
 
 
@@ -164,9 +164,9 @@ Si tiene alguna pregunta, problema o solicitud, póngase en contacto con nosotro
 
 
 
-=== La contraseña de mi sistema de almacenamiento ha cambiado y Astra Trident ya no funciona, ¿cómo puedo recuperar?
+=== La contraseña de mi sistema de almacenamiento ha cambiado y Astra Trident ya no funciona. ¿Cómo me recupero?
 
-Actualice la contraseña del back-end con `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`. Sustituya `myBackend` en el ejemplo con su nombre de fondo, y. ``/path/to_new_backend.json` con la ruta a la correcta `backend.json` archivo.
+Actualice la contraseña del backend con `tridentctl update backend myBackend -f </path/to_new_backend.json> -n trident`. Sustituya `myBackend` en el ejemplo con su nombre de fondo, y. ``/path/to_new_backend.json` con la ruta a la correcta `backend.json` archivo.
 
 
 

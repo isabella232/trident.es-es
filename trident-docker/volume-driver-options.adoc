@@ -48,7 +48,7 @@ Esto establecerá la reserva de instantáneas en el porcentaje deseado. El valor
 
 
 | `splitOnClone`  a| 
-Al clonar un volumen, ONTAP dividirá inmediatamente el clon de su principal. El valor predeterminado es `false`. Algunos casos de uso para el clonado de volúmenes se sirven mejor dividiendo el clon de su elemento principal inmediatamente después de la creación, ya que es poco probable que haya ninguna oportunidad para la eficiencia del almacenamiento. Por ejemplo, la clonación de una base de datos vacía puede ofrecer un gran ahorro de tiempo pero poco ahorro de espacio de almacenamiento, por lo que es mejor dividir los clones de forma inmediata.
+Al clonar un volumen, ONTAP dividirá inmediatamente el clon de su principal. El valor predeterminado es `false`. Algunos casos de uso para el clonado de volúmenes se sirven mejor dividiendo el clon de su elemento principal inmediatamente después de la creación, ya que es poco probable que haya ninguna oportunidad para la eficiencia del almacenamiento. Por ejemplo, el clonado de una base de datos vacía puede ofrecer un gran ahorro de tiempo y un ahorro reducido en espacio de almacenamiento, por lo que es mejor dividir el clon de inmediato.
 
 
 
@@ -78,7 +78,7 @@ Esto controla el conjunto de permisos para el propio volumen. De forma predeterm
 
 
 | `snapshotDir`  a| 
-Configuración de esta opción en `true` hará la `.snapshot` directorio visible para los clientes que acceden al volumen. El valor predeterminado es `false`, que significa la visibilidad del `.snapshot` el directorio está desactivado de forma predeterminada. Algunas imágenes, por ejemplo la imagen oficial de MySQL, no funcionan como se espera cuando la `.snapshot` el directorio es visible.
+Configuración de esta opción en `true` hará la `.snapshot` directorio visible para los clientes que acceden al volumen. El valor predeterminado es `false`, que significa la visibilidad del `.snapshot` el directorio está desactivado de forma predeterminada. Algunas imágenes, por ejemplo, la imagen oficial de MySQL, no funcionan como se esperaba cuando el `.snapshot` el directorio es visible.
 
 
 

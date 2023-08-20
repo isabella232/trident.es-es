@@ -32,7 +32,7 @@ En esta sección se describen los pasos necesarios para gestionar los back-ends 
 
 Esto se aplica a las siguientes situaciones:
 
-* Los back-ends preexistentes, que no tienen `TridentBackendConfig` porque fueron creados con `tridentctl`.
+* Back-ends preexistentes, que no tienen un `TridentBackendConfig` porque fueron creados con `tridentctl`.
 * Nuevos back-ends que se crearon con `tridentctl`, mientras que otros `TridentBackendConfig` existen objetos.
 
 
@@ -229,7 +229,7 @@ tridentctl get backend ontap-san-backend -n trident
 | ontap-san-backend | ontap-san      | 81abcb27-ea63-49bb-b606-0a5315ac5f82 | online |      33 |
 +-------------------+----------------+--------------------------------------+--------+---------+
 ----
-Desde la salida, se ve eso `TridentBackendConfig` Se creó correctamente y está enlazado a un backend [observe el UUID del backend].
+Desde la salida, se ve eso `TridentBackendConfig` Se ha creado correctamente y está enlazado a un backend [observe el UUID del backend].
 
 
 

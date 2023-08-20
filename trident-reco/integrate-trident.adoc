@@ -91,7 +91,7 @@ Cloud Volumes ONTAP proporciona control de datos junto con funciones de almacena
 
 === Controladores de entorno de administración de Amazon FSX para ONTAP
 
-Amazon FSX para ONTAP permite a los clientes aprovechar las funciones, el rendimiento y las funcionalidades administrativas de NetApp con las que ya están familiarizados, a la vez que aprovechan la simplicidad, la agilidad, la seguridad y la escalabilidad de almacenar datos en AWS. FSX para ONTAP es compatible con muchas de las API de administración y las funciones del sistema de archivos de ONTAP. Los controladores compatibles para Cloud Volume ONTAP son `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san` y.. `ontap-san-economy`.
+Amazon FSx para NetApp ONTAP te permite aprovechar las funciones, el rendimiento y las funcionalidades administrativas de NetApp que ya conoces, a la vez que aprovechas la simplicidad, la agilidad, la seguridad y la escalabilidad de almacenar datos en AWS. FSX para ONTAP es compatible con muchas funciones del sistema de archivos ONTAP y API de administración. Los controladores compatibles para Cloud Volume ONTAP son `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san` y.. `ontap-san-economy`.
 
 
 
@@ -249,7 +249,7 @@ Si se solicita un PVC ReadWriteMany enviado a una implementación de Trident sin
 
 === Modifique los volúmenes persistentes
 
-Los volúmenes persistentes son, con dos excepciones, objetos inmutables en Kubernetes. Una vez creada, la política de reclamaciones y el tamaño se pueden modificar. Sin embargo, esto no impide que se modifiquen algunos aspectos del volumen fuera de Kubernetes. Esto puede ser deseable para personalizar el volumen para aplicaciones específicas, con el fin de garantizar que la capacidad no se consume accidentalmente, o simplemente mover el volumen a una controladora de almacenamiento diferente por cualquier motivo.
+Los volúmenes persistentes son, con dos excepciones, objetos inmutables en Kubernetes. Una vez creada, la política de reclamaciones y el tamaño se pueden modificar. Sin embargo, esto no impide que algunos aspectos del volumen se modifiquen fuera de Kubernetes. Esto puede ser deseable para personalizar el volumen para aplicaciones específicas, con el fin de garantizar que la capacidad no se consume accidentalmente, o simplemente mover el volumen a una controladora de almacenamiento diferente por cualquier motivo.
 
 
 NOTE: Los aprovisionadores de árbol de Kubernetes no admiten las operaciones de cambio de tamaño de volumen para NFS o iSCSI VP en este momento. Astra Trident admite la ampliación de volúmenes NFS e iSCSI.
@@ -294,7 +294,7 @@ Cuando utilice las ONTAP y. `solidfire-san` controladores, utilice el comando `t
 
 Si la `azure-netapp-files` o. `gcp-cvs` se utiliza el controlador, utilice el comando `tridentctl import volume <backend-name> <volume path> -f /path/pvc.yaml` Para importar el volumen a Kubernetes que gestiona Astra Trident. Esto garantiza una referencia de volumen única.
 
-Una vez ejecutado el comando anterior, Astra Trident encontrará el volumen en el back-end y leerá su tamaño. Agregará automáticamente (y sobrescribirá si es necesario) el tamaño del volumen del PVC configurado. A continuación, Astra Trident crea el nuevo VP y Kubernetes enlaza la RVP con el VP.
+Una vez ejecutado el comando anterior, Astra Trident encontrará el volumen en el back-end y leerá su tamaño. Añadirá (y sobrescribirá automáticamente si es necesario) el tamaño de volumen de la RVP configurada. A continuación, Astra Trident crea el nuevo VP y Kubernetes enlaza la RVP con el VP.
 
 Si se puso en marcha un contenedor de modo que requería la RVP específica importada, este permanecería en estado pendiente hasta que el par PVC/VP se enlaza a través del proceso de importación del volumen. Una vez enlazados el par PVC/PV, el contenedor debería aparecer, siempre que no haya otros problemas.
 
@@ -317,7 +317,7 @@ Se ha documentado en la implementación y administración del almacenamiento par
 Al igual que otros servicios OpenShift, el servicio de registro se pone en marcha con Ansible, con parámetros de configuración suministrados por el archivo de inventario, también conocido como los hosts, que se proporcionan al libro de estrategia. Hay dos métodos de instalación que se tratarán: Implementar el registro durante la instalación inicial de OpenShift y desplegar el registro después de que OpenShift haya sido instalado.
 
 
-CAUTION: A partir de Red Hat OpenShift versión 3.9, la documentación oficial recomienda contra NFS para el servicio de registro debido a problemas relacionados con la corrupción de datos. Esto se basa en las pruebas de Red Hat de sus productos. El servidor NFS de ONTAP no tiene estos problemas y puede realizar fácilmente una implementación de registro. Finalmente, la elección del protocolo para el servicio de registro depende de usted; simplemente sabe que ambos funcionarán bien cuando usen las plataformas de NetApp y no hay motivos para evitar NFS si eso es lo que prefiere.
+CAUTION: A partir de Red Hat OpenShift versión 3.9, la documentación oficial recomienda contra NFS para el servicio de registro debido a problemas relacionados con la corrupción de datos. Esto se basa en las pruebas de Red Hat de sus productos. El servidor NFS de ONTAP no tiene estos problemas y puede realizar fácilmente una puesta en marcha de registro. Finalmente, la elección del protocolo para el servicio de registro depende de usted; simplemente sabe que ambos funcionarán bien cuando usen las plataformas de NetApp y no hay motivos para evitar NFS si eso es lo que prefiere.
 
 Si decide utilizar NFS con el servicio de registro, tendrá que establecer la variable Ansible `openshift_enable_unsupported_configurations` para `true` para evitar que el instalador falle.
 
@@ -327,10 +327,10 @@ Si decide utilizar NFS con el servicio de registro, tendrá que establecer la va
 
 Opcionalmente, el servicio de registro puede implementarse tanto para aplicaciones como para las operaciones principales del propio clúster OpenShift. Si decide implementar el registro de operaciones, especificando la variable `openshift_logging_use_ops` como `true`, se crearán dos instancias del servicio. Las variables que controlan la instancia de registro de las operaciones contienen "OPS" en ellas, mientras que la instancia de las aplicaciones no.
 
-Es importante configurar las variables de Ansible según el método de puesta en marcha para garantizar que los servicios subyacentes utilizan el almacenamiento correcto. Veamos las opciones de cada uno de los métodos de implementación.
+Configurar las variables de Ansible de acuerdo con el método de puesta en marcha es importante para garantizar que los servicios subyacentes utilizan el almacenamiento correcto. Veamos las opciones para cada uno de los métodos de despliegue.
 
 
-NOTE: Las siguientes tablas sólo contienen las variables que son relevantes para la configuración de almacenamiento, ya que están relacionadas con el servicio de registro. Puede encontrar otras opciones en link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Documentación de registro de RedHat OpenShift"^] que deben revisarse, configurarse y utilizarse en función de la puesta en marcha.
+NOTE: Las siguientes tablas solo incluyen las variables relevantes para la configuración del almacenamiento en relación con el servicio de registro. Puede encontrar otras opciones en link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Documentación de registro de RedHat OpenShift"^] que deben revisarse, configurarse y utilizarse en función de la puesta en marcha.
 
 Las variables de la siguiente tabla harán que el libro de estrategia de Ansible cree un VP y una RVP para el servicio de registro con los detalles proporcionados. Este método es significativamente menos flexible que usar la tableta playbook de instalación de componentes después de la instalación de OpenShift; sin embargo, si tiene volúmenes existentes disponibles, es una opción.
 
@@ -397,7 +397,7 @@ No obstante, si se pone en marcha después de la instalación inicial, Ansible d
 
 El servicio de métricas proporciona al administrador información valiosa sobre el estado, la utilización de recursos y la disponibilidad del clúster OpenShift. También es necesaria para la funcionalidad de escala automática en pod y muchas organizaciones usan datos del servicio de mediciones para su cargo y/o para mostrar aplicaciones.
 
-Al igual que sucede con el servicio de registro y OpenShift en su conjunto, Ansible se utiliza para poner en marcha el servicio de métricas. Además, al igual que el servicio de registro, el servicio de mediciones se puede implementar durante una configuración inicial del clúster o después de su funcionamiento mediante el método de instalación de componentes. Las siguientes tablas contienen las variables importantes a la hora de configurar el almacenamiento persistente para el servicio de métricas.
+Al igual que sucede con el servicio de registro y OpenShift en su conjunto, Ansible se utiliza para poner en marcha el servicio de métricas. Además, al igual que el servicio de registro, el servicio de métricas se puede implementar durante una configuración inicial del cluster o después de su funcionamiento utilizando el método de instalación de componentes. Las siguientes tablas contienen las variables importantes a la hora de configurar el almacenamiento persistente para el servicio de métricas.
 
 
 NOTE: Las siguientes tablas solo contienen las variables relevantes para la configuración del almacenamiento en cuanto se relaciona con el servicio de mediciones. Hay muchas otras opciones en la documentación que se deben revisar, configurar y utilizar de acuerdo con su implementación.
@@ -443,6 +443,6 @@ Si su clúster OpenShift ya se está ejecutando y, por lo tanto, Trident se ha i
 
 === Implementar el servicio de métricas
 
-Con las variables de Ansible definidas en el archivo de hosts/inventario, ponga en marcha el servicio con Ansible. Si va a implementar en el momento de la instalación de OpenShift, el PV se creará y utilizará automáticamente. Si pone en marcha usando los libros de estrategia de los componentes, después de la instalación de OpenShift, Ansible creará las RVP necesarias y, una vez que Astra Trident ha aprovisionado el almacenamiento para ellos, pondrá en marcha el servicio.
+Con las variables de Ansible definidas en el archivo de hosts/inventario, ponga en marcha el servicio con Ansible. Si va a implementar en el momento de la instalación de OpenShift, el PV se creará y utilizará automáticamente. Si va a poner en marcha mediante los libros de estrategia de componentes, después de la instalación de OpenShift, Ansible creará cualquier RVP necesario y, después de que Astra Trident haya aprovisionado almacenamiento para ellos, pondrá en marcha el servicio.
 
 Las variables anteriores y el proceso de implementación pueden cambiar con cada versión de OpenShift. Asegúrese de revisar y seguir link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Guía de implementación de OpenShift de redhat"^] para su versión de modo que esté configurada para su entorno.

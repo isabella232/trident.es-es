@@ -18,13 +18,13 @@ La cartera de productos de almacenamiento de NetApp se integra con muchos aspect
 
 == Astra
 
-https://docs.netapp.com/us-en/astra/["Astra"^] Facilita a las empresas la gestión, protección y movimiento de sus cargas de trabajo en contenedores con gran cantidad de datos que se ejecutan en Kubernetes en los clouds públicos y en las instalaciones. Astra aprovisiona y proporciona un almacenamiento en contenedores persistente mediante Trident de la cartera de almacenamiento probada y amplia de NetApp en el cloud público y en las instalaciones. También ofrece un conjunto amplio de funcionalidades avanzadas de gestión de datos para aplicaciones, como snapshots, backups y restauración, registros de actividades y clonado activo para la protección de datos, recuperación ante desastres/datos, auditoría de datos y casos de uso de migración para cargas de trabajo de Kubernetes.
+https://docs.netapp.com/us-en/astra/["Astra"^] Facilita a las empresas la gestión, protección y movimiento de sus cargas de trabajo en contenedores con gran cantidad de datos que se ejecutan en Kubernetes en los clouds públicos y en las instalaciones. Astra aprovisiona y proporciona almacenamiento en contenedores persistente mediante Trident de la cartera de almacenamiento NetApp demostrada y expansiva en el cloud público y en las instalaciones. También ofrece un conjunto amplio de funcionalidades avanzadas de gestión de datos para aplicaciones, como snapshots, backups y restauración, registros de actividades y clonado activo para la protección de datos, recuperación ante desastres/datos, auditoría de datos y casos de uso de migración para cargas de trabajo de Kubernetes.
 
 
 
 == ONTAP
 
-ONTAP es el sistema operativo de almacenamiento unificado multiprotocolo de NetApp que proporciona funcionalidades avanzadas de gestión de datos para cualquier aplicación. Los sistemas ONTAP tienen configuraciones all-flash, híbridas o all-HDD y ofrecen muchos modelos de puesta en marcha diferentes, como hardware a medida (FAS y AFF), unidad genérica (ONTAP Select) y solo cloud (Cloud Volumes ONTAP).
+ONTAP es el sistema operativo de almacenamiento unificado y multiprotocolo de NetApp que ofrece funcionalidades avanzadas de gestión de datos para cualquier aplicación. Los sistemas ONTAP tienen configuraciones all-flash, híbridas o all-HDD y ofrecen muchos modelos de puesta en marcha diferentes, como hardware a medida (FAS y AFF), unidad genérica (ONTAP Select) y solo cloud (Cloud Volumes ONTAP).
 
 
 NOTE: Trident es compatible con todos los modelos de puesta en marcha de ONTAP mencionados anteriormente.
@@ -39,7 +39,7 @@ http://cloud.netapp.com/ontap-cloud?utm_source=GitHub&utm_campaign=Trident["Clou
 
 == Amazon FSX para ONTAP de NetApp
 
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX para ONTAP de NetApp"^] Es un servicio AWS totalmente gestionado que permite a los clientes iniciar y ejecutar sistemas de archivos con tecnología del sistema operativo de almacenamiento ONTAP de NetApp. FSX para ONTAP permite a los clientes aprovechar las funciones, el rendimiento y las funcionalidades administrativas de NetApp que ya conocen y, al mismo tiempo, aprovechar la simplicidad, la agilidad, la seguridad y la escalabilidad del almacenamiento de datos en AWS. FSX para ONTAP es compatible con muchas de las API de administración y las funciones del sistema de archivos de ONTAP.
+https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX para ONTAP de NetApp"^] Es un servicio AWS totalmente gestionado que le permite iniciar y ejecutar sistemas de archivos con tecnología del sistema operativo de almacenamiento NetApp ONTAP. FSX para ONTAP te permite aprovechar las funciones, el rendimiento y las funcionalidades administrativas de NetApp que ya conoces, a la vez que aprovechas la simplicidad, la agilidad, la seguridad y la escalabilidad de almacenar datos en AWS. FSX para ONTAP es compatible con muchas de las funciones del sistema de archivos ONTAP y las API de administración.
 
 
 

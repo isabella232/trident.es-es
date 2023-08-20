@@ -43,7 +43,9 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 | `autoExportPolicy` | Habilite la creación y actualización automática de la política de exportación [Boolean]. Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar automáticamente las políticas de exportación. | falso 
 
 
-| `autoExportCIDRs` | Lista de CIDR para filtrar las IP de nodo de Kubernetes contra cuándo `autoExportPolicy` está habilitado. Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar automáticamente las políticas de exportación. | [“0.0.0.0/0”, “:/0”]” 
+| `autoExportCIDRs` | Lista de CIDRs para filtrar las IP del nodo de Kubernetes contra cuando `autoExportPolicy` está habilitado.
+
+Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar automáticamente las políticas de exportación. | [“0.0.0.0/0”, “:/0”]” 
 
 
 | `labels` | Conjunto de etiquetas con formato JSON arbitrario que se aplica en los volúmenes | "" 

@@ -200,7 +200,7 @@ La actualización de un back-end no interrumpe el acceso a los volúmenes que se
 
 == Autentica conexiones con CHAP bidireccional
 
-Astra Trident puede autenticar sesiones iSCSI con CHAP bidireccional para `ontap-san` y.. `ontap-san-economy` de windows Esto requiere habilitar el `useCHAP` opción en su definición de backend. Cuando se establece en `true`, Astra Trident configura la seguridad del iniciador predeterminada de la SVM en CHAP bidireccional y establece el nombre de usuario y los secretos del archivo de entorno de administración. NetApp recomienda utilizar CHAP bidireccional para autenticar las conexiones. Consulte la siguiente configuración de ejemplo:
+Astra Trident puede autenticar sesiones iSCSI con CHAP bidireccional para `ontap-san` y.. `ontap-san-economy` de windows Esto requiere habilitar el `useCHAP` opción en su definición de backend. Cuando se establece en `true`, Astra Trident configura la seguridad del iniciador predeterminado de la SVM en CHAP bidireccional y establece el nombre de usuario y los secretos del archivo backend. NetApp recomienda utilizar CHAP bidireccional para autenticar las conexiones. Consulte la siguiente configuración de ejemplo:
 
 [listing]
 ----
@@ -231,8 +231,8 @@ Mediante ajuste `useCHAP` Para true, el administrador de almacenamiento ordena a
 
 * Configuración de CHAP en la SVM:
 +
-** Si el tipo de seguridad del iniciador predeterminado de la SVM es none (establecido de forma predeterminada) *y* no hay LUN preexistentes en el volumen, Astra Trident establecerá el tipo de seguridad predeterminado en `CHAP` Y continúe configurando el iniciador de CHAP, el nombre de usuario y los secretos de destino.
-** Si la SVM contiene LUN, Astra Trident no habilitará CHAP en la SVM. De esta forma se garantiza que el acceso a las LUN que ya están presentes en la SVM no esté restringido.
+** Si el tipo de seguridad de iniciador predeterminado de la SVM es none (establecido de forma predeterminada) *y* no hay LUN preexistentes ya presentes en el volumen, Astra Trident establecerá el tipo de seguridad predeterminado en `CHAP` Y continúe configurando el iniciador de CHAP, el nombre de usuario y los secretos de destino.
+** Si la SVM contiene LUN, Astra Trident no habilitará CHAP en la SVM. De este modo se garantiza que no se restrinja el acceso a las LUN que ya están presentes en la SVM.
 
 
 * Configurar el iniciador de CHAP, el nombre de usuario y los secretos de destino; estas opciones deben especificarse en la configuración del back-end (como se muestra más arriba).

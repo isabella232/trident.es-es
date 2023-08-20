@@ -86,7 +86,7 @@ Después de crear un backend, puede observar su estado utilizando `kubectl get t
 
 == Paso 1: Cree un secreto de Kubernetes
 
-Cree un secreto que contenga las credenciales de acceso para el back-end. Esto es único para cada servicio/plataforma de almacenamiento. A continuación, se muestra un ejemplo:
+Cree un secreto que contenga las credenciales de acceso para el back-end. Esto es único para cada servicio/plataforma de almacenamiento. Veamos un ejemplo:
 
 [listing]
 ----
@@ -227,7 +227,7 @@ Se ha creado un backend correctamente y se ha enlazado a `TridentBackendConfig` 
 
 La fase puede tomar uno de los siguientes valores:
 
-* `Bound`: La `TridentBackendConfig` CR está asociado con un backend, y ese backend contiene `configRef` establezca en la `TridentBackendConfig` El uid de la CR.
+* `Bound`: La `TridentBackendConfig` CR está asociado con un backend, y ese backend contiene `configRef` establezca en la `TridentBackendConfig` UID de CR.
 * `Unbound`: Representado usando `""`. La `TridentBackendConfig` el objeto no está enlazado a un back-end. Creadas recientemente `TridentBackendConfig` CRS se encuentra en esta fase de forma predeterminada. Tras cambiar la fase, no puede volver a «sin límites».
 * `Deleting`: La `TridentBackendConfig` CR `deletionPolicy` se ha configurado para eliminar. Cuando la `TridentBackendConfig` La CR se elimina y pasa al estado de supresión.
 +
@@ -236,7 +236,7 @@ La fase puede tomar uno de los siguientes valores:
 
 
 * `Lost`: El backend asociado con `TridentBackendConfig` La CR se eliminó accidental o deliberadamente y la `TridentBackendConfig` CR todavía tiene una referencia al backend eliminado. La `TridentBackendConfig` La CR puede ser eliminada independientemente de la `deletionPolicy` valor.
-* `Unknown`: Astra Trident no puede determinar el estado o la existencia del backend asociado con `TridentBackendConfig` CR. Por ejemplo, si el servidor API no responde o si el `tridentbackends.trident.netapp.io` Falta CRD. Esto podría requerir la intervención del usuario.
+* `Unknown`: Astra Trident no puede determinar el estado o la existencia del backend asociado con `TridentBackendConfig` CR. Por ejemplo, si el servidor API no responde o si el `tridentbackends.trident.netapp.io` Falta CRD. Esto puede requerir intervención.
 
 
 En esta fase, se ha creado un backend. Hay varias operaciones que se pueden realizar además, como link:backend_ops_kubectl.html["actualizaciones back-end y eliminaciones backend"^].

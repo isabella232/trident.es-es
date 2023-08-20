@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-concepts/provisioning.html 
 keywords: provisioning, astra trident 
-summary: El aprovisionamiento en Astra Trident tiene dos fases principales. La primera fase asocia una clase de almacenamiento con el conjunto de agrupaciones de almacenamiento back-end adecuadas y tiene lugar como preparación necesaria antes del aprovisionamiento. La segunda fase incluye la creación del volumen y requiere la selección de un pool de almacenamiento de los asociados con la clase de almacenamiento del volumen pendiente. 
+summary: El aprovisionamiento en Astra Trident tiene dos fases principales. La primera fase asocia una clase de almacenamiento con el conjunto de agrupaciones de almacenamiento back-end adecuadas y tiene lugar como preparación necesaria antes del aprovisionamiento. La segunda fase incluye la creación misma del volumen y requiere la selección de un pool de almacenamiento entre los asociados con la clase de almacenamiento del volumen pendiente. 
 ---
 = El provisionamiento
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: El aprovisionamiento en Astra Trident tiene dos fases principales. La p
 
 
 [role="lead"]
-El aprovisionamiento en Astra Trident tiene dos fases principales. La primera fase asocia una clase de almacenamiento con el conjunto de agrupaciones de almacenamiento back-end adecuadas y tiene lugar como preparación necesaria antes del aprovisionamiento. La segunda fase incluye la creación del volumen y requiere la selección de un pool de almacenamiento de los asociados con la clase de almacenamiento del volumen pendiente.
+El aprovisionamiento en Astra Trident tiene dos fases principales. La primera fase asocia una clase de almacenamiento con el conjunto de agrupaciones de almacenamiento back-end adecuadas y tiene lugar como preparación necesaria antes del aprovisionamiento. La segunda fase incluye la creación misma del volumen y requiere la selección de un pool de almacenamiento entre los asociados con la clase de almacenamiento del volumen pendiente.
 
 
 

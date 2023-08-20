@@ -29,7 +29,7 @@ ID                  NAME                DESCRIPTION                          ENA
 journalctl -u docker | grep 4fb97d2b956b
 ----
 +
-El nivel de registro estándar debe permitirle diagnosticar la mayoría de los problemas. Si encuentra que eso no es suficiente, puede habilitar el registro de depuración.
+El nivel de registro estándar debe permitirle diagnosticar la mayoría de los problemas. Si encuentra que no es suficiente, puede habilitar el registro de depuración.
 
 . Para habilitar el registro de depuración, instale el plugin con el registro de depuración activado:
 +
@@ -47,7 +47,7 @@ docker plugin disable <plugin>
 docker plugin set <plugin> debug=true
 docker plugin enable <plugin>
 ----
-. Si ejecuta el binario en sí mismo en el host, los registros están disponibles en el host `/var/log/netappdvp` directorio. Para habilitar el registro de depuración, especifique `-debug` al ejecutar el plugin.
+. Si ejecuta el binario en el host, los registros están disponibles en el host `/var/log/netappdvp` directorio. Para habilitar el registro de depuración, especifique `-debug` al ejecutar el plugin.
 
 
 
