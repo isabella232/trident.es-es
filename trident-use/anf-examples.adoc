@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/anf-examples.html 
 keywords: trident backend, azure netapp files, smb volumes, smb, windows 
-summary: Obtenga más información acerca de las opciones de configuración de back-end de NFS y SMB para ANF y revise ejemplos de configuración. 
+summary: Obtenga más información sobre las opciones de configuración de back-end NFS y SMB para Azure NetApp Files y revise los ejemplos de configuración. 
 ---
 = Opciones y ejemplos de configuración del back-end de Azure NetApp Files
 :hardbreaks:
@@ -12,18 +12,18 @@ summary: Obtenga más información acerca de las opciones de configuración de b
 
 
 [role="lead"]
-Obtenga más información acerca de las opciones de configuración de back-end de NFS y SMB para ANF y revise ejemplos de configuración.
+Obtenga más información sobre las opciones de configuración de back-end NFS y SMB para Azure NetApp Files y revise los ejemplos de configuración.
 
 
 
 == Opciones de configuración del back-end
 
-Astra Trident utiliza la configuración de back-end (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes ANF en pools de capacidad disponibles en la ubicación solicitada y que coincidan con el nivel de servicio y la subred solicitados.
+Astra Trident utiliza la configuración de back-end (subred, red virtual, nivel de servicio y ubicación) para crear volúmenes de Azure NetApp Files en los pools de capacidad que están disponibles en la ubicación solicitada y que coincidan con el nivel de servicio y la subred solicitados.
 
 
 NOTE: Astra Trident no admite pools de capacidad de calidad de servicio manual.
 
-Los back-ends DE ANF proporcionan estas opciones de configuración.
+Los back-ends de Azure NetApp Files proporcionan estas opciones de configuración.
 
 [cols="3"]
 |===
@@ -148,9 +148,9 @@ Puede controlar el aprovisionamiento de volúmenes predeterminado especificando 
 .Ejemplo 1: Configuración mínima
 [%collapsible%open]
 ====
-Ésta es la configuración mínima absoluta del back-end. Con esta configuración, Astra Trident descubre todas sus cuentas, pools de capacidad y subredes de NetApp delegadas en ANF en la ubicación configurada, y coloca nuevos volúmenes en uno de estos pools y subredes de forma aleatoria. Porque `nasType` se omite, la `nfs` El valor predeterminado es aplicable, y el back-end aprovisionará para volúmenes NFS.
+Ésta es la configuración mínima absoluta del back-end. Con esta configuración, Astra Trident detecta todas sus cuentas de NetApp, pools de capacidad y subredes delegadas en Azure NetApp Files en la ubicación configurada, y coloca volúmenes nuevos en uno de esos pools y subredes de forma aleatoria. Porque `nasType` se omite, la `nfs` El valor predeterminado es aplicable, y el back-end aprovisionará para volúmenes NFS.
 
-Esta configuración es ideal cuando simplemente va a empezar con ANF e intentar cosas, pero en la práctica va a querer proporcionar un ámbito adicional para los volúmenes que debe aprovisionar.
+Esta configuración es ideal cuando solo se está empezando a usar Azure NetApp Files y probando cosas, pero en la práctica va a querer proporcionar un ámbito adicional para los volúmenes que aprovisione.
 
 [listing]
 ----
@@ -167,7 +167,7 @@ location: eastus
 .Ejemplo 2: Configuración específica de nivel de servicio con filtros de pool de capacidad
 [%collapsible%open]
 ====
-Esta configuración de back-end coloca volúmenes en las de Azure `eastus` ubicación en una `Ultra` pool de capacidad. Astra Trident descubre automáticamente todas las subredes delegadas a ANF en esa ubicación y coloca un nuevo volumen en una de ellas de forma aleatoria.
+Esta configuración de back-end coloca volúmenes en las de Azure `eastus` ubicación en una `Ultra` pool de capacidad. Astra Trident detecta automáticamente todas las subredes delegadas en Azure NetApp Files en esa ubicación y coloca un volumen nuevo en una de ellas de forma aleatoria.
 
 [listing]
 ----

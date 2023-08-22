@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
-keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
+keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: Descubra cómo configurar Cloud Volumes Service para Google Cloud como back-end para su instalación de Astra Trident con las configuraciones de ejemplo proporcionadas. 
 ---
 = Configure un back-end de Cloud Volumes Service para Google Cloud
@@ -14,6 +14,27 @@ summary: Descubra cómo configurar Cloud Volumes Service para Google Cloud como 
 [role="lead"]
 Descubra cómo configurar Cloud Volumes Service de NetApp para Google Cloud como back-end para su instalación de Astra Trident con las configuraciones de ejemplo proporcionadas.
 
+
+
+== Detalles del controlador de Google Cloud
+
+Astra Trident proporciona la `gcp-cvs` controlador para comunicarse con el clúster. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
+
+[cols="1, 1, 1, 2, 2"]
+|===
+| Controlador | Protocolo | VolumeMode | Modos de acceso compatibles | Sistemas de archivos compatibles 
+
+
+| `gcp-cvs`  a| 
+NFS
+ a| 
+Sistema de archivos
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+`nfs`
+
+|===
 
 
 == Obtenga más información sobre la compatibilidad de Astra Trident con Cloud Volumes Service para Google Cloud
@@ -50,7 +71,7 @@ Para configurar y usar el https://cloud.netapp.com/cloud-volumes-service-for-gcp
 
 Cada back-end aprovisiona volúmenes en una única región de Google Cloud. Para crear volúmenes en otras regiones, se pueden definir back-ends adicionales.
 
-[cols="3"]
+[cols="1, 2, 1"]
 |===
 | Parámetro | Descripción | Predeterminado 
 
@@ -94,7 +115,7 @@ Cada back-end aprovisiona volúmenes en una única región de Google Cloud. Para
 | `serviceLevel` | El nivel de servicio CVS-Performance o CVS para nuevos volúmenes. Los valores de CVS-Performance son `standard`, `premium`, o. `extreme`. Los valores CVS son `standardsw` o. `zoneredundantstandardsw`. | El valor predeterminado de CVS-Performance es "estándar". El valor predeterminado de CVS es "standardsw". 
 
 
-| `network` | Se utiliza la red de Google Cloud para Cloud Volumes Service Volumes. | “predeterminado” 
+| `network` | Se utiliza la red de Google Cloud para Cloud Volumes Service Volumes. | "predeterminado" 
 
 
 | `debugTraceFlags` | Indicadores de depuración que se deben usar para la solución de problemas. Ejemplo: `\{"api":false, "method":true}`. No lo utilice a menos que esté solucionando problemas y necesite un volcado de registro detallado. | nulo 

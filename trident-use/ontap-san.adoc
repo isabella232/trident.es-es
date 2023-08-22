@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fsx 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fsx, drivers, access modes, rwo, rwx, rwp, rwop, file system 
 summary: Obtenga información sobre la configuración de un back-end de ONTAP con controladores DE SAN de ONTAP. 
 ---
 = Información general del controlador de SAN de ONTAP
@@ -16,7 +16,68 @@ Obtenga información sobre la configuración de un back-end de ONTAP con control
 
 
 
-== Información importante sobre los controladores de SAN de ONTAP
+== Información sobre el controlador de SAN de ONTAP
+
+Astra Trident proporciona los siguientes controladores de almacenamiento SAN para comunicarse con el clúster de ONTAP. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
+
+
+IMPORTANT: Si utiliza Astra Control para protección, recuperación y movilidad, lea <<Compatibilidad de controladores Astra Control>>.
+
+[cols="2, 1, 1, 2, 2"]
+|===
+| Controlador | Protocolo | VolumeMode | Modos de acceso compatibles | Sistemas de archivos compatibles 
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Bloque
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+Sin sistema de archivos; dispositivo de bloque sin procesar
+
+
+
+| `ontap-san`  a| 
+ISCSI
+ a| 
+Sistema de archivos
+ a| 
+RWO, RWOP
+
+ROX y RWX no están disponibles en el modo de volumen del sistema de archivos.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Bloque
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+Sin sistema de archivos; dispositivo de bloque sin procesar
+
+
+
+| `ontap-san-economy`  a| 
+ISCSI
+ a| 
+Sistema de archivos
+ a| 
+RWO, RWOP
+
+ROX y RWX no están disponibles en el modo de volumen del sistema de archivos.
+ a| 
+`xfs`, `ext3`, `ext4`
+
+|===
+
+
+=== Compatibilidad de controladores Astra Control
 
 Astra Control proporciona una protección fluida, recuperación ante desastres y movilidad (mover volúmenes entre clústeres de Kubernetes) para los volúmenes creados con el `ontap-nas`, `ontap-nas-flexgroup`, y. `ontap-san` de windows Consulte link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Requisitos previos de replicación de Astra Control"^] para obtener más detalles.
 

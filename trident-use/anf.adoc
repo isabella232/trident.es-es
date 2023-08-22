@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/anf.html 
-keywords: trident backend, azure netapp files, smb volumes, smb, windows 
-summary: 'Puede configurar Azure NetApp Files (ANF) como back-end de Astra Trident. Puede conectar volúmenes NAS y SMB mediante un back-end ANF.' 
+keywords: trident backend, azure netapp files, smb volumes, smb, windows, drivers, access modes, rwo, rwx, rwp, rwop, file system 
+summary: Puede configurar Azure NetApp Files como back-end de Astra Trident. Puede asociar volúmenes NAS y SMB con un back-end de Azure NetApp Files. 
 ---
 = Configure un back-end de Azure NetApp Files
 :hardbreaks:
@@ -12,8 +12,42 @@ summary: 'Puede configurar Azure NetApp Files (ANF) como back-end de Astra Tride
 
 
 [role="lead"]
-Puede configurar Azure NetApp Files (ANF) como back-end de Astra Trident. Puede conectar volúmenes NFS y SMB mediante un back-end ANF.
+Puede configurar Azure NetApp Files como back-end de Astra Trident. Puede asociar volúmenes NFS y SMB con un back-end de Azure NetApp Files.
 
+
+
+== Información del controlador de Azure NetApp Files
+
+Astra Trident proporciona los controladores de almacenamiento de Azure NetApp Files siguientes para comunicarse con el clúster. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
+
+[cols="2, 1, 1, 2, 2"]
+|===
+| Controlador | Protocolo | VolumeMode | Modos de acceso compatibles | Sistemas de archivos compatibles 
+
+
+| `azure-netapp-files`  a| 
+NFS
+SMB
+ a| 
+Sistema de archivos
+ a| 
+RWO, ROX, RWX, RWOP
+ a| 
+`nfs`, `smb`
+
+
+
+| `azure-netapp-files-subvolume`  a| 
+NFS
+SMB
+ a| 
+Sistema de archivos
+ a| 
+RWO, RWOP
+ a| 
+`xfs`,`ext3`, `ext4`
+
+|===
 
 
 == Consideraciones

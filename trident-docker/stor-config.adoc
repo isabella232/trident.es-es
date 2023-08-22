@@ -48,7 +48,7 @@ Prefijo opcional para los nombres de volúmenes. Valor predeterminado: `netappdv
 
 
 | `limitVolumeSize`  a| 
-Restricción opcional de los tamaños de volumen. Por defecto: "" (no se aplica)
+Restricción opcional de los tamaños de volumen. Valor por defecto: '' (no forzado)
  a| 
 `10g`
 

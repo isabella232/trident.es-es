@@ -191,7 +191,7 @@ sudo trident --config=/etc/netappdvp/ontap-nas.json
 ----
 +
 
-NOTE: A menos que se especifique, el nombre predeterminado para el controlador de volumen es “netapp”.
+NOTE: A menos que se especifique, el nombre predeterminado para el controlador de volumen es NetApp.
 
 +
 Después de iniciar el daemon, puede crear y gestionar volúmenes mediante la interfaz CLI de Docker
