@@ -47,7 +47,7 @@ image:screenshot-fsx-backup-disable.png["Captura de pantalla de la consola de AW
 
 
 
-== De Windows
+== FSX para ONTAP detalles del controlador
 
 Puede integrar Astra Trident con Amazon FSX para ONTAP de NetApp mediante los siguientes controladores:
 
@@ -58,7 +58,7 @@ Puede integrar Astra Trident con Amazon FSX para ONTAP de NetApp mediante los si
 * `ontap-nas-flexgroup`: Cada VP aprovisionado es un Amazon FSX completo para el volumen ONTAP FlexGroup de NetApp.
 
 
-Para obtener más información sobre el controlador, consulte link:../trident-use/ontap-nas.html.html["Controladores de NAS"] y.. link:../trident-use/ontap-san.html.html["Controladores de SAN"].
+Para obtener más información sobre el controlador, consulte link:../trident-use/ontap-nas.html["Controladores de NAS"] y.. link:../trident-use/ontap-san.html["Controladores de SAN"].
 
 
 
