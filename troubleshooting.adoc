@@ -62,12 +62,7 @@ Instalado con trimentctl::
 * Si un back-end de Trident informa que está en la `failed` estado a pesar de haber trabajado antes, es probable que sea por el cambio de las credenciales de SVM/administrador asociadas con el back-end. Actualización de la información del back-end mediante `tridentctl update backend` O rebotando el Pod de Trident se corregirá este problema.
 * Si se producen problemas de permisos al instalar Trident con Docker como el tiempo de ejecución de contenedores, intente instalar Trident con el `--in cluster=false` bandera. Esto no utilizará un módulo de instalación y evitará problemas de permisos vistos debido a la `trident-installer` usuario.
 * Utilice la `uninstall parameter <Uninstalling Trident>` para limpiar después de una ejecución fallida. De forma predeterminada, la secuencia de comandos no elimina los CRD creados por Trident, por lo que es seguro desinstalar e instalar de nuevo incluso en una implementación en ejecución.
-* Si desea degradar a una versión anterior de Trident, primero debe ejecutar el `tridentctl uninstall` Comando para quitar Trident. Descargue el contenido que desee https://github.com/NetApp/trident/releases["Versión de Trident"] e instálela utilizando `tridentctl install` comando. Considere una degradación únicamente si no se crean nuevos VP y si no se han realizado cambios en las clases de almacenamiento/VP/back-ends existentes. Como Trident ahora utiliza CRD para mantener el estado, todas las entidades de almacenamiento creadas (back-ends, clases de almacenamiento, VP y copias Snapshot de volumen) `associated CRD objects <Kubernetes CustomResourceDefinition Objects>` En lugar de los datos escritos en el VP que se utilizaban con la versión anterior instalada de Trident. *Los VP recién creados no se podrán utilizar al volver a una versión anterior.* *los cambios realizados a objetos, como los back-ends, los VP, las clases de almacenamiento y las instantáneas de volumen (creadas/actualizadas/eliminadas) no serán visibles para Trident cuando se degraden*. Trident seguirá visible el VP utilizado en la versión anterior de Trident instalada. Volver a una versión anterior no interrumpirá el acceso a los VP que ya se hayan creado con la versión anterior, a menos que se hayan actualizado.
-* Para eliminar completamente Trident, ejecute la `tridentctl obliviate crd` comando. Esto eliminará todos los objetos CRD y deselectará los CRD. Trident ya no gestionará los VP a los que ya había aprovisionado.
-+
-
-NOTE: Trident deberá volver a configurarse desde cero después de esto.
-
+* Si desea degradar a una versión anterior de Trident, ejecute primero el `tridentctl uninstall` Comando para quitar Trident. Descargue el contenido que desee https://github.com/NetApp/trident/releases["Versión de Trident"] e instálela utilizando `tridentctl install` comando.
 * Después de una instalación correcta, si un PVC está atascado en el `Pending` fase, en marcha `kubectl describe pvc` Puede proporcionar información adicional acerca de por qué Trident no pudo aprovisionar un VP para esta RVP.
 
 
@@ -160,3 +155,42 @@ INFO Deleted service account.
 INFO Removed Trident user from security context constraint.
 INFO Trident uninstallation succeeded.
 ----
+
+
+== Elimina por completo Astra Trident y CRD
+
+Puedes quitar por completo Astra Trident y todos los CRD creados y los recursos personalizados asociados.
+
+
+WARNING: Esta acción no se puede deshacer. No hagas esto a menos que quieras una instalación completamente nueva de Astra Trident. Para desinstalar Astra Trident sin eliminar CRD, consulte link:../trident-managing-k8s/uninstall-trident.html["Desinstale Astra Trident"].
+
+[role="tabbed-block"]
+====
+.Operador de Trident
+--
+Para desinstalar Astra Trident y eliminar completamente CRD mediante el operador Trident:
+
+[listing]
+----
+kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+----
+--
+.Timón
+--
+Para desinstalar Astra Trident y eliminar por completo CRD mediante Helm:
+
+[listing]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"wipeout":["crds"],"uninstall":true}}'
+----
+--
+.<code>tridentctl</code>
+--
+Para eliminar completamente CRD después de desinstalar Astra Trident mediante `tridentctl`
+
+[listing]
+----
+tridentctl obliviate crd
+----
+--
+====
