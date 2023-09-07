@@ -75,8 +75,8 @@ El paquete de instalación de Astra Trident crea un pod Trident, configura los o
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.07.0/trident-installer-23.07.0.tar.gz
-tar -xf trident-installer-23.07.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.07.1/trident-installer-23.07.1.tar.gz
+tar -xf trident-installer-23.07.1.tar.gz
 cd trident-installer
 ----
 
@@ -98,7 +98,7 @@ Instale Astra Trident en el espacio de nombres deseado ejecutando `tridentctl in
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.07 --trident-image <your-registry>/trident:23.07.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:23.07 --trident-image <your-registry>/trident:23.07.1
 ----
 --
 .Imágenes en diferentes registros
@@ -107,7 +107,7 @@ Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicacio
 
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:23.07 --trident-image <your-registry>/netapp/trident:23.07.0
+./tridentctl install -n trident --image-registry <your-registry>/sig-storage --autosupport-image <your-registry>/netapp/trident-autosupport:23.07 --trident-image <your-registry>/netapp/trident:23.07.1
 ----
 --
 ====
@@ -128,7 +128,7 @@ INFO Created Trident daemonset.
 INFO Waiting for Trident pod to start.
 INFO Trident pod started.                          namespace=trident pod=trident-controller-679648bd45-cv2mx
 INFO Waiting for Trident REST interface.
-INFO Trident REST interface is up.                 version=23.07.0
+INFO Trident REST interface is up.                 version=23.07.1
 INFO Trident installation succeeded.
 ....
 ----
@@ -168,7 +168,7 @@ Puede utilizar `tridentctl` Para comprobar la versión de Astra Trident instalad
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 23.07.0        | 23.07.0        |
+| 23.07.1        | 23.07.1        |
 +----------------+----------------+
 ----
 
