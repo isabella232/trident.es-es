@@ -18,7 +18,7 @@ Puede actualizar Astra Trident de forma manual o mediante Helm mediante el opera
 
 == Actualizar una instalación manual
 
-Puede actualizar un desde una instalación de operadores Trident en el ámbito del clúster a otra instalación del operador Trident en el ámbito del clúster. Todas las versiones 21.01 y posteriores de Astra Trident utilizan un operador con ámbito de clúster.
+Puede actualizar desde una instalación de operadores Trident en el ámbito del clúster a otra instalación del operador Trident en el ámbito del clúster. Todas las versiones 21.01 y posteriores de Astra Trident utilizan un operador con ámbito de clúster.
 
 
 NOTE: Para actualizar desde Astra Trident que se instaló con el operador del ámbito de espacio de nombres (de la 20,07 a la 20,10), utiliza las instrucciones de actualización para link:../earlier-versions.html["la versión instalada"] De Astra Trident.

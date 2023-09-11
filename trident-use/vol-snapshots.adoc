@@ -141,21 +141,23 @@ spec:
 
 == Importe una copia de Snapshot de volumen
 
-Astra Trident es compatible con el link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Proceso de snapshot aprovisionado previamente de Kubernetes"^] para habilitar al administrador de clúster para crear un `VolumeSnapshotContent` Y hacer que estén disponibles las copias Snapshot creadas fuera de Astra Trident.
+Astra Trident es compatible con el link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Proceso de snapshot aprovisionado previamente de Kubernetes"^] para habilitar al administrador de clúster para crear un `VolumeSnapshotContent` Objetos e importación de copias de Snapshot creadas fuera de Astra Trident.
 
-Para importar la snapshot del volumen, Astra Trident utiliza el nombre del VP y la anotación VolumeSnapshotContent para localizar la snapshot interna y asignar el nombre TridentSnapshot CR que crea.
-
-
-NOTE: La snapshot debe tener un volumen principal.
+.Antes de empezar
+Astra Trident debe haber creado o importado el volumen principal del snapshot.
 
 .Pasos
-. *Administrador del clúster:* Crear el `VolumeSnapshotContent` que hace referencia a la instantánea de backend.
+. *Administrador del clúster:* Crear un `VolumeSnapshotContent` objeto que hace referencia a la instantánea de backend. Esto inicia el flujo de trabajo de las copias Snapshot en Astra Trident.
 +
-** La `VolumeSnapshotContent` la anotación debe ser `trident.netapp.io/internalSnapshotName: <backend-snapshot-name>`.
-** La `snapshotHandle` debe ser `<pv-name>/<VolumeSnapshotContent-name>`. Esta es la única información que el snapshot externo proporciona a Astra Trident en la `ListSnapshots` llame.
+** Especifique el nombre de la instantánea de backend en `annotations` como `trident.netapp.io/internalSnapshotName: <"backend-snapshot-name">`.
+** Especifique `<name-of-parent-volume-in-trident>/<volume-snapshot-content-name>` pulg `snapshotHandle`. Esta es la única información que el snapshot externo proporciona a Astra Trident en la `ListSnapshots` llame.
++
+
+NOTE: La `<volumeSnapshotContentName>` No siempre se puede coincidir con el nombre de instantánea de backend debido a restricciones de nomenclatura de CR.
+
 +
 .Ejemplo
-En el ejemplo siguiente se crea el `VolumeSnapshotContent` para instantánea backend con nombre `snap-01` y.. `volumeSnapshotRef` nombre `test-snapshot`.
+En el siguiente ejemplo se crea un `VolumeSnapshotContent` objeto que hace referencia a la instantánea backend `snap-01`.
 
 +
 [listing]
@@ -163,28 +165,21 @@ En el ejemplo siguiente se crea el `VolumeSnapshotContent` para instantánea bac
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotContent
 metadata:
-  name: my-trident-snapshot-content
+  name: import-snap-content
   annotations:
-    trident.netapp.io/internalSnapshotName: snap-01  # This represents the name of the snapshot on the backend
+    trident.netapp.io/internalSnapshotName: "snap-01"  # This is the name of the snapshot on the backend
 spec:
   deletionPolicy: Retain
   driver: csi.trident.netapp.io
   source:
-    snapshotHandle: pvc-3e5cda7a-200b-46ab-b5d0-c9cd8db2cc01/my-trident-snapshot-content  # This is the only information provided to Trident in the ListSnapshots call
-  volumeSnapshotRef:
-    name: test-snapshot
-    namespace: default
+    snapshotHandle: pvc-f71223b5-23b9-4235-bbfe-e269ac7b84b0/import-snap-content # <import PV name or source PV name>/<volume-snapshot-content-name>
 ----
-+
-
-NOTE: La `volumeSnapshotRef` El nombre no siempre puede coincidir con el nombre de instantánea de backend debido a restricciones de nomenclatura de CR.
 
 
-
-. *Administrador del clúster:* Enlazar el `VolumeSnapshot` para la `VolumeSnapshotContent` donde `volumeSnapshotContentName` es el nombre especificado en `volumeSnapshotRef`.
+. *Administrador del clúster:* Crear el `VolumeSnapshot` CR que hace referencia al `VolumeSnapshotContent` objeto. Esto solicita acceso para utilizar el `VolumeSnapshot` en un espacio de nombres determinado.
 +
 .Ejemplo
-El siguiente ejemplo enlaza una snapshot de volumen `test-snapshot` para la `VolumeSnapshotContent` nombre `my-trident-snapshot-content`.
+En el siguiente ejemplo se crea un `VolumeSnapshot` CR con nombre `import-snap` que hace referencia a la `VolumeSnapshotContent` nombre `import-snap-content`.
 
 +
 [listing]
@@ -192,22 +187,22 @@ El siguiente ejemplo enlaza una snapshot de volumen `test-snapshot` para la `Vol
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:
-  name: test-snapshot
-  namespace: default
+  name: import-snap
 spec:
+  # volumeSnapshotClassName: csi-snapclass (not required for pre-provisioned or imported snapshots)
   source:
-    volumeSnapshotContentName: my-trident-snapshot-content
+    volumeSnapshotContentName: import-snap-content
 ----
-. *Procesamiento interno (no se requiere ninguna acción):* El Snapshotter externo ve el recién creado VolumeSnapshotContent y ejecuta el `ListSnapshots` llame. Astra Trident crea el `TridentSnapshot`.
+. *Procesamiento interno (no se requiere ninguna acción):* El Snapshotter externo reconoce el recién creado `VolumeSnapshotContent` y ejecuta el `ListSnapshots` llame. Astra Trident crea el `TridentSnapshot`.
 +
-** El dispositivo de instantáneas externo establece el `VolumeSnapshotContent` para `readyToUse` y la copia de snapshot del volumen a. `true`.
+** El dispositivo de instantáneas externo establece el `VolumeSnapshotContent` para `readyToUse` y la `VolumeSnapshot` para `true`.
 ** Trident vuelve `readyToUse=true`.
 
 
 . *Cualquier usuario:* Crear a. `PersistentVolumeClaim` para hacer referencia al nuevo `VolumeSnapshot`, donde `spec.dataSource` (o. `spec.dataSourceRef`) nombre es el `VolumeSnapshot` nombre.
 +
 .Ejemplo
-En el siguiente ejemplo se crea una RVP que hace referencia al `test-snapshot` copia de snapshot de volumen.
+En el siguiente ejemplo se crea una RVP que hace referencia al `VolumeSnapshot` nombre `import-snap`.
 
 +
 [listing]
@@ -224,8 +219,7 @@ spec:
     requests:
       storage: 1Gi
   dataSource:
-    name: test-snapshot
-    namespace: default
+    name: import-snap
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
 ----
