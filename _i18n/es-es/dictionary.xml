@@ -60,8 +60,6 @@
   <block id="3de05f78e401869f4630ec8cabf339df" category="section-title">¿Puedo actualizar directamente desde una versión anterior a una versión nueva (omitiendo algunas versiones)?</block>
   <block id="ce44cbbc54839f39b351c091b0e3caa5" category="paragraph">NetApp admite la actualización de Astra Trident de una versión principal a la siguiente inmediata mayor. Puede actualizar de la versión 18.xx a la 19.xx, 19.xx a la 20.xx, etc. Debe realizar pruebas de actualización en un laboratorio antes de la implementación de producción.</block>
   <block id="0399b9e6348e554937a4d65efc97a1b8" category="section-title">¿Es posible degradar Trident a una versión anterior?</block>
-  <block id="d307563c01953bd90a41ddd049f96d51" category="inline-link-macro">la sección de la degradación</block>
-  <block id="72fec731c958562fd09df08eef5fbb89" category="paragraph">Hay una serie de factores que se deben evaluar si se desea cambiar a una versión inferior. Consulte <block ref="ea621a0de3f004c488ea799d0fd7e41d" category="inline-link-macro-rx"></block>.</block>
   <block id="ba9c59aa9d07b25e124dcf6ca88d689a" category="section-title">Gestione back-ends y volúmenes</block>
   <block id="ffe72215dff9a93d62ee68905212025e" category="section-title">¿Debo definir tanto las LIF de gestión como las LIF de datos en un archivo de definición del back-end de ONTAP?</block>
   <block id="7911fdf4657d2e334f854a18bd855d10" category="paragraph">El LIF de gestión es obligatorio. Data LIF varía:</block>
@@ -3887,4 +3885,6 @@ Astra Trident</block>
   <block id="d64d0e5bb5a552ae4986a713f41c8fc3" category="cell">Selectores de nodos adicionales para POD.	Sigue el mismo formato que<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
   <block id="875ce721843c20d7f9aae240673ed68b" category="cell">Anula la toleración de Kubernetes en pods. Sigue el mismo formato que<block ref="f1fa64fcf5077601cb803e995a51fa4f" prefix=" " category="inline-code"></block>.</block>
   <block id="00e8e1706119ce5300bdc9141ececc37" category="cell">Selectores de nodos adicionales para POD. Sigue el mismo formato que<block ref="6ae8be3433bfc36ced79a1271e6ebf11" prefix=" " category="inline-code"></block>.</block>
+  <block id="7786076739da628161f45de338cd6e69" category="inline-link-macro">Desinstale Astra Trident</block>
+  <block id="bc2d347a4b0e30ef46f4d91b07267ca7" category="paragraph">Si necesita una solución para los errores observados después de una actualización, problemas de dependencia o una actualización incorrecta o incompleta, debería hacerlo <block ref="b6be8ee390417a446f993452ffee9585" category="inline-link-macro-rx"></block> y vuelva a instalar la versión anterior utilizando las instrucciones específicas para esa versión. Esta es la única forma recomendada de cambiar a una versión anterior.</block>
 </blocks>
