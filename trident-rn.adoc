@@ -19,7 +19,7 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 
 
-== ¿Cuáles son las novedades de 23.07.1
+== ¿Cuáles son las novedades en 23.07.1
 
 *Kubernetes:* Eliminación de inicio de datos fija para admitir actualizaciones de cero tiempo de inactividad (link:https://github.com/NetApp/trident/issues/740["Problema n.o 740"^]).
 

@@ -6,7 +6,7 @@ indexpage:
   tiles:
   - title: Notas de la versión
     links:
-    - title: Novedades
+    - title: Lo nuevo
       url: trident-rn.html
     - title: Versiones anteriores
       url: "/earlier-versions.html"
