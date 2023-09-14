@@ -35,18 +35,6 @@ RWO, ROX, RWX, RWOP
  a| 
 `nfs`, `smb`
 
-
-
-| `azure-netapp-files-subvolume`  a| 
-NFS
-SMB
- a| 
-Sistema de archivos
- a| 
-RWO, RWOP
- a| 
-`xfs`,`ext3`, `ext4`
-
 |===
 
 

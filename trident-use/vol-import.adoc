@@ -245,7 +245,7 @@ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -
 
 === Azure NetApp Files
 
-Astra Trident admite la importación de volúmenes mediante el `azure-netapp-files` y.. `azure-netapp-files-subvolume` de windows
+Astra Trident admite la importación de volúmenes mediante el `azure-netapp-files` controlador.
 
 
 NOTE: Para importar un volumen de Azure NetApp Files, identifique el volumen por su ruta de volumen. La ruta del volumen es la parte de la ruta de exportación del volumen después del `:/`. Por ejemplo, si la ruta de montaje es `10.0.0.2:/importvol1`, la ruta de volumen es `importvol1`.
