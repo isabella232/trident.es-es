@@ -91,9 +91,6 @@ Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar au
 | `limitAggregateUsage` | Error al aprovisionar si el uso supera este porcentaje. *No se aplica a Amazon FSX para ONTAP* | "" (no se aplica de forma predeterminada) 
 
 
-| `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. | '' (no se aplica por defecto) 
-
-
 | `limitVolumeSize` | Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor. También restringe el tamaño máximo de los volúmenes que gestiona para qtrees y LUN, y la `qtreesPerFlexvol` Permite personalizar el número máximo de qtrees por FlexVol. | '' (no se aplica por defecto) 
 
 
