@@ -1924,7 +1924,6 @@
   <block id="63d06d6cc41e485615f99a3aad0002b3" category="cell">Contraseña para conectarse al clúster/SVM. Se utiliza para autenticación basada en credenciales</block>
   <block id="e3f688f3aa653574b3253640aa98f47c" category="cell">El prefijo que se utiliza cuando se aprovisionan volúmenes nuevos en la SVM. No se puede actualizar después de configurarlo</block>
   <block id="82530dd92610570d634788e7fac29c1b" category="cell">Error al aprovisionar si el uso supera este porcentaje. *No se aplica a Amazon FSX para ONTAP*</block>
-  <block id="66896c99fb06e0b6c86498b249f8217a" category="cell">Error en el aprovisionamiento si el tamaño del volumen solicitado es superior a este valor.</block>
   <block id="54b94bba5d336f4e3d5fd7e88544fad1" category="cell">Grupo de políticas de calidad de servicio que se asignará a los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento</block>
   <block id="5896cc977dd7b9854957e18a2a5bf072" category="cell">Grupo de políticas de calidad de servicio adaptativo que permite asignar los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento. no admitido por ontap-nas-Economy.</block>
   <block id="3e9a232d025270ed6767c385b8291871" category="cell">Modo para volúmenes nuevos</block>
@@ -3430,7 +3429,6 @@ SMB</block>
   <block id="80f4cfbe493e12651c3514c9481ce1ee" category="admonition">No utilice un clúster de Kubernetes creado con estas instrucciones en un entorno de producción. Use las guías de puesta en marcha de producción proporcionadas por su distribución para clústeres listos para la producción.</block>
   <block id="46e28df17b257e6671b042b98bd37787" category="list-text"><block ref="46e28df17b257e6671b042b98bd37787" category="inline-link-rx"></block></block>
   <block id="fac0082fb8411565f3d5cb3788a17b17" category="doc">Inicio rápido para Astra Trident</block>
-  <block id="4b7a06bf8d901036491a46c6f14175e3" category="paragraph">Puedes instalar Astra Trident y empezar a gestionar los recursos de almacenamiento en pocos pasos. Antes de comenzar, revise <block ref="a7c0f3baef818cf2a5323d10b9f5ac94" category="inline-link-macro-rx"></block>.</block>
   <block id="9a052cea99f186c7d930a0041b20a79b" category="admonition">Para Docker, consulte <block ref="934c01af2efea144da6665bf428d8f6d" category="inline-link-macro-rx"></block>.</block>
   <block id="b0434693308513b990bcffe2314d6fb5" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block> Instale Astra Trident</block>
   <block id="c8fce1b550592f1b2285ab7a61547927" category="paragraph">Astra Trident ofrece varios métodos de instalación y modos optimizados para una variedad de entornos y organizaciones.</block>
@@ -3885,4 +3883,5 @@ Astra Trident</block>
   <block id="7786076739da628161f45de338cd6e69" category="inline-link-macro">Desinstale Astra Trident</block>
   <block id="bc2d347a4b0e30ef46f4d91b07267ca7" category="paragraph">Si necesita una solución para los errores observados después de una actualización, problemas de dependencia o una actualización incorrecta o incompleta, debería hacerlo <block ref="b6be8ee390417a446f993452ffee9585" category="inline-link-macro-rx"></block> y vuelva a instalar la versión anterior utilizando las instrucciones específicas para esa versión. Esta es la única forma recomendada de cambiar a una versión anterior.</block>
   <block id="5d935b9f26b929d94ae4b4f04c74ee28" category="paragraph">Astra Trident admite la importación de volúmenes mediante el<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block> controlador.</block>
+  <block id="0ff441b997c776ccd29f05b449a5f4fb" category="paragraph">Puedes instalar Astra Trident y empezar a gestionar los recursos de almacenamiento en unos pocos pasos. Antes de comenzar, revise <block ref="a7c0f3baef818cf2a5323d10b9f5ac94" category="inline-link-macro-rx"></block>.</block>
 </blocks>
