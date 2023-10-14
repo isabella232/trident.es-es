@@ -194,7 +194,7 @@ NetApp admite la actualización de Astra Trident de una versión principal a la 
 
 === ¿Es posible degradar Trident a una versión anterior?
 
-Si necesita una solución para los errores observados después de una actualización, problemas de dependencia o una actualización incorrecta o incompleta, debería hacerlo link:../trident-managing-k8s/uninstall-trident.html["Desinstale Astra Trident"] y vuelva a instalar la versión anterior utilizando las instrucciones específicas para esa versión. Esta es la única forma recomendada de cambiar a una versión anterior.
+Si necesita una solución para los errores observados después de una actualización, problemas de dependencia o una actualización incorrecta o incompleta, debería hacerlo link:trident-managing-k8s/uninstall-trident.html["Desinstale Astra Trident"] y vuelva a instalar la versión anterior utilizando las instrucciones específicas para esa versión. Esta es la única forma recomendada de cambiar a una versión anterior.
 
 
 
@@ -232,7 +232,7 @@ Astra Trident admite la definición de direcciones IPv6 para:
 * `managementLIF` Para back-ends DE SAN de ONTAP. No puede especificar `dataLIF` En un entorno de administración SAN de ONTAP.
 
 
-Astra Trident debe instalarse mediante ``--use-ipv6` Le permite que funcione a través de IPv6.
+Astra Trident se debe instalar mediante la marca `--use-ipv6` (para `tridentctl` instalación), `IPv6` (Para el operador Trident), o. `tridentTPv6` (Para la instalación Helm) para que funcione sobre IPv6.
 
 
 

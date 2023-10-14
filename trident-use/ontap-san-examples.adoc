@@ -38,7 +38,7 @@ Consulte la siguiente tabla para ver las opciones de configuración del back-end
 
 Se puede especificar un nombre de dominio completo (FQDN).
 
-Se puede configurar para que utilice direcciones IPv6 si se instaló Astra Trident mediante el `--use-ipv6` bandera. Las direcciones IPv6 deben definirse entre corchetes, como `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
+Puede configurarse para que utilice direcciones IPv6 si Astra Trident se instaló mediante la marca IPv6. Las direcciones IPv6 deben definirse entre corchetes, como `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
 
 Para un cambio de MetroCluster fluido, consulte <<mcc-best>>. | “10.0.0.1”, “[2001:1234:abcd::fefe]” 
 
