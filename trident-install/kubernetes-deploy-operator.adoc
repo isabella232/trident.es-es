@@ -108,17 +108,17 @@ kubectl apply -f deploy/namespace.yaml
 ----
 * Para implementar el operador en un espacio de nombres distinto del `trident` espacio de nombres, actualización `serviceaccount.yaml`, `clusterrolebinding.yaml` y.. `operator.yaml` y genere el archivo del paquete con el `kustomization.yaml`.
 +
-.. Cree el `kustomization.yaml` con el siguiente comando donde está _<bundle>_ `bundle_pre_1_25` o. `bundle_post_1_25` Según su versión de Kubernetes.
+.. Cree el `kustomization.yaml` con el siguiente comando donde está _<bundle.yaml>_ `bundle_pre_1_25.yaml` o. `bundle_post_1_25.yaml` Según su versión de Kubernetes.
 +
 [listing]
 ----
-cp kustomization_<bundle>.yaml kustomization.yaml
+cp deploy/kustomization_<bundle.yaml> deploy/kustomization.yaml
 ----
-.. Compile el paquete con el siguiente comando donde está _<bundle>_ `bundle_pre_1_25` o. `bundle_post_1_25` Según su versión de Kubernetes.
+.. Compile el paquete con el siguiente comando donde está _<bundle.yaml>_ `bundle_pre_1_25.yaml` o. `bundle_post_1_25.yaml` Según su versión de Kubernetes.
 +
 [listing]
 ----
-kubectl kustomize deploy/ > deploy/<bundle>.yaml
+kubectl kustomize deploy/ > deploy/<bundle.yaml>
 ----
 
 
@@ -129,7 +129,7 @@ kubectl kustomize deploy/ > deploy/<bundle>.yaml
 +
 [listing]
 ----
-kubectl create -f deploy/<bundle>.yaml
+kubectl create -f deploy/<bundle.yaml>
 ----
 . Compruebe que se han creado el operador, el despliegue y los replicasets.
 +
