@@ -26,8 +26,8 @@ NOTE: Para actualizar desde Astra Trident que se instaló con el operador del á
 .Acerca de esta tarea
 Trident proporciona un archivo de paquete que se puede utilizar para instalar el operador y crear objetos asociados para la versión de Kubernetes.
 
-* Para los clústeres que ejecutan Kubernetes 1,24 o una versión anterior, utilice link:https://github.com/NetApp/trident/tree/stable/v23.07/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
-* Para los clústeres que ejecutan Kubernetes 1,25 o posterior, utilice link:https://github.com/NetApp/trident/tree/stable/v23.07/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
+* Para los clústeres que ejecutan Kubernetes 1,24 o una versión anterior, utilice link:https://github.com/NetApp/trident/tree/stable/v23.10/deploy/bundle_pre_1_25.yaml["bundle_pre_1_25.yaml"^].
+* Para los clústeres que ejecutan Kubernetes 1,25 o posterior, utilice link:https://github.com/NetApp/trident/tree/stable/v23.10/deploy/bundle_post_1_25.yaml["bundle_post_1_25.yaml"^].
 
 
 .Antes de empezar
@@ -40,19 +40,19 @@ Asegúrese de que está utilizando un clúster de Kubernetes en ejecución link:
 ----
 ./tridentctl -n trident version
 ----
-. Elimine el operador Trident que se ha utilizado para instalar la instancia actual de Astra Trident. Por ejemplo, si va a actualizar desde 23,04, ejecute el siguiente comando:
+. Elimine el operador Trident que se ha utilizado para instalar la instancia actual de Astra Trident. Por ejemplo, si va a actualizar desde 23,07, ejecute el siguiente comando:
 +
 [listing]
 ----
-kubectl delete -f 23.04/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl delete -f 23.07.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 . Si ha personalizado la instalación inicial mediante `TridentOrchestrator` atributos, puede editar `TridentOrchestrator` objeto para modificar los parámetros de instalación. Esto podría incluir cambios realizados para especificar registros de imágenes de Trident y CSI reflejados para el modo sin conexión, habilitar registros de depuración o especificar secretos de extracción de imágenes.
 . Instale Astra Trident utilizando el archivo YAML de paquete correcto para su entorno, donde está _<bundle.yaml>_
-`bundle_pre_1_25.yaml` o. `bundle_post_1_25.yaml` Según su versión de Kubernetes. Por ejemplo, si está instalando Astra Trident 23,07, ejecute el siguiente comando:
+`bundle_pre_1_25.yaml` o. `bundle_post_1_25.yaml` Según su versión de Kubernetes. Por ejemplo, si está instalando Astra Trident 23,10, ejecute el siguiente comando:
 +
 [listing]
 ----
-kubectl create -f 23.07.1/trident-installer/deploy/<bundle.yaml> -n trident
+kubectl create -f 23.10.0/trident-installer/deploy/<bundle.yaml> -n trident
 ----
 
 
@@ -67,11 +67,11 @@ WARNING: Cuando actualice un clúster de Kubernetes de 1.24 a 1.25 o posterior q
 
 .Pasos
 . Descargue la última versión de Astra Trident.
-. Utilice la `helm upgrade` comando donde `trident-operator-23.07.1.tgz` refleja la versión a la que desea actualizar.
+. Utilice la `helm upgrade` comando donde `trident-operator-23.10.0.tgz` refleja la versión a la que desea actualizar.
 +
 [listing]
 ----
-helm upgrade <name> trident-operator-23.07.1.tgz
+helm upgrade <name> trident-operator-23.10.0.tgz
 ----
 +
 [NOTE]
@@ -82,7 +82,7 @@ Por ejemplo, para cambiar el valor predeterminado de `tridentDebug`, ejecute el 
 
 [listing]
 ----
-helm upgrade <name> trident-operator-23.07.1-custom.tgz --set tridentDebug=true
+helm upgrade <name> trident-operator-23.10.0-custom.tgz --set tridentDebug=true
 ----
 ====
 . Ejecución `helm list` para comprobar que la versión de la gráfica y de la aplicación se han actualizado. Ejecución `tridentctl logs` para revisar cualquier mensaje de depuración.
@@ -102,11 +102,11 @@ NOTE: Antes de cambiar entre los métodos de instalación, revise link:../triden
 +
 [listing]
 ----
-# Download the release required [23.07.1]
-mkdir 23.07.1
-cd 23.07.1
-wget https://github.com/NetApp/trident/releases/download/v22.01.1/trident-installer-23.07.1.tar.gz
-tar -xf trident-installer-23.07.1.tar.gz
+# Download the release required [23.10.0]
+mkdir 23.10.0
+cd 23.10.0
+wget https://github.com/NetApp/trident/releases/download/v22.01.1/trident-installer-23.10.0.tar.gz
+tar -xf trident-installer-23.10.0.tar.gz
 cd trident-installer
 ----
 . Cree el `tridentorchestrator` CRD del manifiesto.
@@ -163,6 +163,6 @@ kubectl describe torc trident | grep Message -A 3
 Message:                Trident installed
 Namespace:              trident
 Status:                 Installed
-Version:                v23.07.1
+Version:                v23.10.0
 ----
 

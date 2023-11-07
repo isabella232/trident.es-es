@@ -40,50 +40,53 @@ Esta tabla detalla `TridentOrchestrator` atributos.
 | Parámetro | Descripción | Predeterminado 
 
 
-| `namespace` | Espacio de nombres para instalar Astra Trident en | "predeterminado" 
+| `namespace` | Espacio de nombres para instalar Astra Trident en | `"default"` 
 
 
-| `debug` | Habilite la depuración para Astra Trident | falso 
+| `debug` | Habilite la depuración para Astra Trident | `false` 
 
 
 | `enableForceDetach` | `ontap-san` y.. `ontap-san-economy` solamente. Funciona con cierre de nodos no controlado (NGN) de Kubernetes para conceder a los administradores de clústeres la capacidad de migrar de forma segura cargas de trabajo con volúmenes montados a nodos nuevos en caso de que un nodo se vuelva en mal estado. *Esta es una característica experimental en 23,04.* Consulte <<Detalles acerca de forzar separación>> para obtener detalles importantes. | `false` 
 
 
-| `windows` | Ajuste a. `true` Permite la instalación en nodos de trabajo de Windows. | falso 
+| `windows` | Ajuste a. `true` Permite la instalación en nodos de trabajo de Windows. | `false` 
+
+
+| `cloudProvider` | Establezca en `"Azure"` Cuando se utilizan identidades gestionadas en un clúster AKS. | `""` 
 
 
 | `IPv6` | Instale Astra Trident sobre IPv6 | falso 
 
 
-| `k8sTimeout` | Tiempo de espera para las operaciones de Kubernetes | 30 seg 
+| `k8sTimeout` | Tiempo de espera para las operaciones de Kubernetes | `30sec` 
 
 
 | `silenceAutosupport` | No envíe paquetes AutoSupport a NetApp
-automáticamente | falso 
+automáticamente | `false` 
 
 
-| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | «netapp/trident-autosupport:23,07» 
+| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | `"netapp/trident-autosupport:23.10"` 
 
 
 | `autosupportProxy` | La dirección/puerto de un proxy para enviar AutoSupport
-Telemetría | "http://proxy.example.com:8888"[] 
+Telemetría | `"http://proxy.example.com:8888"` 
 
 
-| `uninstall` | Una Marca utilizada para desinstalar Astra Trident | falso 
+| `uninstall` | Una Marca utilizada para desinstalar Astra Trident | `false` 
 
 
-| `logFormat` | Formato de registro de Astra Trident para utilizar [text,json] | "texto" 
+| `logFormat` | Formato de registro de Astra Trident para utilizar [text,json] | `"text"` 
 
 
-| `tridentImage` | Imagen de Astra Trident para instalar | «netapp/trident:23,07» 
+| `tridentImage` | Imagen de Astra Trident para instalar | `"netapp/trident:23.10"` 
 
 
 | `imageRegistry` | Ruta de acceso al registro interno, del formato
-`<registry FQDN>[:port][/subpath]` | «k8s.gcr.io/sig-storage» (k8s 1,19+)
-o «quay.io/k8scsi» 
+`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io/sig-storage"` (Kubernetes 1,19 o posterior)
+o. `"quay.io/k8scsi"` 
 
 
-| `kubeletDir` | Ruta al directorio kubelet del host | «/var/lib/kubelet» 
+| `kubeletDir` | Ruta al directorio kubelet del host | `"/var/lib/kubelet"` 
 
 
 | `wipeout` | Lista de recursos que se van a suprimir para realizar una eliminación completa de
@@ -142,12 +145,12 @@ Cuando se restaure el estado del nodo y se elimine el tinte, Astra Trident:
 
 == Configuraciones de ejemplo
 
-Puede utilizar los atributos mencionados anteriormente al definir `TridentOrchestrator` para personalizar la instalación.
+Puede utilizar los atributos en <<Opciones de configuración>> al definir `TridentOrchestrator` para personalizar la instalación.
 
-.Ejemplo 1: Configuración personalizada básica
-[%collapsible%open]
+.Configuración personalizada básica
+[%collapsible]
 ====
-Este es un ejemplo de una configuración personalizada básica.
+Este es un ejemplo de una instalación personalizada básica.
 
 [listing]
 ----
@@ -163,10 +166,10 @@ spec:
   - thisisasecret
 ----
 ====
-.Ejemplo 2: Implementar con selectores de nodos
-[%collapsible%open]
+.Selectores de nodos
+[%collapsible]
 ====
-Este ejemplo ilustra cómo se puede implementar Trident con los selectores de nodos:
+Este ejemplo instala Astra Trident con selectores de nodos.
 
 [listing]
 ----
@@ -183,10 +186,10 @@ spec:
     storage: netapp
 ----
 ====
-.Ejemplo 3: Implementar en nodos de trabajo de Windows
-[%collapsible%open]
+.Nodos de trabajo de Windows
+[%collapsible]
 ====
-Este ejemplo ilustra la implementación en un nodo de trabajo de Windows.
+En este ejemplo se instala Astra Trident en un nodo de trabajo de Windows.
 
 [listing]
 ----
@@ -199,5 +202,22 @@ spec:
   debug: true
   namespace: trident
   windows: true
+----
+====
+.Identidades administradas en un cluster AKS
+[%collapsible]
+====
+En este ejemplo se instala Astra Trident para habilitar identidades gestionadas en un clúster de AKS.
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "Azure"
 ----
 ====

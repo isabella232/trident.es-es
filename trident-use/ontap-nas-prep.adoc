@@ -342,22 +342,24 @@ NOTE: Consulte link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-
 
 . Al crear el back-end, debe configurar lo siguiente para especificar volúmenes de SMB. Para obtener información sobre todas las opciones de configuración del entorno de administración de ONTAP, consulte link:trident-fsx-examples.html["Opciones y ejemplos de configuración de FSX para ONTAP"].
 +
-[cols="3"]
+[cols="1,2,1"]
 |===
 | Parámetro | Descripción | Ejemplo 
 
 
-| `smbShare`
-Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado mediante la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP; un nombre para permitir que Astra Trident cree el recurso compartido de SMB; o bien puede dejar el parámetro en blanco para evitar el acceso de recurso compartido común a los volúmenes.
+| `smbShare` | Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado mediante la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP; un nombre para permitir que Astra Trident cree el recurso compartido de SMB; o bien puede dejar el parámetro en blanco para evitar el acceso de recurso compartido común a los volúmenes.
 
 Este parámetro es opcional para ONTAP en las instalaciones.
 
-Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no puede estar en blanco. | `smb-share` | `nasType` 
+Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no puede estar en blanco. | `smb-share` 
 
 
-| *Debe establecer en `smb`.* Si es nulo, el valor predeterminado es `nfs`. | `smb` | `securityStyle` 
+| `nasType` | *Debe establecer en `smb`.* Si es nulo, el valor predeterminado es `nfs`. | `smb` 
 
 
-| Estilo de seguridad para nuevos volúmenes. *Debe estar configurado en `ntfs` o. `mixed` Para volúmenes SMB.* | `ntfs` o. `mixed` Para volúmenes de SMB | `unixPermissions` 
+| `securityStyle` | Estilo de seguridad para nuevos volúmenes. *Debe estar configurado en `ntfs` o. `mixed` Para volúmenes SMB.* | `ntfs` o. `mixed` Para volúmenes de SMB 
+
+
+| `unixPermissions` | Modo para volúmenes nuevos. *Se debe dejar vacío para volúmenes SMB.* | "" 
 |===
 

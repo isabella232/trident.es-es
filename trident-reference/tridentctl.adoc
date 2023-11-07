@@ -4,7 +4,7 @@ permalink: trident-reference/tridentctl.html
 keywords: tridentctl, trident, kubernetes, commands, options, usage, flags 
 summary: Obtenga más información sobre trimentctl, una utilidad de línea de comandos que proporciona un acceso sencillo a Trident. 
 ---
-= comandos y opciones de trimentctl
+= Gestión de Astra Trident con tridentctl
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,246 +12,296 @@ summary: Obtenga más información sobre trimentctl, una utilidad de línea de c
 
 
 [role="lead"]
-La https://github.com/NetApp/trident/releases["Paquete de instalación de Trident"^] incluye una utilidad de línea de comandos, `tridentctl`, Que proporciona un acceso sencillo a Astra Trident. Los usuarios de Kubernetes con suficientes privilegios pueden usarlo para instalar Astra Trident y también para interactuar con ella directamente para gestionar el espacio de nombres que contiene el pod Astra Trident.
+La https://github.com/NetApp/trident/releases["Paquete de instalación de Trident"^] incluye la `tridentctl` Herramienta de línea de comandos para proporcionar un acceso sencillo a Astra Trident. Los usuarios de Kubernetes que cuentan con suficientes privilegios pueden utilizarlo para instalar Astra Trident o gestionar el espacio de nombres que contiene el pod de Astra Trident.
 
 
 
-== Comandos y opciones disponibles
+== Comandos e indicadores globales
 
-Para obtener información de uso, ejecute `tridentctl --help`.
+Puede ejecutar `tridentctl help` para obtener una lista de comandos disponibles para `tridentctl` o añada la `--help` marque cualquier comando para obtener una lista de opciones e indicadores para ese comando específico.
 
-Los comandos disponibles y las opciones globales son:
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl [command]
+tridentctl [command] [--optional-flag]
 ----
-Comandos disponibles:
+Astra Trident `tridentctl` la utilidad admite los siguientes comandos y indicadores globales.
 
-* `create`: Añadir un recurso a Astra Trident.
-* `delete`: Elimine uno o más recursos de Astra Trident.
-* `get`: Obtenga uno o más recursos de Astra Trident.
-* `help`: Ayuda sobre cualquier comando.
-* `images`: Imprime una tabla de las imágenes de contenedores que necesita Astra Trident.
-* `import`: Importe un recurso existente a Astra Trident.
-* `install`: Instalar Astra Trident.
-* `logs`: Imprime los registros de Astra Trident.
-* `send`: Envíe un recurso desde Astra Trident.
-* `uninstall`: Desinstalar Astra Trident.
-* `update`: Modificar un recurso en Astra Trident.
-* `upgrade`: Actualizar un recurso en Astra Trident.
-* `version`: Imprime la versión de Astra Trident.
+.Comandos
+[%collapsible]
+====
+`create`:: Añade un recurso a Astra Trident.
+`delete`:: Quita uno o varios recursos de Astra Trident.
+`get`:: Obtén uno o más recursos de Astra Trident.
+`help`:: Ayuda sobre cualquier comando.
+`images`:: Imprime una tabla de las imágenes de contenedores que Astra Trident necesita.
+`import`:: Importar un recurso existente a Astra Trident.
+`install`:: Instala Astra Trident.
+`logs`:: Imprime los registros desde Astra Trident.
+`send`:: Enviar un recurso desde Astra Trident.
+`uninstall`:: Desinstale Astra Trident.
+`update`:: Modificar un recurso en Astra Trident.
+`update backend state`:: Suspender temporalmente las operaciones de backend.
+`upgrade`:: Actualiza un recurso en Astra Trident.
+`version`:: Imprime la versión de Astra Trident.
 
 
-Indicadores:
-
-* ``-d, --debug`: Salida de depuración.
-* ``-h, --help`: Ayuda para `tridentctl`.
-* ``-n, --namespace string`: Espacio de nombres de la implementación de Astra Trident.
-* ``-o, --output string`: Formato de salida. Uno de json|yaml|name|Wide|ps (predeterminado).
-* ``-s, --server string`: Dirección/puerto de la interfaz REST de Astra Trident.
+====
+.Indicadores globales
+[%collapsible]
+====
+`-d`, `--debug`:: Salida de depuración.
+`-h`, `--help`:: Ayuda de `tridentctl`.
+`-n`, `--namespace string`:: Espacio de nombres de puesta en marcha de Astra Trident.
+`-o`, `--output string`:: Formato de salida. Uno de json|yaml|name|Wide|ps (predeterminado).
+`-s`, `--server string`:: Dirección/puerto de la interfaz REST DE Astra Trident.
 +
+--
 
-CAUTION: La interfaz DE REST de Trident se puede configurar para escuchar y servir únicamente en 127.0.0.1 (para IPv4) o [::1] (para IPv6).
+WARNING: La interfaz DE REST de Trident se puede configurar para escuchar y servir únicamente en 127.0.0.1 (para IPv4) o [::1] (para IPv6).
 
-
-
-
-CAUTION: La interfaz DE REST de Trident se puede configurar para escuchar y servir únicamente en 127.0.0.1 (para IPv4) o [::1] (para IPv6).
+--
 
 
+====
 
-== `create`
 
-Puede utilizar ejecutar el `create` Comando para añadir un recurso a Astra Trident.
+== Opciones de comando y indicadores
+
+
+
+=== `create`
+
+Utilice la `create` Comando para añadir un recurso a Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl create [option]
+tridentctl create [option]
 ----
-Opción disponible:
-`backend`: Añadir un back-end a Astra Trident.
+Opciones:: Añade un back-end a Astra Trident.
 
 
 
-== `delete`
 
-Puede ejecutar el `delete` Comando para eliminar uno o más recursos de Astra Trident.
+=== `delete`
+
+Utilice la `delete` Comando para eliminar uno o más recursos de Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl delete [option]
+tridentctl delete [option]
 ----
-Opciones disponibles:
-
-* `backend`: Elimine uno o más back-ends de almacenamiento de Astra Trident.
-* `snapshot`: Elimine una o más instantáneas de volumen de Astra Trident.
-* `storageclass`: Elimine una o varias clases de almacenamiento de Astra Trident.
-* `volume`: Elimine uno o varios volúmenes de almacenamiento de Astra Trident.
+Opciones:: Elimina uno o varios back-ends de almacenamiento de Astra Trident.
+`snapshot`:: Elimine una o varias snapshots de volumen de Astra Trident.
+`storageclass`:: Elimina una o varias clases de almacenamiento de Astra Trident.
+`volume`:: Elimine uno o varios volúmenes de almacenamiento de Astra Trident.
 
 
 
 
-== `get`
+=== `get`
 
-Puede ejecutar el `get` Comando para obtener uno o más recursos de Astra Trident.
+Utilice la `get` Comando para obtener uno o más recursos de Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl get [option]
+tridentctl get [option]
 ----
-Opciones disponibles:
-
-* `backend`: Obtenga uno o más back-ends de almacenamiento de Astra Trident.
-* `snapshot`: Obtiene una o más instantáneas de Astra Trident.
-* `storageclass`: Obtenga una o más clases de almacenamiento de Astra Trident.
-* `volume`: Obtenga uno o más volúmenes de Astra Trident.
-
-
-`volume` banderas: * ``-h, --help`: Ayuda para volúmenes. * `--parentOfSubordinate string`: Limite la consulta al volumen de origen subordinado. * `--subordinateOf string`: Limite la consulta a las subordinadas del volumen.
+Opciones:: Obtén uno o varios back-ends de almacenamiento de Astra Trident.
+`snapshot`:: Obtén una o varias copias Snapshot de Astra Trident.
+`storageclass`:: Obtén una o varias clases de almacenamiento de Astra Trident.
+`volume`:: Obtén uno o más volúmenes en Astra Trident.
+Indicadores:: Ayuda para los volúmenes.
+`--parentOfSubordinate string`:: Limita la consulta al volumen de origen subordinado.
+`--subordinateOf string`:: Limite la consulta a los subordinados de volumen.
 
 
 
-== `images`
 
-Puede ejecutar el `images` Indicador para imprimir una tabla de las imágenes de contenedor que necesita Astra Trident.
+=== `images`
+
+Uso `images` Banderas para imprimir una tabla de las imágenes de contenedores que Astra Trident necesita.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl images [flags]
+tridentctl images [flags]
 ----
-Banderas: * ``-h, --help`: Help for images.
-* ``-V, --k8s-version string': Versión semántica del cluster de Kubernetes.
+Indicadores:: Ayuda para imágenes.
+`-v`, `--k8s-version string`:: Versión semántica del clúster de Kubernetes.
 
 
 
-== `import volume`
 
-Puede ejecutar el `import volume` Comando para importar un volumen existente a Astra Trident.
+=== `import volume`
+
+Utilice la `import volume` Comando para importar un volumen existente a Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl import volume <backendName> <volumeName> [flags]
+tridentctl import volume <backendName> <volumeName> [flags]
 ----
-Alias:
-`volume, v`
-
-Indicadores:
-
-* ``-f, --filename string`: Ruta al archivo YLMA o JSON PVC.
-* ``-h, --help`: Ayuda para el volumen.
-* ``--no-manage`: Cree sólo PV/PVC. No asuma que se gestiona el ciclo de vida de los volúmenes.
+Alias:: `volume, v`
+Indicadores:: Ruta al archivo YAML o JSON PVC.
+`-h`, `--help`:: Ayuda para el volumen.
+`--no-manage`:: Crear solo un VP/RVP. No asuma que se gestiona el ciclo de vida de los volúmenes.
 
 
 
 
-== `install`
+=== `install`
 
-Puede ejecutar el `install` Banderas para instalar Astra Trident.
+Utilice la `install` Banderas para instalar Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl install [flags]
+tridentctl install [flags]
 ----
-Indicadores:
-
-* `--autosupport-image string`: La imagen de contenedor para la telemetría de AutoSupport (valor predeterminado «netapp/trident autosupport:<current-version>»).
-* `--autosupport-proxy string`: La dirección/puerto de un proxy para enviar telemetría AutoSupport.
-* `--enable-node-prep`: Intente instalar los paquetes necesarios en los nodos.
-* `--generate-custom-yaml`: Genere archivos YAML sin instalar nada.
-* `-h, --help`: Ayuda para instalar.
-* `--http-request-timeout`: Sustituya el tiempo de espera de la solicitud HTTP para la API REST del controlador Trident (por defecto 1m30s).
-* `--image-registry string`: La dirección/puerto de un registro de imagen interna.
-* `--k8s-timeout duration`: El tiempo de espera para todas las operaciones de Kubernetes (por defecto 3 m0s).
-* `--kubelet-dir string`: La ubicación del host del estado interno de Kubelet (predeterminado "/var/lib/kubelet").
-* `--log-format string`: El formato de registro de Astra Trident (texto, json) (por defecto "text").
-* `--pv string`: El nombre del PV heredado utilizado por Astra Trident, se asegura de que esto no existe (por defecto "trident").
-* `--pvc string`: El nombre del PVC heredado utilizado por Astra Trident, se asegura de que esto no exista (por defecto “tridente”).
-* `--silence-autosupport`: No envíe los paquetes AutoSupport a NetApp automáticamente (valor predeterminado: TRUE).
-* `--silent`: Desactiva la mayoría de la salida durante la instalación.
-* `--trident-image string`: La imagen de Astra Trident que se va a instalar.
-* `--use-custom-yaml`: Utilice cualquier archivo YAML existente en el directorio de instalación.
-* `--use-ipv6`: Utilice IPv6 para la comunicación de Astra Trident.
+Indicadores:: La imagen de contenedor para AutoSupport Telemetry (predeterminado «netapp/trident autosupport:<current-version>»).
+`--autosupport-proxy string`:: Dirección/puerto de un proxy para enviar telemetría AutoSupport.
+`--enable-node-prep`:: Se han intentado instalar los paquetes necesarios en los nodos.
+`--generate-custom-yaml`:: Generar archivos YAML sin instalar nada.
+`-h`, `--help`:: Ayuda para la instalación.
+`--http-request-timeout`:: Anule el tiempo de espera de solicitud HTTP para la API REST de la controladora Trident (predeterminado 1m30s).
+`--image-registry string`:: Dirección/puerto de un registro de imágenes interno.
+`--k8s-timeout duration`:: El tiempo de espera para todas las operaciones de Kubernetes (3 m0 por defecto).
+`--kubelet-dir string`:: La ubicación del host del estado interno de kubelet (por defecto «/var/lib/kubelet»).
+`--log-format string`:: El formato de registro de Astra Trident (text, json) (texto predeterminado).
+`--pv string`:: El nombre del VP heredado que usa Astra Trident, se asegura de que esto no exista (el predeterminado es «tridente»).
+`--pvc string`:: El nombre de la RVP heredada que usa Astra Trident garantiza que esto no exista (el predeterminado es «tridente»).
+`--silence-autosupport`:: No envíe paquetes AutoSupport a NetApp automáticamente (valor predeterminado true).
+`--silent`:: Desactive la salida MOST durante la instalación.
+`--trident-image string`:: La imagen de Astra Trident que se va a instalar.
+`--use-custom-yaml`:: Utilice cualquier archivo YAML existente que exista en el directorio de configuración.
+`--use-ipv6`:: Utilice IPv6 para la comunicación de Astra Trident.
 
 
 
 
-== `logs`
+=== `logs`
 
-Puede ejecutar el `logs` Indicadores para imprimir los registros de Astra Trident.
+Uso `logs` Indicadores para imprimir los registros de Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl logs [flags]
+tridentctl logs [flags]
 ----
-Indicadores:
-
-* ``-a, --archive`: Cree un archivo de soporte con todos los registros a menos que se especifique lo contrario.
-* ``-h, --help`: Ayuda para registros.
-* ``-l, --log string`: Mostrar el registro de Astra Trident. Uno de trident|auto|trident-operator|All (valor predeterminado "auto").
-* ``--node string`: El nombre del nodo Kubernetes del que se van a recopilar registros del nodo pod.
-* ``-p, --previous`: Obtiene los registros de la instancia anterior del contenedor si existe.
-* ``--sidecars`: Obtener los registros de los contenedores sidecar.
+Indicadores:: Cree un archivo de soporte con todos los registros a menos que se especifique lo contrario.
+`-h`, `--help`:: Ayuda para los registros.
+`-l`, `--log string`:: Registro de Astra Trident para mostrar. Uno de trident|auto|trident-operator|All (valor predeterminado "auto").
+`--node string`:: El nombre del nodo de Kubernetes desde el que se van a recopilar los registros del pod de nodo.
+`-p`, `--previous`:: Obtenga los logs de la instancia de contenedor anterior si existe.
+`--sidecars`:: Obtenga los registros para los contenedores sidecar.
 
 
 
 
-== `send`
+=== `send`
 
-Puede ejecutar el `send` Para enviar un recurso desde Astra Trident.
+Utilice la `send` Para enviar un recurso desde Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl send [option]
+tridentctl send [option]
 ----
-Opción disponible:
-`autosupport`: Enviar un fichero AutoSupport a NetApp.
+Opciones:: Enviar un archivo AutoSupport a NetApp.
 
 
 
-== `uninstall`
 
-Puede ejecutar el `uninstall` Indicadores para desinstalar Astra Trident.
+=== `uninstall`
+
+Uso `uninstall` Indicadores para desinstalar Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl uninstall [flags]
+tridentctl uninstall [flags]
 ----
-Banderas: * `-h, --help`: Ayuda para la desinstalación. * `--silent`: Desactiva la mayoría de la salida durante la desinstalación.
+Indicadores:: Ayuda para desinstalar.
+`--silent`:: Desactive la salida MOST durante la desinstalación.
 
 
 
-== `update`
 
-Puede ejecutar el `update` Comandos para modificar un recurso en Astra Trident.
+=== `update`
+
+Utilice la `update` Comando para modificar un recurso en Astra Trident.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl update [option]
+tridentctl update [option]
 ----
-Opciones disponibles:
-`backend`: Actualizar un back-end en Astra Trident.
+Opciones:: Actualizar un back-end en Astra Trident.
 
 
 
-== `version`
 
-Puede ejecutar el `version` indicadores para imprimir la versión de `tridentctl` Y el servicio Trident que se ejecuta.
+=== `update backend state`
+
+Utilice la `update backend state` comando para suspender o reanudar operaciones de back-end.
+
+Uso::
+
 
 [listing]
 ----
-Usage:
-  tridentctl version [flags]
+tridentctl update backend state <backend-name> [flag]
 ----
-Banderas: * `--client`: Sólo versión de cliente (no se necesita ningún servidor). * `-h, --help`: Ayuda para la versión.
+Indicadores:: Establezca en `suspended` para pausar las operaciones de backend. Establezca en `normal` para reanudar las operaciones de back-end. Cuando se establece en `suspended`:
++
+--
+* `AddVolume`, `CloneVolume`, `Import Volume`, `ResizeVolume` están en pausa.
+* `PublishVolume`, `UnPublishVolume`, `CreateSnapshot`, `GetSnapshot`, `RestoreSnapshot`, `DeleteSnapshot`, `RemoveVolume`, `GetVolumeExternal`, `ReconcileNodeAccess` seguir estando disponible.
+
+
+--
+`-h`, `--help`:: Ayuda para el estado backend.
+
+
+
+
+=== `version`
+
+Uso `version` indicadores para imprimir la versión de `tridentctl` Y el servicio Trident que se ejecuta.
+
+Uso::
+
+
+[listing]
+----
+tridentctl version [flags]
+----
+Indicadores:: Sólo versión de cliente (no se requiere servidor).
+`-h, --help`:: Ayuda para la versión.
+

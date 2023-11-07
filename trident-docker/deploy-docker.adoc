@@ -147,8 +147,8 @@ O bien, https://docs.docker.com/engine/install/["siga las instrucciones de su di
 +
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v23.07.1/trident-installer-23.07.1.tar.gz
-tar zxf trident-installer-23.07.1.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v23.10.0/trident-installer-23.10.0.tar.gz
+tar zxf trident-installer-23.10.0.tar.gz
 ----
 .. Desplazarse a una ubicación en la ruta de la bandeja:
 +

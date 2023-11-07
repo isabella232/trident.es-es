@@ -413,78 +413,18 @@
   <block id="188cb756fe8659cb2caf27ca6d1446b4" category="list-text"><block ref="79d400f844e73cb6e88dabddc36edc38" prefix="" category="inline-code"></block>: Activa la interfaz DE REPOSO. El valor predeterminado es TRUE.</block>
   <block id="afe272beb780ad53d441c342bf1c8c77" category="summary">Obtenga más información sobre trimentctl, una utilidad de línea de comandos que proporciona un acceso sencillo a Trident.</block>
   <block id="7358b1fd077fa65f88fff87888fd2547" category="inline-link">Paquete de instalación de Trident</block>
-  <block id="4e49f66de2e2dc43c25555fe50639334" category="paragraph">La<block ref="5a856e83aada9750fe5389f8da94335b" category="inline-link-rx"></block> incluye una utilidad de línea de comandos,<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>, Que proporciona un acceso sencillo a Astra Trident. Los usuarios de Kubernetes con suficientes privilegios pueden usarlo para instalar Astra Trident y también para interactuar con ella directamente para gestionar el espacio de nombres que contiene el pod Astra Trident.</block>
-  <block id="65e30750e10ee81a457f6e2a2d52b4a4" category="section-title">Comandos y opciones disponibles</block>
-  <block id="8ca34267f11cb69ea424bc0320f0e295" category="paragraph">Para obtener información de uso, ejecute<block ref="ceee76f87261e9ae63347c456678b897" prefix=" " category="inline-code"></block>.</block>
-  <block id="a55b7ee69c26277a1088efc103e15297" category="paragraph">Los comandos disponibles y las opciones globales son:</block>
-  <block id="2dd878ee55d738aa02e6b0b162d45708" category="paragraph">Comandos disponibles:</block>
-  <block id="4386bd8da14af923cbb7ac011ffc048e" category="list-text"><block ref="76ea0bebb3c22822b4f0dd9c9fd021c5" prefix="" category="inline-code"></block>: Añadir un recurso a Astra Trident.</block>
-  <block id="f40f9a4cf242d0355aaf8d9e06617436" category="list-text"><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix="" category="inline-code"></block>: Elimine uno o más recursos de Astra Trident.</block>
-  <block id="94b75e236d78fe800d1d32acc3882789" category="list-text"><block ref="b5eda0a74558a342cf659187f06f746f" prefix="" category="inline-code"></block>: Obtenga uno o más recursos de Astra Trident.</block>
-  <block id="bc9ef80dceea04796c6218fe96e05b30" category="list-text"><block ref="657f8b8da628ef83cf69101b6817150a" prefix="" category="inline-code"></block>: Ayuda sobre cualquier comando.</block>
-  <block id="f5421bf790b945f508fa1b9f223318e5" category="list-text"><block ref="59b514174bffe4ae402b3d63aad79fe0" prefix="" category="inline-code"></block>: Imprime una tabla de las imágenes de contenedores que necesita Astra Trident.</block>
-  <block id="40e65170f778aaa7f4ab7f645b3bb3df" category="list-text"><block ref="93473a7344419b15c4219cc2b6c64c6f" prefix="" category="inline-code"></block>: Importe un recurso existente a Astra Trident.</block>
-  <block id="a824e587817131e2052a450803b2d97c" category="list-text"><block ref="19ad89bc3e3c9d7ef68b89523eff1987" prefix="" category="inline-code"></block>: Instalar Astra Trident.</block>
-  <block id="c90c365a06ede3139cad79d4e55673ee" category="list-text"><block ref="2165e4fa5bddb65a31f6a0c495c2fa37" prefix="" category="inline-code"></block>: Imprime los registros de Astra Trident.</block>
-  <block id="e5c5ad2be68f58e910aa42a9fcc98141" category="list-text"><block ref="2541d938b0a58946090d7abdde0d3890" prefix="" category="inline-code"></block>: Envíe un recurso desde Astra Trident.</block>
-  <block id="3166458a066b2d14394e408f1f8fed84" category="list-text"><block ref="fe98497efedbe156ecc4b953aea77e07" prefix="" category="inline-code"></block>: Desinstalar Astra Trident.</block>
-  <block id="8c8fcf9d4df8bd54d26dc748cc4bac55" category="list-text"><block ref="3ac340832f29c11538fbe2d6f75e8bcc" prefix="" category="inline-code"></block>: Modificar un recurso en Astra Trident.</block>
-  <block id="042aeda3cc45bf1f53a0e74660dbd924" category="list-text"><block ref="ae26b3d8e556703291282149e3ae894f" prefix="" category="inline-code"></block>: Actualizar un recurso en Astra Trident.</block>
-  <block id="d014c15bf0496b645d02caf1704932f7" category="list-text"><block ref="2af72f100c356273d46284f6fd1dfc08" prefix="" category="inline-code"></block>: Imprime la versión de Astra Trident.</block>
   <block id="1c90ba5cf3791b6148c7887a696911ec" category="paragraph">Indicadores:</block>
-  <block id="568cd496b6bde641a886745edfa59ae7" category="list-text"><block ref="bde7b6deaa21034a074d571dce19e698" prefix="" category="inline-code"></block>: Salida de depuración.</block>
-  <block id="fe27ec35afa597521f9616f18c32e556" category="list-text"><block ref="490aa9b616d8535386ddf1c7037f79a0" prefix="" category="inline-code"></block>: Ayuda para<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>.</block>
-  <block id="874377d6c0baee9e8e842c8abf13d28c" category="list-text"><block ref="e819563295b2af7114a3e86a323e983f" prefix="" category="inline-code"></block>: Espacio de nombres de la implementación de Astra Trident.</block>
-  <block id="463b413ea9e7764a789f3e987cb06fc8" category="list-text"><block ref="6fa9302f3bc987d01d9c2d8b7cb65042" prefix="" category="inline-code"></block>: Formato de salida. Uno de json|yaml|name|Wide|ps (predeterminado).</block>
-  <block id="85c5338e138fc6d122a579f7a07040bf" category="list-text"><block ref="d5661812aed6c7823720c4c5ee8e84bf" prefix="" category="inline-code"></block>: Dirección/puerto de la interfaz REST de Astra Trident.</block>
   <block id="e49cf31f5ed35f0eb694c7714e8c3234" category="section-title"><block ref="76ea0bebb3c22822b4f0dd9c9fd021c5" prefix="" category="inline-code"></block></block>
-  <block id="b8d486e9285b25b72d6efad05e41de4d" category="paragraph">Puede utilizar ejecutar el<block ref="76ea0bebb3c22822b4f0dd9c9fd021c5" prefix=" " category="inline-code"></block> Comando para añadir un recurso a Astra Trident.</block>
-  <block id="6d5c7e6905e460d1fba1f2dd1c0d2a8a" category="paragraph">Opción disponible:<block ref="b43fdd98b1fd705ae4c3a10cf25aad8a" prefix=" " category="inline-code"></block>: Añadir un back-end a Astra Trident.</block>
   <block id="3649b15e31d22a1e2210f014d843b9fa" category="section-title"><block ref="099af53f601532dbd31e0ea99ffdeb64" prefix="" category="inline-code"></block></block>
-  <block id="0d847e459450017616b8ab50b372ad2e" category="paragraph">Puede ejecutar el<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> Comando para eliminar uno o más recursos de Astra Trident.</block>
-  <block id="16713f316b7cce82385c040efc32ac83" category="paragraph">Opciones disponibles:</block>
-  <block id="417f8bf14ed5852917d189612c7d163c" category="list-text"><block ref="b43fdd98b1fd705ae4c3a10cf25aad8a" prefix="" category="inline-code"></block>: Elimine uno o más back-ends de almacenamiento de Astra Trident.</block>
-  <block id="4896fd245b78ab9b7d044375c1fce85e" category="list-text"><block ref="c322d3de29d2b0c5e2e011dad5e77df2" prefix="" category="inline-code"></block>: Elimine una o más instantáneas de volumen de Astra Trident.</block>
-  <block id="cef6b6bb7932e7450e35eafc3d986f18" category="list-text"><block ref="0606cab8952ca875c43a0e15b35aab7c" prefix="" category="inline-code"></block>: Elimine una o varias clases de almacenamiento de Astra Trident.</block>
-  <block id="14eeaf8d1da512153855b759185ee129" category="list-text"><block ref="210ab9e731c9c36c2c38db15c28a8d1c" prefix="" category="inline-code"></block>: Elimine uno o varios volúmenes de almacenamiento de Astra Trident.</block>
   <block id="a4027ed0f56ae6ac2cbb7605a519932b" category="section-title"><block ref="b5eda0a74558a342cf659187f06f746f" prefix="" category="inline-code"></block></block>
-  <block id="c7a7a677647f05a4032891d4aef5bed5" category="paragraph">Puede ejecutar el<block ref="b5eda0a74558a342cf659187f06f746f" prefix=" " category="inline-code"></block> Comando para obtener uno o más recursos de Astra Trident.</block>
-  <block id="2dd609bd837a41363817262fd314b0be" category="list-text"><block ref="b43fdd98b1fd705ae4c3a10cf25aad8a" prefix="" category="inline-code"></block>: Obtenga uno o más back-ends de almacenamiento de Astra Trident.</block>
-  <block id="ad4ba4a1b0612fa67f4386330ac00e9d" category="list-text"><block ref="c322d3de29d2b0c5e2e011dad5e77df2" prefix="" category="inline-code"></block>: Obtiene una o más instantáneas de Astra Trident.</block>
-  <block id="5385ccfb9fd8a07e53dc1a6ac58a101d" category="list-text"><block ref="0606cab8952ca875c43a0e15b35aab7c" prefix="" category="inline-code"></block>: Obtenga una o más clases de almacenamiento de Astra Trident.</block>
-  <block id="060da5b15e6fb7129c04e18b3d96c702" category="list-text"><block ref="210ab9e731c9c36c2c38db15c28a8d1c" prefix="" category="inline-code"></block>: Obtenga uno o más volúmenes de Astra Trident.</block>
-  <block id="8720cc63ac2a7bd9564830d7e775715e" category="paragraph"><block ref="210ab9e731c9c36c2c38db15c28a8d1c" prefix="" category="inline-code"></block> banderas: *<block ref="490aa9b616d8535386ddf1c7037f79a0" prefix=" " category="inline-code"></block>: Ayuda para volúmenes. *<block ref="e3bbbed29599d3e6e29ae22829ad7f13" prefix=" " category="inline-code"></block>: Limite la consulta al volumen de origen subordinado. *<block ref="aed2a4a749284f757648f1057abf44cd" prefix=" " category="inline-code"></block>: Limite la consulta a las subordinadas del volumen.</block>
   <block id="7920cf9e1a990d156e390321c1d5efeb" category="section-title"><block ref="59b514174bffe4ae402b3d63aad79fe0" prefix="" category="inline-code"></block></block>
-  <block id="16ca0a361439e1f936eaa5c919443b10" category="paragraph">Puede ejecutar el<block ref="59b514174bffe4ae402b3d63aad79fe0" prefix=" " category="inline-code"></block> Indicador para imprimir una tabla de las imágenes de contenedor que necesita Astra Trident.</block>
-  <block id="1008ac4609cab9210ae758ff8fee8127" category="paragraph">Banderas: * <block ref="2d29e7601cf6bace023678845c10dd17" prefix="" category="inline-code"></block>-V, --k8s-version string': Versión semántica del cluster de Kubernetes.</block>
   <block id="df6d9d5a4c545407095ea4ca424e9457" category="section-title"><block ref="f6c534966bc7687e0c87134d025f8837" prefix="" category="inline-code"></block></block>
-  <block id="df5ec83145dcd824f8daf85d89e5dd8a" category="paragraph">Puede ejecutar el<block ref="f6c534966bc7687e0c87134d025f8837" prefix=" " category="inline-code"></block> Comando para importar un volumen existente a Astra Trident.</block>
-  <block id="ccf1bb29ef5562c033962d35014005e9" category="paragraph">Alias:<block ref="66d753d6a3725a886be2c0cbfaaacdda" prefix=" " category="inline-code"></block></block>
-  <block id="48c7ae9a5466415a6b9666ad86746640" category="list-text"><block ref="12ea00b4daeb8e3c942bea3e333d2fb6" prefix="" category="inline-code"></block>: Ruta al archivo YLMA o JSON PVC.</block>
-  <block id="1bb2af29a08ab6ea9414a8656234b8c6" category="list-text"><block ref="490aa9b616d8535386ddf1c7037f79a0" prefix="" category="inline-code"></block>: Ayuda para el volumen.</block>
-  <block id="0ad393d5c23749c23f3855220b55375a" category="list-text"><block ref="f86a7baa0c50c42a20fc3c1519dff00e" prefix="" category="inline-code"></block>: Cree sólo PV/PVC. No asuma que se gestiona el ciclo de vida de los volúmenes.</block>
   <block id="cc27cfd3259c2299d8dece590d5f6985" category="section-title"><block ref="19ad89bc3e3c9d7ef68b89523eff1987" prefix="" category="inline-code"></block></block>
-  <block id="42ddf993417d9568ca6a057fe55f9c63" category="paragraph">Puede ejecutar el<block ref="19ad89bc3e3c9d7ef68b89523eff1987" prefix=" " category="inline-code"></block> Banderas para instalar Astra Trident.</block>
   <block id="2acfb4ba14a6f33d7e82e8d1dda6542f" category="section-title"><block ref="2165e4fa5bddb65a31f6a0c495c2fa37" prefix="" category="inline-code"></block></block>
-  <block id="501416d02a886c81e8849b2f400e28a3" category="paragraph">Puede ejecutar el<block ref="2165e4fa5bddb65a31f6a0c495c2fa37" prefix=" " category="inline-code"></block> Indicadores para imprimir los registros de Astra Trident.</block>
-  <block id="be8607b2dc354b7010b1464ac140fc1b" category="list-text"><block ref="a4cc41d6d71f762afa38aa86c9c2d01d" prefix="" category="inline-code"></block>: Cree un archivo de soporte con todos los registros a menos que se especifique lo contrario.</block>
-  <block id="d8d07479f4d5c7f0ef2b0f51407f070c" category="list-text"><block ref="490aa9b616d8535386ddf1c7037f79a0" prefix="" category="inline-code"></block>: Ayuda para registros.</block>
-  <block id="f925a9593a051a85d10acec74988d84f" category="list-text"><block ref="0aed53e85bb423234b1436920878c6d9" prefix="" category="inline-code"></block>: Mostrar el registro de Astra Trident. Uno de trident|auto|trident-operator|All (valor predeterminado "auto").</block>
-  <block id="d8a224d86fa21c6c564987d0848bf681" category="list-text"><block ref="47f050301128bb8f4d16fbc097e51749" prefix="" category="inline-code"></block>: El nombre del nodo Kubernetes del que se van a recopilar registros del nodo pod.</block>
-  <block id="a335d03b82ae4916c848dd419432f477" category="list-text"><block ref="e6a6eb3d6f86587838f65389d0a14510" prefix="" category="inline-code"></block>: Obtiene los registros de la instancia anterior del contenedor si existe.</block>
-  <block id="d7d7c214e32f71943c71783fa9d5fb55" category="list-text"><block ref="2f4e6b5276dee9c75b0aef2cc20fa899" prefix="" category="inline-code"></block>: Obtener los registros de los contenedores sidecar.</block>
   <block id="9ce837bc2492d4ed390bc5d1ea9d1437" category="section-title"><block ref="2541d938b0a58946090d7abdde0d3890" prefix="" category="inline-code"></block></block>
-  <block id="3121026e841bd19d147c54ac43e423c0" category="paragraph">Puede ejecutar el<block ref="2541d938b0a58946090d7abdde0d3890" prefix=" " category="inline-code"></block> Para enviar un recurso desde Astra Trident.</block>
-  <block id="9ce1e94be8ccb1612967a7e2cbe69a6f" category="paragraph">Opción disponible:<block ref="ee64de1ad50d8209e64ee58b23e27986" prefix=" " category="inline-code"></block>: Enviar un fichero AutoSupport a NetApp.</block>
   <block id="e9f06180af644cfa6e5d20bd67c03bc5" category="section-title"><block ref="fe98497efedbe156ecc4b953aea77e07" prefix="" category="inline-code"></block></block>
-  <block id="e980a564a92aa568234d9757a591756b" category="paragraph">Puede ejecutar el<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> Indicadores para desinstalar Astra Trident.</block>
-  <block id="18e52eb5a60f4ee8d6f1fb37ab3e3781" category="paragraph">Banderas: *<block ref="60072fc2fad0d30fc656850e04c7433f" prefix=" " category="inline-code"></block>: Ayuda para la desinstalación. *<block ref="61bce13717a9d6da0266dbc3e2b1e642" prefix=" " category="inline-code"></block>: Desactiva la mayoría de la salida durante la desinstalación.</block>
   <block id="30cf71e674825d319eb0406032c1a80b" category="section-title"><block ref="3ac340832f29c11538fbe2d6f75e8bcc" prefix="" category="inline-code"></block></block>
-  <block id="328865de703bbe034177e6eb51dc3d28" category="paragraph">Puede ejecutar el<block ref="3ac340832f29c11538fbe2d6f75e8bcc" prefix=" " category="inline-code"></block> Comandos para modificar un recurso en Astra Trident.</block>
-  <block id="8680f448b33371bcb4778563a93f4702" category="paragraph">Opciones disponibles:<block ref="b43fdd98b1fd705ae4c3a10cf25aad8a" prefix=" " category="inline-code"></block>: Actualizar un back-end en Astra Trident.</block>
   <block id="7877022c956918624cc0373ff564cad4" category="section-title"><block ref="2af72f100c356273d46284f6fd1dfc08" prefix="" category="inline-code"></block></block>
-  <block id="9867997bba4e250bad7411d19fce3905" category="paragraph">Puede ejecutar el<block ref="2af72f100c356273d46284f6fd1dfc08" prefix=" " category="inline-code"></block> indicadores para imprimir la versión de<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Y el servicio Trident que se ejecuta.</block>
-  <block id="800f73959f4b721c78f4651c6b4b2052" category="paragraph">Banderas: *<block ref="db0e9588c0d46e16e0aea5c50287a54f" prefix=" " category="inline-code"></block>: Sólo versión de cliente (no se necesita ningún servidor). *<block ref="60072fc2fad0d30fc656850e04c7433f" prefix=" " category="inline-code"></block>: Ayuda para la versión.</block>
   <block id="5ee08ab883e000ce6b739dbb0b6ff376" category="summary">Obtenga más información sobre las partes del sistema Kubernetes.</block>
   <block id="607ae6360b32f1bd6e559e915d414fab" category="doc">Conceptos de Kubernetes</block>
   <block id="d60f0fff1c23a02458849862f593357e" category="inline-link">Sistema Kubernetes</block>
@@ -667,7 +607,6 @@
   <block id="adecfe476427253e9c680a7c5150a9cc" category="list-text">Cuando se instala Trident, se crea un conjunto de CRD que se puede utilizar como cualquier otro tipo de recurso.</block>
   <block id="c4b35352cbf7a52a9444a610687067f8" category="inline-link-macro">Desinstale Trident</block>
   <block id="d63b67088a9f91802e555f6613dfc7e2" category="list-text">Al desinstalar Trident mediante la<block ref="ac8650577d1b744589a6a11b60ac38c7" prefix=" " category="inline-code"></block> Comando, los pods de Trident se eliminan, pero los CRD creados no se borran. Consulte <block ref="3e5b286354565ddfee44ed92d763b424" category="inline-link-macro-rx"></block> Para comprender cómo Trident se puede eliminar por completo y volver a configurar desde cero.</block>
-  <block id="193c267230acf55be171a6a179560847" category="paragraph">Trident crea clases de almacenamiento coincidentes para Kubernetes<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> objetos que especifican<block ref="08044207e9f63bb0fd474dab347a776c" prefix=" " category="inline-code"></block><block ref="b1202a40512b5ecf683240df2730730f" prefix="/" category="inline-code"></block> en su campo de aprovisionamiento. El nombre de la clase de almacenamiento coincide con el de Kubernetes<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> objeto que representa.</block>
   <block id="64cf33bfeab6c6bd8aa626b86fda9cbd" category="admonition">Con Kubernetes, estos objetos se crean automáticamente cuando se crea un Kubernetes<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> Que usa Trident como aprovisionador está registrado.</block>
   <block id="51fa0a833f47d8f00ee2677c6fa7b075" category="paragraph">Las clases de almacenamiento comprenden un conjunto de requisitos para los volúmenes. Trident enlaza estos requisitos con los atributos presentes en cada pool de almacenamiento; si coinciden, ese pool de almacenamiento es un objetivo válido para aprovisionar volúmenes que utilizan esa clase de almacenamiento.</block>
   <block id="04d84bba5a5e103ae9c192c03a7ad2f3" category="paragraph">Puede crear configuraciones de clase de almacenamiento para definir clases de almacenamiento directamente mediante la API DE REST. Sin embargo, en el caso de las puestas en marcha de Kubernetes, esperamos que se creen al registrar el nuevo Kubernetes<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> objetos.</block>
@@ -879,7 +818,6 @@
   <block id="57b3e1695eb7d16642702fbce3837b86" category="paragraph">De forma predeterminada, Astra Trident se ejecuta en un contenedor y, por lo tanto, se ejecutará en cualquier trabajador de Linux. Sin embargo, estos trabajadores deben poder montar los volúmenes que ofrece Astra Trident con el cliente NFS o iniciador iSCSI estándar, en función de los back-ends que utilice.</block>
   <block id="11ea58814ce429c3e3254a63f8cde7a4" category="paragraph">La<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Utility también se ejecuta en cualquiera de estas distribuciones de Linux.</block>
   <block id="13d80777c8fd43e555c1f5b1b72d7ef0" category="section-title">Configuración de hosts</block>
-  <block id="f8b1c66e563136ad12055c2d31964acc" category="paragraph">Todos los nodos de trabajadores del clúster de Kubernetes deben poder montar los volúmenes que haya aprovisionado para los pods. Para preparar los nodos de trabajo, debe instalar las herramientas NFS o iSCSI según su selección de controlador.</block>
   <block id="89d83ec6e8ec0c087fbc4aedc555b362" category="inline-link-macro">Prepare el nodo de trabajo</block>
   <block id="f36d25716a4b2c466ddcb8065bef3ae6" category="paragraph"><block ref="f36d25716a4b2c466ddcb8065bef3ae6" category="inline-link-macro-rx"></block></block>
   <block id="2139fe384d5ae165545994dff01961d9" category="section-title">Configuración del sistema de almacenamiento</block>
@@ -891,7 +829,6 @@
   <block id="923680056b0f0258907f498670b4ead1" category="section-title">Imágenes de contenedor y las versiones de Kubernetes correspondientes</block>
   <block id="ee50d481128d1543f9945b4a4f3fbe9d" category="paragraph">Para instalaciones con problemas de conexión aérea, la siguiente lista es una referencia de las imágenes de contenedor necesarias para instalar Astra Trident. Utilice la<block ref="4ebf280824868255c952dc529072ecb9" prefix=" " category="inline-code"></block> comando para verificar la lista de imágenes de contenedor necesarias.</block>
   <block id="aa92c4c233bc01609d957e469736b699" category="cell">Imagen de contenedor</block>
-  <block id="681d715b456f6d29a501b8f132e941a1" category="cell">v1.22.0</block>
   <block id="73e93ad328287e5ce4c06228cfdba2bf" category="cell">v1.23.0</block>
   <block id="468bc1e7f7712a8dc9b91d063523cdff" category="cell">v1.24.0</block>
   <block id="6f4b2a393838b7a42ebca342bdba2246" category="cell">v1.25.0</block>
@@ -1005,7 +942,6 @@
   <block id="2bccac20e55391730a985f9819e1cc41" category="cell"><block ref="7ecc687ea7566f05fd13fde7be607bfc" prefix="" category="inline-code"></block></block>
   <block id="84448c234dfdfd2a7367341fd4b56a80" category="cell">La imagen contenedora para telemetría AutoSupport</block>
   <block id="f4a6821b04b9ce6b90148068341347b6" category="cell"><block ref="5f264298da92162575024336c485cc13" prefix="" category="inline-code"></block></block>
-  <block id="256acfe307251e7444859851d87d5735" category="cell"><block ref="256acfe307251e7444859851d87d5735" category="inline-link-rx"></block></block>
   <block id="7610c5cc7910022402c4fbd450d889ce" category="cell"><block ref="d771848c80f96e5954a8658655cf79d7" prefix="" category="inline-code"></block></block>
   <block id="8088435dc0e1c8b85217d850d3e7a602" category="cell"><block ref="990dc1a09e10c7b5378e6bc8a1956cb8" prefix="" category="inline-code"></block></block>
   <block id="e6b96cbb467923e86672bb25db5ecebb" category="cell"><block ref="31e3a95d0afff0def109a244b7f82d83" prefix="" category="inline-code"></block></block>
@@ -1021,13 +957,6 @@
   <block id="4352a1b4e004cf57ac04661a18de43aa" category="inline-link-macro">Asignación de pods a nodos</block>
   <block id="b3b67fd79d24b4873c8164c750c21798" category="admonition">Para obtener más información sobre el formato de los parámetros del POD, consulte <block ref="7b3a69fdac08c769183925679da4c365" category="inline-link-macro-rx"></block>.</block>
   <block id="a3ff66cf5848a34d56915c8e879a5d52" category="section-title">Configuraciones de ejemplo</block>
-  <block id="a6ba054ae6c021e3bc8a173393842c3d" category="paragraph">Puede utilizar los atributos mencionados anteriormente al definir<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> para personalizar la instalación.</block>
-  <block id="3dabf672facbe8c5e2eeff030c2b8520" category="example-title">Ejemplo 1: Configuración personalizada básica</block>
-  <block id="d21e69ca251cfbb211d0ee66fd06d5b3" category="paragraph">Este es un ejemplo de una configuración personalizada básica.</block>
-  <block id="8438aa96607926cc56a36b843e04244f" category="example-title">Ejemplo 2: Implementar con selectores de nodos</block>
-  <block id="fd2915a467b0d801691fa5242e597f02" category="paragraph">Este ejemplo ilustra cómo se puede implementar Trident con los selectores de nodos:</block>
-  <block id="aa5b232f08f4f3a911b242c500c5c9a1" category="example-title">Ejemplo 3: Implementar en nodos de trabajo de Windows</block>
-  <block id="74b19e3113c78692266e87afce12f681" category="paragraph">Este ejemplo ilustra la implementación en un nodo de trabajo de Windows.</block>
   <block id="43f17763173fe230bdd78477152f5f7d" category="inline-link-macro">Desinstale Astra Trident</block>
   <block id="dec54888538ac86f51d29a3d043e6bf6" category="summary">Puede actualizar fácilmente una instalación existente de Astra Trident mediante el operador.</block>
   <block id="5ff3faebb0ff710340bdbee89a4667ad" category="doc">Actualizar con el operador</block>
@@ -1540,7 +1469,6 @@
   <block id="cc30671ec52693851659adb7020e02b1" category="cell">Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> se proporciona como **avance técnico** que se recomienda para entornos de prueba y no para cargas de trabajo de producción. Cuando se establece en<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>, Astra Trident utilizará las API DE REST de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a<block ref="a9ba4dc88fa11d44cc7c0c918d174778" prefix=" " category="inline-code"></block> cliente más. Esto está satisfecho por el predefinido<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> y..<block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block> funciones.<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> No es compatible con MetroCluster.</block>
   <block id="d4fbfa2dd496728ba6294eb840ce25eb" category="cell">Grupo de políticas de calidad de servicio que se asignará a los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento. El uso de grupos de políticas de calidad de servicio con Astra Trident requiere ONTAP 9.8 o posterior. Recomendamos utilizar un grupo de políticas QoS no compartido y garantizar que el grupo de políticas se aplique a cada componente por separado. Un grupo de políticas de calidad de servicio compartido hará que se aplique el techo para el rendimiento total de todas las cargas de trabajo.</block>
   <block id="036c0eabd455d8a92d350429f2f5747e" category="cell">Grupo de políticas de calidad de servicio adaptativo que permite asignar los volúmenes creados. Elija uno de qosPolicy o adaptiveQosPolicy por pool/back-end de almacenamiento</block>
-  <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">Active el cifrado LUKS. Consulte <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>.</block>
   <block id="41da49bdd3fd88b2ddc6be7d6df1b335" category="cell">Estilo de seguridad para nuevos volúmenes</block>
   <block id="69f25314e2d927ebcaa0f19c9f2a57da" category="cell"><block ref="4913a9178621eadcdf191db17915fbcb" prefix="" category="inline-code"></block></block>
   <block id="e62f5d0a5a95571e25197caafe78cd98" category="section-title">Ejemplos de aprovisionamiento de volúmenes</block>
@@ -1823,17 +1751,12 @@
   <block id="3e566c45584d66d2ab94c2108f7c3488" category="cell">"azure-netapp-files"</block>
   <block id="9dd18f393b35bf22098cf53e9c1c7fa6" category="cell">Nombre del controlador + "_" + caracteres aleatorios</block>
   <block id="665120e71659a6a32f990a3181688d1b" category="cell"><block ref="8c443e170595ba0feac007ffb92cb49a" prefix="" category="inline-code"></block></block>
-  <block id="b2ad290b003ccdce2a538f49a795f281" category="cell">El ID de suscripción de su suscripción de Azure</block>
   <block id="e07778d10cef90430253876cba7157e4" category="cell"><block ref="bc54592d6183695b841c6d1880ec0bf8" prefix="" category="inline-code"></block></block>
-  <block id="2975d48342e428a3b18123f85ed0ecb5" category="cell">El ID de inquilino de un registro de aplicación</block>
   <block id="949ba1045db0d48bd189044e672d8097" category="cell"><block ref="93c5bebdea9c94a0740fe6fd9bb250f0" prefix="" category="inline-code"></block></block>
-  <block id="2c07e9234f0df0d4c8887a04f7e641fe" category="cell">El ID de cliente de un registro de aplicación</block>
   <block id="56ef18e84ab36c2bdc4546e6a2756673" category="cell"><block ref="2b53761249254ce6b502f521e5cc0683" prefix="" category="inline-code"></block></block>
-  <block id="85f484f0892a96287b6224ddd3c5fbb2" category="cell">El secreto de cliente de un registro de aplicaciones</block>
   <block id="1c65f12b4d30114593cc01384938cb5f" category="cell">Uno de<block ref="eb6d8ae6f20283755b339c0dc273988b" prefix=" " category="inline-code"></block>,<block ref="8d5e7e72f12067991186cdf3cb7d5d9d" prefix=" " category="inline-code"></block>, o.<block ref="7057376a419b3334cc7b8b7a9f064abb" prefix=" " category="inline-code"></block></block>
   <block id="b21b08bb55acd409e40e9b45edd3bb34" category="cell">"" (aleatorio)</block>
   <block id="fc7dd5b65d21ee7272a067c9404a8498" category="cell"><block ref="d5189de027922f81005951e6efe0efd5" prefix="" category="inline-code"></block></block>
-  <block id="8fce436e09a08bd124727374d3e1d1d5" category="cell">Nombre de la ubicación de Azure donde se crearán los nuevos volúmenes</block>
   <block id="016a4b469916e37291cfe2f7fab49aaf" category="cell"><block ref="6a3560738716ddd805d769d4460ca7aa" prefix="" category="inline-code"></block></block>
   <block id="66d09fbe1165f3d10b368cbe0cc029f4" category="cell">Lista de grupos de recursos para filtrar los recursos detectados</block>
   <block id="36cbcb8a57112362b05d06b9fe037a6e" category="cell">"[]" (sin filtro)</block>
@@ -1878,10 +1801,7 @@
   <block id="21590b83460bd480131384ef53bdccc4" category="cell">Los permisos unix de nuevos volúmenes (4 dígitos octal). Ignorada para volúmenes de SMB.</block>
   <block id="976a6dc52dbcabb541efa0a91e922604" category="cell">"" (función de vista previa, requiere incluir en la lista blanca de suscripciones)</block>
   <block id="10c0eb6973453da95b4ef937f19ddb6c" category="section-title">Configuraciones de ejemplo</block>
-  <block id="a78703e6fcb2511d5a565496df5b2082" category="example-title">Ejemplo 2: Configuración específica de nivel de servicio con filtros de pool de capacidad</block>
-  <block id="725ae241ec74eed978f0b099030236b8" category="example-title">Ejemplo 3: Configuración avanzada</block>
   <block id="a83f4a534ccef7ac1d209fb0015cd907" category="paragraph">Esta configuración de back-end reduce aún más el alcance de la ubicación de volúmenes en una única subred y también modifica algunos valores predeterminados de aprovisionamiento de volúmenes.</block>
-  <block id="3aa4918283a3160586bdbe1e76a338f3" category="example-title">Ejemplo 4: Configuración de pool virtual</block>
   <block id="baca3a42ff523348689308c7bd411b38" category="paragraph">Esta configuración back-end define varios pools de almacenamiento en un único archivo. Esto resulta útil cuando hay varios pools de capacidad que admiten diferentes niveles de servicio y desea crear clases de almacenamiento en Kubernetes que representan estos. Se utilizaron etiquetas de pools virtuales para diferenciar los pools según<block ref="c05f6c233521207f6fe311afef550c3c" prefix=" " category="inline-code"></block>.</block>
   <block id="c0b04213f295bd61098649d5dec24291" category="section-title">Definiciones de clase de almacenamiento</block>
   <block id="cad675ae3fb846705512fe460e615ac3" category="paragraph">Lo siguiente<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> las definiciones hacen referencia a los pools de almacenamiento anteriores.</block>
@@ -1889,10 +1809,6 @@
   <block id="1abbfd87ab307af55b755fd27ce60191" category="paragraph">Uso<block ref="4d859186a09b1da3597e5901157d9400" prefix=" " category="inline-code"></block> puede especificar para cada una de ellas<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> el pool virtual que se utiliza para alojar un volumen. Los aspectos definidos en el pool elegido serán el volumen.</block>
   <block id="4b7db799aa8307d15835ff36beb1b97c" category="section-title">Definiciones de ejemplo de volúmenes SMB</block>
   <block id="82b60bb483328d8efe9240dc8aa4a600" category="paragraph">Uso<block ref="296026821ada2ab8aebcf13547a63df5" prefix=" " category="inline-code"></block>,<block ref="e12fdd044232e643620eed06bf33c7af" prefix=" " category="inline-code"></block>, y. <block ref="1ad68a6a046942b7c1666aed825df70a" prefix=" " category="inline-code"></block>, Puede especificar un volumen SMB y proporcionar las credenciales necesarias de Active Directory.</block>
-  <block id="6de60e9a6b0ad8adcd762a8c85d540e2" category="example-title">Ejemplo 1: Configuración básica del espacio de nombres predeterminado</block>
-  <block id="1d8d21debc328526252944d2264246ca" category="example-title">Ejemplo 2: Uso de distintos secretos por espacio de nombres</block>
-  <block id="06bb6ebc4dada525717294b660ba2b3b" category="example-title">Ejemplo 3: Uso de distintos secretos por volumen</block>
-  <block id="15bee4120a83692e1e575f756f0259e2" category="admonition"><block ref="ed48900d86ac476d7fed80ae1701877f" prefix="" category="inline-code"></block> Filtra los pools que admiten volúmenes SMB.<block ref="7b2498fa5e66ef102dc531d0bf5c27a4" prefix=" " category="inline-code"></block> o.<block ref="45e1f49760c85197cd1d0fb6ee50f180" prefix=" " category="inline-code"></block> Filtros para pools NFS.</block>
   <block id="c51cc3b801a879870aea846bdde1c7a3" category="section-title">Cree el back-end</block>
   <block id="8682abd0ce083533bad141869c96ab2a" category="summary">Astra Trident ofrece varias funciones para gestionar sus volúmenes. Obtenga más información sobre las funcionalidades que ofrece Astra Trident para los volúmenes.</block>
   <block id="b42cbc6e68075c106b9faa27e4931091" category="doc">Realizar operaciones de volumen</block>
@@ -1924,12 +1840,8 @@
   <block id="4d80e2460d711b841338dfbeea2ca8c1" category="paragraph">Obtenga información sobre la configuración de un back-end de ONTAP con controladores NAS de ONTAP y Cloud Volumes ONTAP.</block>
   <block id="821b0ad941ad2559ef18eb8de56a470e" category="summary">Todos los nodos de trabajo del clúster de Kubernetes deben poder montar los volúmenes que haya aprovisionado para los pods. Si utiliza el controlador ontap-nas, ontap-nas-Economy, ontap-nas-flexgroup para uno de los back-ends, sus nodos de trabajo necesitan las herramientas NFS. De lo contrario, se necesitan las herramientas iSCSI.</block>
   <block id="262309361fe5b6dcda3a2eae08a48c2d" category="section-title">Seleccionar las herramientas adecuadas</block>
-  <block id="82ee439808998e63e6868ec2c2945ec9" category="paragraph">Si utiliza una combinación de controladores, debe instalar herramientas NFS e iSCSI.</block>
   <block id="2cb4ed05fbad97efb755e294c572862d" category="paragraph-title">Herramientas de NFS</block>
-  <block id="a9e67ed867ad461570158dca74719f75" category="paragraph">Instale las herramientas NFS si utiliza:<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>,<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>,<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>,<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>,<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block></block>
   <block id="0172151d0fbf6ae973feaaaf8a2c1b3a" category="paragraph-title">Herramientas iSCSI</block>
-  <block id="b7ebd185ede5c83487cb4ac908bab891" category="paragraph">Instale las herramientas iSCSI si utiliza:<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>,<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>,<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block></block>
-  <block id="d3d338d650fae8dd20bbce45831b41a9" category="admonition">Las versiones recientes de RedHat CoreOS tienen instaladas NFS e iSCSI de forma predeterminada.</block>
   <block id="d1914bc190cdc3bc9eee6db0c81021bc" category="section-title">Detección del servicio de nodos</block>
   <block id="b5a99bc586551f60f1fa102fcf3a90de" category="paragraph">Astra Trident intenta detectar automáticamente si el nodo puede ejecutar servicios iSCSI o NFS.</block>
   <block id="2b6ab5193160f5eaca51526b15f27e3a" category="admonition">La detección de servicios de nodo identifica los servicios detectados, pero no garantiza que los servicios se configuren correctamente. Por el contrario, la ausencia de un servicio detectado no garantiza que se produzca un error en el montaje del volumen.</block>
@@ -2136,21 +2048,7 @@
   <block id="6bee7851f8606d588c9122b234c202e3" category="list-text">Compruebe que la implementación se adapte a todas las <block ref="6fc1811f5f9a8ae54793544600e2dff7" category="inline-link-macro-rx"></block>.</block>
   <block id="d46ecc35447a8c17ef014ff6daf07bba" category="inline-link">instálelo o actualícelo</block>
   <block id="1035fa0ac2c3ed19f6ba56cafe7e121f" category="list-text">Compruebe que tiene instalada una versión compatible de Docker. Si la versión de Docker no está actualizada,<block ref="0b011811ae105895ca4da9769d7e6f99" category="inline-link-rx"></block>.</block>
-  <block id="7760c52227ccba10f5bc395571ca7a60" category="list-text">Compruebe que los requisitos previos de protocolo estén instalados y configurados en el host:</block>
-  <block id="696c660ff8d9323e55146a6dbd4e4088" category="cell">De NetApp</block>
   <block id="c441ee50c88f6e5e3a7c69fc69dad8b8" category="cell">Comandos</block>
-  <block id="e0b19bed1baf46134f4079471e193b01" category="paragraph"><block ref="94eefbd6c9de095826434b3f9ccf391a" prefix="" category="inline-code"></block></block>
-  <block id="1054b270f1635a3dd940e995cbc7ed78" category="paragraph"><block ref="abb05123bf030f39315b1c434e0db55e" prefix="" category="inline-code"></block></block>
-  <block id="6bbf3284462dc8b9b90cb1adcd1c0ff4" category="paragraph"><block ref="665e51cfda95769e3c8ebdab046ca726" prefix="" category="inline-code"></block></block>
-  <block id="55c13faac514053f94cef55eb316c9a4" category="paragraph"><block ref="03094aa6782d74480713a11c5903839a" prefix="" category="inline-code"></block></block>
-  <block id="d2db641a196e6107eecf8c32f7cd7a4e" category="paragraph"><block ref="2727f20d20b380c13b1bb8bd061ec5ed" prefix="" category="inline-code"></block></block>
-  <block id="75419edaab27be09afdb3415e83d93f6" category="paragraph"><block ref="94e15a777bd4f18c2f12ee2be36b8fe9" prefix="" category="inline-code"></block></block>
-  <block id="90a9d2e9b1b4ae58a957ff989f0732ba" category="paragraph"><block ref="badc8ec6dc9351896c1222339c46c345" prefix="" category="inline-code"></block></block>
-  <block id="0f905161e16c2cfa712f1fb7640afee4" category="paragraph"><block ref="001030a23350cb5d0000fa0ca0e8958f" prefix="" category="inline-code"></block></block>
-  <block id="28ea88befb3a7f6a8e98e7ea7a4fd35f" category="paragraph"><block ref="0aeeb6ce403007e66b525d7c0e35c36b" prefix="" category="inline-code"></block></block>
-  <block id="f6802be29c6bca93d8f44768b0347ac9" category="paragraph"><block ref="356deb49e1f467d08b44b652f9142bf7" prefix="" category="inline-code"></block></block>
-  <block id="b85c80e2af7e3d7dd06b874ed048d430" category="paragraph"><block ref="8c571642f53375f821000f29997e428c" prefix="" category="inline-code"></block></block>
-  <block id="8741473f7a80f4dd83071161b2c95301" category="paragraph"><block ref="daa257652291f43fa0c62f6c3656e185" prefix="" category="inline-code"></block><block ref="cbad0eebae2baf0530982755ce9242bf" prefix=" " category="inline-code"></block><block ref="898e75aedea224bb0922104b3055fb42" prefix=" " category="inline-code"></block></block>
   <block id="fc96768681dcf6770119445ffe2537cd" category="summary">Para crear volúmenes, utilice el estándar<block ref="8609cd03fd6628c6bcc999242fa9f3aa" prefix=" " category="inline-code"></block> Los comandos con el nombre del controlador Astra Trident se especifican cuando es necesario.</block>
   <block id="feabbbf9b5afb31194daf0d8e3ff75dc" category="doc">Trabaje con volúmenes</block>
   <block id="00e5ed77f92b42f144be7dfb7106bf10" category="paragraph">Puede crear, clonar y eliminar volúmenes fácilmente siguiendo el estándar<block ref="8609cd03fd6628c6bcc999242fa9f3aa" prefix=" " category="inline-code"></block> Los comandos con el nombre del controlador Astra Trident se especifican cuando es necesario.</block>
@@ -2331,7 +2229,6 @@
   <block id="876885770cf58d20ef5672cc5594e85d" category="inline-link">Consulte la información de configuración del host NFS aquí</block>
   <block id="0a19ca3d1db7e5bc24b58f73b91c3f49" category="paragraph">Control detallado de las opciones de montaje NFS; valor predeterminado es “-o nfsvers=3”. *Disponible sólo para<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> y..<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> controladores*.<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>.</block>
   <block id="5c5adadf8175fd69d4af9bfdb608c42c" category="paragraph">Tamaño máximo del volumen que se puede volver a realizar la consulta y tamaño del volumen principal de qtree. *Para<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Controlador, esta opción limita además el tamaño de los FlexVols que crea*.</block>
-  <block id="981ba910eb0ffc42f42059de056624b4" category="paragraph">El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300], y el valor predeterminado es 200. *Para<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Controlador, esta opción permite personalizar el número máximo de qtrees por FlexVol*.</block>
   <block id="3890063556e337d458019437f027030b" category="paragraph">Las opciones predeterminadas están disponibles para evitar tener que especificarlas en cada volumen que cree:</block>
   <block id="2bc97a247278d92f5552529c55ab7f0d" category="paragraph">Permite el cifrado de volúmenes de NetApp (NVE) en el volumen nuevo; los valores predeterminados son<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>. Para usar esta opción, debe tener una licencia para NVE y habilitarse en el clúster.</block>
   <block id="f5d176b3de4662ca3603a69ab08bc166" category="paragraph">Opción NAS para acceder al volumen NFS aprovisionado.</block>
@@ -2352,11 +2249,6 @@
   <block id="df1a7e79743809601db1d20d6a33ae52" category="paragraph">Para obtener información acerca de FlexGroups y las cargas de trabajo adecuadas para FlexGroups, consulte<block ref="b8a99695d7979127a1cab07b42e22743" category="inline-link-rx"></block>.</block>
   <block id="b30b6b60171d85877ea91897bdd6faed" category="paragraph">Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorno, puede ejecutar varias instancias del complemento para volúmenes de Docker, utilizando una<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> y otro uso<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>.</block>
   <block id="0c0f6724044ed44fb85d2ce3193cb7c3" category="section-title">Archivos de configuración de ONTAP de ejemplo</block>
-  <block id="9420b5e8ed08a163eeafb1d5026f74be" category="paragraph">*Ejemplo de NFS para<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> controlador*</block>
-  <block id="c26e7b2e60e156979940cd72ed83d0b9" category="paragraph">*Ejemplo de NFS para<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> controlador*</block>
-  <block id="3a57e82fd5f9855754a03019c433aff7" category="paragraph">*Ejemplo de NFS para<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> controlador*</block>
-  <block id="2bfad97b56e71c619e45f6d4c2e4c2e2" category="paragraph">*Ejemplo de iSCSI para<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> controlador*</block>
-  <block id="98f803effb81ad687bcd941b70439aaa" category="paragraph">*Ejemplo de NFS para<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> controlador*</block>
   <block id="ffe54c343031d16e77db73e2d950e277" category="section-title">Configuración del software Element</block>
   <block id="3afcd136a7bffa20fc39ba6581412cd2" category="paragraph">Además de los valores de configuración global, cuando se utiliza el software Element (HCI/SolidFire de NetApp), existen estas opciones disponibles.</block>
   <block id="31b1d21fc5180ec9a5b3d9d7d5ce3295" category="paragraph">\https://&lt;login&gt;:&lt;password&gt;@&lt;mvip&gt;/json-rpc/&lt;element-version&gt;</block>
@@ -2788,7 +2680,6 @@
   <block id="6f7d49547ff47cfaf1fd93d134b603be" category="list-text">Utilice la<block ref="9a259632da28fe06c1ce5125984d3597" prefix=" " category="inline-code"></block> para limpiar después de una ejecución fallida. De forma predeterminada, la secuencia de comandos no elimina los CRD creados por Trident, por lo que es seguro desinstalar e instalar de nuevo incluso en una implementación en ejecución.</block>
   <block id="f1112223b41fddc71fd6a626582dfb78" category="inline-link">Versión de Trident</block>
   <block id="51748ba3d16ecfd8c45c7ebf2043b738" category="list-text">Después de una instalación correcta, si un PVC está atascado en el<block ref="2d13df6f8b5e4c5af9f87e0dc39df69d" prefix=" " category="inline-code"></block> fase, en marcha<block ref="703698f580eb41aee04574750a78238d" prefix=" " category="inline-code"></block> Puede proporcionar información adicional acerca de por qué Trident no pudo aprovisionar un VP para esta RVP.</block>
-  <block id="a900bd1dbd5690f78a30ca74d138d0b7" category="section-title">Solución de problemas de una implementación de Trident incorrecta con el operador</block>
   <block id="0e89989064bf4afdc37fd5a7be4f607d" category="paragraph">Si utiliza el operador, el estado de implementación de Trident<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> cambios de<block ref="2763f33c904a183bd0ef06f9c4fb4403" prefix=" " category="inline-code"></block> para<block ref="98dd43dfae05b11befe1f140e0ec787a" prefix=" " category="inline-code"></block>. Si observa la<block ref="d7c8c85bf79bbe1b7188497c32c3b0ca" prefix=" " category="inline-code"></block> y el operador no puede recuperarse por sí solo, debe comprobar los registros del operador ejecutando el siguiente comando:</block>
   <block id="df9771dbb13da45493e576499910c0b4" category="paragraph">Al dejar atrás los registros del contenedor del operador-trident, puede indicar dónde se encuentra el problema. Por ejemplo, uno de estos problemas podría ser la incapacidad de extraer las imágenes contenedoras necesarias de los registros de entrada en un entorno con conexión aérea.</block>
   <block id="0fd4c6187c561958bc76052df7774593" category="paragraph">Para comprender por qué la instalación de Trident no ha tenido éxito, debería echar un vistazo al<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> estado.</block>
@@ -2796,7 +2687,6 @@
   <block id="568fcf9beb0dbd37c57dff251a3164ed" category="paragraph">Además, observar el estado de los pods de Trident puede indicar con frecuencia si algo no es correcto.</block>
   <block id="f89c17ddb9f8bdaf5c95a466d5f6a500" category="paragraph">Puede ver claramente que las vainas no pueden inicializarse completamente porque no se obtuvieron una o más imágenes contenedoras.</block>
   <block id="d57d1a6de03b2ddf3ee54f680152e2b6" category="paragraph">Para solucionar el problema, debe editar el<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> CR. Como alternativa, puede eliminar<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>, y cree una nueva con la definición modificada y precisa.</block>
-  <block id="6f8896eb5896943e1606d92193f72fb8" category="section-title">Solucione problemas de una implementación de Trident incorrecta mediante<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
   <block id="021e9ae5361eb14975bf9a30f99770f5" category="paragraph">Para ayudar a averiguar qué fue lo que salió mal, puede ejecutar el instalador de nuevo utilizando el <block ref="9b017020b9d48d433ec90c548e6b5c70" prefix="" category="inline-code"></block> argumento, que activa el modo de depuración y le ayuda a comprender cuál es el problema:</block>
   <block id="01539f4f1fd20792cbbae6bb0506cc20" category="paragraph">Después de solucionar el problema, puede limpiar la instalación de la siguiente manera y, a continuación, ejecutar el<block ref="430bf77bee6c59d385d4194f84c21b16" prefix=" " category="inline-code"></block> comando:</block>
   <block id="ea3d51fb2b16acb7cb260f25bc8965b1" category="sidebar">Astra Trident es un orquestador y gestor de aprovisionamiento de código abierto que mantiene NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones en contenedores gestionadas por Docker y Kubernetes.</block>
@@ -2996,9 +2886,7 @@
   <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22,04 o posterior (AMD64 y ARM64)</block>
   <block id="1285a056fd837828136d15f7e76d09cc" category="list-text">Windows Server 2019 (AMD64)</block>
   <block id="b38420e98813aed20daa115db2ac94a9" category="cell">v.1.27.0</block>
-  <block id="1ff1fd258a61bd04eee000a1fb6131fa" category="example-title">Ejemplo 1: Habilitar Astra Trident para que se ejecute en los nodos de Windows</block>
   <block id="f53514cf8829a41463c245b088ae732e" category="paragraph">Para permitir que Astra Trident se ejecute en los nodos de Windows:</block>
-  <block id="a921baa9e8c81f13d59fed4fce57ec88" category="example-title">Ejemplo 2: Activar la desconexión forzada</block>
   <block id="c5b5b00ff1b3a892c8694ab932cbf9ca" category="paragraph">Para obtener más información acerca de forzar separación, consulte <block ref="63cac71755fb6ef1f1fea34cf4037121" category="inline-link-macro-rx"></block>.</block>
   <block id="30042512b273723cf2eec336b6576d84" category="cell"><block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix="" category="inline-code"></block> y..<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> solamente. Funciona con cierre de nodos no controlado (NGN) de Kubernetes para conceder a los administradores de clústeres la capacidad de migrar de forma segura cargas de trabajo con volúmenes montados a nodos nuevos en caso de que un nodo se vuelva en mal estado. *Esta es una característica experimental en 23,04.* Consulte <block ref="620ff2552a2d798650bb027eb1271b17" category="inline-xref-macro-rx"></block> para obtener detalles importantes.</block>
   <block id="38a0b9f59e6fe23e1617dc0e78498afe" category="section-title">Detalles acerca de forzar separación</block>
@@ -3271,12 +3159,6 @@ Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no pu
   <block id="ff8c6e3b6971ed699a5dc2e00455aa82" category="list-text">Para la ONTAP en las instalaciones, puede crear opcionalmente un recurso compartido de SMB, o bien Astra Trident puede crearlo para usted.</block>
   <block id="6a402202521e2168a911181e81c72faf" category="admonition">Los recursos compartidos de SMB se requieren para Amazon FSx para ONTAP.</block>
   <block id="7f7041fc0ca0e00f3d3e39e4ce4a5149" category="paragraph">Puede crear recursos compartidos de administrador de SMB de una de dos formas mediante el <block ref="364bc251e9c8cfbf6ce258767d17d682" category="inline-link-macro-rx"></block> Complemento carpetas compartidas o uso de la CLI de ONTAP. Para crear los recursos compartidos de SMB mediante la CLI de ONTAP:</block>
-  <block id="00aa30f1783ef69183794c0da05e43b5" category="cell"><block ref="5910159ef86741f119f7574a9064b5b0" prefix="" category="inline-code"></block>
-Puede especificar una de las siguientes opciones: El nombre de un recurso compartido de SMB creado mediante la consola de administración de Microsoft o la interfaz de línea de comandos de ONTAP; un nombre para permitir que Astra Trident cree el recurso compartido de SMB; o bien puede dejar el parámetro en blanco para evitar el acceso de recurso compartido común a los volúmenes.
-
-Este parámetro es opcional para ONTAP en las instalaciones.
-
-Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no puede estar en blanco.</block>
   <block id="a513707a481ff6afe9846fefc6411bca" category="paragraph">Astra Trident espera que se ejecute como administrador de ONTAP o SVM, normalmente mediante el<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> usuario del clúster o un<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> Usuario de SVM o un usuario con un nombre diferente que tenga el mismo rol.</block>
   <block id="624061180b7b402618e3add29c08bd51" category="paragraph">Para puestas en marcha de Amazon FSX para ONTAP de NetApp, Astra Trident espera que se ejecute como administrador de ONTAP o SVM, mediante el clúster<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> usuario o un<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> Usuario de SVM o un usuario con un nombre diferente que tenga el mismo rol. La<block ref="679500f227997b45be97e3ca8115c678" prefix=" " category="inline-code"></block> el usuario es un reemplazo limitado para el usuario administrador del clúster.</block>
   <block id="7d159230ccaa721872f31bf9be31afeb" category="paragraph">Si bien es posible crear un rol más restrictivo dentro de ONTAP que puede utilizar un controlador Trident, no lo recomendamos. La mayoría de las nuevas versiones de Trident denominan API adicionales que se tendrían que tener en cuenta, por lo que las actualizaciones son complejas y propensas a errores.</block>
@@ -3294,9 +3176,7 @@ SMB</block>
   <block id="35e98ba80f6254a33de7a37ab113316e" category="section-title">Manifiestos de muestra</block>
   <block id="3c5f9191f489dbdd8d950bafc3dea6e0" category="example-title">Manifiesto de muestra de volumen persistente</block>
   <block id="a992ed82e7964281386cdd46c0c21da6" category="paragraph">Este manifiesto de ejemplo muestra un PV básico de 10Gi que está asociado con StorageClass<block ref="1c62ceba602064183a6346b85fe26c96" prefix=" " category="inline-code"></block>.</block>
-  <block id="79ddefb35e8989bd46983da549591a62" category="example-title">Manifiesto de muestra de PersistentVolumeClaim</block>
   <block id="cdeec5159e0548de993d76d7d1dcc992" category="paragraph">En este ejemplo se muestra una RVP básica con acceso RWO que está asociada con una clase de almacenamiento denominada<block ref="1c62ceba602064183a6346b85fe26c96" prefix=" " category="inline-code"></block>.</block>
-  <block id="214059413fbd58acf0b1945104224cf2" category="example-title">Muestra de manifiesto de POD</block>
   <block id="bb970cb0639998faceb4ab3a67e3f1e3" category="section-title">Cree el VP y la RVP</block>
   <block id="0305eb03fd924b3f68ccbf10aeced8a6" category="list-text">Cree el VP.</block>
   <block id="b4acd617ac02334a1b983b6ff960a909" category="list-text">Compruebe el estado de PV.</block>
@@ -3356,16 +3236,9 @@ SMB</block>
   <block id="5e32849b22982f8931eb5a8a2b334104" category="section-title">Astra Trident<block ref="bd7a9717d29c5ddcab1bc175eda1e298" prefix=" " category="inline-code"></block> objetos</block>
   <block id="4d030713789beb2071b47e51b99ea17f" category="section-title">Astra Trident<block ref="d4e2713d1b1725a1592f9268589f990d" prefix=" " category="inline-code"></block> objetos</block>
   <block id="822293db528ee892466bd05ecce74b14" category="section-title">Información vital sobre Astra Trident</block>
-  <block id="88faa8ac89cdba5b170eddcb5d3c227f" category="list-text">Kubernetes 1,22 - 1,27</block>
   <block id="aa919adfeb24335f206c7d14733b5a18" category="list-text">OpenShift 4,10 - 4,13</block>
   <block id="a5fd2691a6a5df653970895b1c5045ed" category="inline-link-macro">Actualizar una instalación Helm</block>
   <block id="e94d606eb30ec23b1c90bde5c842bbd7" category="admonition">Antes de actualizar un clúster de Kubernetes de 1.24 a 1.25 o posterior que tenga instalado Astra Trident, consulte <block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>.</block>
-  <block id="bdecef051e32495c339265b13937fdd2" category="list-text">docker.io/netapp/trident-autosupport:23,07</block>
-  <block id="9b99c0d216202fb5b3542f33737fc7cd" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v3,5.0</block>
-  <block id="51c642e645718f28d506b2bf03ecad77" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4,3.0</block>
-  <block id="2b137b6d62621064ff952b61fea42b29" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v1,8.0</block>
-  <block id="18a8e4619e4059aeaf215a48da7867f9" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v6,2.2</block>
-  <block id="20388ac1d79215adf3bb812d9291e0be" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,8.0</block>
   <block id="a97fcb333111f781986275ea628fc4da" category="summary">Astra Trident se ejecuta como un pod de controladora único más un pod de nodo en cada nodo trabajador del clúster. El pod del nodo debe ejecutarse en cualquier host en el que desee montar potencialmente un volumen Astra Trident.</block>
   <block id="26ad893be275d6f4dd0e2992250c147f" category="inline-link-macro">Contenedores Sidecar de Kubernetes CSI</block>
   <block id="db4723304a1add25b171bb663d394c84" category="paragraph">Astra Trident se pone en marcha como un único <block ref="7f05a5daccc48435b05c14a7b739fa36" category="inline-xref-macro-rx"></block> y uno o más <block ref="8642ddce0d2b15cad48dfefb369d4c89" category="inline-xref-macro-rx"></block> En el clúster de Kubernetes y utiliza los contenedores estándar de Kubernetes _CSI Sidecar Containers_ para simplificar la implementación de los complementos CSI. <block ref="c1b69fa7e0376b667b144d553d4653a8" category="inline-link-macro-rx"></block> Los mantiene la comunidad de Kubernetes Storage.</block>
@@ -3426,8 +3299,6 @@ SMB</block>
   <block id="88e4f10ca85b56deb88df953f1b028c9" category="admonition">Si utiliza Astra Control para protección, recuperación y movilidad, lea <block ref="655b383e69b0d2ae89ad0b4bf7e37964" category="inline-xref-macro-rx"></block>.</block>
   <block id="c6891a9678e67fff611982bdd3dc5a4d" category="section-title">Compatibilidad de controladores Astra Control</block>
   <block id="b2edeceecc054572188ee3b08cd58c64" category="list-text">Después de colocar el binario y crear el archivo de configuración, inicie el daemon de Trident con el archivo de configuración que desee.</block>
-  <block id="ed79382c003eb221606454bd2116c86f" category="summary">Astra Trident es un orquestador y gestor de aprovisionamiento de código abierto que mantiene NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones en contenedores gestionadas por Docker y Kubernetes. **Lea las notas de la versión para obtener información crítica sobre la actualización a Astra Trident 23,07.**</block>
-  <block id="19b14d01c950971a7d832e9a179ba005" category="doc">Documentación de Astra Trident 23,07</block>
   <block id="b4f83b03956523a39e8bbbd0895f0f29" category="inline-link-macro">Cloud Insights</block>
   <block id="46792977f68671d8fa16e6cf46018cf1" category="paragraph">Sí. Extremos de Prometheus que se pueden utilizar para recopilar información sobre la operación de Astra Trident, como el número de back-ends gestionados, el número de volúmenes aprovisionados, bytes consumidos, etc. También puede utilizar <block ref="7a2477b8055ecdaa4bd473b0556bcb2a" category="inline-link-macro-rx"></block> para supervisión y análisis.</block>
   <block id="8bcc65cd81ef7ffed875ca40674efa09" category="paragraph">Sí. Astra Trident es compatible con CHAP bidireccional para back-ends de ONTAP. Esto requiere configuración<block ref="68978ccf4ed83900c8dd27558ca5ec18" prefix=" " category="inline-code"></block> en la configuración de back-end.</block>
@@ -3470,11 +3341,8 @@ Nota:3[]: No gestionado por Astra Trident y no por VP granular
 Yesfootnote:4[]: Compatible con volúmenes de bloques sin configurar
 YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="1c62ad76355c68d0de5faf475ab1861e" category="inline-link-macro">Ciclo de vida del soporte de Astra Trident</block>
-  <block id="039b1be5cbe744fb8a84aa3fb3f1e4e0" category="paragraph">Si no utiliza Astra Trident 23,07, la documentación de versiones anteriores está disponible según la <block ref="6e1ac221c7aa10f6bb30cbfd51cb3204" category="inline-link-macro-rx"></block>.</block>
   <block id="35e136dc2ee53639294dbf7dbadf4436" category="inline-link">Astra Trident 23,04</block>
   <block id="b409a213a2362e60968efbd1c87c6713" category="list-text"><block ref="b409a213a2362e60968efbd1c87c6713" category="inline-link-rx"></block></block>
-  <block id="727d2d1e15a5c7260e90c50b1c250a4c" category="inline-link">Astra Trident 20,10</block>
-  <block id="568faefb90021c668cb5de911e54d468" category="list-text"><block ref="568faefb90021c668cb5de911e54d468" category="inline-link-rx"></block></block>
   <block id="52009bb7ee17227f566cd26a02caee56" category="inline-link-macro"><block ref="52009bb7ee17227f566cd26a02caee56" category="inline-link-rx"></block></block>
   <block id="a1a9afcf552a769c282769271829889a" category="paragraph"><block ref="a1a9afcf552a769c282769271829889a" category="inline-link-macro-rx"></block></block>
   <block id="f99aa604031e5049799e73b5c3748a98" category="inline-link-macro"><block ref="f99aa604031e5049799e73b5c3748a98" category="inline-link-rx"></block></block>
@@ -3483,7 +3351,6 @@ YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="dd38f906b37d412de7d1c1dcf4cbf31c" category="paragraph"><block ref="dd38f906b37d412de7d1c1dcf4cbf31c" category="inline-link-macro-rx"></block></block>
   <block id="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-macro"><block ref="8acb58cbd50ef1b468a020ee0bd351d3" category="inline-link-rx"></block></block>
   <block id="2352c4e1f4d0024ade0869e00e6243f4" category="paragraph"><block ref="2352c4e1f4d0024ade0869e00e6243f4" category="inline-link-macro-rx"></block></block>
-  <block id="1b42faf3fa3bff2aa6908b45f8fa32d3" category="section-title">Información vital sobre Astra Trident 23,07</block>
   <block id="7b0d9f7412b27b7678fe3c1e9ecd655d" category="example-title">&lt;strong&gt;Contabilidad de recursos &lt;/strong&gt;</block>
   <block id="1e208b01b50ff4accf1a23f62c0926e1" category="paragraph">El operador Trident en el ámbito del clúster gestiona los recursos asociados con una instalación de Astra Trident en el nivel del clúster. Esto mitiga los errores que pueden producirse al mantener los recursos de ámbito de cluster mediante un operador de ámbito de espacio de nombres. Esto es esencial para la reparación automática y la aplicación de parches.</block>
   <block id="33ab2c3f94452baf7f17dab03982edfb" category="paragraph">Después<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> se actualiza, el operador procesa las actualizaciones y parches de la instalación existente. Esto podría desencadenar la creación de nuevos pods para modificar la instalación en consecuencia.</block>
@@ -3496,11 +3363,7 @@ YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="7993b54bc115df4675f3a823c4f0a34b" category="list-text">Si ha creado Cloud Volumes Service para Google Cloud en <block ref="f85eaeb5fc440d0981667ac30b117af7" category="inline-link-macro-rx"></block>, debe actualizar la configuración de backend para utilizar el<block ref="317ec56a799e879712bbd2d0fcbd3b93" prefix=" " category="inline-code"></block> o.<block ref="75b65576cc4a19f0836b73610ad5957a" prefix=" " category="inline-code"></block> Nivel de servicio al actualizar desde Astra Trident 23,01. Fallo al actualizar el<block ref="f1d0ae63f2e948a9e43dcc60303d595d" prefix=" " category="inline-code"></block> en el back-end se puede provocar que se produzcan errores en los volúmenes. Consulte <block ref="83a0df2fb9a604879fdb2fab6c5f77c1" category="inline-link-macro-rx"></block> para obtener más detalles.</block>
   <block id="6429305365094c29848a93a6d17a7f53" category="list-text">El directorio https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample input^] contiene ejemplos, como https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ<block ref="9abb8c7777ddb413820ee07d5d93aa4a" prefix="[" category="inline-code"></block>^] y link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml<block ref="69ae2d9a6d831af7488e53fec053b77e" prefix="[" category="inline-code"></block>#].</block>
   <block id="bd13b44dd39ca58b0cf89a17d8a43f0e" category="list-text">Para obtener más información, consulte <block ref="04cf7258a315ca08f4b436c194fef69d" category="inline-link-macro-rx"></block>.</block>
-  <block id="48ac462ded5eb0988ed401f7da378102" category="list-text">Puede realizar una actualización directa a cualquier versión de destino que esté dentro de una ventana de cuatro versiones de la versión instalada. Por ejemplo, puede actualizar directamente de 22,07 (o cualquier versión de 22,07 puntos) a 23,07.</block>
   <block id="2251733916a92fc0c61d943165128928" category="inline-link-macro">versión anterior</block>
-  <block id="d72c4dbe3a7bcd15dfb605aa584d9e06" category="list-text">Si va a actualizar desde una versión fuera de la ventana de cuatro versiones, realice una actualización de varios pasos. Utilice las instrucciones de actualización de <block ref="a799aa6eaf3a5192b34ea19f24bb716f" category="inline-link-macro-rx"></block> va a actualizar de a a la versión más reciente que se ajuste a la ventana de cuatro versiones. Por ejemplo, si utiliza 21,07 y desea actualizar a la versión 23,07:</block>
-  <block id="8d5724ba65902bcd4a2074b550d98e02" category="list-text">Primera actualización de 21,07 a 22,07.</block>
-  <block id="f2576433ea639d3237f635a8f173e34c" category="list-text">A continuación, actualice de 22,07 a 23,07.</block>
   <block id="7bd3bf704987c7c25848acd94f0e499d" category="list-text">Uso<block ref="8dd3e3fab389d3d56b4dbea697d52e91" prefix=" " category="inline-code"></block> para examinar los pods.</block>
   <block id="ae0da380d74bf3d71ac89124c088358a" category="paragraph">Por lo general, debe actualizar utilizando el mismo método que utilizó para la instalación inicial, sin embargo, puede hacerlo <block ref="e34c010032791417159012a5e31d7540" category="inline-link-macro-rx"></block>. Hay dos opciones para actualizar Astra Trident.</block>
   <block id="672218727121432fb7209f42c6a00514" category="list-text"><block ref="672218727121432fb7209f42c6a00514" category="inline-link-macro-rx"></block></block>
@@ -3543,9 +3406,6 @@ YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="b0e74afe1fdeb605b5c47b501c43b71b" category="inline-link-macro">la versión instalada</block>
   <block id="4642420c93e6091ce8421e89a16fd80d" category="admonition">Para actualizar desde Astra Trident que se instaló con el operador del ámbito de espacio de nombres (de la 20,07 a la 20,10), utiliza las instrucciones de actualización para <block ref="567dd1ff029f25a404a69ff1e3c8d83b" category="inline-link-macro-rx"></block> De Astra Trident.</block>
   <block id="eb7a4fa3d9aff7ec5b23abb8b82d516b" category="paragraph">Trident proporciona un archivo de paquete que se puede utilizar para instalar el operador y crear objetos asociados para la versión de Kubernetes.</block>
-  <block id="0832423fdef6d1073376febeafb11832" category="list-text">Para los clústeres que ejecutan Kubernetes 1,24 o una versión anterior, utilice <block ref="8b8083e47d4f32cbe1da275ad704ec28" category="inline-link-macro-rx"></block>.</block>
-  <block id="4ac6364736606467ebc3be7abadfb0ef" category="list-text">Para los clústeres que ejecutan Kubernetes 1,25 o posterior, utilice <block ref="44d1f465bf50a20fa85c56cfe0e1804f" category="inline-link-macro-rx"></block>.</block>
-  <block id="0af6b3e2ec6d581f66df3a49e97c5c55" category="list-text">Elimine el operador Trident que se ha utilizado para instalar la instancia actual de Astra Trident. Por ejemplo, si va a actualizar desde 23,04, ejecute el siguiente comando:</block>
   <block id="3ae662c67d403e6230b019a96e787b63" category="paragraph">Puede actualizar una instalación de Astra Trident Helm.</block>
   <block id="613909529798c8a2543da8e954e5d742" category="section-title">Actualizar desde a.<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Instalación para el operador Trident</block>
   <block id="9142b40107d9c5a0b86ef0ce8c25a88b" category="paragraph">Puede actualizarlo a la versión más reciente del operador de Trident desde un<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> instalación. Los back-ends y EVs existentes estarán disponibles automáticamente.</block>
@@ -3577,7 +3437,6 @@ YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="7022ed6df71cc12fbd0576cef4df23fd" category="cell">A enero de 2026</block>
   <block id="775d4bb28d257a6aa23992563a82c458" category="inline-link-macro">22,10</block>
   <block id="1d064e71d708bc66779c604db1339850" category="paragraph"><block ref="1d064e71d708bc66779c604db1339850" category="inline-link-macro-rx"></block></block>
-  <block id="b0ec3d3ab3b33bd69418a7bd9e4d8f9e" category="cell">Octubre de 2023</block>
   <block id="09ea156cd1da2f7e3fda8aefab96074a" category="cell">Octubre de 2024</block>
   <block id="99dfa28920a40a7be0858c50f989a3e5" category="cell">Octubre de 2025</block>
   <block id="b321f6c1ada34a3fa850996d673e01ca" category="inline-link-macro">22,07</block>
@@ -3595,8 +3454,6 @@ YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="b5f347c5a644b0177640eb424de5985e" category="paragraph"><block ref="b5f347c5a644b0177640eb424de5985e" category="inline-link-macro-rx"></block></block>
   <block id="d029b605d0129cdb050642645b32b1db" category="inline-link-macro">21,01</block>
   <block id="1e3346636960647557d3c482eddcce3b" category="paragraph"><block ref="1e3346636960647557d3c482eddcce3b" category="inline-link-macro-rx"></block></block>
-  <block id="a84024ce06ef98519b3b51300b2c8fbf" category="inline-link-macro">20,10</block>
-  <block id="f5cb139594df07b13c6c08d1e87ca5ab" category="paragraph"><block ref="f5cb139594df07b13c6c08d1e87ca5ab" category="inline-link-macro-rx"></block></block>
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">Soporte de la comunidad</block>
   <block id="314c5cdde6da009a7b0571d60c8422ae" category="paragraph">Existe una vibrante comunidad pública de usuarios de contenedores (incluidos los desarrolladores de Astra Trident) en Astra <block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>. Este es un gran lugar para hacer preguntas generales sobre el proyecto y discutir temas relacionados con compañeros de ideas afines.</block>
   <block id="965b11d07d6acceebc9efec23e5e74a9" category="section-title">Soporte técnico de NetApp</block>
@@ -3616,7 +3473,6 @@ YesFootnote:5[]: Apoyado por Astra Trident</block>
   <block id="143c9ea21ac76ba425aa94411fbba07b" category="sidebar">Descripción general de Astra Trident</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">Gestione y supervise Astra Trident</block>
   <block id="ee4c63201b5c5c6c9da139c0a39bcb7b" category="summary">Astra Trident para Docker proporciona integración directa con el ecosistema de Docker para las plataformas de almacenamiento de NetApp. Admite el aprovisionamiento y la gestión de recursos de almacenamiento desde la plataforma de almacenamiento hasta hosts Docker, con un marco para añadir plataformas adicionales en el futuro.</block>
-  <block id="5d22e3d2d8e7ef4a3b8d79728779c6d8" category="paragraph">1,22 - 1,27</block>
   <block id="3e0f4d44c9c86926852e66ee127c5d3d" category="paragraph">Astra Trident admite la importación de volúmenes mediante el<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> controlador. No se admite la importación de volúmenes en el<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> controlador.</block>
   <block id="475fb21c20bb54ea8ac6cb1756aba565" category="inline-link-macro">KB: La creación de una RVP a partir de una snapshot de RVP de Trident no se puede crear en un back-end alternativo</block>
   <block id="18051638f30f342b517379b11f0442f9" category="admonition">La RVP se creará en el mismo back-end que el volumen de origen. Consulte <block ref="0d4d7e7a69b413699039bc9b916a37d5" category="inline-link-macro-rx"></block>.</block>
@@ -3677,8 +3533,6 @@ Con el<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-
   <block id="7fd570aee3c81c5db028704e5fdf5b52" category="paragraph">Astra Trident proporciona los siguientes controladores de almacenamiento SAN para comunicarse con el clúster de ONTAP. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).</block>
   <block id="fcd147679464b9eda6367f4e90e16ff8" category="paragraph">RWO, RWOP</block>
   <block id="94188b3f68e7baf5ef4a1f721857e77c" category="paragraph">ROX y RWX no están disponibles en el modo de volumen del sistema de archivos.</block>
-  <block id="2acadf30bbdf69b0408eadef287eb346" category="summary">Puede configurar Azure NetApp Files como back-end de Astra Trident. Puede asociar volúmenes NAS y SMB con un back-end de Azure NetApp Files.</block>
-  <block id="8094785ba6188e7e62aca54731d06963" category="paragraph">Puede configurar Azure NetApp Files como back-end de Astra Trident. Puede asociar volúmenes NFS y SMB con un back-end de Azure NetApp Files.</block>
   <block id="2f73efb41160e66d2e4f5b500c984de8" category="section-title">Información del controlador de Azure NetApp Files</block>
   <block id="4ba3000579192de0298587f58861a12e" category="paragraph">Astra Trident proporciona los controladores de almacenamiento de Azure NetApp Files siguientes para comunicarse con el clúster. Los modos de acceso admitidos son: _ReadWriteOnce_ (RWO), _ReadOnlyMany_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).</block>
   <block id="7e7d2470a40e817070cd42bd81713c7b" category="paragraph"><block ref="2521ef5d58fc027d3121662b7d8f9ac2" prefix="" category="inline-code"></block>,<block ref="79e0f325804dafbdaef73b3b17c0fd8d" prefix=" " category="inline-code"></block></block>
@@ -3731,20 +3585,9 @@ Con el<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-
   <block id="1ce00ab507a065e4febc57b244e25d18" category="example-title">Ejemplo de política de exportación automática</block>
   <block id="5ef13a507a243e20eb0469a9d7670527" category="example-title">Ejemplo de direcciones IPv6</block>
   <block id="ee8af8063e9ea3725931d232730b8a8e" category="example-title">Ejemplo de Amazon FSx para ONTAP mediante volúmenes de bloque de mensajes del servidor</block>
-  <block id="4c7a5aa32bd20cc1e93c16706345fc24" category="list-text">docker.io/netapp/trident:23.07.1</block>
-  <block id="8f4c6bec9339a74c71de885862e0c35a" category="list-text">docker.io/netapp/trident-operator:23.07.1 (opcional)</block>
   <block id="af35b81563dca040d2036ccc5fdf5cbf" category="summary">Antes de usar el operador Trident para actualizar Astra Trident, debe comprender los procesos en segundo plano que se producen durante la actualización. Esto incluye cambios en la controladora Trident, en el pod de controladora y en los pods de nodos, así como en el DaemonSet de nodos que permiten actualizaciones graduales.</block>
   <block id="99c73e527698ab76b32674b7e9dd4708" category="inline-link-macro">_actualizaciones sucesivas_</block>
   <block id="bec1352836ad67ce44ee000c83d4dae1" category="paragraph">Uno de los muchos <block ref="1294f86abdf2591159d9dd04918b1092" category="inline-link-macro-rx"></block> Para instalar y actualizar Astra Trident es la gestión automática de los objetos de Astra Trident y Kubernetes sin interrumpir los volúmenes montados existentes. De esta forma, Astra Trident puede admitir renovaciones sin tiempos de inactividad o incluso <block ref="c0fb6b6f12bb8ae805a97690328ec023" category="inline-link-macro-rx"></block>. En concreto, el operador Trident se comunica con el clúster de Kubernetes para:</block>
-  <block id="cf2f4ee3dd2f4847e4871244b9ac51df" category="list-text">Utilice la<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> comando donde<block ref="d6a197586cce49153cfbfb94bb2e9941" prefix=" " category="inline-code"></block> refleja la versión a la que desea actualizar.</block>
-  <block id="c8f1fdceb105d8331cbfc9721c6bc44f" category="list-text">Uso<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> y especifique un nombre para su implementación y ubicación del registro de imágenes. Su <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos:<block ref="87b2b8072e7d5f7e6e968a7c49bdc4a2" prefix=" " category="inline-code"></block> Es la versión de Astra Trident que está instalando.</block>
-  <block id="d466de3460bd819fa8eb16bf42b1db7e" category="paragraph">Por ejemplo, para cambiar el valor predeterminado de<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>, ejecute lo siguiente<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> comando donde<block ref="87b2b8072e7d5f7e6e968a7c49bdc4a2" prefix=" " category="inline-code"></block> Es la versión de Astra Trident que está instalando:</block>
-  <block id="780123b705b81f6d4b816faff5e82117" category="section-title">Información vital sobre Astra Trident 23.07.1</block>
-  <block id="b2527de2557e527d4be043e1c86bc69c" category="list-text">Uso<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> y especifique un nombre para la implementación como en el ejemplo siguiente donde<block ref="87b2b8072e7d5f7e6e968a7c49bdc4a2" prefix=" " category="inline-code"></block> Es la versión de Astra Trident que está instalando.</block>
-  <block id="6e0b20191589c60f116864ba4a9f6450" category="paragraph">Pulg<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>, actualizar<block ref="948b8261d6bd10eba9190981601c0915" prefix=" " category="inline-code"></block> para reflejar la ubicación del registro de imágenes. Su <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. Por ejemplo:</block>
-  <block id="d265ac83a999c5664002082de4a65e05" category="list-text"><block ref="40ecbfec412666aee449608e50f67b87" prefix="" category="inline-code"></block> si todas las imágenes están ubicadas en un registro.</block>
-  <block id="183ccfb0be6f36dfc545d9bf582a1180" category="list-text"><block ref="d3a400126b30a5fb9f887818fc7e1f04" prefix="" category="inline-code"></block> Si su imagen Trident se encuentra en un registro diferente de sus imágenes CSI.</block>
-  <block id="d06187756592965157c9f1bc4fc51a9c" category="cell">«netapp/trident-autosupport:23,07»</block>
   <block id="06918a8f55f386d79e64a70ca217b501" category="paragraph">*Kubernetes:* Eliminación de inicio de datos fija para admitir actualizaciones de cero tiempo de inactividad (<block ref="6f993c83118cc4a1dd5351c8501e26c9" category="inline-link-macro-rx"></block>).</block>
   <block id="ca6a658f1db1af30f178530c90cbe8fc" category="section-title">Cambios en 23,07</block>
   <block id="57154d2dcf591aaa3d4dcbfbba196075" category="inline-link-macro">Límites de volumen ONTAP compatibles</block>
@@ -3793,14 +3636,12 @@ No utilizar<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category="in
   <block id="30abd17d4913fab8af9d1efd63c15f9c" category="paragraph">Cuando la<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> el indicador se establece en<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>, El operador Trident desinstala Trident, pero no quita el propio TridentOrchestrator. Debe limpiar el TridentOrchestrator y crear uno nuevo si desea volver a instalar Trident.</block>
   <block id="0b5b18e58101a5fdc2d3618c85a04814" category="list-text">**Eliminar<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block>**: Quitando el<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> CR utilizado para implementar Astra Trident, indica al operador que desinstale Trident. El operador procesa la eliminación de<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> Y procede a eliminar la implementación y el demonset de Astra Trident, con la eliminación de los pods de Trident que ha creado como parte de la instalación.</block>
   <block id="566ef0ea3e228b1c501652e83def2c9d" category="paragraph">Utilice la<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> comando en<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Para quitar todos los recursos asociados con Astra Trident, excepto los CRD y los objetos relacionados:</block>
-  <block id="3d11c687c20c6a6a9fec2b3d07f861f0" category="section-title">¿Cuáles son las novedades en 23.07.1</block>
   <block id="f3f30d479f6e3b393d917a3b2f88c770" category="cell"><block ref="89801e9e98979062e84647433a8ed3e9" prefix="" category="inline-code"></block></block>
   <block id="c9db68ea6cff44f42ac5acbbfccec399" category="cell">Espacio de nombres para instalar Astra Trident en</block>
   <block id="fbbd7b4b14060c4fdb02f92c4c08e702" category="cell">Ajuste a.<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> Permite la instalación en nodos de trabajo de Windows.</block>
   <block id="3dd791c4864e77ae6cf11572e2d7b374" category="cell">Instale Astra Trident sobre IPv6</block>
   <block id="077e99fe42ced522b462656cffffe09c" category="cell"><block ref="d5276bb17ae062102e883a18454c2f1b" prefix="" category="inline-code"></block></block>
   <block id="4448b73eac083e33b7142f0e5790fac5" category="cell">Tiempo de espera para las operaciones de Kubernetes</block>
-  <block id="e4d71bf2abad047425f4463e27bb83b0" category="cell">30 seg</block>
   <block id="42cf123e93ecc5c0297652edbc547fc0" category="cell"><block ref="2fac1659431903a30e063d49b3effb9d" prefix="" category="inline-code"></block></block>
   <block id="4a213b7c3b997ffb0794b25909381d16" category="cell">No envíe paquetes AutoSupport a NetApp
 automáticamente</block>
@@ -3809,14 +3650,9 @@ Telemetría</block>
   <block id="076bc379a24183ce77834bac007ca852" category="cell">Una Marca utilizada para desinstalar Astra Trident</block>
   <block id="cad060d2f14dbf08315c20014ed31daa" category="cell"><block ref="0b19d236934f609fe765b504a36b637e" prefix="" category="inline-code"></block></block>
   <block id="acfc4a8e6d53bad27d4e2d393bfff61e" category="cell">Formato de registro de Astra Trident para utilizar [text,json]</block>
-  <block id="20cd815523e5806aec29a57282b0d49f" category="cell">"texto"</block>
   <block id="20f408a3276af1f7f1bf02ba374786ca" category="cell">Imagen de Astra Trident para instalar</block>
-  <block id="0498ee65f9f6b76f08a28e7b6715c963" category="cell">«netapp/trident:23,07»</block>
   <block id="4f25f4cca5c1939f4a728d2678e719f7" category="cell">Ruta de acceso al registro interno, del formato<block ref="d2ce1f53a5f0e84f4f1b5e28836eb05b" prefix=" " category="inline-code"></block></block>
-  <block id="fb4feec526f3a24c097c73a5f36af4bd" category="cell">«k8s.gcr.io/sig-storage» (k8s 1,19+)
-o «quay.io/k8scsi»</block>
   <block id="31aad37dce0c28e12908582a0d63736a" category="cell">Ruta al directorio kubelet del host</block>
-  <block id="df8f3af91e96fe841267201ed450cd6b" category="cell">«/var/lib/kubelet»</block>
   <block id="b6e0e2c4168573f0ed61c842470342ba" category="cell"><block ref="c13a52521693f799a16fd56a35c77a04" prefix="" category="inline-code"></block></block>
   <block id="4e33345575b5a443dec89767624a1ee8" category="cell">Lista de recursos que se van a suprimir para realizar una eliminación completa de
 Astra Trident</block>
@@ -3868,25 +3704,339 @@ Puede configurarse para que utilice direcciones IPv6 si Astra Trident se instal�
   <block id="5e74892a3fc09257dc0257ff5247631b" category="list-text">Un problema común que se puede encontrar cuando se usa Trident con<block ref="4568986ef6397d7c901269fc0e190ede" category="inline-link-rx"></block> es cuando el inquilino y los secretos de cliente provienen de un registro de aplicación con permisos insuficientes. Si desea ver una lista completa de los requisitos de Trident, consulte <block ref="afedf4ee56554ea6e6b54e6aa206680c" category="inline-link-macro-rx"></block> configuración.</block>
   <block id="3d8f9a401d2f14d3d617f589c6df7432" category="paragraph">Si necesita una solución para los errores observados después de una actualización, problemas de dependencia o una actualización incorrecta o incompleta, debería hacerlo <block ref="a77ee044a82010691ba331df7568f289" category="inline-link-macro-rx"></block> y vuelva a instalar la versión anterior utilizando las instrucciones específicas para esa versión. Esta es la única forma recomendada de cambiar a una versión anterior.</block>
   <block id="3fd1a9bc30bcd7efc9fd65fa7a4eccb8" category="paragraph">Astra Trident se debe instalar mediante la marca<block ref="4a4ef9f92e69acc000120379678aadcf" prefix=" " category="inline-code"></block> (para<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> instalación),<block ref="fdb7cb8f657426e7c409bfd6d1a36ce4" prefix=" " category="inline-code"></block> (Para el operador Trident), o.<block ref="b63589bf34442180f04a6b46488afa6d" prefix=" " category="inline-code"></block> (Para la instalación Helm) para que funcione sobre IPv6.</block>
-  <block id="96bd65f2912110ac8bb061d9ec9609e0" category="list-text"><block ref="88e6af50844241df09da1b4f0fed0dc1" prefix="" category="inline-code"></block>: La imagen de contenedor para la telemetría de AutoSupport (valor predeterminado «netapp/trident autosupport:&lt;current-version&gt;»).</block>
-  <block id="c801be11a30de72587e4e1462517a9bc" category="list-text"><block ref="21e377b6d1724ef73707d1b42de99ab3" prefix="" category="inline-code"></block>: La dirección/puerto de un proxy para enviar telemetría AutoSupport.</block>
-  <block id="6966a2db0596b0439e6dd1a5486b9ffb" category="list-text"><block ref="8ef3d4e948c6061ad15793e3bfd2660f" prefix="" category="inline-code"></block>: Intente instalar los paquetes necesarios en los nodos.</block>
-  <block id="44f66f6d235f40edda36c65141a057ea" category="list-text"><block ref="5de93c87952cd098700fb8d46daed4d6" prefix="" category="inline-code"></block>: Genere archivos YAML sin instalar nada.</block>
-  <block id="8754f4a82f1465efd0693f5bb5c7c56d" category="list-text"><block ref="60072fc2fad0d30fc656850e04c7433f" prefix="" category="inline-code"></block>: Ayuda para instalar.</block>
-  <block id="460b654bbf2c9ce02eb1642282346e90" category="list-text"><block ref="a6bd80a942dd6d1c4d4b8aa4bd064415" prefix="" category="inline-code"></block>: Sustituya el tiempo de espera de la solicitud HTTP para la API REST del controlador Trident (por defecto 1m30s).</block>
-  <block id="ca0b8c62a30ba6d654b806020656c35c" category="list-text"><block ref="22f97752ec243e2f8fb13a584ff48f0d" prefix="" category="inline-code"></block>: La dirección/puerto de un registro de imagen interna.</block>
-  <block id="42b215976983835e36d8ecb8a2395b96" category="list-text"><block ref="af58b91b0e366d67d75550c28c8b73bd" prefix="" category="inline-code"></block>: El tiempo de espera para todas las operaciones de Kubernetes (por defecto 3 m0s).</block>
-  <block id="1be177f83affbb67c0e86a1c153df5d8" category="list-text"><block ref="931fef57514fa5bc71c5c9784dcb35b2" prefix="" category="inline-code"></block>: La ubicación del host del estado interno de Kubelet (predeterminado "/var/lib/kubelet").</block>
-  <block id="a400846cbbab76bc44b2b0ce2b3272bd" category="list-text"><block ref="ad595b91ed4748510a60df1c00ce5bd6" prefix="" category="inline-code"></block>: El formato de registro de Astra Trident (texto, json) (por defecto "text").</block>
-  <block id="110955357884a1a40e220cf65023e4af" category="list-text"><block ref="120a4fcacf73dd87df1de81c4d7a2526" prefix="" category="inline-code"></block>: El nombre del PV heredado utilizado por Astra Trident, se asegura de que esto no existe (por defecto "trident").</block>
-  <block id="fb5f2b8649aea92b4b4cfb6226444539" category="list-text"><block ref="12ea064968b15f51e1c1a7444fe9f227" prefix="" category="inline-code"></block>: El nombre del PVC heredado utilizado por Astra Trident, se asegura de que esto no exista (por defecto “tridente”).</block>
-  <block id="064be4bbf8e16f53986a3625c86fbf8c" category="list-text"><block ref="284e51f7c35ac8708577507873ff928e" prefix="" category="inline-code"></block>: No envíe los paquetes AutoSupport a NetApp automáticamente (valor predeterminado: TRUE).</block>
-  <block id="16fd39daf51f1777561290a15ea4f7a8" category="list-text"><block ref="61bce13717a9d6da0266dbc3e2b1e642" prefix="" category="inline-code"></block>: Desactiva la mayoría de la salida durante la instalación.</block>
-  <block id="22948ed4deb04f4041cba28bf7536c9a" category="list-text"><block ref="356c2fa7142c3aee4cd6204d96ea0890" prefix="" category="inline-code"></block>: La imagen de Astra Trident que se va a instalar.</block>
-  <block id="c739dc3ddc713880b7989d4cb214b126" category="list-text"><block ref="8026926641b283123174e50f80da83de" prefix="" category="inline-code"></block>: Utilice cualquier archivo YAML existente en el directorio de instalación.</block>
-  <block id="b4a7a23f7c478405b46b2605053c1b1c" category="list-text"><block ref="4a4ef9f92e69acc000120379678aadcf" prefix="" category="inline-code"></block>: Utilice IPv6 para la comunicación de Astra Trident.</block>
   <block id="c2246b326c72ec59a183d35d55147b05" category="admonition">Esta acción no se puede deshacer. No hagas esto a menos que quieras una instalación completamente nueva de Astra Trident. Para desinstalar Astra Trident sin eliminar CRD, consulte <block ref="3ac8f1f328a77d784290ca23df4860e6" category="inline-link-macro-rx"></block>.</block>
   <block id="0b9fb37ad5573b24cf369ec73caffe42" category="list-text">Cree el<block ref="67b2cc1cd5b1570014463995fb2ada61" prefix=" " category="inline-code"></block> con el siguiente comando donde está _&lt;bundle.yaml&gt;_<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block> o.<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block> Según su versión de Kubernetes.</block>
   <block id="3d886aa354247002acbb6642625843d1" category="list-text">Compile el paquete con el siguiente comando donde está _&lt;bundle.yaml&gt;_<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block> o.<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block> Según su versión de Kubernetes.</block>
-  <block id="75287afce515bf993549a2aeea772a06" category="list-text">Instale Astra Trident utilizando el archivo YAML de paquete correcto para su entorno, donde está _&lt;bundle.yaml&gt;_<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block> o.<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block> Según su versión de Kubernetes. Por ejemplo, si está instalando Astra Trident 23,07, ejecute el siguiente comando:</block>
+  <block id="fdb5bcd69c8617adc24a528d074b060b" category="list-text">Comprobar que los requisitos previos del protocolo están instalados y configurados en el host.</block>
+  <block id="dc3c80fe7e62048ec7f179f78dd1d918" category="paragraph">Instale las herramientas de NFS mediante los comandos del sistema operativo.</block>
+  <block id="b00fd28ef92c5c525d66d12aa0d5e4dd" category="section-title">Herramientas de NVMe</block>
+  <block id="cfd4e84c111973cbf00e30acfd3af3b1" category="paragraph">Instale las herramientas NVMe mediante los comandos de su sistema operativo.</block>
+  <block id="c5c04ab13d0b9dcc3187f7e5cdfb7a00" category="list-text">NVMe requiere RHEL 9 o posterior.</block>
+  <block id="f961ae7e5a407c3c3df6f5facf3c1ef3" category="list-text">Si la versión del kernel de su nodo de Kubernetes es demasiado antigua o si el paquete NVMe no está disponible para la versión de kernel, es posible que deba actualizar la versión del kernel del nodo a una con el paquete NVMe.</block>
+  <block id="38aef0bc7cf230dfcf5476915774aa95" category="open-title">RHEL 9</block>
+  <block id="99d7b353753f3b80388b5ab7e69a4a28" category="paragraph">El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300], y el valor predeterminado es 200.</block>
+  <block id="3e00ac0f228180d0a5a3756df9a5bca3" category="paragraph">*Para<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Controlador, esta opción permite personalizar el número máximo de qtrees por FlexVol*.</block>
+  <block id="89149296a9e0c36d8eb5e9c82e71155b" category="cell"><block ref="5b08b7c4c720db1d75c8c76a920fd99a" prefix="" category="inline-code"></block></block>
+  <block id="9bd3fad3543f75292cf79cccaa5295a7" category="cell">* Compatible con<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> solo conductor.*
+
+Utilice para seleccionar<block ref="39eea648dab96b0ee6022dabb38bc420" prefix=" " category="inline-code"></block> Para iSCSI o.<block ref="eac89e2640666fd1076a776e4b748fae" prefix=" " category="inline-code"></block> Para NVMe/TCP.</block>
+  <block id="053b2e680c58724dc4bdd83223136c48" category="cell"><block ref="39eea648dab96b0ee6022dabb38bc420" prefix="" category="inline-code"></block> si está en blanco</block>
+  <block id="9dbc2be9eae595ee555b36e2d5464473" category="example-title">Ejemplo de NFS para &lt;code&gt;ontap-nas&lt;/code&gt; el controlador</block>
+  <block id="e5fdbcee018644d221f382b1d5b8f41a" category="example-title">Ejemplo de NFS para &lt;code&gt;ontap-nas-flexgroup&lt;/code&gt; el controlador</block>
+  <block id="80640d18e28e0ebe180f21ae5d3a563f" category="example-title">Ejemplo de NFS para &lt;code&gt;ontap-nas-economy&lt;/code&gt; el controlador</block>
+  <block id="cf156eb50f8332673b89dc95a2cbbd82" category="example-title">Ejemplo de iSCSI para &lt;code&gt;ontap-san&lt;/code&gt; el controlador</block>
+  <block id="d5a757f0fabce17fc0eb2e1d3d308b05" category="example-title">Ejemplo de NFS para &lt;code&gt;ontap-san-economy&lt;/code&gt; el controlador</block>
+  <block id="fc3afabf3465382a1844a56a3fd55417" category="example-title">Ejemplo de NVMe/TCP para &lt;code&gt;ontap-san&lt;/code&gt; controlador</block>
+  <block id="c966bdf80a661ce3909786b6f622340b" category="section-title">Implementación incorrecta de Trident con el operador</block>
+  <block id="ccfca578972ee86c982797bc2898fe5b" category="section-title">Puesta en marcha de Trident incorrecta mediante<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block></block>
+  <block id="35f748582b65670a3f27a7f93c685560" category="section-title">Se produce un error al anular el almacenamiento en caché del nodo de NVMe con espacios de nombres de bloque sin configurar RWX o Kubernetes 1,26</block>
+  <block id="02c0c037ba3f051d21fbf3a2f370eb72" category="paragraph">Si ejecuta Kubernetes 1,26, la anulación del almacenamiento provisional del nodo puede fallar cuando se usa NVMe/TCP con espacios de nombres de bloque sin configurar de RWX. Los siguientes escenarios proporcionan una solución alternativa al fallo. También puede actualizar Kubernetes a 1,27.</block>
+  <block id="14b443235c9f911289e8e2d0bad3eaf2" category="section-title">Se ha eliminado el espacio de nombres y el pod</block>
+  <block id="c982f8f2da7d1bbded29b75f706e5f25" category="paragraph">Piensa en un escenario en el que tienes un espacio de nombres gestionado por Astra Trident (volumen persistente NVMe) conectado a un pod. Si elimina el espacio de nombres directamente desde el backend de ONTAP, el proceso de anulación del almacenamiento provisional se bloquea después de intentar eliminar el pod. Este escenario no afecta al clúster de Kubernetes ni a otro funcionamiento.</block>
+  <block id="31accf88e60e15e200ac055e6344c912" category="paragraph">Desmonte el volumen persistente (que corresponde al espacio de nombres) del nodo correspondiente y elimínelo.</block>
+  <block id="5d84bf099896e3a304a067d7c5f71db1" category="section-title">LIF de datos bloqueadas</block>
+  <block id="e80aabfb35c98e66a71baf6a3c90a7df" category="paragraph">Abra dataLIFS para restaurar la funcionalidad completa.</block>
+  <block id="5afe86ac983ac04ac6d9268beb2bc024" category="section-title">Se ha eliminado la asignación de espacio de nombres</block>
+  <block id="9b0dbff182f270b33423b281f92bddc2" category="paragraph">Añada el<block ref="a564a902c12941efa27c1d2ea4a19f8e" prefix=" " category="inline-code"></block> de vuelta al subsistema.</block>
+  <block id="cedfb4d575651cbf026e87084c68731c" category="paragraph">Todos los nodos de trabajadores del clúster de Kubernetes deben poder montar los volúmenes que haya aprovisionado para los pods. Para preparar los nodos de trabajo, debe instalar las herramientas NFS, iSCSI o NVMe/TCP según haya seleccionado los controladores.</block>
+  <block id="2994aa6a94d7af57a2fb9663129866a9" category="paragraph">Si está utilizando una combinación de controladores, debe instalar todas las herramientas necesarias para sus controladores. Las versiones recientes de RedHat CoreOS tienen las herramientas instaladas de forma predeterminada.</block>
+  <block id="aa49aed8e04b1c60f9adbd7cd8692921" category="paragraph">Instale las herramientas NFS si utiliza:<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>,<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>,<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>,<block ref="bc5779a2d33eeb1304bae57f15920cfc" prefix=" " category="inline-code"></block>,<block ref="5935ea92cdd7d975b4e764b429f21c01" prefix=" " category="inline-code"></block>.</block>
+  <block id="1680e7d05a214feff31937c344cf7b40" category="paragraph">Instale las herramientas iSCSI si utiliza:<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>,<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>,<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block>.</block>
+  <block id="285f743d88da1825f825debafc72b6a6" category="paragraph">Instale las herramientas de NVMe si está utilizando<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> Para el protocolo de memoria no volátil rápida (NVMe) sobre TCP (NVMe/TCP).</block>
+  <block id="bfd6781963e74cc6cfd1f864a28a5b5b" category="admonition">Recomendamos ONTAP 9,12 o posterior para NVMe/TCP.</block>
+  <block id="4771a9c521a7d39c2dcf6ee71d0ef032" category="section-title">Volúmenes NVMe/TCP</block>
+  <block id="b15a013c4977a2a96afedafe316664b2" category="section-title">Verifique la instalación</block>
+  <block id="d777ba5e4b1ff43d3668b14ef7200bad" category="paragraph">Después de la instalación, compruebe que cada nodo del clúster de Kubernetes tenga un NQN único mediante el comando:</block>
+  <block id="d219e1bd43b705f449fcb0352bd589ab" category="admonition">Astra Trident modifica el<block ref="f0523c4334dbbc70205de4279475561a" prefix=" " category="inline-code"></block> Valor para garantizar que NVMe no se rinda en el camino si deja de funcionar. No cambie esta configuración.</block>
+  <block id="18847c6a9d27fb9aa0c5cdcdaf61bd01" category="summary">Puede configurar Azure NetApp Files como back-end de Astra Trident. Puede asociar volúmenes NFS y SMB con un back-end de Azure NetApp Files. Astra Trident también es compatible con la gestión de credenciales mediante identidades gestionadas para clústeres de Azure Kubernetes Services (AKS).</block>
+  <block id="eea342529fcf22d8fbdaf58545a9c617" category="section-title">Identidades administradas para AKS</block>
+  <block id="a57ed56fc7ee91a9263e1c2ae851ac11" category="inline-link-macro">identidades administradas</block>
+  <block id="fa21637c6939f4a997618983ba050e34" category="paragraph">Astra Trident es compatible <block ref="74c572b9a9e05a7969e3f88bd692fcb8" category="inline-link-macro-rx"></block> Para clústeres de Azure Kubernetes Services. Para aprovechar la gestión de credenciales optimizada que ofrecen las identidades gestionadas, debe tener:</block>
+  <block id="9586e9fc5ee74b6ceeab5ab5484c95b6" category="list-text">Un clúster de Kubernetes puesto en marcha mediante AKS</block>
+  <block id="4dca0f5a5f78322a0f3bfa9c6b8f54ad" category="list-text">Identidades gestionadas configuradas en el clúster de kubernetes de AKS</block>
+  <block id="16ab3e97d028caa08f61f71eef5599bc" category="list-text">Astra Trident instalado que incluye el<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block> para especificar<block ref="71d36c46e340ad9137b2691e267f5ecd" prefix=" " category="inline-code"></block>.</block>
+  <block id="a3014bedf0b6ddf7953cc36a6505d6be" category="paragraph">Para instalar Astra Trident con el operador Trident, edite<block ref="244895464fd1d6c7ff5a2044c324c0fc" prefix=" " category="inline-code"></block> para ajustar<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block> para<block ref="71d36c46e340ad9137b2691e267f5ecd" prefix=" " category="inline-code"></block>. Por ejemplo:</block>
+  <block id="0349bfd37e2a2cc4dbfc6ac457fb45ba" category="paragraph">En el siguiente ejemplo se instalan conjuntos Astra Trident<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block> A Azure mediante la variable de entorno<block ref="e7b51407a2bfaa34b58afce0107e9a5f" prefix=" " category="inline-code"></block>:</block>
+  <block id="4f25438e265f8635d741c84ae8dba346" category="paragraph">En el siguiente ejemplo se instala Astra Trident sets<block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix=" " category="inline-code"></block> marcar a.<block ref="3a580f142203677f1f0bc30898f63f53" prefix=" " category="inline-code"></block>:</block>
+  <block id="213e4b0f68f673550c1154cabddf4142" category="cell">El ID de suscripción de su suscripción de Azure
+
+Opcional cuando se activan identidades gestionadas en un clúster de AKS.</block>
+  <block id="5ff34d944a5042d18b52007d74d3924b" category="cell">El ID de inquilino de un registro de aplicación
+
+Opcional cuando se activan identidades gestionadas en un clúster de AKS.</block>
+  <block id="f17ebeef7ae04ff4a4663a56a93d1b09" category="cell">El ID de cliente de un registro de aplicación
+
+Opcional cuando se activan identidades gestionadas en un clúster de AKS.</block>
+  <block id="e939dffdff80b8feeb6363b4d2ed9599" category="cell">El secreto de cliente de un registro de aplicaciones
+
+Opcional cuando se activan identidades gestionadas en un clúster de AKS.</block>
+  <block id="938c7b48cad00c77e1900399388741e8" category="cell">Nombre de la ubicación de Azure donde se crearán los nuevos volúmenes
+
+Opcional cuando se activan identidades gestionadas en un clúster de AKS.</block>
+  <block id="91644df8bfaf55210374666164ee92c9" category="example-title">Configuración mínima</block>
+  <block id="943aa8ce869cfeaf7f72cc41df7f891c" category="paragraph">Esta configuración de backend omite<block ref="8c443e170595ba0feac007ffb92cb49a" prefix=" " category="inline-code"></block>,<block ref="bc54592d6183695b841c6d1880ec0bf8" prefix=" " category="inline-code"></block>,<block ref="93c5bebdea9c94a0740fe6fd9bb250f0" prefix=" " category="inline-code"></block>, y.<block ref="2b53761249254ce6b502f521e5cc0683" prefix=" " category="inline-code"></block>, que son opcionales cuando se utilizan identidades gestionadas.</block>
+  <block id="f961873909dcbbea92f3791e505cd3cf" category="example-title">Configuración de niveles de servicio específica con filtros de pools de capacidad</block>
+  <block id="119dd5a342e981b13bf0024d5c6a6933" category="example-title">Configuración avanzada</block>
+  <block id="d61a62faa23948cd42b53cf6de97e445" category="example-title">Configuración de pool virtual</block>
+  <block id="67c909cf936115be1012171c5c38b8cf" category="example-title">Configuración básica en el espacio de nombres predeterminado</block>
+  <block id="17903b7c199529a65f8f0b36aa084d2e" category="example-title">Uso de diferentes secretos por espacio de nombres</block>
+  <block id="6cb4c0cee2d8e6992a3a10d346015761" category="example-title">Uso de diferentes secretos por volumen</block>
+  <block id="5c766f1444b8b25e9f55f0dc6400b77e" category="admonition"><block ref="1023eff0970e3a4277fcde214fad86ef" prefix="" category="inline-code"></block> Filtra los pools que admiten volúmenes SMB.<block ref="d71f62a5b903ebd8681263d310db1d6d" prefix=" " category="inline-code"></block> o.<block ref="9c8ff3d34f58e4965d72fb9c8a993707" prefix=" " category="inline-code"></block> Filtros para pools NFS.</block>
+  <block id="8b7c42123642e2e4ea7dd426aeb2de58" category="paragraph">NVMe/TCP</block>
+  <block id="2ee381348973cd50c3668eadbccdc328" category="paragraph">Consulte <block ref="2d7d4515af7fd5f414df696a804f30f7" category="inline-xref-macro-rx"></block>.</block>
+  <block id="15486153db4ff26b2d984b22c9eb7ace" category="section-title">Consideraciones adicionales para NVMe/TCP</block>
+  <block id="17954cd2a5b18cf35abb19ddb0820879" category="paragraph">Astra Trident admite el protocolo de memoria no volátil rápida (NVMe) mediante el<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> controlador incluyendo:</block>
+  <block id="fdb7cb8f657426e7c409bfd6d1a36ce4" category="list-text">IPv6</block>
+  <block id="a2a1cb8bb035902e151c429dda457eb0" category="list-text">Snapshots y clones de volúmenes NVMe</block>
+  <block id="b007331c632038b88752b849045335eb" category="list-text">Cambiar el tamaño de un volumen NVMe</block>
+  <block id="92b9da0fdb36e9a1589af80ae639f7ec" category="list-text">Se importa un volumen NVMe que se creó fuera de Astra Trident para que Astra Trident gestione su ciclo de vida</block>
+  <block id="86f6f50234041fd09b320314dc781273" category="list-text">Multivía nativa de NVMe</block>
+  <block id="0e50a983fd98f786e216fb5cd960feda" category="list-text">Cierre correcto o sin complicaciones de los K8s nodos (23,10)</block>
+  <block id="576fe8d7f32191873f7ac2fdb4418c2c" category="paragraph">Astra Trident no es compatible:</block>
+  <block id="2af37920b0783c2d261877f935f16bd8" category="list-text">DH-HMAC-CHAP que es compatible con NVMe de forma nativa</block>
+  <block id="6c1177e2fd33f2482514b2156d1e62b6" category="list-text">Rutas múltiples del asignador de dispositivos (DM)</block>
+  <block id="fa633dab256a2884e7cd048147d7171c" category="list-text">Cifrado LUKS</block>
+  <block id="4e92a2addd95bd2076226bce70449f6d" category="admonition"><block ref="8c443e170595ba0feac007ffb92cb49a" prefix="" category="inline-code"></block>,<block ref="bc54592d6183695b841c6d1880ec0bf8" prefix=" " category="inline-code"></block>,<block ref="93c5bebdea9c94a0740fe6fd9bb250f0" prefix=" " category="inline-code"></block>,<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block>, y.<block ref="2b53761249254ce6b502f521e5cc0683" prefix=" " category="inline-code"></block> Son opcionales cuando se utilizan identidades administradas en un clúster AKS.</block>
+  <block id="28389c00d52ebc3b9610c591613894a1" category="example-title">Rol de contribuyente personalizado</block>
+  <block id="569dfd7a9483b050d1e076a318f0fccc" category="example-title">Manifiestos de muestra de PersistentVolumeClaim</block>
+  <block id="526596809db1b7644a7637cfa05fcf8a" category="paragraph">Estos ejemplos muestran opciones básicas de configuración de PVC.</block>
+  <block id="992728eeb1163799bd688cfe5e57035b" category="paragraph-title">PVC con acceso RWO</block>
+  <block id="75c7c68d9eb17c22ec8df28a1e23f275" category="paragraph-title">PVC con NVMe/TCP</block>
+  <block id="ed463de3671571836f800949d75f3af8" category="paragraph">En este ejemplo, se muestra una PVC básica para NVMe/TCP con acceso RWO asociado con una clase de almacenamiento denominada<block ref="63f9100803e1f67a5e33cbd5da9dbb33" prefix=" " category="inline-code"></block>.</block>
+  <block id="973fab696ba8e345f617c87c4de97607" category="example-title">Muestras de manifiesto de POD</block>
+  <block id="15f15289009d52be4af3e9951853eee5" category="paragraph">Estos ejemplos muestran configuraciones básicas para conectar la RVP a un pod.</block>
+  <block id="416206518e27ed2ec8b8e0876078af35" category="listing-title">Configuración básica</block>
+  <block id="b9fa7c201e2dc76fe12c8bb436c212ee" category="listing-title">Configuración de NVMe/TCP básica</block>
+  <block id="ca30777eef0d874a78d1cf1912206e88" category="cell">Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*
+<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> se proporciona como **avance técnico** que se recomienda para entornos de prueba y no para cargas de trabajo de producción. Cuando se establece en<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block>, Astra Trident utilizará las API DE REST de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a<block ref="a9ba4dc88fa11d44cc7c0c918d174778" prefix=" " category="inline-code"></block> cliente más. Esto está satisfecho por el predefinido<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> y..<block ref="fdb6ba311fad29ec53069808f10ebef4" prefix=" " category="inline-code"></block> funciones.
+<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> No es compatible con MetroCluster.
+<block ref="14d839191d1ecf387a15b5b0c802a8ae" prefix=" " category="inline-code"></block> Está totalmente cualificado para NVMe/TCP.</block>
+  <block id="ddfe03e522be0cfb5413bde0d1396e78" category="cell">Utilice para seleccionar<block ref="39eea648dab96b0ee6022dabb38bc420" prefix=" " category="inline-code"></block> Para iSCSI o.<block ref="eac89e2640666fd1076a776e4b748fae" prefix=" " category="inline-code"></block> Para NVMe/TCP.</block>
+  <block id="e29a6d196232b6cdf3ae52f871ba291b" category="cell">Active el cifrado LUKS. Consulte <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>.
+
+El cifrado LUKS no es compatible con NVMe/TCP.</block>
+  <block id="a242dbcec09373d25c5fb582f9f2cfc6" category="example-title">Ejemplo de NVMe/TCP</block>
+  <block id="3a3347de03ef37c1eb5eb525619ff905" category="paragraph">Debe tener una SVM configurada con NVMe en el back-end de ONTAP. Esta es una configuración de back-end básica para NVMe/TCP.</block>
+  <block id="1b931baab9ca74be94af72763666c941" category="list-text">La<block ref="33aacad9b122abfdfadc06e3e7fa5f59" prefix=" " category="inline-code"></block> StorageClass se asignará al<block ref="11e89beb13d19bf6e3ab7ed65673b27d" prefix=" " category="inline-code"></block> pool virtual en el<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> conductor con<block ref="6fa083b88d05083e680071073d06c3af" prefix=" " category="inline-code"></block>. Esta es la única oferta de pool<block ref="5ca85ebb1d881fde490deaa5817c4ca5" prefix=" " category="inline-code"></block>.</block>
+  <block id="33f303ad0b29d475a0073745e59cb43b" category="doc">Gestión de Astra Trident con tridentctl</block>
+  <block id="2132f5bed79dd8ecd8d0c512bc60ddb6" category="paragraph">La<block ref="5a856e83aada9750fe5389f8da94335b" category="inline-link-rx"></block> incluye la<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Herramienta de línea de comandos para proporcionar un acceso sencillo a Astra Trident. Los usuarios de Kubernetes que cuentan con suficientes privilegios pueden utilizarlo para instalar Astra Trident o gestionar el espacio de nombres que contiene el pod de Astra Trident.</block>
+  <block id="497769c5c03818fffe81b6190ec47c82" category="section-title">Comandos e indicadores globales</block>
+  <block id="66fa8a46aff90f5c8507c33a1cdc3e3f" category="paragraph">Puede ejecutar<block ref="d7948c15bebd1e81a58fa7c99888c9c6" prefix=" " category="inline-code"></block> para obtener una lista de comandos disponibles para<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> o añada la<block ref="0c113ca6d57519b559ba5a426be3c6b6" prefix=" " category="inline-code"></block> marque cualquier comando para obtener una lista de opciones e indicadores para ese comando específico.</block>
+  <block id="c64518704ce0c0d5501a45763f464276" category="list-text">Uso</block>
+  <block id="bc65fa55530131a97d445def1681b8bf" category="paragraph">Astra Trident<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> la utilidad admite los siguientes comandos y indicadores globales.</block>
+  <block id="62b14aaaaebc6fa2ec22e0cc8c7ef1cb" category="list-text">Añade un recurso a Astra Trident.</block>
+  <block id="dbc0d6f0c9ce361f817a27fb9b05aefd" category="list-text">Quita uno o varios recursos de Astra Trident.</block>
+  <block id="8135f32a4f6b4dc83a7db9106b0a0c7f" category="list-text">Obtén uno o más recursos de Astra Trident.</block>
+  <block id="c6a354ad100a80a11b5358549fa08956" category="list-text"><block ref="657f8b8da628ef83cf69101b6817150a" prefix="" category="inline-code"></block></block>
+  <block id="b6886cb9d8320f0522485af2d7b5e732" category="list-text">Ayuda sobre cualquier comando.</block>
+  <block id="2c7628b8b592bbb7f1d39011699a3b5b" category="list-text">Imprime una tabla de las imágenes de contenedores que Astra Trident necesita.</block>
+  <block id="99ff05be0d0e797b4814ab264d1555b7" category="list-text"><block ref="93473a7344419b15c4219cc2b6c64c6f" prefix="" category="inline-code"></block></block>
+  <block id="c9cd3bacdbe091fa2ee3abdc952e359c" category="list-text">Importar un recurso existente a Astra Trident.</block>
+  <block id="9e2a7f44aa27cc7ead915762de91e605" category="list-text">Instala Astra Trident.</block>
+  <block id="7380fb2a9615c98a1c8c7e204235ab70" category="list-text">Imprime los registros desde Astra Trident.</block>
+  <block id="dc732d50c228fea6932368f938613ef3" category="list-text">Enviar un recurso desde Astra Trident.</block>
+  <block id="555579504007b3921e461a91630615a5" category="list-text">Desinstale Astra Trident.</block>
+  <block id="ff098c78714ea4001cf9ec0648c2b09f" category="list-text">Modificar un recurso en Astra Trident.</block>
+  <block id="1f46b6519384cf9cc5d7893457ab6e9c" category="list-text"><block ref="2424c0d4857ddcc30f1aabda7294d84f" prefix="" category="inline-code"></block></block>
+  <block id="92cde4054a93fe29af6357539b327494" category="list-text">Suspender temporalmente las operaciones de backend.</block>
+  <block id="238000b5c5df1cc446f5ba823c01807c" category="list-text"><block ref="ae26b3d8e556703291282149e3ae894f" prefix="" category="inline-code"></block></block>
+  <block id="8d4f4b40e3996aee2532c9e92bbe9e32" category="list-text">Actualiza un recurso en Astra Trident.</block>
+  <block id="1bf16abf4ed15883a87ff56a7ab29d06" category="list-text">Imprime la versión de Astra Trident.</block>
+  <block id="12d9bb0959755423ba2fc4a4d349ee90" category="example-title">Indicadores globales</block>
+  <block id="a54f86a6d882e5b4c1560087bb3d23fe" category="list-text"><block ref="9b017020b9d48d433ec90c548e6b5c70" prefix="" category="inline-code"></block>,<block ref="b47e5fb843a641159b90a001a614119c" prefix=" " category="inline-code"></block></block>
+  <block id="f984c283566ffcc330d2055e568c2bc4" category="list-text">Salida de depuración.</block>
+  <block id="aa8575d70709b06761f70e7aa773dccd" category="list-text"><block ref="914071b8934b1d6035495f1ed02aa5fd" prefix="" category="inline-code"></block>,<block ref="0c113ca6d57519b559ba5a426be3c6b6" prefix=" " category="inline-code"></block></block>
+  <block id="cbaa0d88e3069707dc20abca170c009e" category="list-text">Ayuda de<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>.</block>
+  <block id="6e25615e543a74d4a5ea9c21cda4b604" category="list-text"><block ref="9cefd96d40d0ee1256c8eff1def0312d" prefix="" category="inline-code"></block>,<block ref="3be3a69890f8609a06ed69c980bdf3ed" prefix=" " category="inline-code"></block></block>
+  <block id="fd42c450cd4f5dc96ce7df3121f45355" category="list-text">Espacio de nombres de puesta en marcha de Astra Trident.</block>
+  <block id="e9fe902fae54aee02c0226a1cd4ef93e" category="list-text"><block ref="b2ed43620b7fff2689035f1e99c24ded" prefix="" category="inline-code"></block>,<block ref="fde021f6d95feede78ab3d390365d552" prefix=" " category="inline-code"></block></block>
+  <block id="fc070ca332d823236f678c78abc58ee2" category="list-text">Formato de salida. Uno de json|yaml|name|Wide|ps (predeterminado).</block>
+  <block id="51b3c65bb68baeb2ef94eb128afdc270" category="list-text"><block ref="406381251d2d4637ebfac7f24cc49c6f" prefix="" category="inline-code"></block>,<block ref="b59778b847581570efb244355a6aa704" prefix=" " category="inline-code"></block></block>
+  <block id="e6e274388f86113a19533b5074063ff0" category="list-text">Dirección/puerto de la interfaz REST DE Astra Trident.</block>
+  <block id="1c36a7e67198ff73665408726652a4c3" category="section-title">Opciones de comando y indicadores</block>
+  <block id="ec3361fd829536ea174f7b895c7c718f" category="paragraph">Utilice la<block ref="76ea0bebb3c22822b4f0dd9c9fd021c5" prefix=" " category="inline-code"></block> Comando para añadir un recurso a Astra Trident.</block>
+  <block id="dae8ace18bdcbcc6ae5aece263e14fe8" category="list-text">Opciones</block>
+  <block id="b46ea96216eca5291531638a12c4896d" category="list-text"><block ref="b43fdd98b1fd705ae4c3a10cf25aad8a" prefix="" category="inline-code"></block></block>
+  <block id="dd417c7b2c67b3d8feab4e3eae2d40cb" category="list-text">Añade un back-end a Astra Trident.</block>
+  <block id="e61ffe76ccfdc73a94b6aa5f7e2c9956" category="paragraph">Utilice la<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> Comando para eliminar uno o más recursos de Astra Trident.</block>
+  <block id="2bb30ad946c1af3b46cb6a6ec1d6ab56" category="list-text">Elimina uno o varios back-ends de almacenamiento de Astra Trident.</block>
+  <block id="4b127d75ad51299bdcd9dd3f66227203" category="list-text"><block ref="c322d3de29d2b0c5e2e011dad5e77df2" prefix="" category="inline-code"></block></block>
+  <block id="81486817353c4b690b0a04869915f36c" category="list-text">Elimine una o varias snapshots de volumen de Astra Trident.</block>
+  <block id="899a366c28882f84ef1459c741801c46" category="list-text"><block ref="0606cab8952ca875c43a0e15b35aab7c" prefix="" category="inline-code"></block></block>
+  <block id="dd1af43e34bbec7fa513d0c946cf5a1d" category="list-text">Elimina una o varias clases de almacenamiento de Astra Trident.</block>
+  <block id="eb41fbac062036c53ee29d94ecb09e5a" category="list-text"><block ref="210ab9e731c9c36c2c38db15c28a8d1c" prefix="" category="inline-code"></block></block>
+  <block id="a647abf8c595548e15ece3f8c6c09536" category="list-text">Elimine uno o varios volúmenes de almacenamiento de Astra Trident.</block>
+  <block id="457c14f5f39c9b6b6ce9fe07a2e55ace" category="paragraph">Utilice la<block ref="b5eda0a74558a342cf659187f06f746f" prefix=" " category="inline-code"></block> Comando para obtener uno o más recursos de Astra Trident.</block>
+  <block id="a12921cc63f8517fa2c6c5f330bbe149" category="list-text">Obtén uno o varios back-ends de almacenamiento de Astra Trident.</block>
+  <block id="aef3630cf26e84373568fe6350e03459" category="list-text">Obtén una o varias copias Snapshot de Astra Trident.</block>
+  <block id="3386a9d4c4fcaa584dbb247cadb44db3" category="list-text">Obtén una o varias clases de almacenamiento de Astra Trident.</block>
+  <block id="c6fd4698310cb8506c717b869a628ba6" category="list-text">Obtén uno o más volúmenes en Astra Trident.</block>
+  <block id="4ea7801f17a4e5485e8b050c052fb443" category="list-text">Indicadores</block>
+  <block id="3e9ac2a1486a1ce9d1890b783d8fd280" category="list-text">Ayuda para los volúmenes.</block>
+  <block id="27a51da926d26dadaf15c5e89f4290cb" category="list-text"><block ref="e3bbbed29599d3e6e29ae22829ad7f13" prefix="" category="inline-code"></block></block>
+  <block id="56d55915328582c3cabf11d94aa07544" category="list-text">Limita la consulta al volumen de origen subordinado.</block>
+  <block id="91cf60d9b4d2246c53245f027793ec59" category="list-text"><block ref="aed2a4a749284f757648f1057abf44cd" prefix="" category="inline-code"></block></block>
+  <block id="6d2378b94d1da7ed22e3e78aaffc1705" category="list-text">Limite la consulta a los subordinados de volumen.</block>
+  <block id="47a87c81b9ad1216f19e68cf38c994bc" category="paragraph">Uso<block ref="59b514174bffe4ae402b3d63aad79fe0" prefix=" " category="inline-code"></block> Banderas para imprimir una tabla de las imágenes de contenedores que Astra Trident necesita.</block>
+  <block id="35e8c619ea1ba9de5652056bacdd23c3" category="list-text">Ayuda para imágenes.</block>
+  <block id="4335704edc4a17ba829a7a9f825c67fa" category="list-text"><block ref="47fa03ef5536c5573b137cec5adc2d39" prefix="" category="inline-code"></block>,<block ref="afb81ccdb6e6d78674d516ee32b89981" prefix=" " category="inline-code"></block></block>
+  <block id="9ab93bac99296ce70a5ef0763755b9bf" category="list-text">Versión semántica del clúster de Kubernetes.</block>
+  <block id="d5c076c3797412b98be375c1116ce267" category="paragraph">Utilice la<block ref="f6c534966bc7687e0c87134d025f8837" prefix=" " category="inline-code"></block> Comando para importar un volumen existente a Astra Trident.</block>
+  <block id="effdb9ce6c5d44df31b89d7069c8e0fb" category="list-text">Alias</block>
+  <block id="2483198e4c3f6a115120eab636a74400" category="list-text"><block ref="66d753d6a3725a886be2c0cbfaaacdda" prefix="" category="inline-code"></block></block>
+  <block id="38a3a9cab0c216fda4945750957ae6fd" category="list-text"><block ref="5338b151154663bac9980b0f044518f2" prefix="" category="inline-code"></block>,<block ref="33781a1644c3eb60bb229660536cb79b" prefix=" " category="inline-code"></block></block>
+  <block id="0241cbc8a0c6b1d81749accc872d39a9" category="list-text">Ruta al archivo YAML o JSON PVC.</block>
+  <block id="d2c10c03ce7bbc7286bbc39086fd8a8c" category="list-text">Ayuda para el volumen.</block>
+  <block id="21f001625dd55c22ab02487190f46920" category="list-text"><block ref="e2b9359adf7cdd62fc784b5090c3c452" prefix="" category="inline-code"></block></block>
+  <block id="fa695bd6999e70b129229e3c2d901c16" category="list-text">Crear solo un VP/RVP. No asuma que se gestiona el ciclo de vida de los volúmenes.</block>
+  <block id="04a576baa8ce15dc5ae539732102d052" category="paragraph">Utilice la<block ref="19ad89bc3e3c9d7ef68b89523eff1987" prefix=" " category="inline-code"></block> Banderas para instalar Astra Trident.</block>
+  <block id="803ef00d4a763dade5fabd328d64bc87" category="list-text"><block ref="88e6af50844241df09da1b4f0fed0dc1" prefix="" category="inline-code"></block></block>
+  <block id="b304edbfbb27e0c4c3c2e56485ec4fad" category="list-text">La imagen de contenedor para AutoSupport Telemetry (predeterminado «netapp/trident autosupport:&lt;current-version&gt;»).</block>
+  <block id="1b86233e01b3b58d314daa50ab77115f" category="list-text"><block ref="21e377b6d1724ef73707d1b42de99ab3" prefix="" category="inline-code"></block></block>
+  <block id="c2ce8ed1ca62838fcb63440e1f263bca" category="list-text">Dirección/puerto de un proxy para enviar telemetría AutoSupport.</block>
+  <block id="2e47e5982a9396070b3ef877513db57b" category="list-text"><block ref="8ef3d4e948c6061ad15793e3bfd2660f" prefix="" category="inline-code"></block></block>
+  <block id="26ed909546c3f0ec334a17b276a41537" category="list-text">Se han intentado instalar los paquetes necesarios en los nodos.</block>
+  <block id="1bcd5c3ebc04d3f68ca449f43a1af99e" category="list-text"><block ref="5de93c87952cd098700fb8d46daed4d6" prefix="" category="inline-code"></block></block>
+  <block id="381379a38d004a98798847da2aee5a2e" category="list-text">Generar archivos YAML sin instalar nada.</block>
+  <block id="d5471233d1e91ca51d891aeb0daef21e" category="list-text">Ayuda para la instalación.</block>
+  <block id="bbbcea2e76b50bff5257d52f3eca9e30" category="list-text"><block ref="a6bd80a942dd6d1c4d4b8aa4bd064415" prefix="" category="inline-code"></block></block>
+  <block id="e62993ec2e8d495781bd8fe9b329bb13" category="list-text">Anule el tiempo de espera de solicitud HTTP para la API REST de la controladora Trident (predeterminado 1m30s).</block>
+  <block id="3a1710ae6be7f8958d50768136a924a0" category="list-text"><block ref="22f97752ec243e2f8fb13a584ff48f0d" prefix="" category="inline-code"></block></block>
+  <block id="bc5669ba475bd6a70761937c829d70c9" category="list-text">Dirección/puerto de un registro de imágenes interno.</block>
+  <block id="04bae87c28b467fa0c737f7f75d22fcd" category="list-text"><block ref="af58b91b0e366d67d75550c28c8b73bd" prefix="" category="inline-code"></block></block>
+  <block id="96433b434f55436c14beb369b4155e3c" category="list-text">El tiempo de espera para todas las operaciones de Kubernetes (3 m0 por defecto).</block>
+  <block id="45226b75017cf0d0a01399f23c065197" category="list-text"><block ref="931fef57514fa5bc71c5c9784dcb35b2" prefix="" category="inline-code"></block></block>
+  <block id="d88591412aac0d070f1decf5bb323901" category="list-text">La ubicación del host del estado interno de kubelet (por defecto «/var/lib/kubelet»).</block>
+  <block id="bbf77dbfce7ad554cbca808eabbf0980" category="list-text"><block ref="ad595b91ed4748510a60df1c00ce5bd6" prefix="" category="inline-code"></block></block>
+  <block id="bf8a1588e1936f12f34a51cb047ce992" category="list-text">El formato de registro de Astra Trident (text, json) (texto predeterminado).</block>
+  <block id="f0d48f5507fcbd158c6289c2edb1e08a" category="list-text"><block ref="120a4fcacf73dd87df1de81c4d7a2526" prefix="" category="inline-code"></block></block>
+  <block id="a845d8b9c02cebea38c91b3128beac81" category="list-text">El nombre del VP heredado que usa Astra Trident, se asegura de que esto no exista (el predeterminado es «tridente»).</block>
+  <block id="81fa29e4e3df01fd8dfa0fcd2dc635ef" category="list-text"><block ref="12ea064968b15f51e1c1a7444fe9f227" prefix="" category="inline-code"></block></block>
+  <block id="c5036d7b386000202306dc965b4e9ce1" category="list-text">El nombre de la RVP heredada que usa Astra Trident garantiza que esto no exista (el predeterminado es «tridente»).</block>
+  <block id="fc161c79ceddeef84ed8be1e4c8eecee" category="list-text"><block ref="284e51f7c35ac8708577507873ff928e" prefix="" category="inline-code"></block></block>
+  <block id="dc0ae0557f6fa718432c41b8a0ea2f01" category="list-text">No envíe paquetes AutoSupport a NetApp automáticamente (valor predeterminado true).</block>
+  <block id="dcd00c9f3bbfaaba764463f8df2ed528" category="list-text"><block ref="61bce13717a9d6da0266dbc3e2b1e642" prefix="" category="inline-code"></block></block>
+  <block id="877dd6fbc1ecd61f364aca71ba178005" category="list-text">Desactive la salida MOST durante la instalación.</block>
+  <block id="e65da6d7562c21f62e572906ab5e7a5a" category="list-text"><block ref="356c2fa7142c3aee4cd6204d96ea0890" prefix="" category="inline-code"></block></block>
+  <block id="ff750eea12d794390ee4ab140459782c" category="list-text">La imagen de Astra Trident que se va a instalar.</block>
+  <block id="807726d520870d6db922174af6c62968" category="list-text"><block ref="8026926641b283123174e50f80da83de" prefix="" category="inline-code"></block></block>
+  <block id="50890ff0c55d64cf5f18e3b30f022dba" category="list-text">Utilice cualquier archivo YAML existente que exista en el directorio de configuración.</block>
+  <block id="799b3edc86ee53b2aa3ccb9052f1c693" category="list-text"><block ref="4a4ef9f92e69acc000120379678aadcf" prefix="" category="inline-code"></block></block>
+  <block id="fb9cf2fcbe71cf57273808cde64cc26d" category="list-text">Utilice IPv6 para la comunicación de Astra Trident.</block>
+  <block id="c77cc7bebbafc08f65ea0b6a6ccc6a6c" category="paragraph">Uso<block ref="2165e4fa5bddb65a31f6a0c495c2fa37" prefix=" " category="inline-code"></block> Indicadores para imprimir los registros de Astra Trident.</block>
+  <block id="7d113a84ebce74972a669001943c9196" category="list-text"><block ref="37caf0ee262229a9ddc60877eec6883f" prefix="" category="inline-code"></block>,<block ref="33a12b543204974f74acd94de699324e" prefix=" " category="inline-code"></block></block>
+  <block id="2fa73fb9ee91560afbc36d27bbaa87db" category="list-text">Cree un archivo de soporte con todos los registros a menos que se especifique lo contrario.</block>
+  <block id="379df05d98bab05b9126d5770c40cc17" category="list-text">Ayuda para los registros.</block>
+  <block id="fba6b2fbc56498e8aa67431b40b4f1e4" category="list-text"><block ref="269889131ee4793a82191b78a2eb60e3" prefix="" category="inline-code"></block>,<block ref="e1db966b8a9ad737de7da72be15dcfc3" prefix=" " category="inline-code"></block></block>
+  <block id="b845a03e592635852e4de54a7157bf66" category="list-text">Registro de Astra Trident para mostrar. Uno de trident|auto|trident-operator|All (valor predeterminado "auto").</block>
+  <block id="8c160e763a1f5aaefa81f2838fbdaac3" category="list-text"><block ref="60cfbca684c147d47b652c83c9617370" prefix="" category="inline-code"></block></block>
+  <block id="d12a2ecd8916e1248e240596be752f02" category="list-text">El nombre del nodo de Kubernetes desde el que se van a recopilar los registros del pod de nodo.</block>
+  <block id="43dcbf8a7af6301d765d1eeb71a56951" category="list-text"><block ref="b3868ba70a8f4cf55464dd9926381db1" prefix="" category="inline-code"></block>,<block ref="a29a0e1222e48537fee91cff87dcb786" prefix=" " category="inline-code"></block></block>
+  <block id="39362e98ee37bab265a12efed46ac0d0" category="list-text">Obtenga los logs de la instancia de contenedor anterior si existe.</block>
+  <block id="9bf70e96872cef44b4b4fcec20f2fc5e" category="list-text"><block ref="2c82c1731bc7980f276a26037aa42ec1" prefix="" category="inline-code"></block></block>
+  <block id="84a866690909d915b498373b5a0ea93d" category="list-text">Obtenga los registros para los contenedores sidecar.</block>
+  <block id="0b06aeef6e509551128fa11818ac91e5" category="paragraph">Utilice la<block ref="2541d938b0a58946090d7abdde0d3890" prefix=" " category="inline-code"></block> Para enviar un recurso desde Astra Trident.</block>
+  <block id="27345852e05b5b737d3480e451a7060a" category="list-text"><block ref="ee64de1ad50d8209e64ee58b23e27986" prefix="" category="inline-code"></block></block>
+  <block id="027b7f192ae50b4039ba0b0a0a4d1633" category="list-text">Enviar un archivo AutoSupport a NetApp.</block>
+  <block id="c9778d010d6895509410d6cf3c89f758" category="paragraph">Uso<block ref="fe98497efedbe156ecc4b953aea77e07" prefix=" " category="inline-code"></block> Indicadores para desinstalar Astra Trident.</block>
+  <block id="5ff094a5013d3c8ce1b8983a04683073" category="list-text"><block ref="60072fc2fad0d30fc656850e04c7433f" prefix="" category="inline-code"></block></block>
+  <block id="d6a2da27c27953f6dc79678d551c710a" category="list-text">Ayuda para desinstalar.</block>
+  <block id="65d0b93d28910370681b4654d66a2c8f" category="list-text">Desactive la salida MOST durante la desinstalación.</block>
+  <block id="be7828d51b2b3fc57e04a809a90e7888" category="paragraph">Utilice la<block ref="3ac340832f29c11538fbe2d6f75e8bcc" prefix=" " category="inline-code"></block> Comando para modificar un recurso en Astra Trident.</block>
+  <block id="faf15d08c5bf3d524ca461b52c393781" category="list-text">Actualizar un back-end en Astra Trident.</block>
+  <block id="26cdb30fb70d63515b796135d1481235" category="paragraph">Utilice la<block ref="2424c0d4857ddcc30f1aabda7294d84f" prefix=" " category="inline-code"></block> comando para suspender o reanudar operaciones de back-end.</block>
+  <block id="8a114623ea0d13781f27342b16e7d78a" category="list-text"><block ref="2be951e4c83b3373b0b76554fd93bb4a" prefix="" category="inline-code"></block></block>
+  <block id="296657db9cca6ca2660bb64adba882d0" category="list-text">Establezca en<block ref="735fda5d72b5c650f3f0435195a211bd" prefix=" " category="inline-code"></block> para pausar las operaciones de backend. Establezca en<block ref="fea087517c26fadd409bd4b9dc642555" prefix=" " category="inline-code"></block> para reanudar las operaciones de back-end. Cuando se establece en<block ref="735fda5d72b5c650f3f0435195a211bd" prefix=" " category="inline-code"></block>:</block>
+  <block id="7b9bf6a83dc800f52f01b8fe75996d6d" category="list-text"><block ref="befb9ef08cd8fda4bc507ccd6a523a43" prefix="" category="inline-code"></block>,<block ref="c76dd551d0df4615489f4840c234db4e" prefix=" " category="inline-code"></block>,<block ref="301cd7c7419443b2c9c5d87f6865f0cb" prefix=" " category="inline-code"></block>,<block ref="4956c0b34c154301cbe111d75fb939f9" prefix=" " category="inline-code"></block> están en pausa.</block>
+  <block id="5b1cf20bcbbf2f4431ef0fbe646eb055" category="list-text"><block ref="37ca7faad054353aadc61e64e55b4dac" prefix="" category="inline-code"></block>,<block ref="9a288381ee12262ef127ccbaeb520730" prefix=" " category="inline-code"></block>,<block ref="db66912e8bdff8f12b8b75883aeb66ef" prefix=" " category="inline-code"></block>,<block ref="752d336f53e6d74a5e509dd00eb2a627" prefix=" " category="inline-code"></block>,<block ref="871b40b0d12fe47d3ce4d2bbfa30ccc5" prefix=" " category="inline-code"></block>,<block ref="4c7dd4b0f1074705d27d812563c98768" prefix=" " category="inline-code"></block>,<block ref="70850d0d4fbd8b67815a4598d5655a4d" prefix=" " category="inline-code"></block>,<block ref="c4e5752b58b7f7b1c92a5302a0940801" prefix=" " category="inline-code"></block>,<block ref="7c976338db43771fa6048705880496ea" prefix=" " category="inline-code"></block> seguir estando disponible.</block>
+  <block id="dcebec1acc1e4f4e72a78bcc020ba811" category="list-text">Ayuda para el estado backend.</block>
+  <block id="ff5f39bc4c620c3b1ca6b0811177f14c" category="paragraph">Uso<block ref="2af72f100c356273d46284f6fd1dfc08" prefix=" " category="inline-code"></block> indicadores para imprimir la versión de<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Y el servicio Trident que se ejecuta.</block>
+  <block id="618ee0573323acbc02cc0b6e0f94e217" category="list-text"><block ref="db0e9588c0d46e16e0aea5c50287a54f" prefix="" category="inline-code"></block></block>
+  <block id="99927f0d8d60f452cfe509f7e690bbed" category="list-text">Sólo versión de cliente (no se requiere servidor).</block>
+  <block id="7f897e55f5f6824cb2abaa339e043091" category="list-text">Ayuda para la versión.</block>
+  <block id="cfc01756266d8d0e43eb3a9f2753f472" category="paragraph">Trident crea clases de almacenamiento coincidentes para Kubernetes<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> objetos que especifican<block ref="08044207e9f63bb0fd474dab347a776c" prefix=" " category="inline-code"></block> en su campo de aprovisionamiento. El nombre de la clase de almacenamiento coincide con el de Kubernetes<block ref="e1e2a331ab1d8dccfea06fc8e04e2f5d" prefix=" " category="inline-code"></block> objeto que representa.</block>
+  <block id="35e81072b264abffa70dd885aca7e585" category="list-text">Kubernetes 1,28 ahora es compatible con Trident. Actualiza Astra Trident antes de actualizar Kubernetes.</block>
+  <block id="0acb661700c6422ee3bfc29c43c715c6" category="paragraph">Uso de la configuración sin multivía o el uso de<block ref="a3a1d5b95e345a3db24a5a30e349f699" prefix=" " category="inline-code"></block> o.<block ref="e82e6d155396541f07f7347c984444ea" prefix=" " category="inline-code"></block> el valor del archivo multipath.conf provocará fallos de montaje. Astra Trident ha recomendado el uso de<block ref="db729c5c8df447087e5a84b961df14f6" prefix=" " category="inline-code"></block> desde la versión 21.07.</block>
+  <block id="38031fa541c9c5d0bfc3ce1864d9f130" category="list-text">Kubernetes 1,23 - 1,28</block>
+  <block id="0d03f2e1071d3ef1d8320e08a5ea03cd" category="paragraph">1,23 - 1,28</block>
+  <block id="8554748be67b956e550de942edae807d" category="admonition">NVMe/TCP requiere RHEL 9 o posterior.</block>
+  <block id="e379ebca8f2245b4a0c32803c6d7f845" category="paragraph">Todos los nodos de trabajadores del clúster de Kubernetes deben poder montar los volúmenes que haya aprovisionado para los pods. Para preparar los nodos de trabajo, debe instalar las herramientas NFS, iSCSI o NVMe según la selección de controladores.</block>
+  <block id="e5c51a68e2b43579fd4ae4bff8050b2c" category="list-text">docker.io/netapp/trident:23.10.0</block>
+  <block id="879dbadb236a628646db400b41e30f25" category="list-text">docker.io/netapp/trident-autosupport:23,10</block>
+  <block id="f1ddd80e14c81c1d754dfbdb2f850757" category="list-text">registry.k8s.io/sig-storage/csi-provisioner:v3,6.0</block>
+  <block id="9907e74008defde26417cd6b70b41a28" category="list-text">registry.k8s.io/sig-storage/csi-attacher:v4,4.0</block>
+  <block id="0412a949ebb008aa6aa55f27dd6db71c" category="list-text">registry.k8s.io/sig-storage/csi-resizer:v1,9.0</block>
+  <block id="1b18bb70ac8b9e2989b63f692a170f14" category="list-text">registry.k8s.io/sig-storage/csi-snapshotter:v6,3.0</block>
+  <block id="bfcfde74961d9f3991b8fb27f23b564f" category="list-text">registry.k8s.io/sig-storage/csi-node-driver-registrador:v2,9.0</block>
+  <block id="65bb0d64332830aa4b126b616f68e83b" category="list-text">docker.io/netapp/trident-operator:23.10.0 (opcional)</block>
+  <block id="df935b95f4f5aa4b8cc6b78b9011196d" category="cell">v1.28.0</block>
+  <block id="4b12063181817cfd708813fce9299b8d" category="section-title">¿Cuáles son las novedades en 23,10</block>
+  <block id="2564a762d021b4beae21f01627773c0f" category="inline-link-macro">Problema n.o 834</block>
+  <block id="e53ddb8a6947ad5b93f8c82a86836f16" category="list-text">Expansión de volumen fija si un tamaño nuevo solicitado es menor que el tamaño de volumen total de los controladores de almacenamiento ontap-nas y ontap-nas-flexgroup (<block ref="6140c2bc2ecfc555b47da5841f5fd8ae" category="inline-link-macro-rx"></block>).</block>
+  <block id="d52fe9ebb96cf9ce91bf00e0caa773de" category="inline-link-macro">Problema n.o 722</block>
+  <block id="676394929bfe922b6aff300499cef5a9" category="list-text">Tamaño de volumen fijo para mostrar solo el tamaño utilizable del volumen durante la importación para los controladores de almacenamiento ontap-nas y ontap-nas-flexgroup (<block ref="1ec6a9e212fa13524af3f3c296d6bb72" category="inline-link-macro-rx"></block>).</block>
+  <block id="c2b105e6592336c26afd4f39319a222e" category="list-text">Conversión de nombres FlexVol fija para ONTAP-NAS-Economy.</block>
+  <block id="a78c2c1c722d3e8b3abc0e050b914850" category="list-text">Se ha solucionado el problema de inicialización de Astra Trident en un nodo de Windows cuando se reinicia el nodo.</block>
+  <block id="b680f5ddc32b78c78329f3f15a836381" category="paragraph">Añadido soporte para Kubernetes 1,28.</block>
+  <block id="f82695aea6527ed53f785b9c22ba480f" category="list-text">Soporte añadido para el uso de Azure Managed Identity(AMI) con controlador de almacenamiento de archivos de azure-netapp.</block>
+  <block id="be1e775eed9a7023c7facbd3f3cd32cd" category="list-text">Se añadió compatibilidad con NVMe over TCP para el controlador ONTAP-SAN.</block>
+  <block id="24a3b687404991a8b5d83740bfde9f9c" category="inline-link-macro">Problema n.o 558</block>
+  <block id="86826a04ec735c436222d55949b27e52" category="list-text">Se ha añadido la capacidad para pausar el aprovisionamiento de un volumen cuando el backend está establecido en estado suspendido por el usuario (<block ref="4ad3a18b49b4979346d26b5940c21a0f" category="inline-link-macro-rx"></block>).</block>
+  <block id="4b7b626af3a0da6c1aea3f8bfb747ecd" category="section-title">Funciones avanzadas disponibles en Astra Control</block>
+  <block id="8db3e906ba1fb6be167b2c9c454bb44a" category="paragraph">Con Astra Trident 23,10, un nuevo componente de software llamado Astra Control Provisioning está disponible para los usuarios con licencia de Astra Control. Este aprovisionador ofrece acceso a un superconjunto de funciones avanzadas de aprovisionamiento de almacenamiento y gestión más allá de las que Astra Trident es compatible por sí mismo. Para la versión 23,10, estas funciones incluyen:</block>
+  <block id="841c0f9b214b9e81f2613e90df896d01" category="list-text">Funcionalidades de backup y restauración para aplicaciones con back-ends de almacenamiento respaldados por controladores económicos de ontap-nas</block>
+  <block id="e5724ee5eef0c70e6b8279698448801b" category="list-text">Seguridad de back-end del almacenamiento mejorada con cifrado Kerberos 5</block>
+  <block id="9997c94ed11ae9d75d9264b1124be18e" category="list-text">Recuperación de datos mediante un snapshot</block>
+  <block id="4f254b5768d1e18364bedb0b2402d10a" category="list-text">Mejoras de SnapMirror</block>
+  <block id="bc321686af3ca8a3db0bcd93ef54f9ce" category="inline-link-macro">Obtén más información sobre el aprovisionador de Astra Control.</block>
+  <block id="429c6ecffd4e4a3e5f95dcee1ad3e43c" category="paragraph"><block ref="429c6ecffd4e4a3e5f95dcee1ad3e43c" category="inline-link-macro-rx"></block></block>
+  <block id="d4eb6933e70b3c49a70e1d8427489044" category="section-title">Cambios en 23.07.1</block>
+  <block id="d8208e19a7ba3d8463cef9b64d00e3f6" category="section-title">Información vital sobre Astra Trident 23,10</block>
+  <block id="2f2ea2fa86bacf19aff47a2287ee891d" category="list-text">Uso<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> y especifique un nombre para la implementación como en el ejemplo siguiente donde<block ref="84976609aebb6439476255d5ef8280bb" prefix=" " category="inline-code"></block> Es la versión de Astra Trident que está instalando.</block>
+  <block id="62d79a0ee0c75076dab97b2215d3593b" category="paragraph">Por ejemplo, para cambiar el valor predeterminado de<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>, ejecute lo siguiente<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> comando donde<block ref="84976609aebb6439476255d5ef8280bb" prefix=" " category="inline-code"></block> Es la versión de Astra Trident que está instalando:</block>
+  <block id="2f6b7b0c1002ad67f4e455a17d784c94" category="cell"><block ref="9d4568c009d203ab10e33ea9953a0264" prefix="" category="inline-code"></block></block>
+  <block id="a55d315d1b8f8342158866cd0f4acf4f" category="cell"><block ref="df8f3af91e96fe841267201ed450cd6b" prefix="" category="inline-code"></block></block>
+  <block id="3f5dc9ae5f538d3ce4d0cc20e7762671" category="cell"><block ref="d19f2c0377f3ed7cab9377cf066cb7ef" prefix="" category="inline-code"></block></block>
+  <block id="dae35017f01f4bb5166696478bea5ed3" category="cell">Establezca en<block ref="71d36c46e340ad9137b2691e267f5ecd" prefix=" " category="inline-code"></block> Cuando se utilizan identidades gestionadas en un clúster AKS.</block>
+  <block id="9a9da6e778ab07cf0f1fe8db100e7e75" category="paragraph">Los siguientes ejemplos proporcionan configuraciones de ejemplo para instalar Astra Trident mediante<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>.</block>
+  <block id="d5999fd61d148b96e54f154a54ffead5" category="example-title">Nodos de Windows</block>
+  <block id="ecb7d1d46da3859c69f45b619ace746a" category="example-title">Forzar separación</block>
+  <block id="f393555b01f0bafc5bd6a63db97bac1d" category="example-title">Identidades administradas en un cluster AKS</block>
+  <block id="31b8b882a771bc8ac67ad73d313a4407" category="paragraph">En este ejemplo se instala Astra Trident para habilitar las identidades gestionadas.</block>
+  <block id="28988f0a59f621eb11ed592b70156da2" category="list-text">Uso<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> y especifique un nombre para su implementación y ubicación del registro de imágenes. Su <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos:<block ref="84976609aebb6439476255d5ef8280bb" prefix=" " category="inline-code"></block> Es la versión de Astra Trident que está instalando.</block>
+  <block id="90a731f9a8a983f7cf3905960d8146ec" category="cell"><block ref="9aa82da0cffe247b84587c1cc8e32746" prefix="" category="inline-code"></block></block>
+  <block id="ff1e5aff28fa6b984ca73f22322bbe5f" category="cell"><block ref="e4d71bf2abad047425f4463e27bb83b0" prefix="" category="inline-code"></block></block>
+  <block id="dd316e5cd2da3dc93efe1b04ae37f04b" category="cell"><block ref="60b12a574bb1efa44db3a39fe0c35b72" prefix="" category="inline-code"></block></block>
+  <block id="fca9ec6d50035c840a58bdecab9e25b1" category="cell"><block ref="256acfe307251e7444859851d87d5735" prefix="" category="inline-code"></block></block>
+  <block id="24fe835c9cae4e8617a956171c0743d6" category="cell"><block ref="bab4a6327e1a7bf6168ca47f1cd03781" prefix="" category="inline-code"></block></block>
+  <block id="5988b87b5a9370ccf6ee4e99fb6ac85a" category="cell"><block ref="9fb2e56e3d11fdc981c57749d266aa42" prefix="" category="inline-code"></block> (Kubernetes 1,19 o posterior)
+o.<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-code"></block></block>
+  <block id="cb970ba92f64074cb0c13138a539851d" category="paragraph">Puede utilizar los atributos en <block ref="289efe9665b12a9f791f1897f30c1a0b" category="inline-xref-macro-rx"></block> al definir<block ref="ae61bf6af1a7406b62c72a4bef1ab62d" prefix=" " category="inline-code"></block> para personalizar la instalación.</block>
+  <block id="0f63a7a4873a5bae5060bde9fd1009af" category="example-title">Configuración personalizada básica</block>
+  <block id="75af726339d8dd9e0c82b2326b0c0486" category="paragraph">Este es un ejemplo de una instalación personalizada básica.</block>
+  <block id="a144d1a554ec741f701e87c26360c28e" category="example-title">Selectores de nodos</block>
+  <block id="31fa5c9360322e13aba1b8b48edcdaed" category="paragraph">Este ejemplo instala Astra Trident con selectores de nodos.</block>
+  <block id="de5aefa11fe3836b4b8d0769b09b21eb" category="example-title">Nodos de trabajo de Windows</block>
+  <block id="e037ffcaadbce3092a5cf8a87340fd58" category="paragraph">En este ejemplo se instala Astra Trident en un nodo de trabajo de Windows.</block>
+  <block id="a998f3ed1c2f0acf96000ec18ff8cb4f" category="paragraph">En este ejemplo se instala Astra Trident para habilitar identidades gestionadas en un clúster de AKS.</block>
+  <block id="fe9b1493a507da1dc0bfa19fbf9c5180" category="paragraph">Pulg<block ref="02f3115b006f7541a477d52ea8c0f861" prefix=" " category="inline-code"></block>, actualizar<block ref="4dd6592b70080d91fec96acc5ba0327e" prefix=" " category="inline-code"></block> para reflejar la ubicación del registro de imágenes. Su <block ref="57de9a35aeedde82408b1e047030d221" category="inline-link-macro-rx"></block> Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. Por ejemplo:</block>
+  <block id="1610fd368b1185c1c3dbacf46bf30627" category="list-text"><block ref="e080249b02d6fcb0be212a2403e511be" prefix="" category="inline-code"></block> si todas las imágenes están ubicadas en un registro.</block>
+  <block id="b7043a394af6d34fb7a0118dca29fcdb" category="list-text"><block ref="a3eacad4b55fb05bc2a16aad99b58f40" prefix="" category="inline-code"></block> Si su imagen Trident se encuentra en un registro diferente de sus imágenes CSI.</block>
+  <block id="70c1e6c61f5bb4daad5da0737987b584" category="list-text">Para los clústeres que ejecutan Kubernetes 1,24 o una versión anterior, utilice <block ref="a44a6c98120e356ed433b4f8492681f5" category="inline-link-macro-rx"></block>.</block>
+  <block id="ebe5b5c442e30418322b3109fcd37667" category="list-text">Para los clústeres que ejecutan Kubernetes 1,25 o posterior, utilice <block ref="17c9f258839eefcfe94d624077ce52a9" category="inline-link-macro-rx"></block>.</block>
+  <block id="b714bb36b0285d040e315c079c326009" category="list-text">Elimine el operador Trident que se ha utilizado para instalar la instancia actual de Astra Trident. Por ejemplo, si va a actualizar desde 23,07, ejecute el siguiente comando:</block>
+  <block id="1be752f13dc36ce52c5cbaa1889fb5c0" category="list-text">Instale Astra Trident utilizando el archivo YAML de paquete correcto para su entorno, donde está _&lt;bundle.yaml&gt;_<block ref="bd2cc8575fe69c7f775292759380c838" prefix=" " category="inline-code"></block> o.<block ref="5a02ebff4889c2de0379a0fb10bed282" prefix=" " category="inline-code"></block> Según su versión de Kubernetes. Por ejemplo, si está instalando Astra Trident 23,10, ejecute el siguiente comando:</block>
+  <block id="7ef5fe31142052af801d70088b7c81a1" category="list-text">Utilice la<block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> comando donde<block ref="2bf502a148116cde5482ac78e1580a82" prefix=" " category="inline-code"></block> refleja la versión a la que desea actualizar.</block>
+  <block id="24b34ec4720df5e6dd4a09f584b074b5" category="list-text">Puede realizar una actualización directa a cualquier versión de destino que esté dentro de una ventana de cuatro versiones de la versión instalada. Por ejemplo, puede actualizar directamente de 22,10 (o cualquier versión de 22,10 puntos) a 23,10.</block>
+  <block id="87ad4a061085ee86c22b68e7534ecdf3" category="list-text">Si va a actualizar desde una versión fuera de la ventana de cuatro versiones, realice una actualización de varios pasos. Utilice las instrucciones de actualización de <block ref="a799aa6eaf3a5192b34ea19f24bb716f" category="inline-link-macro-rx"></block> va a actualizar de a a la versión más reciente que se ajuste a la ventana de cuatro versiones. Por ejemplo, si utiliza 21,10 y desea actualizar a la versión 23,10:</block>
+  <block id="7b136496fce84f19eb2409b46c46f701" category="list-text">Primera actualización de 21,10 a 22,10.</block>
+  <block id="3d2eabb16a1ecb16a8803902e234b976" category="list-text">A continuación, actualice de 22,10 a 23,10.</block>
+  <block id="d8ae7c2797a2c93034174a911af883b7" category="summary">Astra Trident es un orquestador y gestor de aprovisionamiento de código abierto que mantiene NetApp. Le permite crear volúmenes de almacenamiento para aplicaciones en contenedores gestionadas por Docker y Kubernetes. **Lea las notas de la versión para obtener información crítica sobre la actualización a Astra Trident 23,10.**</block>
+  <block id="749d47fd9d677c51bfd2eedc329f4622" category="doc">Documentación de Astra Trident 23,10</block>
+  <block id="766995a062c6503acd7ac4752fbb865d" category="inline-link-macro">23,10</block>
+  <block id="dc06f206c9849143297835dcc6240a1d" category="paragraph"><block ref="dc06f206c9849143297835dcc6240a1d" category="inline-link-macro-rx"></block></block>
+  <block id="78c875172f37f031a2632dc008815ee1" category="cell">Octubre de 2026</block>
+  <block id="4c326d958c0bd182aa53c9e9bba722ad" category="paragraph">Si no utiliza Astra Trident 23,10, la documentación de versiones anteriores está disponible según la <block ref="6e1ac221c7aa10f6bb30cbfd51cb3204" category="inline-link-macro-rx"></block>.</block>
+  <block id="6933dffe806f29980dbedda6aef6fda7" category="inline-link">Astra Trident 23,07</block>
+  <block id="5190d8b9f5b246f225722ffa2f20e6b3" category="list-text"><block ref="5190d8b9f5b246f225722ffa2f20e6b3" category="inline-link-rx"></block></block>
 </blocks>

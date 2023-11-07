@@ -159,14 +159,21 @@ Tamaño máximo del volumen que se puede volver a realizar la consulta y tamaño
 
 
 | `qtreesPerFlexvol`  a| 
-El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300], y el valor predeterminado es 200. *Para `ontap-nas-economy` Controlador, esta opción permite personalizar el número máximo de qtrees por FlexVol*.
+El número máximo de qtrees por FlexVol debe estar comprendido entre [50, 300], y el valor predeterminado es 200.
+
+*Para `ontap-nas-economy` Controlador, esta opción permite personalizar el número máximo de qtrees por FlexVol*.
  a| 
 `300`
 
+
+
+| `sanType` | * Compatible con `ontap-san` solo conductor.*
+
+Utilice para seleccionar `iscsi` Para iSCSI o. `nvme` Para NVMe/TCP. | `iscsi` si está en blanco 
 |===
 Las opciones predeterminadas están disponibles para evitar tener que especificarlas en cada volumen que cree:
 
-[cols="3*"]
+[cols="1,3,2"]
 |===
 | Opción | Descripción | Ejemplo 
 
@@ -285,8 +292,9 @@ Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorn
 
 === Archivos de configuración de ONTAP de ejemplo
 
-*Ejemplo de NFS para `ontap-nas` controlador*
-
+.Ejemplo de NFS para <code>ontap-nas</code> el controlador
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -305,8 +313,10 @@ Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorn
     }
 }
 ----
-*Ejemplo de NFS para `ontap-nas-flexgroup` controlador*
-
+====
+.Ejemplo de NFS para <code>ontap-nas-flexgroup</code> el controlador
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -324,8 +334,10 @@ Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorn
     }
 }
 ----
-*Ejemplo de NFS para `ontap-nas-economy` controlador*
-
+====
+.Ejemplo de NFS para <code>ontap-nas-economy</code> el controlador
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -339,8 +351,10 @@ Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorn
     "aggregate": "aggr1"
 }
 ----
-*Ejemplo de iSCSI para `ontap-san` controlador*
-
+====
+.Ejemplo de iSCSI para <code>ontap-san</code> el controlador
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -355,8 +369,10 @@ Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorn
     "igroupName": "netappdvp"
 }
 ----
-*Ejemplo de NFS para `ontap-san-economy` controlador*
-
+====
+.Ejemplo de NFS para <code>ontap-san-economy</code> el controlador
+[%collapsible]
+====
 [listing]
 ----
 {
@@ -371,6 +387,25 @@ Para obtener funciones avanzadas y obtener un enorme escalado en el mismo entorn
     "igroupName": "netappdvp"
 }
 ----
+====
+.Ejemplo de NVMe/TCP para <code>ontap-san</code> controlador
+[%collapsible]
+====
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "NVMeBackend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "svm": "svm_nvme",
+  "username":"vsadmin",
+  "password":"password",
+  "sanType": "nvme",
+  "useREST": true
+}
+----
+====
 
 
 == Configuración del software Element

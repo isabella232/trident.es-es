@@ -68,7 +68,7 @@ Instalado con trimentctl::
 
 
 
-== Solución de problemas de una implementación de Trident incorrecta con el operador
+== Implementación incorrecta de Trident con el operador
 
 Si utiliza el operador, el estado de implementación de Trident `TridentOrchestrator` cambios de `Installing` para `Installed`. Si observa la `Failed` y el operador no puede recuperarse por sí solo, debe comprobar los registros del operador ejecutando el siguiente comando:
 
@@ -135,7 +135,7 @@ Para solucionar el problema, debe editar el `TridentOrchestrator` CR. Como alter
 
 
 
-== Solucione problemas de una implementación de Trident incorrecta mediante `tridentctl`
+== Puesta en marcha de Trident incorrecta mediante `tridentctl`
 
 Para ayudar a averiguar qué fue lo que salió mal, puede ejecutar el instalador de nuevo utilizando el ``-d`` argumento, que activa el modo de depuración y le ayuda a comprender cuál es el problema:
 
@@ -194,3 +194,33 @@ tridentctl obliviate crd
 ----
 --
 ====
+
+
+== Se produce un error al anular el almacenamiento en caché del nodo de NVMe con espacios de nombres de bloque sin configurar RWX o Kubernetes 1,26
+
+Si ejecuta Kubernetes 1,26, la anulación del almacenamiento provisional del nodo puede fallar cuando se usa NVMe/TCP con espacios de nombres de bloque sin configurar de RWX. Los siguientes escenarios proporcionan una solución alternativa al fallo. También puede actualizar Kubernetes a 1,27.
+
+
+
+=== Se ha eliminado el espacio de nombres y el pod
+
+Piensa en un escenario en el que tienes un espacio de nombres gestionado por Astra Trident (volumen persistente NVMe) conectado a un pod. Si elimina el espacio de nombres directamente desde el backend de ONTAP, el proceso de anulación del almacenamiento provisional se bloquea después de intentar eliminar el pod. Este escenario no afecta al clúster de Kubernetes ni a otro funcionamiento.
+
+.Solución alternativa
+Desmonte el volumen persistente (que corresponde al espacio de nombres) del nodo correspondiente y elimínelo.
+
+
+
+=== LIF de datos bloqueadas
+
+ If you block (or bring down) all the dataLIFs of the NVMe Astra Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.Solución alternativa
+Abra dataLIFS para restaurar la funcionalidad completa.
+
+
+
+=== Se ha eliminado la asignación de espacio de nombres
+
+ If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+.Solución alternativa
+Añada el `hostNQN` de vuelta al subsistema.

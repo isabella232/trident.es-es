@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/anf-prep.html 
-keywords: trident backend, azure netapp files, smb volumes, smb, windows, active directory, csi proxy 
+keywords: trident backend, azure netapp files, smb volumes, smb, windows, active directory, csi proxy, aks, managed identities 
 summary: Antes de configurar el back-end de Azure NetApp Files, debe asegurarse de que se cumplan los siguientes requisitos. 
 ---
 = Prepárese para configurar un back-end de Azure NetApp Files
@@ -18,10 +18,12 @@ Antes de configurar el back-end de Azure NetApp Files, debe asegurarse de que se
 
 == Requisitos previos para volúmenes NFS y SMB
 
-
-NOTE: Si utiliza Azure NetApp Files por primera vez o en una ubicación nueva, es necesario realizar alguna configuración inicial para configurar Azure NetApp Files y crear un volumen NFS. Consulte https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configure Azure NetApp Files y cree un volumen NFS"^].
+Si utiliza Azure NetApp Files por primera vez o en una ubicación nueva, es necesario realizar alguna configuración inicial para configurar Azure NetApp Files y crear un volumen NFS. Consulte https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Configure Azure NetApp Files y cree un volumen NFS"^].
 
 Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, necesita lo siguiente:
+
+
+NOTE: `subscriptionID`, `tenantID`, `clientID`, `location`, y. `clientSecret` Son opcionales cuando se utilizan identidades administradas en un clúster AKS.
 
 * Un pool de capacidad. Consulte link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["Microsoft: Cree un pool de capacidad para Azure NetApp Files"^].
 * Una subred delegada en Azure NetApp Files. Consulte link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["Microsoft: Delegue una subred en Azure NetApp Files"^].
@@ -31,6 +33,9 @@ Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/
 ** El rol propietario o Colaborador link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Predefinidos por Azure"^].
 ** A. link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Rol Colaborador personalizado"] en el nivel de suscripción (`assignableScopes`) Con los siguientes permisos que están limitados únicamente a lo que Astra Trident necesita. Después de crear el rol personalizado, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Asigne el rol mediante el portal de Azure"^].
 +
+.Rol de contribuyente personalizado
+[%collapsible]
+====
 [source, JSON]
 ----
 {
@@ -73,6 +78,7 @@ Para configurar y utilizar un https://azure.microsoft.com/en-us/services/netapp/
     }
 }
 ----
+====
 
 
 * Azure `location` que contiene al menos uno link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["subred delegada"^]. A partir de Trident 22.01, la `location` parámetro es un campo obligatorio en el nivel superior del archivo de configuración del back-end. Los valores de ubicación especificados en los pools virtuales se ignoran.
