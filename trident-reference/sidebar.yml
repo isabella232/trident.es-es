@@ -8,12 +8,8 @@ entries:
   url: "/trident-reference/rest-api.html"
 - title: Opciones de línea de comandos
   url: "/trident-reference/trident-cl.html"
-- title: Los productos de NetApp están integrados con Kubernetes
-  url: "/trident-reference/k8s-netapp.html"
 - title: Objetos de Kubernetes y Astra Trident
   url: "/trident-reference/objects.html"
-- title: Gestión de Astra Trident con tridentctl
-  url: "/trident-reference/tridentctl.html"
 - title: Pod Security Standards (PSS) y las restricciones de contexto de seguridad
     (SCC)
   url: "/trident-reference/pod-security.html"

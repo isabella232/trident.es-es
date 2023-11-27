@@ -26,33 +26,41 @@ Para una mayor seguridad, la Astra Trident `REST API` se restringe a localhost d
 
 == Uso de la API DE REST
 
+Para obtener ejemplos de cómo se llama a estas API, pase la depuración (`-d`) bandera. Para obtener más información, consulte link:../trident-managing-k8s/tridentctl.html["Gestión de Astra Trident con tridentctl"].
+
 La API funciona de la siguiente manera:
 
 
 
-=== `GET`
+=== OBTENGA
 
-* `GET <trident-address>/trident/v1/<object-type>`: Enumera todos los objetos de ese tipo.
-* `GET <trident-address>/trident/v1/<object-type>/<object-name>`: Obtiene los detalles del objeto con nombre.
-
-
+`GET <trident-address>/trident/v1/<object-type>`:: Muestra todos los objetos de ese tipo.
+`GET <trident-address>/trident/v1/<object-type>/<object-name>`:: Obtiene los detalles del objeto con nombre.
 
 
-=== `POST`
 
-`POST <trident-address>/trident/v1/<object-type>`: Crea un objeto del tipo especificado.
 
-* Requiere la configuración de JSON para el objeto que se cree. Para obtener información sobre la especificación de cada tipo de objeto, consulte LINK:tridentctl.html[`tridentctl` comandos y opciones].
+=== PUBLICAR
+
+`POST <trident-address>/trident/v1/<object-type>`:: Crea un objeto del tipo especificado.
++
+--
+* Requiere la configuración de JSON para el objeto que se cree. Para conocer la especificación de cada tipo de objeto, consulte link:../trident-managing-k8s/tridentctl.html["Gestión de Astra Trident con tridentctl"].
 * Si el objeto ya existe, el comportamiento varía: Los back-ends actualizan el objeto existente, mientras que todos los demás tipos de objeto fallarán la operación.
 
 
+--
 
 
-=== `DELETE`
-
-`DELETE <trident-address>/trident/v1/<object-type>/<object-name>`: Elimina el recurso con nombre.
 
 
-NOTE: Seguirán existiendo volúmenes asociados con back-ends o clases de almacenamiento, que deben eliminarse por separado. Para obtener más información, consulte el enlace:tridentctl.html[`tridentctl` comandos y opciones].
+=== ELIMINAR
 
-Para obtener ejemplos de cómo se llama a estas API, pase la depuración (`-d`) bandera. Para obtener más información, consulte el enlace:tridentctl.html[`tridentctl` comandos y opciones].
+`DELETE <trident-address>/trident/v1/<object-type>/<object-name>`:: Suprime el recurso con nombre.
++
+--
+
+NOTE: Seguirán existiendo volúmenes asociados con back-ends o clases de almacenamiento, que deben eliminarse por separado. Para obtener más información, consulte link:../trident-managing-k8s/tridentctl.html["Gestión de Astra Trident con tridentctl"].
+
+--
+
