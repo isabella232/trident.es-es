@@ -87,7 +87,7 @@ basic-csi    csi.trident.netapp.io   15h
 
 === Muestras de clase de almacenamiento
 
-Astra Trident proporciona https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/pvc-samples["definiciones simples de clase de almacenamiento para back-ends específicos"^].
+Astra Trident proporciona https://github.com/NetApp/trident/tree/master/trident-installer/sample-input/storage-class-samples["definiciones simples de clase de almacenamiento para back-ends específicos"^].
 
 Como alternativa, puede editar `sample-input/storage-class-csi.yaml.templ` archivo que viene con el instalador y reemplácelo `__BACKEND_TYPE__` con el nombre del controlador de almacenamiento.
 
