@@ -4,7 +4,7 @@ permalink: trident-use/trident-aws-addon.html
 keywords: Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on, integrate Trident, Trident 
 summary: Añada el complemento Astra Trident EKS al clúster de Kubernetes. 
 ---
-= Configura la versión 23,10 del complemento Astra Trident EKS en EKS cluser
+= Configura la versión 23,10 del complemento Astra Trident EKS en el clúster de EKS
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
