@@ -229,7 +229,7 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 
 === Paso 3: Expanda el PV
 
-Para cambiar el tamaño del VP de 20 MiB recién creado a 1 GIB, edite el RVP y establezca `spec.resources.requests.storage` A 1 GB:
+Para cambiar el tamaño del VP de 20 MiB recién creado a 1 GIB, edite el RVP y establezca `spec.resources.requests.storage` A 1GiB:
 
 [listing]
 ----

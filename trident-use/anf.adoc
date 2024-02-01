@@ -40,7 +40,7 @@ RWO, ROX, RWX, RWOP
 
 === Consideraciones
 
-* El servicio Azure NetApp Files no admite volúmenes de menos de 100 GB. Astra Trident crea automáticamente volúmenes de 100 GB si se solicita un volumen más pequeño.
+* El servicio Azure NetApp Files no admite volúmenes de menos de 100 GB. Astra Trident crea automáticamente volúmenes de 100 GiB si se solicita un volumen más pequeño.
 * Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
 
 
