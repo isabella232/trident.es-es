@@ -141,7 +141,7 @@ La `gcp-cvs` La unidad utiliza pools virtuales para abstraer el back-end y permi
 
 Para configurar el back-end de Google Cloud en Astra Trident, debe especificar `projectNumber`, `apiRegion`, y. `apiKey` en el archivo de fondo. Puede encontrar el número de proyecto en la consola de Google Cloud. La clave API se obtiene del archivo de claves privadas de la cuenta de servicio que creó al configurar el acceso de API para Cloud Volumes Service en Google Cloud.
 
-Para obtener más información sobre Cloud Volumes Service en los tipos de servicio y niveles de servicio de Google Cloud, consulte link:../trident-use/gcp.html["Obtenga más información sobre la compatibilidad de Astra Trident con CVS para GCP"].
+Para obtener información detallada sobre los tipos de servicio y los niveles de servicio de Cloud Volumes Service en Google Cloud, consulte link:../trident-use/gcp.html["Obtenga más información sobre la compatibilidad de Astra Trident con CVS para GCP"].
 
 [cols="20,10,10,10,10,10,10"]
 |===

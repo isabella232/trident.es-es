@@ -79,16 +79,81 @@ En el siguiente ejemplo se instalan conjuntos Astra Trident `cloudProvider` A Az
 
 [listing]
 ----
-helm install trident trident-operator-23.10.0-custom.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2402.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>
 --
-En el siguiente ejemplo se instala Astra Trident sets `cloudProvider` marcar a. `Azure`:
+En el siguiente ejemplo, se instala Astra Trident y establece el `cloudProvider` marcar a. `Azure`:
 
 [listing]
 ----
 tridentctl install --cloud-provider="Azure" -n trident
+----
+--
+====
+
+
+
+
+== Identidad de nube para AKS
+
+La identidad en la nube permite a los pods de Kubernetes acceder a los recursos de AWS mediante la autenticación como rol de AWS IAM en lugar de proporcionando credenciales explícitas de AWS.
+
+Para aprovechar la identidad de la nube en AWS, debes tener:
+
+* Un clúster de Kubernetes puesto en marcha mediante AKS
+* Identidad de carga de trabajo y emisor de oidc configurados en el clúster de Kubernetes de AKS
+* Astra Trident instalado que incluye el `cloudProvider` para especificar `"Azure"` y.. `cloudIdentity` especificación de identidad de carga de trabajo
++
+[role="tabbed-block"]
+====
+.Operador de Trident
+--
+Para instalar Astra Trident con el operador Trident, edite `tridentorchestrator_cr.yaml` para ajustar `cloudProvider` para `"Azure"` y ajustar `cloudIdentity` para `azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx`.
+
+Por ejemplo:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullPolicy: IfNotPresent
+  cloudProvider: "Azure"
+  *cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'*
+----
+--
+.Timón
+--
+Establezca los valores para los indicadores *cloud-provider (CP)* y *cloud-identity (CI)* utilizando las siguientes variables de entorno:
+
+`export CP="Azure"`
+`export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
+
+En el siguiente ejemplo se instala Astra Trident y sets `cloudProvider` A Azure mediante la variable de entorno `$CP` y establece la `cloudIdentity` utilizando la variable de entorno `$CI`:
+
+[listing]
+----
+helm install trident trident-operator-100.2402.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
+----
+--
+.<code>tridentctl</code>
+--
+Establezca los valores para los indicadores *cloud provider* y *cloud identity* utilizando las siguientes variables de entorno:
+
+`export CP="Azure"`
+`export CI="azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"`
+
+En el siguiente ejemplo, se instala Astra Trident y establece el `cloud-provider` marcar a. `$CP`, y. `cloud-identity` para `$CI`:
+
+[listing]
+----
+tridentctl install --cloud-provider=$CP --cloud-identity="$CI" -n trident
 ----
 --
 ====

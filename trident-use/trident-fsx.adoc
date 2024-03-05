@@ -22,8 +22,6 @@ Un sistema de archivos es el recurso principal de Amazon FSX, similar a un clús
 
 Al utilizar Astra Trident con Amazon FSX para ONTAP de NetApp, puede garantizar que los clústeres de Kubernetes que se ejecutan en Amazon Elastic Kubernetes Service (EKS) pueden aprovisionar volúmenes persistentes de bloques y archivos respaldados por ONTAP.
 
-Usos de Amazon FSX para ONTAP de NetApp https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mgng-stor-tier-fp/GUID-5A78F93F-7539-4840-AB0B-4A6E3252CF84.html["FabricPool"^] para gestionar los niveles de almacenamiento. Le permite almacenar datos en un nivel, según la frecuencia de acceso a estos.
-
 
 
 == Consideraciones
@@ -31,17 +29,14 @@ Usos de Amazon FSX para ONTAP de NetApp https://docs.netapp.com/ontap-9/topic/co
 * Volúmenes SMB:
 +
 ** Se admiten los volúmenes de SMB mediante el `ontap-nas` sólo conductor.
+** Los volúmenes SMB no son compatibles con el complemento Astra Trident EKS.
 ** Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
 
 
-* Trident no puede eliminar los volúmenes creados en sistemas de archivos Amazon FSX con backups automáticos habilitados. Para eliminar las RVP, es necesario eliminar manualmente el VP y el FSX para el volumen ONTAP. Para evitar este problema:
+* Antes de Astra Trident 24,02, Trident no podía eliminar los volúmenes creados en el sistema de archivos Amazon FSx que tienen habilitados backups automáticos. Para evitar este problema en Astra Trident 24,02 o una versión posterior, especifique la `fsxFilesystemID`, AWS `apiRegion`, AWS `apikey`, Y AWS `secretKey` En el archivo de configuración de back-end de AWS FSx for ONTAP.
 +
-** No utilice **creación rápida** para crear el sistema de archivos FSX para ONTAP. El flujo de trabajo de creación rápida permite realizar backups automáticos y no ofrece la opción de anulación de suscripción.
-** Cuando utilice **Standard create**, desactive la copia de seguridad automática. Al deshabilitar los backups automáticos, Trident puede eliminar correctamente un volumen sin intervención manual adicional.
-+
-image:screenshot-fsx-backup-disable.png["Captura de pantalla de la consola de AWS desactivando el backup automático."]
 
-
+NOTE: Si especifica un rol de IAM en Astra Trident, puede omitir la especificación del `apiRegion`, `apiKey`, y. `secretKey` Campos explícitamente para Astra Trident. Para obtener más información, consulte link:../trident-use/trident-fsx-examples.html["Opciones y ejemplos de configuración de FSX para ONTAP"].
 
 
 
@@ -58,7 +53,7 @@ Puede integrar Astra Trident con Amazon FSX para ONTAP de NetApp mediante los si
 * `ontap-nas-flexgroup`: Cada VP aprovisionado es un Amazon FSX completo para el volumen ONTAP FlexGroup de NetApp.
 
 
-Para obtener más información sobre el controlador, consulte link:../trident-use/ontap-nas.html["Controladores de NAS"] y.. link:../trident-use/ontap-san.html["Controladores de SAN"].
+Para obtener información detallada sobre el conductor, consulte link:../trident-use/ontap-nas.html["Controladores de NAS"] y.. link:../trident-use/ontap-san.html["Controladores de SAN"].
 
 
 
@@ -80,6 +75,70 @@ Para obtener más información sobre cómo habilitar la autenticación, consulte
 
 * link:ontap-nas-prep.html["Autenticación NAS de ONTAP"]
 * link:ontap-san-prep.html["Autenticación SAN ONTAP"]
+
+
+
+
+== Identidad de nube para EKS
+
+La identidad en la nube permite a los pods de Kubernetes acceder a los recursos de AWS mediante la autenticación como rol de AWS IAM en lugar de proporcionando credenciales explícitas de AWS.
+
+Para aprovechar la identidad de la nube en AWS, debes tener:
+
+* Un clúster de Kubernetes puesto en marcha mediante EKS
+* Astra Trident instalado que incluye el `cloudProvider` especificación `"AWS"` y.. `cloudIdentity` Especificación del rol de AWS IAM.
++
+[role="tabbed-block"]
+====
+.Operador de Trident
+--
+Para instalar Astra Trident con el operador Trident, edite `tridentorchestrator_cr.yaml` para ajustar `cloudProvider` para `"AWS"` y ajustar `cloudIdentity` Al rol de AWS IAM.
+
+Por ejemplo:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullPolicy: IfNotPresent
+  cloudProvider: "AWS"
+  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"
+----
+--
+.Timón
+--
+Establezca los valores para los indicadores *cloud provider* y *cloud identity* utilizando las siguientes variables de entorno:
+
+`export CP="AWS"`
+`export CI="'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"`
+
+En el siguiente ejemplo se instala Astra Trident y sets `cloudProvider` para `AWS` utilizando la variable de entorno `$CP` Y define la 'cloudIdentity' mediante la variable de entorno `$CI`:
+
+[listing]
+----
+helm install trident trident-operator-100.2402.0.tgz --set cloudProvider=$CP --set cloudIdentity=$CI
+----
+--
+.<code>tridentctl</code>
+--
+Establezca los valores para los indicadores *cloud provider* y *cloud identity* utilizando las siguientes variables de entorno:
+
+`export CP="AWS"`
+`export CI="'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role'"`
+
+En el siguiente ejemplo, se instala Astra Trident y establece el `cloud-provider` marcar a. `$CP`, y. `cloud-identity` para `$CI`:
+
+[listing]
+----
+tridentctl install --cloud-provider=$CP --cloud-identity="$CI" -n trident
+----
+--
+====
 
 
 

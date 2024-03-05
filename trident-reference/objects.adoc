@@ -321,7 +321,7 @@ Los back-ends representan a los proveedores de almacenamiento, además de los cu
 
 NOTE: Éste es uno de los dos tipos de objeto que se crean y administran a sí mismo. El otro es Kubernetes `StorageClass` objeto.
 
-Para obtener más información acerca de cómo construir estos objetos, consulte link:../trident-use/backends.html["configuración de los back-ends"].
+Para obtener más información sobre cómo construir estos objetos, consulte link:../trident-use/backends.html["configuración de los back-ends"].
 
 
 
@@ -468,7 +468,7 @@ spec:
          scopeName: PriorityClass
          values: ["system-node-critical"]
 ----
-Para obtener más información acerca de las cuotas de recursos, consulte link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes: Cuotas de recursos"^].
+Para obtener más información sobre las cuotas de recursos, consulte link:https://kubernetes.io/docs/concepts/policy/resource-quotas/["Kubernetes: Cuotas de recursos"^].
 
 
 

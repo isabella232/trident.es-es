@@ -31,12 +31,17 @@ Autosoporte:: La documentación de Astra Trident está disponible durante los me
 
 
  a| 
-link:https://docs.netapp.com/us-en/trident/index.html["23,10"^]
+link:https://docs.netapp.com/us-en/trident/index.html["24,02"^]
+| Febrero de 2025 | Febrero de 2026 | Febrero de 2027 
+
+
+ a| 
+link:https://docs.netapp.com/us-en/trident-2310/index.html["23,10"^]
 | Octubre de 2024 | Octubre de 2025 | Octubre de 2026 
 
 
  a| 
-link:https://docs.netapp.com/us-en/trident/index.html["23,07"^]
+link:https://docs.netapp.com/us-en/trident-2307/index.html["23,07"^]
 | Julio de 2024 | Julio de 2025 | Julio de 2026 
 
 
@@ -47,7 +52,7 @@ link:https://docs.netapp.com/us-en/trident-2304/index.html["23,04"^]
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2301/index.html["23,01"^]
-| A enero de 2024 | A enero de 2025 | A enero de 2026 
+| -- | A enero de 2025 | A enero de 2026 
 
 
  a| 
@@ -67,7 +72,7 @@ link:https://docs.netapp.com/us-en/trident-2204/index.html["22,04"^]
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2201/index.html["22,01"^]
-| -- | A enero de 2024 | A enero de 2025 
+| -- | -- | A enero de 2025 
 
 
  a| 
@@ -78,16 +83,6 @@ link:https://docs.netapp.com/us-en/trident-2110/index.html["21,10"^]
  a| 
 link:https://docs.netapp.com/us-en/trident-2107/index.html["21,07"^]
 | -- | -- | Julio de 2024 
-
-
- a| 
-link:https://netapp-trident.readthedocs.io/en/stable-v21.04/["21,04"^]
-| -- | -- | Abril de 2024 
-
-
- a| 
-link:https://netapp-trident.readthedocs.io/en/stable-v21.01/["21,01"^]
-| -- | -- | A enero de 2024 
 |===
 
 NOTE: Versiones anteriores a 21.07, redirigir al sitio de documentación heredado.
@@ -96,7 +91,7 @@ NOTE: Versiones anteriores a 21.07, redirigir al sitio de documentación heredad
 
 == Autosoporte
 
-Para obtener una lista completa de los artículos de solución de problemas, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["Base de conocimientos de NetApp (se requiere inicio de sesión)"^]. También puede encontrar información sobre la solución de problemas relacionados con Astra https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra["aquí"^].
+Para obtener una lista completa de artículos de solución de problemas, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["Base de conocimientos de NetApp (se requiere inicio de sesión)"^]. También puede encontrar información sobre la solución de problemas relacionados con Astra https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra["aquí"^].
 
 
 

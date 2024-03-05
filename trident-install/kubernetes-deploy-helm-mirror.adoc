@@ -16,7 +16,7 @@ Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. 
 
 
 
-== Información vital sobre Astra Trident 23,10
+== Información vital sobre Astra Trident 24,02
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
 
@@ -49,7 +49,7 @@ Además de la link:../trident-get-started/kubernetes-deploy.html#before-you-depl
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Uso `helm install` y especifique un nombre para su implementación y ubicación del registro de imágenes. Su link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"] Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos: `23.10.0` Es la versión de Astra Trident que está instalando.
+. Uso `helm install` y especifique un nombre para su implementación y ubicación del registro de imágenes. Su link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Imágenes Trident y CSI"] Se pueden ubicar en un registro o en diferentes registros, pero todas las imágenes CSI deben estar ubicadas en el mismo registro. En los ejemplos: `24.02.0` Es la versión de Astra Trident que está instalando.
 +
 [role="tabbed-block"]
 ====
@@ -57,7 +57,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 --
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 24.02.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
 --
 .Imágenes en diferentes registros
@@ -66,7 +66,7 @@ Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicacio
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:23.10.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:23.10 --set tridentImage=<your-registry>/netapp/trident:23.10.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 24.02.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:24.02.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:24.02 --set tridentImage=<your-registry>/netapp/trident:24.02.0 --create-namespace --namespace <trident-namespace>
 ----
 --
 ====
@@ -98,11 +98,11 @@ Especifique un archivo YAML con anulaciones. Esto se puede especificar varias ve
 Especifique anulaciones en la línea de comandos.
 
 |===
-Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguiente `--set` comando donde `23.10.0` Es la versión de Astra Trident que está instalando:
+Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguiente `--set` comando donde `24.02.0` Es la versión de Astra Trident que está instalando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 24.02.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -130,16 +130,16 @@ Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporcio
 | `affinity` | Afinidad para la asignación de pod |  
 
 
-| `tridentControllerPluginNodeSelector` | Selectores de nodos adicionales para POD. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+| `tridentControllerPluginNodeSelector` | Selectores de nodos adicionales para POD. Consulte link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Descripción de los pods de la controladora y los pods de nodo"] para obtener más detalles. |  
 
 
-| `tridentControllerPluginTolerations` | Anula la toleración de Kubernetes en pods. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+| `tridentControllerPluginTolerations` | Anula la toleración de Kubernetes en pods. Consulte link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Descripción de los pods de la controladora y los pods de nodo"] para obtener más detalles. |  
 
 
-| `tridentNodePluginNodeSelector` | Selectores de nodos adicionales para POD. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+| `tridentNodePluginNodeSelector` | Selectores de nodos adicionales para POD. Consulte link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Descripción de los pods de la controladora y los pods de nodo"] para obtener más detalles. |  
 
 
-| `tridentNodePluginTolerations` | Anula la toleración de Kubernetes en pods. Consulte <<Descripción de los pods de la controladora y los pods de nodo>> para obtener más detalles. |  
+| `tridentNodePluginTolerations` | Anula la toleración de Kubernetes en pods. Consulte link:../trident-get-started/architecture.html#understanding-controller-pods-and-node-pods["Descripción de los pods de la controladora y los pods de nodo"] para obtener más detalles. |  
 
 
 | `imageRegistry` | Identifica el registro del `trident-operator`, `trident`, y otras imágenes. Déjelo vacío para aceptar el valor predeterminado. | "" 
@@ -151,7 +151,7 @@ Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporcio
 | `imagePullSecrets` | Establece los secretos de extracción de imágenes para el `trident-operator`, `trident`, y otras imágenes. |  
 
 
-| `kubeletDir` | Permite anular la ubicación del host del estado interno de kubelet. | ''/var/lib/kubelet'' 
+| `kubeletDir` | Permite anular la ubicación del host del estado interno de kubelet. | `"/var/lib/kubelet"` 
 
 
 | `operatorLogLevel` | Permite establecer el nivel de registro del operador Trident en: `trace`, `debug`, `info`, `warn`, `error`, o. `fatal`. | `"info"` 
@@ -219,6 +219,3 @@ Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporcio
 
 | `excludePodSecurityPolicy` | Excluye la política de seguridad del pod del operador de la creación. | `false` 
 |===
-
-
-== El futuro

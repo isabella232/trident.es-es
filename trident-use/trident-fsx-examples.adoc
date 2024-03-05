@@ -110,6 +110,25 @@ Este parámetro es obligatorio para los back-ends de Amazon FSx para ONTAP. | `s
 
 | `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*
 `useREST` se proporciona como **avance técnico** que se recomienda para entornos de prueba y no para cargas de trabajo de producción. Cuando se establece en `true`, Astra Trident utilizará las API DE REST de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` cliente más. Esto está satisfecho por el predefinido `vsadmin` y.. `cluster-admin` funciones. | `false` 
+
+
+| `aws` | Puedes especificar lo siguiente en el archivo de configuración de AWS FSx para ONTAP:
+- `fsxFilesystemID`: Especifique el ID del sistema de archivos AWS FSx.
+- `apiRegion`: Nombre de la región de la API de AWS.
+- `apikey`: AWS API key.
+- `secretKey`: AWS clave secreta. | ``
+``
+
+
+`""`
+`""`
+`""` 
+
+
+| `credentials` | Especifique las credenciales de FSx SVM que se van a almacenar en AWS Secret Manager.
+- `name`: Nombre de recurso de Amazon (ARN) del secreto, que contiene las credenciales de SVM.
+- `type`: Establecer en `awsarn`.
+Consulte link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Cree un secreto de AWS Secrets Manager"^] si quiere más información. |  
 |===
 
 
@@ -172,8 +191,11 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 |===
 
 
-== Ejemplo
+== Configuraciones de ejemplo
 
+.Configuración de la clase de almacenamiento para volúmenes SMB
+[%collapsible]
+====
 Uso `nasType`, `node-stage-secret-name`, y. `node-stage-secret-namespace`, Puede especificar un volumen SMB y proporcionar las credenciales necesarias de Active Directory. Se admiten los volúmenes de SMB mediante el `ontap-nas` sólo conductor.
 
 [listing]
@@ -189,3 +211,26 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
 ----
+====
+.Configuración para AWS FSx para ONTAP con administrador secreto
+[%collapsible]
+====
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: tbc-ontap-nas
+  svm: svm-name
+  aws:
+    fsxFilesystemID: fs-xxxxxxxxxx
+  managementLIF:
+  credentials:
+    name: "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name"
+    type: awsarn
+----
+====

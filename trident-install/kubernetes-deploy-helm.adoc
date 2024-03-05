@@ -16,7 +16,7 @@ Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. 
 
 
 
-== Información vital sobre Astra Trident 23,10
+== Información vital sobre Astra Trident 24,02
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
 
@@ -49,11 +49,11 @@ Además de la link:../trident-get-started/kubernetes-deploy.html#before-you-depl
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Uso `helm install` y especifique un nombre para la implementación como en el ejemplo siguiente donde `23.10.0` Es la versión de Astra Trident que está instalando.
+. Uso `helm install` y especifique un nombre para la implementación como en el ejemplo siguiente donde `24.02.0` Es la versión de Astra Trident que está instalando.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 24.02.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +83,11 @@ Especifique un archivo YAML con anulaciones. Esto se puede especificar varias ve
 Especifique anulaciones en la línea de comandos.
 
 |===
-Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguiente `--set` comando donde `23.10.0` Es la versión de Astra Trident que está instalando:
+Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguiente `--set` comando donde `24.02.0` Es la versión de Astra Trident que está instalando:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 23.10.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 24.02.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -205,7 +205,10 @@ Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporcio
 | `excludePodSecurityPolicy` | Excluye la política de seguridad del pod del operador de la creación. | `false` 
 
 
-| `cloudProvider` | Establezca en `"Azure"` Cuando se utilizan identidades gestionadas en un clúster AKS. | `""` 
+| `cloudProvider` | Establezca en `"Azure"` Cuando se utilizan identidades gestionadas o una identidad de nube en un clúster de AKS. Establecer en «AWS» cuando se utiliza una identidad de nube en un clúster de EKS. | `""` 
+
+
+| `cloudIdentity` | Defina la identidad de carga de trabajo («azure.workload.identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx») cuando utilice la identidad de cloud en un clúster de AKS. Establezca el rol de AWS IAM ('eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role') cuando utilice la identidad de nube en un clúster de EKS. | `""` 
 |===
 
 

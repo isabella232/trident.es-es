@@ -62,7 +62,7 @@ No No hay cambios en cuanto a la experiencia del usuario y las funcionalidades. 
 
 === ¿Admite Astra Trident una instalación sin conexión desde un registro privado?
 
-Sí, Astra Trident se puede instalar sin conexión. Consulte link:trident-get-started/kubernetes-deploy.html["aquí"].
+Sí, Astra Trident se puede instalar sin conexión. Consulte link:../trident-get-started/kubernetes-deploy.html["Obtenga más información sobre la instalación de Astra Trident"^].
 
 
 
@@ -86,13 +86,13 @@ Astra Trident lee desde el servidor de API de Kubernetes para determinar cuándo
 
 === ¿Cuáles son las funciones y los privilegios que utiliza Astra Trident?
 
-El instalador de Trident crea un ClusterRole de Kubernetes, que tiene acceso específico a los recursos PersistentVolume, PersistentVolumeClaim, StorageClass y Secret del clúster de Kubernetes. Consulte link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["aquí"].
+El instalador de Trident crea un ClusterRole de Kubernetes, que tiene acceso específico a los recursos PersistentVolume, PersistentVolumeClaim, StorageClass y Secret del clúster de Kubernetes. Consulte link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["Personalice la instalación trimentctl"^].
 
 
 
 === ¿Puedo generar de forma local los archivos de manifiesto exactos que utiliza Astra Trident para la instalación?
 
-Si es necesario, puede generar y modificar localmente los archivos de manifiesto exactos que Astra Trident utiliza para la instalación. Consulte link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["aquí"].
+Si es necesario, puede generar y modificar localmente los archivos de manifiesto exactos que Astra Trident utiliza para la instalación. Consulte link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["Personalice la instalación trimentctl"^].
 
 
 

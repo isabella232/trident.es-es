@@ -16,7 +16,7 @@ Para garantizar que Astra Trident se puede instalar en una amplia variedad de en
 
 
 
-== Información vital sobre Astra Trident 23,10
+== Información vital sobre Astra Trident 24,02
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
 

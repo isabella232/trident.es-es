@@ -51,7 +51,7 @@ spec:
 ----
 También puede echar un vistazo a los ejemplos de la https://github.com/NetApp/trident/tree/stable/v21.07/trident-installer/sample-input/backends-samples["instalador de trident"^] directorio para configuraciones de ejemplo para la plataforma o servicio de almacenamiento que desee.
 
-La `spec` toma parámetros de configuración específicos del back-end. En este ejemplo, el back-end utiliza el `ontap-san` controlador de almacenamiento y utiliza los parámetros de configuración que se tabulan aquí. Para obtener una lista de las opciones de configuración del controlador de almacenamiento que desee, consulte link:backends.html["información de configuración del back-end para el controlador de almacenamiento"^].
+La `spec` toma parámetros de configuración específicos del back-end. En este ejemplo, el back-end utiliza el `ontap-san` controlador de almacenamiento y utiliza los parámetros de configuración que se tabulan aquí. Para obtener la lista de opciones de configuración para el controlador de almacenamiento deseado, consulte la link:backends.html["información de configuración del back-end para el controlador de almacenamiento"^].
 
 La `spec` la sección también incluye `credentials` y.. `deletionPolicy` campos, que se introducen recientemente en `TridentBackendConfig` CR:
 
