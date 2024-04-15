@@ -38,11 +38,11 @@ Cuando actualice a la versión más reciente de Astra Trident, tenga en cuenta l
 
 Las versiones de Astra Trident siguen una fecha basada `YY.MM` Convención de nomenclatura, donde "YY" es los dos últimos dígitos del año y "MM" es el mes. Las versiones de puntos siguen a `YY.MM.X` convención, donde "X" es el nivel de parche. Deberá seleccionar la versión a la que se actualizará en función de la versión desde la que se actualice.
 
-* Puede realizar una actualización directa a cualquier versión de destino que esté dentro de una ventana de cuatro versiones de la versión instalada. Por ejemplo, puede actualizar directamente de 22,10 (o cualquier versión de 22,10 puntos) a 24,02.
-* Si va a actualizar desde una versión fuera de la ventana de cuatro versiones, realice una actualización de varios pasos. Utilice las instrucciones de actualización de link:../earlier-versions.html["versión anterior"] va a actualizar de a a la versión más reciente que se ajuste a la ventana de cuatro versiones. Por ejemplo, si utiliza 21,10 y desea actualizar a la versión 24,02:
+* Puede realizar una actualización directa a cualquier versión de destino que esté dentro de una ventana de cuatro versiones de la versión instalada. Por ejemplo, puede actualizar directamente de 23,01 (o cualquier versión de 23,01 puntos) a 24,02.
+* Si va a actualizar desde una versión fuera de la ventana de cuatro versiones, realice una actualización de varios pasos. Utilice las instrucciones de actualización de link:../earlier-versions.html["versión anterior"] va a actualizar de a a la versión más reciente que se ajuste a la ventana de cuatro versiones. Por ejemplo, si utiliza 22,01 y desea actualizar a la versión 24,02:
 +
-.. Primera actualización de 21,10 a 22,10.
-.. A continuación, actualice de 22,10 a 24,02.
+.. Primera actualización de 22,01 a 23,01.
+.. A continuación, actualice de 23,01 a 24,02.
 
 
 
