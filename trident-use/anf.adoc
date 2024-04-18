@@ -98,9 +98,9 @@ tridentctl install --cloud-provider="Azure" -n trident
 
 == Identidad de nube para AKS
 
-La identidad en la nube permite a los pods de Kubernetes acceder a los recursos de AWS mediante la autenticación como rol de AWS IAM en lugar de proporcionando credenciales explícitas de AWS.
+La identidad en la nube permite que los pods de Kubernetes accedan a los recursos de Azure autenticándose como identidad de carga de trabajo, en lugar de proporcionar credenciales explícitas de Azure.
 
-Para aprovechar la identidad de la nube en AWS, debes tener:
+Para aprovechar la identidad de la nube en Azure, debes tener:
 
 * Un clúster de Kubernetes puesto en marcha mediante AKS
 * Identidad de carga de trabajo y emisor de oidc configurados en el clúster de Kubernetes de AKS

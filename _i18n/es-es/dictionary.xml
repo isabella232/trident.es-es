@@ -4118,4 +4118,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="c6070eb192dc90174ef63a85c1f02d5a" category="list-text">A continuación, actualice de 23,01 a 24,02.</block>
   <block id="23c22ef5f35b931bceb1aaeffafcb5f4" category="list-text">Si usted <block ref="701383cb184d92daac13becc67e9c1be" category="inline-link-macro-rx"></block>, usted puede utilizar<block ref="f8055407f6b06e8c86fe98fdbd160c87" prefix=" " category="inline-code"></block> para actualizar en un solo paso. Si no ha añadido el repositorio Helm o no puede utilizarlo para actualizar:</block>
   <block id="fabc0fa737916420805fcbdf1e73d723" category="list-text">Si hay un pod del operador, utilice<block ref="9ce56b0c50ae80fe754522969b1c96b9" prefix=" " category="inline-code"></block> Para determinar si Astra Trident se instaló mediante Helm.</block>
+  <block id="f77d4be42f8ef9e2474d677786cf6d7a" category="paragraph">La identidad en la nube permite que los pods de Kubernetes accedan a los recursos de Azure autenticándose como identidad de carga de trabajo, en lugar de proporcionar credenciales explícitas de Azure.</block>
+  <block id="088be2b53cfa8710d751578d273c4af0" category="paragraph">Para aprovechar la identidad de la nube en Azure, debes tener:</block>
 </blocks>
