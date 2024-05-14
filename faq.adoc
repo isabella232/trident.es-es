@@ -22,7 +22,7 @@ Encuentre respuestas a las preguntas frecuentes sobre la instalación, configura
 
 === ¿Con qué frecuencia se lanza Astra Trident?
 
-Astra Trident se lanza cada tres meses: Enero, abril, julio y octubre. Este es un mes después de un lanzamiento de Kubernetes.
+A partir del lanzamiento de la versión 24,02, Astra Trident se lanza cada cuatro meses: Febrero, junio y octubre. Este es un mes después de un lanzamiento de Kubernetes.
 
 
 
