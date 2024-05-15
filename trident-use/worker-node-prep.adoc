@@ -230,9 +230,6 @@ NOTE: Para Ubuntu 18.04, debe descubrir los puertos de destino con `iscsiadm` an
 --
 ====
 
-WARNING: Reinicie los nodos de trabajo después de instalar las herramientas iSCSI para evitar que se produzcan fallos cuando conecte volúmenes a contenedores.
-
-
 
 == Volúmenes NVMe/TCP
 
