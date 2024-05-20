@@ -39,14 +39,14 @@ Astra Trident admite varios orquestadores y motores de contenedor, incluidos los
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
 * Kubernetes 1,23 - 1,29
-* OpenShift 4,10 - 4,14
+* OpenShift 4,10 - 4,15
 
 
 El operador Trident es compatible con las siguientes versiones:
 
 * Anthos on-premises (VMware) y Anthos en 1,16 básico
 * Kubernetes 1,23 - 1,29
-* OpenShift 4,10 - 4,14
+* OpenShift 4,10 - 4,15
 
 
 Astra Trident también funciona con una gran cantidad de otras ofertas de Kubernetes totalmente gestionadas y autogestionadas, como Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE), Rancher y VMware Tanzu Portfolio.
