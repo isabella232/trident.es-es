@@ -21,13 +21,13 @@ Todos los nodos de trabajadores del clúster de Kubernetes deben poder montar lo
 Si está utilizando una combinación de controladores, debe instalar todas las herramientas necesarias para sus controladores. Las versiones recientes de RedHat CoreOS tienen las herramientas instaladas de forma predeterminada.
 
 .Herramientas de NFS
-Instale las herramientas NFS si utiliza: `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`.
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nfs-volumes["Instale las herramientas NFS"] si está utilizando: `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`.
 
 .Herramientas iSCSI
-Instale las herramientas iSCSI si utiliza: `ontap-san`, `ontap-san-economy`, `solidfire-san`.
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["Instale las herramientas iSCSI"] si está utilizando: `ontap-san`, `ontap-san-economy`, `solidfire-san`.
 
 .Herramientas de NVMe
-Instale las herramientas de NVMe si está utilizando `ontap-san` Para el protocolo de memoria no volátil rápida (NVMe) sobre TCP (NVMe/TCP).
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvmetcp-volumes["Instale las herramientas NVMe"] si está utilizando `ontap-san` Para el protocolo de memoria no volátil rápida (NVMe) sobre TCP (NVMe/TCP).
 
 
 NOTE: Recomendamos ONTAP 9,12 o posterior para NVMe/TCP.

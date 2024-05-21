@@ -4,7 +4,7 @@ permalink: trident-managing-k8s/upgrade-operator.html
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
 summary: Puede actualizar fácilmente una instalación existente de Astra Trident mediante el operador. 
 ---
-= Actualizar una instalación del operador Trident
+= Actualiza una instalación de Astra Trident mediante el operador Trident o Helm
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
