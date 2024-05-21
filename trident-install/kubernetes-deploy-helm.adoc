@@ -209,6 +209,12 @@ Esta tabla y la `values.yaml` File, que forma parte del gráfico Helm, proporcio
 
 
 | `cloudIdentity` | Defina la identidad de carga de trabajo («azure.workload.identity/client-id: Xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx») cuando utilice la identidad de cloud en un clúster de AKS. Establezca el rol de AWS IAM ('eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astratrident-role') cuando utilice la identidad de nube en un clúster de EKS. | `""` 
+
+
+| `iscsiSelfHealingInterval` | El intervalo en el que se invoca la reparación automática de iSCSI. | `5m0s` 
+
+
+| `iscsiSelfHealingWaitTime` | La duración después del cual la reparación automática de iSCSI inicia un intento de resolver una sesión obsoleta realizando un cierre de sesión y un inicio de sesión posterior. | `7m0s` 
 |===
 
 

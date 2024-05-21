@@ -231,6 +231,48 @@ NOTE: Para Ubuntu 18.04, debe descubrir los puertos de destino con `iscsiadm` an
 ====
 
 
+=== Configure o deshabilite la reparación automática de iSCSI
+
+Puede configurar los siguientes ajustes de reparación automática de iSCSI de Astra Trident para corregir sesiones obsoletas:
+
+* *Intervalo de autorrecuperación iSCSI*: Determina la frecuencia a la que se invoca la autorrecuperación iSCSI (valor predeterminado: 5 minutos). Puede configurarlo para que se ejecute con más frecuencia estableciendo un número menor o con menos frecuencia estableciendo un número mayor.
+
+
+[NOTE]
+====
+Si se configura el intervalo de reparación automática de iSCSI en 0, se detiene por completo la reparación automática de iSCSI. No recomendamos deshabilitar la reparación automática de iSCSI; solo debe deshabilitarse en ciertos casos cuando la reparación automática de iSCSI no funciona como se esperaba o con fines de depuración.
+
+====
+* *Tiempo de espera de autorrecuperación iSCSI*: Determina la duración de las esperas de autorrecuperación iSCSI antes de cerrar sesión en una sesión en mal estado e intentar iniciar sesión de nuevo (por defecto: 7 minutos). Puede configurarlo a un número mayor para que las sesiones identificadas como en mal estado tengan que esperar más tiempo antes de cerrar la sesión y, a continuación, se intente volver a iniciar sesión, o un número menor para cerrar la sesión e iniciar sesión anteriormente.
+
+
+[role="tabbed-block"]
+====
+.Timón
+--
+Para configurar o cambiar los ajustes de reparación automática de iSCSI, pase el `iscsiSelfHealingInterval` y.. `iscsiSelfHealingWaitTime` parámetros durante la instalación del timón o actualización del timón.
+
+En el siguiente ejemplo, se establece el intervalo de reparación automática de iSCSI en 3 minutos y el tiempo de espera de reparación automática en 6 minutos:
+
+[listing]
+----
+helm install trident trident-operator-100.2402.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+----
+--
+.tridentctl
+--
+Para configurar o cambiar los ajustes de reparación automática de iSCSI, pase el `iscsi-self-healing-interval` y.. `iscsi-self-healing-wait-time` parámetros durante la instalación o actualización de tridentctl.
+
+En el siguiente ejemplo, se establece el intervalo de reparación automática de iSCSI en 3 minutos y el tiempo de espera de reparación automática en 6 minutos:
+
+[listing]
+----
+tridentctl install --iscsi-self-healing-interval=3m0s --iscsi-self-healing-wait-time=6m0s -n trident
+----
+--
+====
+
+
 == Volúmenes NVMe/TCP
 
 Instale las herramientas NVMe mediante los comandos de su sistema operativo.
