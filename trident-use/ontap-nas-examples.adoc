@@ -118,9 +118,7 @@ Este parámetro es opcional para ONTAP en las instalaciones.
 Este parámetro es necesario para los back-ends de Amazon FSx para ONTAP y no puede estar en blanco. | `smb-share` 
 
 
-| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*
-`useREST` se proporciona como **avance técnico** que se recomienda para entornos de prueba y no para cargas de trabajo de producción. Cuando se establece en `true`, Astra Trident utilizará las API DE REST de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` cliente más. Esto está satisfecho por el predefinido `vsadmin` y.. `cluster-admin` funciones.
-`useREST` No es compatible con MetroCluster. | falso 
+| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP.  `useREST` Cuando se establece en `true`, Astra Trident utilizará las API REST DE ONTAP para comunicarse con el back-end. Cuando se establezca en `false`, Astra Trident utilizará las llamadas ZAPI de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` la aplicación. Esto se cumple con los roles predefinidos `vsadmin` y `cluster-admin` . A partir de la versión de Astra Trident 24,06 y ONTAP 9.15.1 o posterior, `userREST` se establece en `true` de forma predeterminada; cambie `useREST` a `false` para utilizar llamadas de ONTAP ZAPI. | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
 |===
 
 
@@ -170,6 +168,9 @@ Puede controlar el aprovisionamiento predeterminado utilizando estas opciones en
 
 
 | `securityStyle` | Estilo de seguridad para nuevos volúmenes. Compatibilidad con NFS `mixed` y.. `unix` estilos de seguridad. SMB admite `mixed` y.. `ntfs` estilos de seguridad. | El valor predeterminado de NFS es `unix`. La opción predeterminada de SMB es `ntfs`. 
+
+
+| `nameTemplate` | Plantilla para crear nombres de volúmenes personalizados. | "" 
 |===
 
 NOTE: El uso de grupos de políticas de calidad de servicio con Astra Trident requiere ONTAP 9.8 o posterior. Se recomienda utilizar un grupo de políticas de calidad de servicio no compartido y asegurarse de que el grupo de políticas se aplique a cada componente individualmente. Un grupo de políticas de calidad de servicio compartido hará que se aplique el techo para el rendimiento total de todas las cargas de trabajo.
@@ -382,6 +383,25 @@ clientCertificate: ZXR0ZXJwYXB...ICMgJ3BhcGVyc2
 clientPrivateKey: vciwKIyAgZG...0cnksIGRlc2NyaX
 trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 storagePrefix: myPrefix_
+----
+====
+.Ejemplo de configuración de backend con nameTemplate
+[%collapsible]
+====
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: ontap-nas-backend
+managementLIF: <ip address>
+svm: svm0
+username: <admin>
+password: <password>
+defaults: {
+    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
+},
+"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
 ----
 ====
 

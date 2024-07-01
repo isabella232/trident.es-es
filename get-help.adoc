@@ -31,6 +31,11 @@ Autosoporte:: La documentación de Astra Trident está disponible durante los me
 
 
  a| 
+link:https://docs.netapp.com/us-en/trident/index.html["24,06"^]
+| Junio de 2025 | Junio de 2026 | Junio de 2027 
+
+
+ a| 
 link:https://docs.netapp.com/us-en/trident/index.html["24,02"^]
 | Febrero de 2025 | Febrero de 2026 | Febrero de 2027 
 
@@ -47,7 +52,7 @@ link:https://docs.netapp.com/us-en/trident-2307/index.html["23,07"^]
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2304/index.html["23,04"^]
-| Abril de 2024 | Abril de 2025 | Abril de 2026 
+| -- | Abril de 2025 | Abril de 2026 
 
 
  a| 
@@ -67,7 +72,7 @@ link:https://docs.netapp.com/us-en/trident-2207/index.html["22,07"^]
 
  a| 
 link:https://docs.netapp.com/us-en/trident-2204/index.html["22,04"^]
-| -- | Abril de 2024 | Abril de 2025 
+| -- | -- | Abril de 2025 
 
 
  a| 

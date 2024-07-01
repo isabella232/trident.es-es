@@ -16,14 +16,14 @@ Puede poner en marcha el operador de Trident e instalar Astra Trident con Helm. 
 
 
 
-== Información vital sobre Astra Trident 24,02
+== Información vital sobre Astra Trident 24,06
 
 * Debe leer la siguiente información crítica sobre Astra Trident.*
 
 .<strong> información bï¿½tico sobre Astra Tridbï¿½tico </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1,27 ahora es compatible con Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Kubernetes 1,29 ahora es compatible con Astra Trident. Actualizar Trident antes de actualizar Kubernetes.
 * Astra Trident cumple estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en el archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
@@ -57,7 +57,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 --
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2402.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2406.0 --set imageRegistry=<your-registry> --create-namespace --namespace <trident-namespace>
 ----
 --
 .Imágenes en diferentes registros
@@ -66,7 +66,7 @@ Debe añadir `sig-storage` para la `imageRegistry` para usar diferentes ubicacio
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2402.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:24.02.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:24.02 --set tridentImage=<your-registry>/netapp/trident:24.02.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2406.0 --set imageRegistry=<your-registry>/sig-storage --set operatorImage=<your-registry>/netapp/trident-operator:24.06.0 --set tridentAutosupportImage=<your-registry>/netapp/trident-autosupport:24.06 --set tridentImage=<your-registry>/netapp/trident:24.06.0 --create-namespace --namespace <trident-namespace>
 ----
 --
 ====
@@ -102,7 +102,7 @@ Por ejemplo, para cambiar el valor predeterminado de `debug`, ejecute lo siguien
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2402.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2406.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 

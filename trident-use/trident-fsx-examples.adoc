@@ -108,8 +108,7 @@ Con el `autoExportPolicy` y.. `autoExportCIDRs` Astra Trident puede gestionar au
 Este parámetro es obligatorio para los back-ends de Amazon FSx para ONTAP. | `smb-share` 
 
 
-| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP. *Vista previa técnica*
-`useREST` se proporciona como **avance técnico** que se recomienda para entornos de prueba y no para cargas de trabajo de producción. Cuando se establece en `true`, Astra Trident utilizará las API DE REST de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` cliente más. Esto está satisfecho por el predefinido `vsadmin` y.. `cluster-admin` funciones. | `false` 
+| `useREST` | Parámetro booleano para usar las API DE REST de ONTAP.  `useREST` Cuando se establece en `true`, Astra Trident utilizará las API REST DE ONTAP para comunicarse con el back-end. Cuando se establezca en `false`, Astra Trident utilizará las llamadas ZAPI de ONTAP para comunicarse con el back-end. Esta función requiere ONTAP 9.11.1 o posterior. Además, el rol de inicio de sesión de ONTAP utilizado debe tener acceso a `ontap` la aplicación. Esto se cumple con los roles predefinidos `vsadmin` y `cluster-admin` . A partir de la versión de Astra Trident 24,06 y ONTAP 9.15.1 o posterior, `userREST` se establece en `true` de forma predeterminada; cambie `useREST` a `false` para utilizar llamadas de ONTAP ZAPI. | `true` Para ONTAP 9.15.1 o posterior, de lo contrario `false`. 
 
 
 | `aws` | Puedes especificar lo siguiente en el archivo de configuración de AWS FSx para ONTAP:

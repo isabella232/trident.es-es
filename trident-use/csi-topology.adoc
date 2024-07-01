@@ -58,7 +58,7 @@ kubectl get nodes -o=jsonpath='{range .items[*]}[{.metadata.name}, {.metadata.la
 
 == Paso 1: Cree un backend con detección de topología
 
-Los back-ends de almacenamiento de Astra Trident se pueden diseñar para aprovisionar de forma selectiva volúmenes en función de las zonas de disponibilidad. Cada back-end puede llevar un opcional `supportedTopologies` bloque que representa una lista de zonas y regiones que se deben admitir. En el caso de StorageClasses que utilizan dicho back-end, solo se creará un volumen si lo solicita una aplicación programada en una región/zona admitida.
+Los back-ends de almacenamiento de Astra Trident se pueden diseñar para aprovisionar de forma selectiva volúmenes en función de las zonas de disponibilidad. Cada backend puede llevar un bloque opcional `supportedTopologies` que representa una lista de zonas y regiones soportadas. En el caso de StorageClasses que utilizan dicho back-end, solo se creará un volumen si lo solicita una aplicación programada en una región/zona admitida.
 
 A continuación se muestra un ejemplo de definición de backend:
 
@@ -126,15 +126,11 @@ supportedTopologies:
 storage:
 - labels:
     workload: production
-  region: Iowa-DC
-  zone: Iowa-DC-A
   supportedTopologies:
   - topology.kubernetes.io/region: us-central1
     topology.kubernetes.io/zone: us-central1-a
 - labels:
     workload: dev
-  region: Iowa-DC
-  zone: Iowa-DC-B
   supportedTopologies:
   - topology.kubernetes.io/region: us-central1
     topology.kubernetes.io/zone: us-central1-b

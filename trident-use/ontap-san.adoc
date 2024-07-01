@@ -139,7 +139,7 @@ Astra Trident admite el protocolo de memoria no volátil rápida (NVMe) mediante
 * Cambiar el tamaño de un volumen NVMe
 * Se importa un volumen NVMe que se creó fuera de Astra Trident para que Astra Trident gestione su ciclo de vida
 * Multivía nativa de NVMe
-* Cierre correcto o sin complicaciones de los K8s nodos (24,02)
+* Cierre correcto o sin complicaciones de los K8s nodos (24,06)
 
 
 Astra Trident no es compatible:

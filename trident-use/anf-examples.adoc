@@ -95,6 +95,9 @@ Opcional cuando se activan identidades gestionadas en un clúster de AKS. |
 
 
 | `nasType` | Configure la creación de volúmenes NFS o SMB. Las opciones son `nfs`, `smb` o nulo. El valor predeterminado es nulo en volúmenes de NFS. | `nfs` 
+
+
+| `supportedTopologies` | Representa una lista de regiones y zonas soportadas por este backend. Para obtener más información, consulte link:../trident-use/csi-topology.html["Utilice Topología CSI"]. |  
 |===
 
 NOTE: Para obtener más información sobre las funciones de red, consulte link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Configure las funciones de red para un volumen de Azure NetApp Files"^].
@@ -318,9 +321,35 @@ storage:
 
 ----
 ====
+.Configuración de topologías admitidas
+[%collapsible]
+====
+Astra Trident facilita el aprovisionamiento de volúmenes para cargas de trabajo según regiones y zonas de disponibilidad. El `supportedTopologies` bloque en esta configuración de backend se utiliza para proporcionar una lista de regiones y zonas por backend. Los valores de región y zona especificados aquí deben coincidir con los valores de región y zona de las etiquetas de cada nodo de clúster de Kubernetes. Estas regiones y zonas representan la lista de valores permitidos que se pueden proporcionar en una clase de almacenamiento. Para las clases de almacenamiento que contengan un subconjunto de las regiones y zonas proporcionadas en un back-end, Astra Trident creará volúmenes en la región y la zona mencionadas. Para obtener más información, consulte link:../trident-use/csi-topology.html["Utilice Topología CSI"].
+
+[listing]
+----
+---
+version: 1
+storageDriverName: azure-netapp-files
+subscriptionID: 9f87c765-4774-fake-ae98-a721add45451
+tenantID: 68e4f836-edc1-fake-bff9-b2d865ee56cf
+clientID: dd043f63-bf8e-fake-8076-8de91e5713aa
+clientSecret: SECRET
+location: eastus
+serviceLevel: Ultra
+capacityPools:
+- application-group-1/account-1/ultra-1
+- application-group-1/account-1/ultra-2
+supportedTopologies:
+- topology.kubernetes.io/region: eastus
+  topology.kubernetes.io/zone: eastus-1
+- topology.kubernetes.io/region: eastus
+  topology.kubernetes.io/zone: eastus-2
+----
+====
 
 
-== Definiciones de clase de almacenamiento
+== Definiciones de clases de almacenamiento
 
 Lo siguiente `StorageClass` las definiciones hacen referencia a los pools de almacenamiento anteriores.
 

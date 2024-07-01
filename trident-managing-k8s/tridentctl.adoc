@@ -225,17 +225,74 @@ Utilice la `update backend state` comando para suspender o reanudar operaciones 
 
 `tridentctl update backend state <backend-name> [flag]`
 
+.Puntos que considerar
+* Si se crea un backend con un TridentBackendConfig (tbc), el backend no se puede actualizar con un `backend.json` archivo.
+* Si el `userState` se ha establecido en una tbc, no se puede modificar mediante el `tridentctl update backend state <backend-name> --user-state suspended/normal` comando.
+* Para recuperar la capacidad de establecer el `userState` tridentctl vía una vez que se ha establecido a través de tbc, el `userState` campo debe eliminarse del tbc. Esto se puede hacer usando `kubectl edit tbc` el comando. Una vez eliminado el `userState` campo, puede utilizar `tridentctl update backend state` el comando para cambiar el `userState` de un backend.
+* Utilice el `tridentctl update backend state` para cambiar la `userState`. También puede actualizar el `userState` archivo Using `TridentBackendConfig` OR `backend.json` ; esto desencadena una reinicialización completa del backend y puede llevar mucho tiempo.
++
 Indicadores:: `-h`, `--help`: Ayuda para el estado de backend.
 `--user-state`: Establecer en `suspended` para pausar las operaciones de backend. Establezca en `normal` para reanudar las operaciones de back-end. Cuando se establece en `suspended`:
+
+
+* `AddVolume` `Import Volume` y se ponen en pausa.
+* `CloneVolume`, , , `ResizeVolume` `PublishVolume` `UnPublishVolume`, , `CreateSnapshot`, `GetSnapshot` `RestoreSnapshot`, , , `DeleteSnapshot` `RemoveVolume`, , `GetVolumeExternal`, `ReconcileNodeAccess` seguir estando disponible.
+
+
+También puede actualizar el estado del backend utilizando `userState` el campo en el archivo de configuración de backend `TridentBackendConfig` o `backend.json`. Para obtener más información, consulte link:../trident-use/backend_options.html["Opciones para gestionar back-ends"] y. link:../trident-use/backend_ops_kubectl.html["Realice la gestión del entorno de administración con kubectl"]
+
+*Ejemplo:*
+
+[role="tabbed-block"]
+====
+.JSON
+--
+Siga estos pasos para actualizar el `userState` utilizando el `backend.json` archivo:
+
+. Edite el `backend.json` archivo para incluir el `userState` campo con su valor establecido en 'SUSPENded'.
+. Actualice el backend con el `tridentctl backend update` comando y la ruta de acceso al archivo actualizado `backend.json` .
 +
+*Ejemplo*: `tridentctl backend update -f /<path to backend JSON file>/backend.json`
+
+
+
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "<redacted>",
+    "svm": "nas-svm",
+    "backendName": "customBackend",
+    "username": "<redacted>",
+    "password": "<redacted>",
+    "userState": "suspended",
+}
+
+----
 --
-* `AddVolume`, `CloneVolume`, `Import Volume`, `ResizeVolume` están en pausa.
-* `PublishVolume`, `UnPublishVolume`, `CreateSnapshot`, `GetSnapshot`, `RestoreSnapshot`, `DeleteSnapshot`, `RemoveVolume`, `GetVolumeExternal`, `ReconcileNodeAccess` seguir estando disponible.
-
-
+.YAML
 --
+Puede editar el tbc después de que se haya aplicado con el `kubectl edit <tbc-name> -n <namespace>` comando. En el ejemplo siguiente se actualiza el estado del back-end para suspender con la `userState: suspended` opción:
 
-
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-ontap-nas
+spec:
+  version: 1
+  backendName: customBackend
+  storageDriverName: ontap-nas
+  managementLIF: <redacted>
+  svm: nas-svm
+userState: suspended
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+--
+====
 
 
 === versión

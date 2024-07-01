@@ -70,7 +70,7 @@ Funciona con cierre de nodos no controlado (NGN) de Kubernetes para conceder a l
 automáticamente | `false` 
 
 
-| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | `"netapp/trident-autosupport:24.02"` 
+| `autosupportImage` | La imagen contenedora para telemetría AutoSupport | `"netapp/trident-autosupport:24.06"` 
 
 
 | `autosupportProxy` | La dirección/puerto de un proxy para enviar AutoSupport
@@ -83,7 +83,7 @@ Telemetría | `"http://proxy.example.com:8888"`
 | `logFormat` | Formato de registro de Astra Trident para utilizar [text,json] | `"text"` 
 
 
-| `tridentImage` | Imagen de Astra Trident para instalar | `"netapp/trident:24.02"` 
+| `tridentImage` | Imagen de Astra Trident para instalar | `"netapp/trident:24.06"` 
 
 
 | `imageRegistry` | Ruta de acceso al registro interno, del formato
