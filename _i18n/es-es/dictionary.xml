@@ -1463,7 +1463,6 @@
   <block id="fe914214000491758957f04647f8da36" category="inline-link">Imágenes de máquina de Amazon</block>
   <block id="d0341760d873a30f82a310a6eab0ba9c" category="admonition">Asegúrese de seguir los pasos de preparación de nodos necesarios para Amazon Linux y Ubuntu<block ref="70013ee128d5437b3d9579d66ece4066" category="inline-link-rx"></block> (AMI) en función del tipo de IAM EKS.</block>
   <block id="77a4a369d552f7d3be163bda86f9113f" category="list-title">Requisitos adicionales para volúmenes SMB</block>
-  <block id="1f43150a13f29c496f07ed4a9750b2ff" category="list-text">Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2019. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.</block>
   <block id="8df63c807f3c78b6087ad0d6ee434fb2" category="list-text">Al menos un secreto Astra Trident que contiene sus credenciales de Active Directory. Generar secreto<block ref="e47a193687dde960f6b6f80d394142a3" prefix=" " category="inline-code"></block>:</block>
   <block id="7595de66780a622cdd37b4823afebc07" category="inline-link-macro">GitHub: Proxy CSI</block>
   <block id="c680a0c023a6d45186b9752a07e9938c" category="inline-link-macro">GitHub: Proxy CSI para Windows</block>
@@ -2801,7 +2800,6 @@
   <block id="362997bacf08e019288e372d8ae1f070" category="list-text">Versiones de RedHat CoreOS (RHCOS) compatibles con OpenShift Container Platform (AMD64 y ARM64)</block>
   <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+ (AMD64 Y ARM64)</block>
   <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22,04 o posterior (AMD64 y ARM64)</block>
-  <block id="1285a056fd837828136d15f7e76d09cc" category="list-text">Windows Server 2019 (AMD64)</block>
   <block id="f53514cf8829a41463c245b088ae732e" category="paragraph">Para permitir que Astra Trident se ejecute en los nodos de Windows:</block>
   <block id="c5b5b00ff1b3a892c8694ab932cbf9ca" category="paragraph">Para obtener más información acerca de forzar separación, consulte <block ref="63cac71755fb6ef1f1fea34cf4037121" category="inline-link-macro-rx"></block>.</block>
   <block id="38a0b9f59e6fe23e1617dc0e78498afe" category="section-title">Detalles acerca de forzar separación</block>
@@ -4199,4 +4197,6 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="154898f748dc50cea11a3146dff4d65e" category="paragraph">Por ejemplo, para cambiar el valor predeterminado de<block ref="ad42f6697b035b7580e4fef93be20b4d" prefix=" " category="inline-code"></block>, ejecute el siguiente<block ref="8b5806248570dbb13e7d3bc5e6c0ee37" prefix=" " category="inline-code"></block> comando, donde<block ref="c59465995fc272118d0b7650dbcd42b5" prefix=" " category="inline-code"></block> es la versión de Astra Trident que está instalando:</block>
   <block id="d588a6cd560d80c03fbbe7c2df56c53d" category="list-text">Utilice<block ref="0562418e6d9a76d0dd22b2f186a2203d" prefix=" " category="inline-code"></block> y especifique un nombre para la implementación como en el ejemplo siguiente, donde<block ref="cfc6108aad8813450ddf86899993aac8" prefix=" " category="inline-code"></block> se encuentra la versión de Astra Trident que está instalando.</block>
   <block id="2dd7e74e47b2fea3bc13eda279fe6caa" category="list-text">Si <block ref="701383cb184d92daac13becc67e9c1be" category="inline-link-macro-rx"></block>utiliza<block ref="aa057bb2523e090dc6e3052f2e88741e" prefix=" " category="inline-code"></block> para actualizar en un solo paso. Si no ha añadido el repositorio Helm o no puede utilizarlo para actualizar:</block>
+  <block id="bd97885496639b0f4498d4131198ac36" category="list-text">Se ha agregado compatibilidad con nodos de Windows Server 2022.</block>
+  <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2022. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.</block>
 </blocks>

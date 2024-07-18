@@ -161,7 +161,7 @@ Puede aprovisionar volúmenes SMB mediante el `ontap-nas` controlador. Antes de 
 .Antes de empezar
 Para poder aprovisionar volúmenes de SMB con el `ontap-nas` conductor, debe tener lo siguiente.
 
-* Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2019. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
+* Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2022. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.
 * Al menos un secreto Astra Trident que contiene sus credenciales de Active Directory. Generar secreto `smbcreds`:
 +
 [listing]
