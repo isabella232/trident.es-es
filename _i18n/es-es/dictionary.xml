@@ -531,7 +531,6 @@
   <block id="0e6ac0d7fca9c59e6545312a071555b6" category="cell">Controladores relevantes</block>
   <block id="ae6b2a160dd2fafdee385c348edee0c1" category="cell">Versión de Kubernetes</block>
   <block id="7cfbb6f07899c8071ff38e69dca190e2" category="cell">Tipo fstype</block>
-  <block id="64b6d80cc167d5c657b60054dbe396ee" category="cell">ext4, ext3, xfs, etc.</block>
   <block id="7928a56d4874d982a06a59e3f30f6935" category="cell">El tipo de sistema de archivos para los volúmenes de bloques</block>
   <block id="f888aa18c19e41f8c1263fa99ca8b94c" category="cell">solidfire-san, ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economía</block>
   <block id="b1c94ca2fbc3e78fc30069c8d0f01680" category="cell">Todo</block>
@@ -4200,4 +4199,5 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="bd97885496639b0f4498d4131198ac36" category="list-text">Se ha agregado compatibilidad con nodos de Windows Server 2022.</block>
   <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2022. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.</block>
   <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
+  <block id="010e61d0b40eeb84b96a1321e8f0bab7" category="cell">ext4, ext3, xfs</block>
 </blocks>

@@ -213,7 +213,7 @@ Trident no afecta a la selección de pools y back-ends de almacenamiento durante
 | Atributo | Tipo | Valores | Descripción | Controladores relevantes | Versión de Kubernetes 
 
 
-| Tipo fstype | cadena | ext4, ext3, xfs, etc. | El tipo de sistema de archivos para los volúmenes de bloques | solidfire-san, ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economía | Todo 
+| Tipo fstype | cadena | ext4, ext3, xfs | El tipo de sistema de archivos para los volúmenes de bloques | solidfire-san, ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economía | Todo 
 
 
 | Expansión de allowVolume | booleano | verdadero, falso | Habilite o deshabilite el soporte para aumentar el tamaño de PVC | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy, solidfire-san, gcp-cvs, azure-netapp-files | 1.11 o posterior 
