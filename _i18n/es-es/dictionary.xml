@@ -4199,4 +4199,5 @@ Puede especificar grupos de políticas de calidad de servicio en el back-end o e
   <block id="2dd7e74e47b2fea3bc13eda279fe6caa" category="list-text">Si <block ref="701383cb184d92daac13becc67e9c1be" category="inline-link-macro-rx"></block>utiliza<block ref="aa057bb2523e090dc6e3052f2e88741e" prefix=" " category="inline-code"></block> para actualizar en un solo paso. Si no ha añadido el repositorio Helm o no puede utilizarlo para actualizar:</block>
   <block id="bd97885496639b0f4498d4131198ac36" category="list-text">Se ha agregado compatibilidad con nodos de Windows Server 2022.</block>
   <block id="f0d0d71ad406bc532f207cda7d40e0bf" category="list-text">Un clúster de Kubernetes con un nodo de controladora Linux y al menos un nodo de trabajo de Windows que ejecuta Windows Server 2022. Astra Trident admite volúmenes de SMB montados en pods que se ejecutan solo en nodos de Windows.</block>
+  <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
 </blocks>
