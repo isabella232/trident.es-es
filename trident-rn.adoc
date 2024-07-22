@@ -40,6 +40,7 @@ WARNING: La `tridentctl` Binario para Linux que se proporciona en el archivo zip
 
 ==== Kubernetes
 
+* Añadido soporte para Kubernetes 1,30.
 * Se ha añadido la capacidad de Astra Trident DaemonSet para limpiar montajes zombis y archivos de seguimiento residual al inicio (link:https://github.com/NetApp/trident/issues/883["Problema n.o 883"]).
 * Se ha agregado una anotación de PVC `trident.netapp.io/luksEncryption` para importar dinámicamente volúmenes LUKS (link:https://github.com/NetApp/trident/issues/849["Problema n.o 849"]).
 * Se añadió el reconocimiento de topología al controlador de ANF.

@@ -23,7 +23,7 @@ Es posible poner en marcha manualmente el operador de Trident para instalar Astr
 .<strong> información bï¿½tico sobre Astra Tridbï¿½tico </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1,29 ahora es compatible con Astra Trident. Actualizar Trident antes de actualizar Kubernetes.
+* Kubernetes 1,30 ahora es compatible con Astra Trident. Actualizar Trident antes de actualizar Kubernetes.
 * Astra Trident cumple estrictamente el uso de la configuración de múltiples rutas en entornos SAN, con un valor recomendado de `find_multipaths: no` en el archivo multipath.conf.
 +
 Uso de la configuración sin multivía o el uso de `find_multipaths: yes` o. `find_multipaths: smart` el valor del archivo multipath.conf provocará fallos de montaje. Trident ha recomendado el uso de `find_multipaths: no` desde la versión 21.07.
